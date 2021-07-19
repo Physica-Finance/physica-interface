@@ -28,6 +28,10 @@ import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import { RedirectDuplicateTokenIdsV2 } from './AddLiquidityV2/redirects'
 import Landing from './Landing'
+import CreateProposal from './CreateProposal'
+import Earn from './Earn'
+import CreateIncentive from './Earn/CreateIncentive'
+import Manage from './Earn/Manage'
 import MigrateV2 from './MigrateV2'
 import MigrateV2Pair from './MigrateV2/MigrateV2Pair'
 import NotFound from './NotFound'
@@ -215,6 +219,7 @@ export default function App() {
                 />
                 <Route path="create-proposal" element={<Navigate to="/vote/create-proposal" replace />} />
 
+                <Route path="/program" element={<CreateIncentive />} />
                 <Route path="send" element={<RedirectPathToSwapOnly />} />
                 <Route path="swap" element={<Swap />} />
 
