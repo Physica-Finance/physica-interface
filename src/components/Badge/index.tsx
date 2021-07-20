@@ -70,3 +70,12 @@ const Badge = styled.div<PropsWithChildren<BadgeProps>>`
 `
 
 export default Badge
+
+export const GenericBadge = styled.div`
+  display: flex;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 8px;
+`

@@ -217,6 +217,8 @@ export default function App() {
                     </Suspense>
                   }
                 />
+                <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
+
                 <Route path="create-proposal" element={<Navigate to="/vote/create-proposal" replace />} />
 
                 <Route path="/program" element={<CreateIncentive />} />
