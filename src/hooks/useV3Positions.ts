@@ -1,40 +1,50 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { CallStateResult, useSingleCallResult, useSingleContractMultipleData } from 'lib/hooks/multicall'
+import { AddressZero } from '@ethersproject/constants'
+import { CallStateResult } from '@uniswap/redux-multicall'
+import { Pool } from '@uniswap/v3-sdk'
 import { useMemo } from 'react'
+import { useSingleCallResult, useSingleContractMultipleData } from 'state/multicall/hooks'
 import { PositionDetails } from 'types/position'
 
-import { useV3NFTPositionManagerContract } from './useContract'
-import { Pool } from '@uniswap/v3-sdk'
+import { DepositedTokenIdsState, useDepositedTokenIds } from './incentives/useDepositedTokenIds'
+import { useV3NFTPositionManagerContract, useV3Staker } from './useContract'
 
 interface UseV3PositionsResults {
   loading: boolean
+  error: boolean
   positions: PositionDetails[] | undefined
 }
 
 function useV3PositionsFromTokenIds(tokenIds: BigNumber[] | undefined): UseV3PositionsResults {
   const positionManager = useV3NFTPositionManagerContract()
-  const inputs = useMemo(() => (tokenIds ? tokenIds.map((tokenId) => [BigNumber.from(tokenId)]) : []), [tokenIds])
+  const staker = useV3Staker()
+  const inputs = useMemo(() => (tokenIds ? tokenIds.map((tokenId) => [tokenId]) : []), [tokenIds])
   const positionInfos = useSingleContractMultipleData(positionManager, 'positions', inputs)
   const tokenIdOwners = useSingleContractMultipleData(positionManager, 'ownerOf', inputs)
+  const depositOwners = useSingleContractMultipleData(staker, 'deposits', inputs)
 
-  const [loading, error] = useMemo(
-    () => [
-      positionInfos.some(({ loading }) => loading) || tokenIdOwners.some(({ loading }) => loading),
-      positionInfos.some(({ error }) => error) || tokenIdOwners.some(({ error }) => error),
-    ],
-    [positionInfos, tokenIdOwners]
-  )
+  const [loading, error] = useMemo(() => {
+    const states = [positionInfos, tokenIdOwners, depositOwners]
+    return [
+      states.some((calls) => calls.some(({ loading }) => loading)),
+      states.some((calls) => calls.some(({ error }) => error)),
+    ]
+  }, [depositOwners, positionInfos, tokenIdOwners])
 
   const positions = useMemo(() => {
     if (!loading && !error && tokenIds) {
       return tokenIds
-        .map((tokenId, i) => {
+        .map((tokenId, i): PositionDetails | null => {
           const owner = tokenIdOwners[i].result?.[0]
           const positionInfo = positionInfos[i].result
+          const depositOwner = depositOwners[i].result?.[0]
+
           if (!owner || !positionInfo) return null
+          const depositedInStaker = Boolean(depositOwner && depositOwner !== AddressZero)
           return {
             tokenId,
-            owner,
+            owner: depositedInStaker ? depositOwner : owner,
+            depositedInStaker,
             fee: positionInfo.fee,
             feeGrowthInside0LastX128: positionInfo.feeGrowthInside0LastX128,
             feeGrowthInside1LastX128: positionInfo.feeGrowthInside1LastX128,
@@ -52,10 +62,11 @@ function useV3PositionsFromTokenIds(tokenIds: BigNumber[] | undefined): UseV3Pos
         .filter((p): p is PositionDetails => Boolean(p))
     }
     return undefined
-  }, [loading, error, tokenIds, tokenIdOwners, positionInfos])
+  }, [loading, error, tokenIds, tokenIdOwners, positionInfos, depositOwners])
 
   return {
     loading,
+    error,
     positions,
   }
 }
@@ -94,8 +105,13 @@ export function useV3Positions(account: string | null | undefined): UseV3Positio
     return []
   }, [account, accountBalance])
 
+  const { state: depositedTokenIdsState, tokenIds: depositedTokenIds } = useDepositedTokenIds(account)
+
   const tokenIdResults = useSingleContractMultipleData(positionManager, 'tokenOfOwnerByIndex', tokenIdsArgs)
-  const someTokenIdsLoading = useMemo(() => tokenIdResults.some(({ loading }) => loading), [tokenIdResults])
+  const someTokenIdsLoading = useMemo(
+    () => depositedTokenIdsState !== DepositedTokenIdsState.LOADED || tokenIdResults.some(({ loading }) => loading),
+    [depositedTokenIdsState, tokenIdResults]
+  )
 
   const tokenIds = useMemo(() => {
     if (account) {
@@ -103,14 +119,16 @@ export function useV3Positions(account: string | null | undefined): UseV3Positio
         .map(({ result }) => result)
         .filter((result): result is CallStateResult => !!result)
         .map((result) => BigNumber.from(result[0]))
+        .concat(depositedTokenIds?.map((id) => BigNumber.from(id.toString())) ?? [])
     }
     return []
-  }, [account, tokenIdResults])
+  }, [account, depositedTokenIds, tokenIdResults])
 
-  const { positions, loading: positionsLoading } = useV3PositionsFromTokenIds(tokenIds)
+  const { positions, loading: positionsLoading, error: positionsError } = useV3PositionsFromTokenIds(tokenIds)
 
   return {
     loading: someTokenIdsLoading || balanceLoading || positionsLoading,
+    error: positionsError,
     positions,
   }
 }
@@ -156,7 +174,7 @@ export function useV3PositionsForPool(
     // check if price is within range
     const below = typeof p.tickLower === 'number' ? pool.tickCurrent < p.tickLower : undefined
     const above = typeof p.tickUpper === 'number' ? pool.tickCurrent >= p.tickUpper : undefined
-    return !Boolean(typeof below === 'boolean' && typeof above === 'boolean' ? !below && !above : false)
+    return !(typeof below === 'boolean' && typeof above === 'boolean' ? !below && !above : false)
   })
 
   return {
