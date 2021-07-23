@@ -202,6 +202,7 @@ export default function Pool() {
   const [userHideClosedPositions, setUserHideClosedPositions] = useUserHideClosedPositions()
 
   const { positions, loading: positionsLoading } = useV3Positions(account)
+  console.log(positions)
 
   const { incentives, loading: incentivesLoading } = useAllIncentives()
 
