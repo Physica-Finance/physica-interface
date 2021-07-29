@@ -29,9 +29,9 @@ import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import { RedirectDuplicateTokenIdsV2 } from './AddLiquidityV2/redirects'
 import Landing from './Landing'
 import CreateProposal from './CreateProposal'
-import Earn from './Earn'
-import CreateIncentive from './Earn/CreateIncentive'
-import Manage from './Earn/Manage'
+import Stake from './Stake'
+import CreateIncentive from './Stake/CreateIncentive'
+import Manage from './Stake/Manage'
 import MigrateV2 from './MigrateV2'
 import MigrateV2Pair from './MigrateV2/MigrateV2Pair'
 import NotFound from './NotFound'
@@ -218,7 +218,8 @@ export default function App() {
                   }
                 />
                 <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
-
+                <Route exact strict path="/stake" component={Stake} />
+                <Route exact strict path="/stake/:poolAddress" component={Manage} />
                 <Route path="create-proposal" element={<Navigate to="/vote/create-proposal" replace />} />
 
                 <Route path="/program" element={<CreateIncentive />} />

@@ -70,6 +70,12 @@ const RangeLineItem = styled(DataLineItem)`
   align-items: center;
   margin-top: 4px;
   width: 100%;
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    background-color: ${({ theme }) => theme.bg2};
+    border-radius: 12px;
+    padding: 8px 0;
+`};
 `
 
 const DoubleArrow = styled.span`
