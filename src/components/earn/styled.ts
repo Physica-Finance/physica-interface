@@ -5,13 +5,6 @@ import noise from '../../assets/images/noise.png'
 import xlUnicorn from '../../assets/images/xl_uni.png'
 import { AutoColumn } from '../Column'
 
-export const CardWrapper = styled.div`
-  padding: 24px;
-  background: radial-gradient(76.02% 75.41% at 1.84% 0%, rgba(30, 26, 49, 0.2) 0%, rgba(61, 81, 165, 0.2) 100%);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-`
-
 export const DataCard = styled(AutoColumn)<{ disabled?: boolean }>`
   background: radial-gradient(76.02% 75.41% at 1.84% 0%, #ff007a 0%, #2172e5 100%);
   border-radius: 12px;
