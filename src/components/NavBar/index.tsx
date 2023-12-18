@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import Web3Status from 'components/Web3Status'
@@ -42,29 +43,33 @@ interface MenuItemProps {
   dataTestId?: string
   id?: string
   isActive?: boolean
+  isTarget?: boolean
   children: React.ReactNode
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children }) => {
-  const isExternalLink = href.startsWith('https') || href.startsWith('//')
+const MenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children, isTarget = true }) => {
+  // const isExternalLink = href.startsWith('https') || href.startsWith('//')
 
-  const linkProps = isExternalLink
-    ? {
-        href,
-        target: '_blank',
-        rel: 'noopener noreferrer',
-      }
-    : {
-        to: href,
-      }
+  // const linkProps = isExternalLink
+  //   ? {
+  //       href,
+  //       target: '_blank',
+  //       rel: 'noopener noreferrer',
+  //     }
+  //   : {
+  //       to: href,
+  //     }
 
   return (
     <a
-      {...linkProps}
+      // {...linkProps}
+      href={href}
+      target={isTarget == true ? '_blank' : ''}
       className={isActive ? styles.activeMenuItem : styles.menuItem}
       id={id}
       style={{ textDecoration: 'none' }}
       data-testid={dataTestId}
+      rel="noreferrer"
     >
       {children}
     </a>
@@ -83,20 +88,18 @@ export const PageTabs = () => {
 
   return (
     <>
-      <MenuItem href="https://3000-alfset-physicainterfae-z1ncymx2xii.ws-us106.gitpod.io/#/swap">
+      <MenuItem href="https://3000-alfset-physicainterfae-z1ncymx2xii.ws-us106.gitpod.io/#/swap" isTarget={false}>
         <Trans>Swap</Trans>
       </MenuItem>
-      <MenuItem href="https://github.com/alfset/Portal-Bridge">
+      <MenuItem href="https://github.com/alfset/Portal-Bridge" isTarget={true}>
         <Trans>Stake</Trans>
       </MenuItem>
-      <MenuItem href="https://github.com/alfset/Portal-Bridge">
+      <MenuItem href="https://github.com/alfset/Portal-Bridge" isTarget={true}>
         <Trans>Bridge</Trans>
       </MenuItem>
-      <Box display={{ sm: 'flex', lg: 'none', xxl: 'flex' }} width="full">
-        <MenuItem href="https://5173-deltaswapio-deltaswap-vl9t8cfk52f.ws-us106.gitpod.io/">
-          <Trans>Pools</Trans>
-        </MenuItem>
-      </Box>
+      <MenuItem href="https://5173-deltaswapio-deltaswap-vl9t8cfk52f.ws-us106.gitpod.io/" isTarget={false}>
+        <Trans>Pools</Trans>
+      </MenuItem>
       <Box marginY={{ sm: '4', md: 'unset' }}>
         <MenuDropdown />
       </Box>
