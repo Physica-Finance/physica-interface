@@ -22,7 +22,7 @@ import { getCLS, getFCP, getFID, getLCP, Metric } from 'web-vitals'
 
 import { useAnalyticsReporter } from '../components/analytics'
 import ErrorBoundary from '../components/ErrorBoundary'
-import { PageTabs } from '../components/NavBar'
+import { PageTabs } from 'components/NavBar/PageTabs'
 import NavBar from '../components/NavBar'
 import Polling from '../components/Polling'
 import Popups from '../components/Popups'

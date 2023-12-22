@@ -2,24 +2,20 @@
 import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import Web3Status from 'components/Web3Status'
-import { chainIdToBackendName } from 'graphql/data/util'
 import { useIsNftPage } from 'hooks/useIsNftPage'
-import { useIsPoolsPage } from 'hooks/useIsPoolsPage'
-import { useAtomValue } from 'jotai/utils'
 import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
 import { UniIcon } from 'nft/components/icons'
 import { useProfilePageState } from 'nft/hooks'
 import { ProfilePageStateType } from 'nft/types'
 import { ReactNode } from 'react'
-import { NavLinkProps, useLocation, useNavigate } from 'react-router-dom'
-import { shouldDisableNFTRoutesAtom } from 'state/application/atoms'
+import { NavLinkProps, useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 import { Bag } from './Bag'
 import Blur from './Blur'
 import { ChainSelector } from './ChainSelector'
-import { MenuDropdown } from './MenuDropdown'
+import { PageTabs } from './PageTabs'
 import { SearchBar } from './SearchBar'
 import * as styles from './style.css'
 
@@ -47,7 +43,7 @@ interface MenuItemProps {
   children: React.ReactNode
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children, isTarget = true }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children, isTarget = true }) => {
   // const isExternalLink = href.startsWith('https') || href.startsWith('//')
 
   // const linkProps = isExternalLink
@@ -61,9 +57,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, chi
   //     }
 
   return (
-    <a
-      // {...linkProps}
-      href={href}
+    <a href={href}
       target={isTarget == true ? '_blank' : ''}
       className={isActive ? styles.activeMenuItem : styles.menuItem}
       id={id}
