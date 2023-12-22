@@ -87,7 +87,7 @@ const Navbar = ({ blur }: { blur: boolean }) => {
                 data-testid="uniswap-logo"
                 className={styles.logo}
                 onClick={() => {
-                  window.location.href = 'https://5173-deltaswapio-deltaswap-vl9t8cfk52f.ws-us106.gitpod.io/'
+                  window.location.href = 'https://landing-physica.vercel.app/'
                 }}
               />
             </Box>

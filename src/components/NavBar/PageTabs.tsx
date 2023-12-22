@@ -23,16 +23,16 @@ export const PageTabs = () => {
 
   return (
     <>
-      <MenuItem href="https://3000-alfset-physicainterfae-z1ncymx2xii.ws-us106.gitpod.io/#/swap" isTarget={false}>
+      <MenuItem href="/#/swap" isTarget={false}>
         <Trans>Swap</Trans>
       </MenuItem>
-      <MenuItem href="https://github.com/alfset/Portal-Bridge" isTarget={true}>
+      <MenuItem href="https://restake.app/" isTarget={true}>
         <Trans>Stake</Trans>
       </MenuItem>
-      <MenuItem href="https://github.com/alfset/Portal-Bridge" isTarget={true}>
+      <MenuItem href="https://deltaswap.io/" isTarget={true}>
         <Trans>Bridge</Trans>
       </MenuItem>
-      <MenuItem href="https://5173-deltaswapio-deltaswap-vl9t8cfk52f.ws-us106.gitpod.io/" isTarget={false}>
+      <MenuItem href="/#/pools" isTarget={false}>
         <Trans>Pools</Trans>
       </MenuItem>
       <Box marginY={{ sm: '4', md: 'unset' }}>
