@@ -170,7 +170,7 @@ export default function App() {
     getFCP(({ delta }: Metric) => sendAnalyticsEvent(SharedEventName.WEB_VITALS, { first_contentful_paint_ms: delta }))
     getFID(({ delta }: Metric) => sendAnalyticsEvent(SharedEventName.WEB_VITALS, { first_input_delay_ms: delta }))
     getLCP(({ delta }: Metric) =>
-      sendAnalyticsEvent(SharedEventName.WEB_VITALS, { largest_contentful_paint_ms: delta })
+      sendAnalyticsEvent(SharedEventName.WEB_VITALS, { largest_contentful_paint_ms: delta }),
     )
   }, [])
 
@@ -199,7 +199,7 @@ export default function App() {
       userID: getDeviceId(),
       customIDs: { address: account ?? '' },
     }),
-    [account]
+    [account],
   )
 
   return (
@@ -227,8 +227,7 @@ export default function App() {
             <Suspense fallback={<Loader />}>
               {isLoaded ? (
                 <Routes>
-                 // <Route path="/" element={<Landing />} />
-
+                  <Route path="/" element={<Landing />} />
                   <Route path="tokens" element={<Tokens />}>
                     <Route path=":chainName" />
                   </Route>

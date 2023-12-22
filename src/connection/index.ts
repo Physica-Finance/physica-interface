@@ -46,7 +46,7 @@ function onError(error: Error) {
 }
 
 const [web3Network, web3NetworkHooks] = initializeConnector<Network>(
-  (actions) => new Network({ actions, urlMap: RPC_PROVIDERS, defaultChainId: 1 })
+  (actions) => new Network({ actions, urlMap: RPC_PROVIDERS, defaultChainId: 1 }),
 )
 export const networkConnection: Connection = {
   getName: () => 'Network',
@@ -95,7 +95,7 @@ export const gnosisSafeConnection: Connection = {
 }
 
 const [web3WalletConnect, web3WalletConnectHooks] = initializeConnector<WalletConnectPopup>(
-  (actions) => new WalletConnectPopup({ actions, onError })
+  (actions) => new WalletConnectPopup({ actions, onError }),
 )
 export const walletConnectConnection: Connection = {
   getName: () => 'WalletConnect',
@@ -107,7 +107,7 @@ export const walletConnectConnection: Connection = {
 }
 
 const [web3UniwalletConnect, web3UniwalletConnectHooks] = initializeConnector<UniwalletConnect>(
-  (actions) => new UniwalletConnect({ actions, onError })
+  (actions) => new UniwalletConnect({ actions, onError }),
 )
 export const uniwalletConnectConnection: Connection = {
   getName: () => 'Uniswap Wallet',
@@ -130,7 +130,7 @@ const [web3CoinbaseWallet, web3CoinbaseWalletHooks] = initializeConnector<Coinba
         reloadOnDisconnect: false,
       },
       onError,
-    })
+    }),
 )
 
 const coinbaseWalletConnection: Connection = {
