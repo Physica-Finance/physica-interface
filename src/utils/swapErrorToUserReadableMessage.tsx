@@ -54,7 +54,7 @@ export function swapErrorToUserReadableMessage(error: any): string {
       return t`This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance.`
     case 'TransferHelper: TRANSFER_FROM_FAILED':
       return t`The input token cannot be transferred. There may be an issue with the input token.`
-    case 'UniswapV2: TRANSFER_FAILED':
+    case 'Physica: TRANSFER_FAILED':
       return t`The output token cannot be transferred. There may be an issue with the output token.`
     case 'UniswapV2: K':
       return t`The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer.`
@@ -70,6 +70,6 @@ export function swapErrorToUserReadableMessage(error: any): string {
         return t`An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3.`
       }
       return t`${reason ? reason : 'Unknown error'}. Try increasing your slippage tolerance.
-Note: fee-on-transfer and rebase tokens are incompatible with Uniswap V3.`
+Note: fee-on-transfer and rebase tokens are incompatible with Physica.`
   }
 }

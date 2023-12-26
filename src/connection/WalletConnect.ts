@@ -11,7 +11,7 @@ const RPC_URLS_WITHOUT_FALLBACKS = Object.entries(RPC_URLS).reduce(
     ...map,
     [chainId]: urls[0],
   }),
-  {}
+  {},
 )
 
 export class WalletConnectPopup extends WalletConnect {

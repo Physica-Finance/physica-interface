@@ -20,6 +20,12 @@ if (typeof QUICKNODE_RPC_URL === 'undefined') {
  * These "Safe" URLs are listed first, followed by other fallback URLs, which are taken from chainlist.org.
  */
 export const FALLBACK_URLS = {
+  [SupportedChainId.PLANQ]: [
+    // "Safe" URLs
+    'https://evm-rpc.planq.network',
+    // "Fallback" URLs
+    'https://evm-rpc.planq.network',
+  ],
   [SupportedChainId.MAINNET]: [
     // "Safe" URLs
     'https://api.mycryptoapi.com/eth',
@@ -27,12 +33,6 @@ export const FALLBACK_URLS = {
     // "Fallback" URLs
     'https://rpc.ankr.com/eth',
     'https://eth-mainnet.public.blastapi.io',
-  ],
-  [SupportedChainId.PLANQ]: [
-    // "Safe" URLs
-    'https://evm-rpc.planq.network',
-    // "Fallback" URLs
-    'https://evm-rpc.planq.network',
   ],
   [SupportedChainId.GOERLI]: [
     // "Safe" URLs
@@ -102,12 +102,12 @@ export const FALLBACK_URLS = {
  * These are the URLs used by the interface when there is not another available source of chain data.
  */
 export const RPC_URLS = {
+  [SupportedChainId.PLANQ]: [`https://evm-rpc.planq.network`, ...FALLBACK_URLS[SupportedChainId.PLANQ]],
   [SupportedChainId.MAINNET]: [
     `https://mainnet.infura.io/v3/${INFURA_KEY}`,
     ...FALLBACK_URLS[SupportedChainId.MAINNET],
   ],
   [SupportedChainId.GOERLI]: [`https://goerli.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.GOERLI]],
-  [SupportedChainId.PLANQ]: [`https://evm-rpc.planq.network`, ...FALLBACK_URLS[SupportedChainId.PLANQ]],
   [SupportedChainId.OPTIMISM]: [
     `https://optimism-mainnet.infura.io/v3/${INFURA_KEY}`,
     ...FALLBACK_URLS[SupportedChainId.OPTIMISM],
