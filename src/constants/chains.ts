@@ -7,6 +7,7 @@
  * Because this is not explicitly derived from @uniswap/sdk-core, there is a unit test to enforce conformance.
  */
 export enum SupportedChainId {
+  PLANQ = 7070,
   MAINNET = 1,
   GOERLI = 5,
 
@@ -23,7 +24,6 @@ export enum SupportedChainId {
   CELO_ALFAJORES = 44787,
 
   BNB = 56,
-  PLANQ = 7070,
 }
 
 export const CHAIN_IDS_TO_NAMES = {
@@ -53,13 +53,13 @@ export function isSupportedChain(chainId: number | null | undefined): chainId is
 }
 
 export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
+  SupportedChainId.PLANQ,
   SupportedChainId.MAINNET,
   SupportedChainId.POLYGON,
   SupportedChainId.CELO,
   SupportedChainId.OPTIMISM,
   SupportedChainId.ARBITRUM_ONE,
   SupportedChainId.BNB,
-  SupportedChainId.PLANQ,
 ] as const
 
 /**
@@ -86,6 +86,7 @@ export type SupportedTestnetChainId = typeof TESTNET_CHAIN_IDS[number]
  * All the chain IDs that are running the Ethereum protocol.
  */
 export const L1_CHAIN_IDS = [
+  SupportedChainId.PLANQ,
   SupportedChainId.MAINNET,
   SupportedChainId.GOERLI,
   SupportedChainId.POLYGON,
@@ -93,7 +94,6 @@ export const L1_CHAIN_IDS = [
   SupportedChainId.CELO,
   SupportedChainId.CELO_ALFAJORES,
   SupportedChainId.BNB,
-  SupportedChainId.PLANQ,
 ] as const
 
 export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number]

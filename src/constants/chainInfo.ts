@@ -62,16 +62,6 @@ type ChainInfoMap = { readonly [chainId: number]: L1ChainInfo | L2ChainInfo } & 
 } & { readonly [chainId in SupportedL1ChainId]: L1ChainInfo }
 
 const CHAIN_INFO: ChainInfoMap = {
-  [SupportedChainId.MAINNET]: {
-    networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
-    explorer: 'https://etherscan.io/',
-    infoLink: 'https://info.uniswap.org/#/',
-    label: 'Ethereum',
-    logoUrl: ethereumLogoUrl,
-    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-    color: darkTheme.chain_1,
-  },
   [SupportedChainId.PLANQ]: {
     networkType: NetworkType.L1,
     docs: 'https://planq.network',
@@ -80,6 +70,16 @@ const CHAIN_INFO: ChainInfoMap = {
     label: 'Planq',
     logoUrl: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/planq/images/planq.svg',
     nativeCurrency: { name: 'Planq', symbol: 'PLANQ', decimals: 18 },
+    color: darkTheme.chain_1,
+  },
+  [SupportedChainId.MAINNET]: {
+    networkType: NetworkType.L1,
+    docs: 'https://docs.uniswap.org/',
+    explorer: 'https://etherscan.io/',
+    infoLink: 'https://info.uniswap.org/#/',
+    label: 'Ethereum',
+    logoUrl: ethereumLogoUrl,
+    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     color: darkTheme.chain_1,
   },
   [SupportedChainId.GOERLI]: {
