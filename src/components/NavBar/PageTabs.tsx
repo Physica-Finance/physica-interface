@@ -26,14 +26,14 @@ export const PageTabs = () => {
       <MenuItem href="/#/swap" isTarget={false}>
         <Trans>Swap</Trans>
       </MenuItem>
-      <MenuItem href="https://restake.app/" isTarget={true}>
-        <Trans>Stake</Trans>
-      </MenuItem>
-      <MenuItem href="https://deltaswap.io/" isTarget={true}>
-        <Trans>Bridge</Trans>
-      </MenuItem>
       <MenuItem href="/#/pools" isTarget={false}>
         <Trans>Pools</Trans>
+      </MenuItem>
+      <MenuItem href="https://swap.deltaswap.io/#/transfer" isTarget={true}>
+        <Trans>Bridge</Trans>
+      </MenuItem>
+      <MenuItem href="https://restake.app/" isTarget={true}>
+        <Trans>Stake $PLQ</Trans>
       </MenuItem>
       <Box marginY={{ sm: '4', md: 'unset' }}>
         <MenuDropdown />

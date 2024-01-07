@@ -83,6 +83,8 @@ const baseMenuItem = style([
 export const menuItem = style([
   baseMenuItem,
   sprinkles({
+    width: 'full',
+    whiteSpace: 'nowrap',
     color: 'textSecondary',
   }),
 ])
@@ -90,6 +92,8 @@ export const menuItem = style([
 export const activeMenuItem = style([
   baseMenuItem,
   sprinkles({
+    width: 'full',
+    whiteSpace: 'nowrap',
     color: 'textPrimary',
     background: 'backgroundFloating',
   }),
