@@ -12,7 +12,6 @@ import { NavLink, NavLinkProps } from 'react-router-dom'
 import { useToggleModal } from 'state/application/hooks'
 import styled, { useTheme } from 'styled-components/macro'
 import ThemeToggle from 'theme/components/ThemeToggle'
-import { isDevelopmentEnv, isStagingEnv } from 'utils/env'
 
 import { ApplicationModal } from '../../state/application/reducer'
 import * as styles from './MenuDropdown.css'
@@ -156,7 +155,7 @@ export const MenuDropdown = () => {
                 alignItems={{ sm: 'center', md: 'flex-start' }}
                 paddingX="8"
               >
-                <SecondaryLinkedText href="https://discord.gg/eM7YJsq5">
+                <SecondaryLinkedText href="https://discord.com/invite/planq-network">
                   <Trans>Help center</Trans> ↗
                 </SecondaryLinkedText>
                 <SecondaryLinkedText href="https://physica-finance.gitbook.io/">
@@ -164,7 +163,7 @@ export const MenuDropdown = () => {
                 </SecondaryLinkedText>
               </Box>
               <IconRow>
-                <Icon href="https://discord.gg/eM7YJsq5">
+                <Icon href="https://discord.com/invite/planq-network">
                   <DiscordIconMenu
                     className={styles.hover}
                     width={24}
