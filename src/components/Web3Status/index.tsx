@@ -136,8 +136,8 @@ function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
 }
 
 const StyledConnectButton = styled.button`
-  background: var(--color-accent, #3671E9);
-  box-shadow: 0px 4px 4px 0px rgba(54, 113, 233, 0.60);
+  background: var(--color-accent, #3671e9);
+  box-shadow: 0px 4px 4px 0px rgba(54, 113, 233, 0.6);
   border: none;
   // border-top-left-radius: ${FULL_BORDER_RADIUS}px;
   // border-bottom-left-radius: ${FULL_BORDER_RADIUS}px;
@@ -146,7 +146,7 @@ const StyledConnectButton = styled.button`
   font-weight: 600;
   font-size: 16px;
   padding: 10px 12px;
-  color: #FFF;
+  color: #fff;
 `
 
 function Web3StatusInner() {

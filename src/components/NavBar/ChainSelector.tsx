@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { ConnectionType } from 'connection'
@@ -15,15 +16,12 @@ import { useIsMobile } from 'nft/hooks'
 import { useCallback, useRef, useState } from 'react'
 import { AlertTriangle, ChevronDown, ChevronUp } from 'react-feather'
 import { useTheme } from 'styled-components/macro'
-import { Trans } from '@lingui/macro'
 
 import * as styles from './ChainSelector.css'
 import ChainSelectorRow from './ChainSelectorRow'
 import { NavDropdown } from './NavDropdown'
 
-const NETWORK_SELECTOR_CHAINS = [
-  SupportedChainId.PLANQ,
-]
+const NETWORK_SELECTOR_CHAINS = [SupportedChainId.PLANQ]
 
 interface ChainSelectorProps {
   leftAlign?: boolean
@@ -54,7 +52,7 @@ export const ChainSelector = ({ leftAlign }: ChainSelectorProps) => {
       setPendingChainId(undefined)
       setIsOpen(false)
     },
-    [selectChain, setIsOpen]
+    [selectChain, setIsOpen],
   )
 
   const getConnection = useGetConnection()
@@ -102,7 +100,10 @@ export const ChainSelector = ({ leftAlign }: ChainSelectorProps) => {
           {!isSupported ? (
             <AlertTriangle size={20} color={theme.textSecondary} />
           ) : (
-            <><img src={info.logoUrl} alt={info.label} className={styles.Image} data-testid="chain-selector-logo" /><Trans>{info.label}</Trans></>
+            <>
+              <img src={info.logoUrl} alt={info.label} className={styles.Image} data-testid="chain-selector-logo" />
+              <Trans>{info.label}</Trans>
+            </>
           )}
           {isOpen ? <ChevronUp {...chevronProps} /> : <ChevronDown {...chevronProps} />}
         </Row>
