@@ -119,14 +119,14 @@ export const USDT_POLYGON = new Token(
 export const USDT_PLANQ = new Token(
   SupportedChainId.PLANQ,
   '0xfD6fF17b542260f95660BBD71470Fe6eEC72801D',
-  6,
+  18,
   'USDT',
   'Tether USD',
 )
 export const USDC_PLANQ = new Token(
   SupportedChainId.PLANQ,
   '0xfD6fF17b542260f95660BBD71470Fe6eEC72801D',
-  6,
+  18,
   'USDC',
   'Planq USDC',
 )

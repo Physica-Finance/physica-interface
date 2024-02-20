@@ -50,6 +50,8 @@ import {
   WETH_POLYGON,
   WETH_POLYGON_MUMBAI,
   WRAPPED_NATIVE_CURRENCY,
+  USDT_PLANQ,
+  USDC_PLANQ,
 } from './tokens'
 
 type ChainTokenList = {
@@ -76,6 +78,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDT,
     WBTC,
   ],
+  [SupportedChainId.PLANQ]: [...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.PLANQ], USDT_PLANQ, USDC_PLANQ],
   [SupportedChainId.OPTIMISM]: [
     ...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.OPTIMISM],
     DAI_OPTIMISM,
