@@ -49,3 +49,5 @@ cypress/videos
 cypress/screenshots
 
 .vercel
+
+/node_modules
