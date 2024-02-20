@@ -14,7 +14,7 @@ import { PoolState, usePools } from './usePools'
  */
 export function useV3SwapPools(
   currencyIn?: Currency,
-  currencyOut?: Currency
+  currencyOut?: Currency,
 ): {
   pools: Pool[]
   loading: boolean
@@ -39,7 +39,7 @@ export function useV3SwapPools(
               [tokenA, tokenB, FeeAmount.HIGH],
             ])
       }, []),
-    [allCurrencyCombinations, chainId]
+    [allCurrencyCombinations, chainId],
   )
 
   const pools = usePools(allCurrencyCombinationsWithAllFees)

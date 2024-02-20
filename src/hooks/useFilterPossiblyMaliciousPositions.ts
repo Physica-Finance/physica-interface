@@ -8,7 +8,7 @@ import { useTokenContractsConstant } from './useTokenContractsConstant'
 
 function getUniqueAddressesFromPositions(positions: PositionDetails[]): string[] {
   return Array.from(
-    new Set(positions.reduce<string[]>((acc, position) => acc.concat(position.token0, position.token1), []))
+    new Set(positions.reduce<string[]>((acc, position) => acc.concat(position.token0, position.token1), [])),
   )
 }
 /*
@@ -27,7 +27,7 @@ export function useFilterPossiblyMaliciousPositions(positions: PositionDetails[]
 
   const nonListPositionTokenAddresses = useMemo(
     () => getUniqueAddressesFromPositions(positions).filter((address) => !activeTokensList[address]),
-    [positions, activeTokensList]
+    [positions, activeTokensList],
   )
 
   const symbolCallStates = useTokenContractsConstant(nonListPositionTokenAddresses, 'symbol')
@@ -66,6 +66,6 @@ export function useFilterPossiblyMaliciousPositions(positions: PositionDetails[]
         // if neither token is in the list, then neither can have a url symbol
         return urlSymbolCount === 0
       }),
-    [addressesToSymbol, positions, activeTokensList]
+    [addressesToSymbol, positions, activeTokensList],
   )
 }

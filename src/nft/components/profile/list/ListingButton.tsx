@@ -38,7 +38,7 @@ export const ListingButton = ({ onClick }: { onClick: () => void }) => {
       issues,
       setIssues,
     }),
-    shallow
+    shallow,
   )
   const [showWarning, setShowWarning] = useState(false)
   const isMobile = useIsMobile()

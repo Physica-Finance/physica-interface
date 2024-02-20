@@ -34,14 +34,14 @@ function useFilterPossiblyMaliciousPositionInfo(positions: PositionInfo[] | unde
       positions
         ? positions.reduce((acc, position) => ({ ...acc, [position.details.tokenId.toString()]: position }), {})
         : {},
-    [positions]
+    [positions],
   )
   const positionDetails = useMemo(() => positions?.map((position) => position.details) ?? [], [positions])
   const filteredPositionDetails = useFilterPossiblyMaliciousPositions(positionDetails)
 
   return useMemo(
     () => filteredPositionDetails.map((positionDetails) => tokenIdsToPositionInfo[positionDetails.tokenId.toString()]),
-    [filteredPositionDetails, tokenIdsToPositionInfo]
+    [filteredPositionDetails, tokenIdsToPositionInfo],
   )
 }
 
@@ -139,7 +139,7 @@ function PositionListItem({ positionInfo }: { positionInfo: PositionInfo }) {
       pool_token_0_address: pool.token0.address,
       pool_token_1_address: pool.token1.address,
     }),
-    [chainId, pool.token0.address, pool.token0.symbol, pool.token1.address, pool.token1.symbol]
+    [chainId, pool.token0.address, pool.token0.symbol, pool.token1.address, pool.token1.symbol],
   )
 
   return (
@@ -168,7 +168,7 @@ function PositionListItem({ positionInfo }: { positionInfo: PositionInfo }) {
                 <div style={{ padding: '4px 0px' }}>
                   <ThemedText.Caption>{`${formatNumber(
                     liquidityValue,
-                    NumberType.PortfolioBalance
+                    NumberType.PortfolioBalance,
                   )} (liquidity) + ${formatNumber(feeValue, NumberType.PortfolioBalance)} (fees)`}</ThemedText.Caption>
                 </div>
               }

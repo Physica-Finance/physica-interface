@@ -51,7 +51,7 @@ const sendAnalyticsEventAndUserInfo = (
   walletType: string,
   chainId: number | undefined,
   isReconnect: boolean,
-  peerWalletAgent: string | undefined
+  peerWalletAgent: string | undefined,
 ) => {
   // User properties *must* be set before sending corresponding event properties,
   // so that the event contains the correct and up-to-date user properties.
@@ -173,7 +173,7 @@ export default function WalletModal({ openSettings }: { openSettings: () => void
         }
       }
     },
-    [dispatch, setPendingError, toggleWalletDrawer]
+    [dispatch, setPendingError, toggleWalletDrawer],
   )
 
   return (
@@ -197,7 +197,7 @@ export default function WalletModal({ openSettings }: { openSettings: () => void
                   activate={() => tryActivation(connection)}
                   pendingConnectionType={pendingConnection?.type}
                 />
-              ) : null
+              ) : null,
             )}
           </OptionGrid>
           <PrivacyPolicyWrapper>

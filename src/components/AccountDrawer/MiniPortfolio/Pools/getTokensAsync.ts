@@ -91,7 +91,7 @@ const TokenPromiseCache: { [key: CurrencyKey]: Promise<Token | undefined> | unde
 export async function getTokensAsync(
   addresses: string[],
   chainId: SupportedChainId,
-  multicall: UniswapInterfaceMulticall
+  multicall: UniswapInterfaceMulticall,
 ): Promise<TokenMap> {
   if (addresses.length === 0) return {}
   const formattedAddresses: string[] = []
@@ -116,7 +116,7 @@ export async function getTokensAsync(
   // Caches tokens currently being fetched for further calls to use
   formattedAddresses.forEach(
     (address) =>
-      (TokenPromiseCache[buildCurrencyKey(chainId, address)] = calledTokens.then((tokenMap) => tokenMap[address]))
+      (TokenPromiseCache[buildCurrencyKey(chainId, address)] = calledTokens.then((tokenMap) => tokenMap[address])),
   )
 
   const tokenMap = await calledTokens

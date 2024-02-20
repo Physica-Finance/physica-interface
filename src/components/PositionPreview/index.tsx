@@ -43,7 +43,7 @@ export const PositionPreview = ({
         : baseCurrencyDefault === currency1
         ? currency1
         : currency0
-      : currency0
+      : currency0,
   )
 
   const sorted = baseCurrency === currency0

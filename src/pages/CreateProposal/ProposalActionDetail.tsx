@@ -78,7 +78,7 @@ export const ProposalActionDetail = ({
             hideBalance={true}
             id="currency-input"
           />
-        ) : null
+        ) : null,
       )}
     </ProposalActionDetailContainer>
   )

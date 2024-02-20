@@ -111,7 +111,7 @@ export const routingApi = createApi({
               isAutoRouter: args.routerPreference === RouterPreference.API,
             },
             tags: { is_widget: false },
-          }
+          },
         )
       },
       async queryFn(args, _api, _extraOptions, fetch) {
@@ -137,7 +137,7 @@ export const routingApi = createApi({
               router,
               // TODO(zzmp): Use PRICE_PARAMS for RouterPreference.PRICE.
               // This change is intentionally being deferred to first see what effect router caching has.
-              CLIENT_PARAMS
+              CLIENT_PARAMS,
             )
           }
         } catch (error) {

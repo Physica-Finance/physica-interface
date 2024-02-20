@@ -53,7 +53,7 @@ describe('filterKnownErrors', () => {
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)'
+        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
@@ -66,7 +66,7 @@ describe('filterKnownErrors', () => {
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (timeout: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)'
+        'Loading chunk 20 failed. (timeout: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
@@ -79,7 +79,7 @@ describe('filterKnownErrors', () => {
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (missing: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)'
+        'Loading chunk 20 failed. (missing: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
@@ -103,7 +103,7 @@ describe('filterKnownErrors', () => {
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)'
+        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).not.toBeNull()
     })
@@ -122,14 +122,14 @@ describe('filterKnownErrors', () => {
     it('filters out error when resource is missing', () => {
       jest.spyOn(window.performance, 'getEntriesByType').mockReturnValue([])
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)'
+        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
 
     it('filters out error when performance is undefined', () => {
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)'
+        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
@@ -141,7 +141,7 @@ describe('filterKnownErrors', () => {
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)'
+        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
@@ -150,14 +150,14 @@ describe('filterKnownErrors', () => {
   describe('Content Security Policy', () => {
     it('filters unsafe-eval evaluate errors', () => {
       const originalException = new Error(
-        "Refused to evaluate a string as JavaScript because 'unsafe-eval' is not an allowed source of script in the following Content Security Policy directive: \"script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com 'unsafe-inlin..."
+        "Refused to evaluate a string as JavaScript because 'unsafe-eval' is not an allowed source of script in the following Content Security Policy directive: \"script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com 'unsafe-inlin...",
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBe(null)
     })
 
     it('filters CSP unsafe-eval compile/instatiate errors', () => {
       const originalException = new Error(
-        "Refused to compile or instantiate WebAssembly module because 'unsafe-eval' is not an allowed source of script in the following Content Security Policy directive: \"script-src 'self' https://www.google-a..."
+        "Refused to compile or instantiate WebAssembly module because 'unsafe-eval' is not an allowed source of script in the following Content Security Policy directive: \"script-src 'self' https://www.google-a...",
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBe(null)
     })

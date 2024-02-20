@@ -43,7 +43,7 @@ export function deserializeToken(serializedToken: SerializedToken, Class: typeof
     serializedToken.address,
     serializedToken.decimals,
     serializedToken.symbol,
-    serializedToken.name
+    serializedToken.name,
   )
 }
 
@@ -59,7 +59,7 @@ export function useUserLocaleManager(): [SupportedLocale | null, (newLocale: Sup
     (newLocale: SupportedLocale) => {
       dispatch(updateUserLocale({ userLocale: newLocale }))
     },
-    [dispatch]
+    [dispatch],
   )
 
   return [locale, setLocale]
@@ -76,7 +76,7 @@ export function useBuyFiatFlowCompleted(): [boolean | undefined, (buyFiatFlowCom
     (buyFiatFlowCompleted: boolean) => {
       dispatch(updateUserBuyFiatFlowCompleted(buyFiatFlowCompleted))
     },
-    [dispatch]
+    [dispatch],
   )
   return [buyFiatFlowCompleted, setBuyFiatFlowCompleted]
 }
@@ -101,7 +101,7 @@ export function useClientSideRouter(): [boolean, (userClientSideRouter: boolean)
     (newClientSideRouter: boolean) => {
       dispatch(updateUserClientSideRouter({ userClientSideRouter: newClientSideRouter }))
     },
-    [dispatch]
+    [dispatch],
   )
 
   return [clientSideRouter, setClientSideRouter]
@@ -116,7 +116,7 @@ export function useUserSlippageTolerance(): [Percent | 'auto', (slippageToleranc
   })
   const userSlippageTolerance = useMemo(
     () => (userSlippageToleranceRaw === 'auto' ? 'auto' : new Percent(userSlippageToleranceRaw, 10_000)),
-    [userSlippageToleranceRaw]
+    [userSlippageToleranceRaw],
   )
 
   const dispatch = useAppDispatch()
@@ -132,15 +132,15 @@ export function useUserSlippageTolerance(): [Percent | 'auto', (slippageToleranc
       dispatch(
         updateUserSlippageTolerance({
           userSlippageTolerance: value,
-        })
+        }),
       )
     },
-    [dispatch]
+    [dispatch],
   )
 
   return useMemo(
     () => [userSlippageTolerance, setUserSlippageTolerance],
-    [setUserSlippageTolerance, userSlippageTolerance]
+    [setUserSlippageTolerance, userSlippageTolerance],
   )
 }
 
@@ -153,7 +153,7 @@ export function useUserHideClosedPositions(): [boolean, (newHideClosedPositions:
     (newHideClosedPositions: boolean) => {
       dispatch(updateHideClosedPositions({ userHideClosedPositions: newHideClosedPositions }))
     },
-    [dispatch]
+    [dispatch],
   )
 
   return [hideClosedPositions, setHideClosedPositions]
@@ -167,7 +167,7 @@ export function useUserSlippageToleranceWithDefault(defaultSlippageTolerance: Pe
   const allowedSlippage = useUserSlippageTolerance()[0]
   return useMemo(
     () => (allowedSlippage === 'auto' ? defaultSlippageTolerance : allowedSlippage),
-    [allowedSlippage, defaultSlippageTolerance]
+    [allowedSlippage, defaultSlippageTolerance],
   )
 }
 
@@ -182,7 +182,7 @@ export function useUserTransactionTTL(): [number, (slippage: number) => void] {
     (userDeadline: number) => {
       dispatch(updateUserDeadline({ userDeadline }))
     },
-    [dispatch]
+    [dispatch],
   )
 
   return [deadline, setUserDeadline]
@@ -194,7 +194,7 @@ export function useAddUserToken(): (token: Token) => void {
     (token: Token) => {
       dispatch(addSerializedToken({ serializedToken: serializeToken(token) }))
     },
-    [dispatch]
+    [dispatch],
   )
 }
 
@@ -228,7 +228,7 @@ export function usePairAdder(): (pair: Pair) => void {
     (pair: Pair) => {
       dispatch(addSerializedPair({ serializedPair: serializePair(pair) }))
     },
-    [dispatch]
+    [dispatch],
   )
 }
 
@@ -262,7 +262,7 @@ export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
     computePairAddress({ factoryAddress: V2_FACTORY_ADDRESSES[tokenA.chainId], tokenA, tokenB }),
     18,
     'UNI-V2',
-    'Uniswap V2'
+    'Uniswap V2',
   )
 }
 
@@ -298,7 +298,7 @@ export function useTrackedTokenPairs(): [Token, Token][] {
             )
           })
         : [],
-    [tokens, chainId]
+    [tokens, chainId],
   )
 
   // pairs saved by users
@@ -316,7 +316,7 @@ export function useTrackedTokenPairs(): [Token, Token][] {
 
   const combinedList = useMemo(
     () => userPairs.concat(generatedPairs).concat(pinnedPairs),
-    [generatedPairs, pinnedPairs, userPairs]
+    [generatedPairs, pinnedPairs, userPairs],
   )
 
   return useMemo(() => {

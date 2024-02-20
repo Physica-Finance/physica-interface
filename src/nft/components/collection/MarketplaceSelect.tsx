@@ -47,7 +47,7 @@ export const MARKETPLACE_ITEMS = {
 
 function getMarketLogoSrc(market: string) {
   const marketplaceItem = Object.keys(MARKETPLACE_ITEMS).find(
-    (key) => MARKETPLACE_ITEMS[key as keyof typeof MARKETPLACE_ITEMS] === market
+    (key) => MARKETPLACE_ITEMS[key as keyof typeof MARKETPLACE_ITEMS] === market,
   )
   return `/nft/svgs/marketplaces/${marketplaceItem}.svg`
 }
@@ -205,7 +205,7 @@ export const MarketplaceSelect = () => {
           {...{ addMarket, removeMarket, isMarketSelected: selectedMarkets.includes(value) }}
         />
       )),
-    [addMarket, marketCount, removeMarket, selectedMarkets]
+    [addMarket, marketCount, removeMarket, selectedMarkets],
   )
 
   const onClick: React.MouseEventHandler<HTMLElement> = (e) => {

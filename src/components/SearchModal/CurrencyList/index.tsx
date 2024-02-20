@@ -201,7 +201,7 @@ export const formatAnalyticsEventProperties = (
   index: number,
   data: any[],
   searchQuery: string,
-  isAddressSearch: string | false
+  isAddressSearch: string | false,
 ) => ({
   token_symbol: token?.symbol,
   token_address: token?.address,
@@ -285,7 +285,7 @@ export default function CurrencyList({
         return null
       }
     },
-    [onCurrencySelect, otherCurrency, selectedCurrency, showCurrencyAmount, isLoading, isAddressSearch, searchQuery]
+    [onCurrencySelect, otherCurrency, selectedCurrency, showCurrencyAmount, isLoading, isAddressSearch, searchQuery],
   )
 
   const itemKey = useCallback((index: number, data: typeof itemData) => {

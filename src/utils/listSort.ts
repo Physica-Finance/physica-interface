@@ -5,7 +5,7 @@ const DEFAULT_LIST_PRIORITIES = DEFAULT_LIST_OF_LISTS.reduce(
     ...acc,
     [listUrl]: index + 1,
   }),
-  {}
+  {},
 ) as Record<string, number>
 
 // use ordering of default list of lists to assign priority

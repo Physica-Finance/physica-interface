@@ -85,7 +85,7 @@ export default function Zoom({
           .transition()
           .call(zoomBehavior.current.scaleTo, 0.5),
     ],
-    [svg]
+    [svg],
   )
 
   useEffect(() => {

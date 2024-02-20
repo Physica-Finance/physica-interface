@@ -88,7 +88,7 @@ gql`
 
 export function formatCollectionQueryData(
   queryCollection: NonNullable<NftCollection>,
-  address?: string
+  address?: string,
 ): GenieCollection {
   const market = queryCollection?.markets?.[0]
   if (!address && !queryCollection?.nftContracts?.[0]?.address) return {} as GenieCollection

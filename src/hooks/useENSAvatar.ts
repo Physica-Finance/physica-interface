@@ -18,7 +18,7 @@ import useENSName from './useENSName'
  */
 export default function useENSAvatar(
   address?: string,
-  enforceOwnership = true
+  enforceOwnership = true,
 ): { avatar: string | null; loading: boolean } {
   const debouncedAddress = useDebounce(address, 200)
   const node = useMemo(() => {
@@ -42,7 +42,7 @@ export default function useENSAvatar(
       avatar: changed ? null : http ?? null,
       loading: changed || addressAvatar.loading || nameAvatar.loading || nftAvatar.loading,
     }),
-    [addressAvatar.loading, changed, http, nameAvatar.loading, nftAvatar.loading]
+    [addressAvatar.loading, changed, http, nameAvatar.loading, nftAvatar.loading],
   )
 }
 
@@ -54,7 +54,7 @@ function useAvatarFromNode(node?: string): { avatar?: string; loading: boolean }
   const resolverAddressResult = resolverAddress.result?.[0]
   const resolverContract = useENSResolverContract(
     resolverAddressResult && !isZero(resolverAddressResult) ? resolverAddressResult : undefined,
-    false
+    false,
   )
   const avatar = useSingleCallResult(resolverContract, 'text', textArgument)
 
@@ -63,7 +63,7 @@ function useAvatarFromNode(node?: string): { avatar?: string; loading: boolean }
       avatar: avatar.result?.[0],
       loading: resolverAddress.loading || avatar.loading,
     }),
-    [avatar.loading, avatar.result, resolverAddress.loading]
+    [avatar.loading, avatar.result, resolverAddress.loading],
   )
 }
 
@@ -101,14 +101,14 @@ function useAvatarFromNFT(nftUri = '', enforceOwnership: boolean): { avatar?: st
 
   return useMemo(
     () => ({ avatar, loading: erc721.loading || erc1155.loading || loading }),
-    [avatar, erc1155.loading, erc721.loading, loading]
+    [avatar, erc1155.loading, erc721.loading, loading],
   )
 }
 
 function useERC721Uri(
   contractAddress: string | undefined,
   id: string | undefined,
-  enforceOwnership: boolean
+  enforceOwnership: boolean,
 ): { uri?: string; loading: boolean } {
   const idArgument = useMemo(() => [id], [id])
   const { account } = useWeb3React()
@@ -120,14 +120,14 @@ function useERC721Uri(
       uri: !enforceOwnership || account === owner.result?.[0] ? uri.result?.[0] : undefined,
       loading: owner.loading || uri.loading,
     }),
-    [account, enforceOwnership, owner.loading, owner.result, uri.loading, uri.result]
+    [account, enforceOwnership, owner.loading, owner.result, uri.loading, uri.result],
   )
 }
 
 function useERC1155Uri(
   contractAddress: string | undefined,
   id: string | undefined,
-  enforceOwnership: boolean
+  enforceOwnership: boolean,
 ): { uri?: string; loading: boolean } {
   const { account } = useWeb3React()
   const idArgument = useMemo(() => [id], [id])

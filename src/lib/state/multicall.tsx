@@ -31,7 +31,7 @@ export function MulticallUpdater() {
     () => ({
       blocksPerFetch: getBlocksPerFetchForChainId(chainId),
     }),
-    [chainId]
+    [chainId],
   )
 
   return (

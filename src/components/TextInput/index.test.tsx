@@ -12,7 +12,7 @@ describe('TextInput', () => {
         onUserInput={noop}
         placeholder="Test Placeholder"
         fontSize="12"
-      />
+      />,
     )
     expect(asFragment()).toMatchSnapshot()
   })
@@ -26,7 +26,7 @@ describe('TextInput', () => {
         onUserInput={onUserInputSpy}
         placeholder="Test Placeholder"
         fontSize="12"
-      />
+      />,
     )
 
     fireEvent.change(screen.getByPlaceholderText('Test Placeholder'), { target: { value: 'New value' } })
@@ -45,7 +45,7 @@ describe('ResizableTextArea', () => {
         onUserInput={noop}
         placeholder="Test Placeholder"
         fontSize="12"
-      />
+      />,
     )
     expect(asFragment()).toMatchSnapshot()
   })
@@ -59,7 +59,7 @@ describe('ResizableTextArea', () => {
         onUserInput={onUserInputSpy}
         placeholder="Test Placeholder"
         fontSize="12"
-      />
+      />,
     )
 
     fireEvent.change(screen.getByPlaceholderText('Test Placeholder'), { target: { value: 'New value' } })

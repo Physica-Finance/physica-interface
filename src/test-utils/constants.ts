@@ -17,7 +17,7 @@ export const TEST_POOL_12 = new Pool(
   FeeAmount.HIGH,
   '2437312313659959819381354528',
   '10272714736694327408',
-  -69633
+  -69633,
 )
 
 export const TEST_POOL_13 = new Pool(
@@ -26,7 +26,7 @@ export const TEST_POOL_13 = new Pool(
   FeeAmount.MEDIUM,
   '2437312313659959819381354528',
   '10272714736694327408',
-  -69633
+  -69633,
 )
 
 export const toCurrencyAmount = (token: Token, amount: number) =>

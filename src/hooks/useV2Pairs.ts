@@ -19,7 +19,7 @@ export enum PairState {
 export function useV2Pairs(currencies: [Currency | undefined, Currency | undefined][]): [PairState, Pair | null][] {
   const tokens = useMemo(
     () => currencies.map(([currencyA, currencyB]) => [currencyA?.wrapped, currencyB?.wrapped]),
-    [currencies]
+    [currencies],
   )
 
   const pairAddresses = useMemo(
@@ -33,7 +33,7 @@ export function useV2Pairs(currencies: [Currency | undefined, Currency | undefin
           ? computePairAddress({ factoryAddress: V2_FACTORY_ADDRESSES[tokenA.chainId], tokenA, tokenB })
           : undefined
       }),
-    [tokens]
+    [tokens],
   )
 
   const results = useMultipleContractSingleData(pairAddresses, PAIR_INTERFACE, 'getReserves')
@@ -53,7 +53,7 @@ export function useV2Pairs(currencies: [Currency | undefined, Currency | undefin
         PairState.EXISTS,
         new Pair(
           CurrencyAmount.fromRawAmount(token0, reserve0.toString()),
-          CurrencyAmount.fromRawAmount(token1, reserve1.toString())
+          CurrencyAmount.fromRawAmount(token1, reserve1.toString()),
         ),
       ]
     })

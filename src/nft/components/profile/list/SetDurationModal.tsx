@@ -139,7 +139,7 @@ export const SetDurationModal = () => {
         },
       },
     ],
-    [duration]
+    [duration],
   )
 
   let prompt

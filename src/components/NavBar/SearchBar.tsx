@@ -67,7 +67,7 @@ export const SearchBar = () => {
       refetchOnMount: false,
       refetchOnReconnect: false,
       enabled: !!debouncedSearchValue.length,
-    }
+    },
   )
 
   const { data: gqlCollections, loading: gqlCollectionsAreLoading } = useCollectionSearch(debouncedSearchValue)
@@ -139,7 +139,7 @@ export const SearchBar = () => {
         !isOpen && toggleOpen()
       }
     },
-    [isOpen]
+    [isOpen],
   )
 
   useEffect(() => {
@@ -171,7 +171,7 @@ export const SearchBar = () => {
           className={clsx(
             styles.nftSearchBar,
             !isOpen && !isMobile && magicalGradientOnHover,
-            isMobileOrTablet && (isOpen ? styles.visible : styles.hidden)
+            isMobileOrTablet && (isOpen ? styles.visible : styles.hidden),
           )}
           borderRadius={isOpen || isMobileOrTablet ? undefined : '12'}
           borderTopRightRadius={isOpen && !isMobile ? '12' : undefined}

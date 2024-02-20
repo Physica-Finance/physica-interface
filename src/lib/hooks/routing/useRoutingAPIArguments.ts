@@ -37,6 +37,6 @@ export function useRoutingAPIArguments({
             routerPreference,
             type: (tradeType === TradeType.EXACT_INPUT ? 'exactIn' : 'exactOut') as 'exactIn' | 'exactOut',
           },
-    [amount, routerPreference, tokenIn, tokenOut, tradeType]
+    [amount, routerPreference, tokenIn, tokenOut, tradeType],
   )
 }

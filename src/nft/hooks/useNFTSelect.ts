@@ -47,6 +47,6 @@ export const useNFTSelect = create<SelectNFTState>()(
           }
         }),
     }),
-    { name: 'useNFTSelect' }
-  )
+    { name: 'useNFTSelect' },
+  ),
 )

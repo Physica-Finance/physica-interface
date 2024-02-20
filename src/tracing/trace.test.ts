@@ -135,7 +135,7 @@ describe('trace', () => {
         trace('test', ({ setTraceStatus }) => {
           setTraceStatus('failed_precondition')
           return Promise.reject()
-        })
+        }),
       ).rejects.toBeUndefined()
       transaction = getTransaction(1)
       expect(transaction.status).toBe('failed_precondition')
@@ -158,7 +158,7 @@ describe('trace', () => {
         trace('test', ({ setTraceError }) => {
           setTraceError(error)
           return Promise.reject(new Error(`Wrapped ${error.message}`))
-        })
+        }),
       ).rejects.toBeDefined()
       const transaction = getTransaction()
       expect(transaction.data).toEqual({ error })

@@ -4,7 +4,7 @@ export const ActivityFetcher = async (
   contractAddress: string,
   filters?: ActivityFilter,
   cursor?: string,
-  limit?: string
+  limit?: string,
 ): Promise<ActivityEventResponse> => {
   const filterParam =
     filters && filters.eventTypes

@@ -63,10 +63,10 @@ export default function Updater({ pendingTransactions, onCheck, onReceipt }: Upd
             }
             return receipt
           }),
-        retryOptions
+        retryOptions,
       )
     },
-    [chainId, provider]
+    [chainId, provider],
   )
 
   useEffect(() => {

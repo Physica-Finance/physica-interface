@@ -1,11 +1,11 @@
 export const CollectionPreviewFetcher = async (
-  address: string
+  address: string,
 ): Promise<
   [
     {
       name: string
       bannerImageUrl?: string
-    }
+    },
   ]
 > => {
   const url = `${process.env.REACT_APP_TEMP_API_URL}/nft/collectionPreview?address=${address}`

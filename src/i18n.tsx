@@ -15,7 +15,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       document.documentElement.setAttribute('lang', locale)
       setUserLocale(locale) // stores the selected locale to persist across sessions
     },
-    [setUserLocale]
+    [setUserLocale],
   )
 
   return (

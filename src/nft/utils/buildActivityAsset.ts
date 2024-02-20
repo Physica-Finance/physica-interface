@@ -9,7 +9,7 @@ export const buildActivityAsset = (
   event: ActivityEvent,
   collectionName: string,
   ethPriceInUSD: number,
-  isNftGraphqlEnabled: boolean
+  isNftGraphqlEnabled: boolean,
 ): GenieAsset => {
   const assetUsdPrice = event.price
     ? isNftGraphqlEnabled
@@ -17,7 +17,7 @@ export const buildActivityAsset = (
       : formatEther(
           BigNumber.from(event.price)
             .mul(BigNumber.from(Math.trunc(ethPriceInUSD * 100)))
-            .div(100)
+            .div(100),
         )
     : '0'
 

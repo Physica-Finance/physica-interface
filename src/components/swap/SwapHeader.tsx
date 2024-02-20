@@ -6,7 +6,6 @@ import styled from 'styled-components/macro'
 
 import { RowBetween, RowFixed } from '../Row'
 import SettingsTab from '../Settings'
-import SwapBuyFiatButton from './SwapBuyFiatButton'
 
 const StyledSwapHeader = styled.div`
   padding: 8px 12px;

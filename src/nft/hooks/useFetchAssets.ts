@@ -40,7 +40,7 @@ export function useFetchAssets(): () => Promise<void> {
       setLocked,
       setItemsInBag,
     }),
-    shallow
+    shallow,
   )
   const tokenTradeInput = useTokenInput((state) => state.tokenTradeInput)
   const itemsInBag = useMemo(() => recalculateBagUsingPooledAssets(uncheckedItemsInBag), [uncheckedItemsInBag])

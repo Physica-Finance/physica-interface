@@ -55,7 +55,7 @@ export default function Updater(): null {
               chainId,
               filter,
               results: { logs, blockNumber },
-            })
+            }),
           )
         })
         .catch((error) => {
@@ -65,7 +65,7 @@ export default function Updater(): null {
               chainId,
               filter,
               blockNumber,
-            })
+            }),
           )
         })
     })

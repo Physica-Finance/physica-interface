@@ -68,7 +68,7 @@ function useOnChainToken(address: string | undefined, skip: boolean) {
 function useRelevantToken(
   address: string | undefined,
   pageChainId: number,
-  tokenQueryData: TokenQueryData | undefined
+  tokenQueryData: TokenQueryData | undefined,
 ) {
   const { chainId: activeChainId } = useWeb3React()
   const queryToken = useMemo(() => {
@@ -83,7 +83,7 @@ function useRelevantToken(
 
   return useMemo(
     () => ({ token: queryToken ?? onChainToken, didFetchFromChain: !queryToken }),
-    [onChainToken, queryToken]
+    [onChainToken, queryToken],
   )
 }
 
@@ -108,7 +108,7 @@ export default function TokenDetails({
   }
   const address = useMemo(
     () => (urlAddress === NATIVE_CHAIN_ID ? urlAddress : isAddress(urlAddress) || undefined),
-    [urlAddress]
+    [urlAddress],
   )
 
   const pageChainId = CHAIN_NAME_TO_CHAIN_ID[chain]
@@ -120,7 +120,7 @@ export default function TokenDetails({
         if (current) map[current.chain] = current.address
         return map
       }, {} as { [key: string]: string | undefined }) ?? {},
-    [tokenQueryData]
+    [tokenQueryData],
   )
 
   const { token: detailedToken, didFetchFromChain } = useRelevantToken(address, pageChainId, tokenQueryData)
@@ -142,7 +142,7 @@ export default function TokenDetails({
         startTokenTransition(() => navigate(getTokenDetailsURL({ address, chain: update })))
       }
     },
-    [address, crossChainMap, didFetchFromChain, navigate, detailedToken?.isNative]
+    [address, crossChainMap, didFetchFromChain, navigate, detailedToken?.isNative],
   )
   useOnGlobalChainSwitch(navigateToTokenForChain)
 
@@ -156,11 +156,11 @@ export default function TokenDetails({
             address,
             chain,
             inputAddress: tokens[Field.INPUT] ? getTokenAddress(tokens[Field.INPUT] as Currency) : null,
-          })
-        )
+          }),
+        ),
       )
     },
-    [chain, navigate]
+    [chain, navigate],
   )
 
   const [continueSwap, setContinueSwap] = useState<{ resolve: (value: boolean | PromiseLike<boolean>) => void }>()
@@ -171,7 +171,7 @@ export default function TokenDetails({
   const shouldShowSpeedbump = !useIsUserAddedTokenOnChain(address, pageChainId) && tokenWarning !== null
   const onReviewSwapClick = useCallback(
     () => new Promise<boolean>((resolve) => (shouldShowSpeedbump ? setContinueSwap({ resolve }) : resolve(true))),
-    [shouldShowSpeedbump]
+    [shouldShowSpeedbump],
   )
 
   const onResolveSwap = useCallback(
@@ -179,7 +179,7 @@ export default function TokenDetails({
       continueSwap?.resolve(value)
       setContinueSwap(undefined)
     },
-    [continueSwap, setContinueSwap]
+    [continueSwap, setContinueSwap],
   )
   // address will never be undefined if token is defined; address is checked here to appease typechecker
   if (detailedToken === undefined || !address) {

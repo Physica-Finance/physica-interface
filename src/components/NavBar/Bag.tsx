@@ -28,7 +28,7 @@ export const Bag = () => {
 
   const { bagExpanded, setBagExpanded } = useBag(
     ({ bagExpanded, setBagExpanded }) => ({ bagExpanded, setBagExpanded }),
-    shallow
+    shallow,
   )
 
   const handleIconClick = useCallback(() => {

@@ -31,7 +31,7 @@ class GasEstimationError extends Error {
 class ModifiedSwapError extends Error {
   constructor() {
     super(
-      t`Your swap was modified through your wallet. If this was a mistake, please cancel immediately or risk losing your funds.`
+      t`Your swap was modified through your wallet. If this was a mistake, please cancel immediately or risk losing your funds.`,
     )
   }
 }
@@ -46,7 +46,7 @@ interface SwapOptions {
 export function useUniversalRouterSwapCallback(
   trade: Trade<Currency, Currency, TradeType> | undefined,
   fiatValues: { amountIn: number | undefined; amountOut: number | undefined },
-  options: SwapOptions
+  options: SwapOptions,
 ) {
   const { account, chainId, provider } = useWeb3React()
 
@@ -92,7 +92,7 @@ export function useUniversalRouterSwapCallback(
             .then((response) => {
               sendAnalyticsEvent(
                 SwapEventName.SWAP_SIGNED,
-                formatSwapSignedAnalyticsEventProperties({ trade, fiatValues, txHash: response.hash })
+                formatSwapSignedAnalyticsEventProperties({ trade, fiatValues, txHash: response.hash }),
               )
               if (tx.data !== response.data) {
                 sendAnalyticsEvent(SwapEventName.SWAP_MODIFIED_IN_WALLET, { txHash: response.hash })
@@ -113,7 +113,7 @@ export function useUniversalRouterSwapCallback(
           throw new Error(swapErrorToUserReadableMessage(swapError))
         }
       },
-      { tags: { is_widget: false } }
+      { tags: { is_widget: false } },
     )
   }, [
     account,

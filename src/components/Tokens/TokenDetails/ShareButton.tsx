@@ -80,10 +80,10 @@ export default function ShareButton({ currency }: { currency: Currency }) {
       `https://twitter.com/intent/tweet?text=Check%20out%20${currency.name}%20(${
         currency.symbol
       })%20https://app.uniswap.org/%23/tokens/${chainIdToBackendName(
-        currency.chainId
+        currency.chainId,
       ).toLowerCase()}/${address}%20via%20@uniswap`,
       'newwindow',
-      `left=${positionX}, top=${positionY}, width=${TWITTER_WIDTH}, height=${TWITTER_HEIGHT}`
+      `left=${positionX}, top=${positionY}, width=${TWITTER_WIDTH}, height=${TWITTER_HEIGHT}`,
     )
   }
 

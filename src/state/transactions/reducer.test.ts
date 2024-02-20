@@ -57,7 +57,7 @@ describe('transaction reducer', () => {
             tokenAddress: 'abc',
             spender: 'def',
           },
-        })
+        }),
       )
       const txs = store.getState()
       expect(txs[1]).toBeTruthy()
@@ -91,7 +91,7 @@ describe('transaction reducer', () => {
             blockHash: '0x0',
             blockNumber: 1,
           },
-        })
+        }),
       )
       expect(store.getState()).toEqual({})
     })
@@ -102,7 +102,7 @@ describe('transaction reducer', () => {
           chainId: 4,
           info: { type: TransactionType.APPROVAL, spender: '0x0', tokenAddress: '0x0' },
           from: '0x0',
-        })
+        }),
       )
       const beforeTime = new Date().getTime()
       store.dispatch(
@@ -119,7 +119,7 @@ describe('transaction reducer', () => {
             blockHash: '0x0',
             blockNumber: 1,
           },
-        })
+        }),
       )
       const tx = store.getState()[4]?.['0x0']
       expect(tx?.confirmedTime).toBeGreaterThanOrEqual(beforeTime)
@@ -143,7 +143,7 @@ describe('transaction reducer', () => {
           chainId: 4,
           hash: '0x0',
           blockNumber: 1,
-        })
+        }),
       )
       expect(store.getState()).toEqual({})
     })
@@ -154,14 +154,14 @@ describe('transaction reducer', () => {
           chainId: 4,
           info: { type: TransactionType.APPROVAL, spender: '0x0', tokenAddress: '0x0' },
           from: '0x0',
-        })
+        }),
       )
       store.dispatch(
         checkedTransaction({
           chainId: 4,
           hash: '0x0',
           blockNumber: 1,
-        })
+        }),
       )
       const tx = store.getState()[4]?.['0x0']
       expect(tx?.lastCheckedBlockNumber).toEqual(1)
@@ -173,21 +173,21 @@ describe('transaction reducer', () => {
           chainId: 4,
           info: { type: TransactionType.APPROVAL, spender: '0x0', tokenAddress: '0x0' },
           from: '0x0',
-        })
+        }),
       )
       store.dispatch(
         checkedTransaction({
           chainId: 4,
           hash: '0x0',
           blockNumber: 3,
-        })
+        }),
       )
       store.dispatch(
         checkedTransaction({
           chainId: 4,
           hash: '0x0',
           blockNumber: 1,
-        })
+        }),
       )
       const tx = store.getState()[4]?.['0x0']
       expect(tx?.lastCheckedBlockNumber).toEqual(3)
@@ -202,7 +202,7 @@ describe('transaction reducer', () => {
           hash: '0x0',
           info: { type: TransactionType.APPROVAL, spender: 'abc', tokenAddress: 'def' },
           from: 'abc',
-        })
+        }),
       )
       store.dispatch(
         addTransaction({
@@ -210,7 +210,7 @@ describe('transaction reducer', () => {
           hash: '0x1',
           info: { type: TransactionType.APPROVAL, spender: 'abc', tokenAddress: 'def' },
           from: 'abc',
-        })
+        }),
       )
       expect(Object.keys(store.getState())).toHaveLength(2)
       expect(Object.keys(store.getState())).toEqual([String(1), String(4)])

@@ -72,7 +72,7 @@ createRoot(container).render(
         </QueryClientProvider>
       </FeatureFlagsProvider>
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 )
 
 if (process.env.REACT_APP_SERVICE_WORKER !== 'false') {

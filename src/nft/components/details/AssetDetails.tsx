@@ -254,11 +254,11 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
       asset.rarity
         ? {
             rarityProvider: asset?.rarity?.providers?.find(
-              ({ provider: _provider }) => _provider === asset.rarity?.primaryProvider
+              ({ provider: _provider }) => _provider === asset.rarity?.primaryProvider,
             ),
           }
         : {},
-    [asset.rarity]
+    [asset.rarity],
   )
 
   const assetMediaType = useMemo(() => {
@@ -289,7 +289,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
           eventTypes: [ActivityEventType.Sale],
         },
         pageParam,
-        '1'
+        '1',
       )
     },
     {
@@ -300,7 +300,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
       refetchIntervalInBackground: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    }
+    },
   )
   const { nftActivity: gqlPriceData } = useNftActivity(
     {
@@ -309,7 +309,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
       tokenId: token_id,
     },
     1,
-    'no-cache'
+    'no-cache',
   )
 
   let formattedPrice
@@ -340,7 +340,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
         </FilterBox>
       )
     },
-    [activeFilters]
+    [activeFilters],
   )
 
   const {
@@ -368,7 +368,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
             .map((key) => key as ActivityEventType)
             .filter((key) => activeFilters[key]),
         },
-        pageParam
+        pageParam,
       )
     },
     {
@@ -379,7 +379,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
       refetchIntervalInBackground: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    }
+    },
   )
 
   const {
@@ -396,7 +396,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
       address: contractAddress,
       tokenId: token_id,
     },
-    25
+    25,
   )
 
   const { events, gatedHasNext, gatedLoadMore, gatedLoading, gatedSuccess } = useMemo(() => {

@@ -236,7 +236,7 @@ function LinkedCurrency({ chainId, currency }: { chainId?: number; currency?: Cu
 function getRatio(
   lower: Price<Currency, Currency>,
   current: Price<Currency, Currency>,
-  upper: Price<Currency, Currency>
+  upper: Price<Currency, Currency>,
 ) {
   try {
     if (!current.greaterThan(lower)) {
@@ -438,7 +438,7 @@ function PositionPageContent() {
       ? getRatio(
           inverted ? priceUpper.invert() : priceLower,
           pool.token0Price,
-          inverted ? priceLower.invert() : priceUpper
+          inverted ? priceLower.invert() : priceUpper,
         )
       : undefined
   }, [inverted, pool, priceLower, priceUpper])
@@ -611,7 +611,7 @@ function PositionPageContent() {
       currency0 &&
       currency1 &&
       (currency0.isNative || currency1.isNative) &&
-      !collectMigrationHash
+      !collectMigrationHash,
   )
 
   if (!positionDetails && !loading) {

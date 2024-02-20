@@ -10,7 +10,7 @@ import AssetLogo, { AssetLogoBaseProps } from './AssetLogo'
 export default function QueryTokenLogo(
   props: AssetLogoBaseProps & {
     token?: TopToken | TokenQueryData | SearchToken
-  }
+  },
 ) {
   const chainId = props.token?.chain ? CHAIN_NAME_TO_CHAIN_ID[props.token?.chain] : undefined
 

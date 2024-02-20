@@ -63,7 +63,7 @@ type ChainCurrencyList = {
 const WRAPPED_NATIVE_CURRENCIES_ONLY: ChainTokenList = Object.fromEntries(
   Object.entries(WRAPPED_NATIVE_CURRENCY)
     .map(([key, value]) => [key, [value]])
-    .filter(Boolean)
+    .filter(Boolean),
 )
 
 // used to construct intermediary pairs for trading
@@ -235,7 +235,7 @@ export const PINNED_PAIRS: { readonly [chainId: number]: [Token, Token][] } = {
         '0x39AA39c021dfbaE8faC545936693aC917d5E7563',
         8,
         'cUSDC',
-        'Compound USD Coin'
+        'Compound USD Coin',
       ),
     ],
     [USDC_MAINNET, USDT],

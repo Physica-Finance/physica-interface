@@ -10,7 +10,7 @@ import { useTokenInput } from './useTokenInput'
 export default function usePayWithAnyTokenSwap(
   trade?: InterfaceTrade<Currency, Currency, TradeType> | undefined,
   allowance?: Allowance,
-  allowedSlippage?: Percent
+  allowedSlippage?: Percent,
 ) {
   const setTokenTradeInput = useTokenInput((state) => state.setTokenTradeInput)
   const hasRoutes = !!trade && trade.routes

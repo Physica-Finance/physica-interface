@@ -43,7 +43,7 @@ export function BlockNumberProvider({ children }: { children: ReactNode }) {
         return chainBlock
       })
     },
-    [activeChainId, setChainBlock]
+    [activeChainId, setChainBlock],
   )
 
   const windowVisible = useIsWindowVisible()
@@ -82,7 +82,7 @@ export function BlockNumberProvider({ children }: { children: ReactNode }) {
         }
       },
     }),
-    [activeChainId, block, chainId]
+    [activeChainId, block, chainId],
   )
   return <BlockNumberContext.Provider value={value}>{children}</BlockNumberContext.Provider>
 }

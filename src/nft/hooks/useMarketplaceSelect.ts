@@ -19,6 +19,6 @@ export const useMarketplaceSelect = create<State>()(
           else return { options: [...options, option] }
         }),
     }),
-    { name: 'useMarketplaceSelect' }
-  )
+    { name: 'useMarketplaceSelect' },
+  ),
 )

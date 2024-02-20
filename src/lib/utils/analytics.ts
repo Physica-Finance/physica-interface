@@ -16,7 +16,7 @@ export const getDurationFromDateMilliseconds = (start?: Date): number | undefine
 
 export const formatToDecimal = (
   intialNumberObject: Percent | CurrencyAmount<Token | Currency>,
-  decimalPlace: number
+  decimalPlace: number,
 ): number => parseFloat(intialNumberObject.toFixed(decimalPlace))
 
 export const getTokenAddress = (currency: Currency) => (currency.isNative ? NATIVE_CHAIN_ID : currency.address)
@@ -27,7 +27,7 @@ export const formatPercentNumber = (percent: Percent): number => parseFloat(perc
 
 export const getPriceUpdateBasisPoints = (
   prevPrice: Price<Currency, Currency>,
-  newPrice: Price<Currency, Currency>
+  newPrice: Price<Currency, Currency>,
 ): number => {
   const changeFraction = newPrice.subtract(prevPrice).divide(prevPrice)
   const changePercentage = new Percent(changeFraction.numerator, changeFraction.denominator)
@@ -62,7 +62,7 @@ export const formatSwapSignedAnalyticsEventProperties = ({
 export const formatSwapQuoteReceivedEventProperties = (
   trade: Trade<Currency, Currency, TradeType>,
   gasUseEstimateUSD?: CurrencyAmount<Token>,
-  fetchingSwapQuoteStartTime?: Date
+  fetchingSwapQuoteStartTime?: Date,
 ) => {
   return {
     token_in_symbol: trade.inputAmount.currency.symbol,

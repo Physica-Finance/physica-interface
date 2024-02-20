@@ -15,7 +15,7 @@ export default function useENSContentHash(ensName?: string | null): { loading: b
   const resolverAddress = resolverAddressResult.result?.[0]
   const resolverContract = useENSResolverContract(
     resolverAddress && isZero(resolverAddress) ? undefined : resolverAddress,
-    false
+    false,
   )
   const contenthash = useSingleCallResult(resolverContract, 'contenthash', ensNodeArgument)
 
@@ -24,6 +24,6 @@ export default function useENSContentHash(ensName?: string | null): { loading: b
       contenthash: contenthash.result?.[0] ?? null,
       loading: resolverAddressResult.loading || contenthash.loading,
     }),
-    [contenthash.loading, contenthash.result, resolverAddressResult.loading]
+    [contenthash.loading, contenthash.result, resolverAddressResult.loading],
   )
 }

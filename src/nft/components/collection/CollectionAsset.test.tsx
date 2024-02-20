@@ -15,7 +15,7 @@ describe('NftCard', () => {
         uniformAspectRatio={UniformAspectRatios.square}
         setUniformAspectRatio={() => undefined}
         setRenderedHeight={() => undefined}
-      />
+      />,
     )
     expect(asFragment()).toMatchSnapshot()
   })

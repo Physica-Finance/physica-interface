@@ -15,7 +15,7 @@ function getScreenSize(): Record<keyof typeof BREAKPOINTS, boolean> {
       Object.assign(obj, {
         [key]: isClient ? window.innerWidth >= BREAKPOINTS[key as keyof typeof BREAKPOINTS] : false,
       }),
-    {} as Record<keyof typeof BREAKPOINTS, boolean>
+    {} as Record<keyof typeof BREAKPOINTS, boolean>,
   )
 }
 

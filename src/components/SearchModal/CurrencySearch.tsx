@@ -117,7 +117,7 @@ export function CurrencySearch({
       otherSelectedCurrency,
       selectedCurrency,
       onlyShowCurrenciesWithBalance,
-    ]
+    ],
   )
   const isLoading = Boolean(balancesAreLoading && !tokenLoaderTimerElapsed)
 
@@ -153,7 +153,7 @@ export function CurrencySearch({
       onCurrencySelect(currency, hasWarning)
       if (!hasWarning) onDismiss()
     },
-    [onDismiss, onCurrencySelect]
+    [onDismiss, onCurrencySelect],
   )
 
   // clear the input on open
@@ -186,7 +186,7 @@ export function CurrencySearch({
         }
       }
     },
-    [debouncedQuery, native, searchCurrencies, handleCurrencySelect]
+    [debouncedQuery, native, searchCurrencies, handleCurrencySelect],
   )
 
   // menu ui
@@ -198,7 +198,7 @@ export function CurrencySearch({
   const filteredInactiveTokens = useSearchInactiveTokenLists(
     !onlyShowCurrenciesWithBalance && (filteredTokens.length === 0 || (debouncedQuery.length > 2 && !isAddressSearch))
       ? debouncedQuery
-      : undefined
+      : undefined,
   )
 
   // Timeout token loader after 3 seconds to avoid hanging in a loading state.
@@ -259,7 +259,7 @@ export function CurrencySearch({
                 0,
                 [searchToken],
                 searchQuery,
-                isAddressSearch
+                isAddressSearch,
               )}
             />
           </Column>

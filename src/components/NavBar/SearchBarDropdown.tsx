@@ -95,7 +95,7 @@ const SearchBarDropdownSection = ({
                 ...eventProperties,
               }}
             />
-          )
+          ),
         )}
       </Column>
     </Column>
@@ -155,7 +155,7 @@ export const SearchBarDropdown = ({
 
   const { data: trendingCollectionResults, isLoading: trendingCollectionsAreLoading } = useQuery(
     ['trendingCollections', 'eth', 'twenty_four_hours'],
-    () => fetchTrendingCollections({ volumeType: 'eth', timePeriod: 'ONE_DAY' as TimePeriod, size: 3 })
+    () => fetchTrendingCollections({ volumeType: 'eth', timePeriod: 'ONE_DAY' as TimePeriod, size: 3 }),
   )
 
   const { data: gqlData, loading } = useTrendingCollections(3, HistoryDuration.Day)
@@ -183,7 +183,7 @@ export const SearchBarDropdown = ({
   const trendingTokensLength = isTokenPage ? 3 : 2
   const trendingTokens = useMemo(
     () => trendingTokenData?.slice(0, trendingTokensLength) ?? [...Array<SearchToken>(trendingTokensLength)],
-    [trendingTokenData, trendingTokensLength]
+    [trendingTokenData, trendingTokensLength],
   )
 
   const totalSuggestions = hasInput

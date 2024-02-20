@@ -34,7 +34,7 @@ function buildCurrencyDescriptor(
   amtA: string,
   currencyB: Currency | undefined,
   amtB: string,
-  delimiter = t`for`
+  delimiter = t`for`,
 ) {
   const formattedA = currencyA ? formatCurrencyAmount(CurrencyAmount.fromRawAmount(currencyA, amtA)) : t`Unknown`
   const symbolA = currencyA?.symbol ?? ''
@@ -46,7 +46,7 @@ function buildCurrencyDescriptor(
 function parseSwap(
   swap: ExactInputSwapTransactionInfo | ExactOutputSwapTransactionInfo,
   chainId: SupportedChainId,
-  tokens: TokenAddressMap
+  tokens: TokenAddressMap,
 ): Partial<Activity> {
   const tokenIn = getCurrency(swap.inputCurrencyId, chainId, tokens)
   const tokenOut = getCurrency(swap.outputCurrencyId, chainId, tokens)
@@ -76,7 +76,7 @@ function parseWrap(wrap: WrapTransactionInfo, chainId: SupportedChainId, status:
 function parseApproval(
   approval: ApproveTransactionInfo,
   chainId: SupportedChainId,
-  tokens: TokenAddressMap
+  tokens: TokenAddressMap,
 ): Partial<Activity> {
   // TODO: Add 'amount' approved to ApproveTransactionInfo so we can distinguish between revoke and approve
   const currency = getCurrency(approval.tokenAddress, chainId, tokens)
@@ -103,7 +103,7 @@ function parseLP(lp: GenericLPInfo, chainId: SupportedChainId, tokens: TokenAddr
 function parseCollectFees(
   collect: CollectFeesTransactionInfo,
   chainId: SupportedChainId,
-  tokens: TokenAddressMap
+  tokens: TokenAddressMap,
 ): Partial<Activity> {
   // Adapts CollectFeesTransactionInfo to generic LP type
   const {
@@ -118,7 +118,7 @@ function parseCollectFees(
 function parseMigrateCreateV3(
   lp: MigrateV2LiquidityToV3TransactionInfo | CreateV3PoolTransactionInfo,
   chainId: SupportedChainId,
-  tokens: TokenAddressMap
+  tokens: TokenAddressMap,
 ): Partial<Activity> {
   const baseCurrency = getCurrency(lp.baseCurrencyId, chainId, tokens)
   const baseSymbol = baseCurrency?.symbol ?? t`Unknown`
@@ -132,7 +132,7 @@ function parseMigrateCreateV3(
 export function parseLocalActivity(
   details: TransactionDetails,
   chainId: SupportedChainId,
-  tokens: TokenAddressMap
+  tokens: TokenAddressMap,
 ): Activity | undefined {
   try {
     const status = !details.receipt

@@ -38,7 +38,7 @@ export interface RetryOptions {
  */
 export function retry<T>(
   fn: () => Promise<T>,
-  { n, minWait, maxWait }: RetryOptions
+  { n, minWait, maxWait }: RetryOptions,
 ): { promise: Promise<T>; cancel: () => void } {
   let completed = false
   let rejectCancelled: (error: Error) => void

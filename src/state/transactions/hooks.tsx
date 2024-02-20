@@ -24,7 +24,7 @@ export function useTransactionAdder(): (response: TransactionResponse, info: Tra
       }
       dispatch(addTransaction({ hash, from: account, info, chainId }))
     },
-    [account, chainId, dispatch]
+    [account, chainId, dispatch],
   )
 }
 
@@ -33,7 +33,7 @@ export function useMultichainTransactions(): [TransactionDetails, SupportedChain
   return ALL_SUPPORTED_CHAIN_IDS.flatMap((chainId) =>
     state[chainId]
       ? Object.values(state[chainId]).map((tx): [TransactionDetails, SupportedChainId] => [tx, chainId])
-      : []
+      : [],
   )
 }
 
@@ -97,6 +97,6 @@ export function useHasPendingApproval(token?: Token, spender?: string): boolean 
           return tx.info.spender === spender && tx.info.tokenAddress === token.address && isTransactionRecent(tx)
         }
       }),
-    [allTransactions, spender, token?.address]
+    [allTransactions, spender, token?.address],
   )
 }

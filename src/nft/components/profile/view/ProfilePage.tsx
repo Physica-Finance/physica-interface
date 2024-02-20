@@ -67,7 +67,7 @@ export const ProfilePage = () => {
     ({ reset }) => ({
       resetSellAssets: reset,
     }),
-    shallow
+    shallow,
   )
   const sellAssets = useSellAsset((state) => state.sellAssets)
   const toggleBag = useBag((state) => state.toggleBag)
@@ -104,7 +104,7 @@ export const ProfilePage = () => {
 
   const ownerCollections = useMemo(
     () => (isSuccess ? ownerCollectionsData?.pages.map((page) => page.data).flat() : null),
-    [isSuccess, ownerCollectionsData]
+    [isSuccess, ownerCollectionsData],
   )
 
   useEffect(() => {
@@ -230,7 +230,7 @@ const ProfilePageNfts = ({
           position={isMobile && isBagExpanded ? 'fixed' : 'static'}
           style={{
             transform: gridX.to(
-              (x) => `translate(${Number(x) - (!isMobile && isFiltersExpanded ? FILTER_SIDEBAR_WIDTH : -PADDING)}px)`
+              (x) => `translate(${Number(x) - (!isMobile && isFiltersExpanded ? FILTER_SIDEBAR_WIDTH : -PADDING)}px)`,
             ),
           }}
           paddingY="20"

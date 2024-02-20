@@ -16,11 +16,11 @@ import { computeRealizedLPFeeAmount, warningSeverity } from './prices'
 
 const pair12 = new Pair(
   CurrencyAmount.fromRawAmount(TEST_TOKEN_1, JSBI.BigInt(10000)),
-  CurrencyAmount.fromRawAmount(TEST_TOKEN_2, JSBI.BigInt(20000))
+  CurrencyAmount.fromRawAmount(TEST_TOKEN_2, JSBI.BigInt(20000)),
 )
 const pair23 = new Pair(
   CurrencyAmount.fromRawAmount(TEST_TOKEN_2, JSBI.BigInt(20000)),
-  CurrencyAmount.fromRawAmount(TEST_TOKEN_3, JSBI.BigInt(30000))
+  CurrencyAmount.fromRawAmount(TEST_TOKEN_3, JSBI.BigInt(30000)),
 )
 
 describe('prices', () => {
@@ -43,8 +43,8 @@ describe('prices', () => {
             ],
             v3Routes: [],
             tradeType: TradeType.EXACT_INPUT,
-          })
-        )
+          }),
+        ),
       ).toEqual(toCurrencyAmount(TEST_TOKEN_1, 3)) // 3% realized fee
     })
 
@@ -62,8 +62,8 @@ describe('prices', () => {
             ],
             v2Routes: [],
             tradeType: TradeType.EXACT_INPUT,
-          })
-        )
+          }),
+        ),
       ).toEqual(toCurrencyAmount(TEST_TOKEN_1, 10)) // 3% realized fee
     })
 
@@ -80,8 +80,8 @@ describe('prices', () => {
             ],
             v3Routes: [],
             tradeType: TradeType.EXACT_INPUT,
-          })
-        )
+          }),
+        ),
       ).toEqual(toCurrencyAmount(TEST_TOKEN_1, 5))
     })
 
@@ -104,8 +104,8 @@ describe('prices', () => {
               },
             ],
             tradeType: TradeType.EXACT_INPUT,
-          })
-        )
+          }),
+        ),
       ).toEqual(toCurrencyAmount(TEST_TOKEN_1, 8))
     })
   })

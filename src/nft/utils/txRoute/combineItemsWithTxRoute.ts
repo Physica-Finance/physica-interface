@@ -29,7 +29,7 @@ const getPriceDiff = (oldPrice: string, newPrice: string): { hasPriceDiff: boole
 const isAveragePriceOfPooledAssets = (
   asset: GenieAsset,
   numberOfAssetsInPool: number,
-  expectedPrice: string
+  expectedPrice: string,
 ): boolean => {
   return !getPriceDiff(calcAvgGroupPoolPrice(asset, numberOfAssetsInPool), expectedPrice).hasVisiblePriceDiff
 }
@@ -38,7 +38,7 @@ const isAveragedPrice = (
   item: UpdatedGenieAsset,
   items: UpdatedGenieAsset[],
   route: RoutingItem,
-  txRoute?: RoutingItem[]
+  txRoute?: RoutingItem[],
 ): boolean => {
   if (!(route && 'priceInfo' in route.assetOut)) return false
 
@@ -48,7 +48,7 @@ const isAveragedPrice = (
     isAveragePriceOfPooledAssets(
       item,
       items.filter((routeItem) => itemInRouteAndSamePool(item, routeItem, txRoute)).length,
-      route.assetOut.priceInfo.basePrice
+      route.assetOut.priceInfo.basePrice,
     )
   )
 }
@@ -64,7 +64,7 @@ const itemHasRoute = (item: UpdatedGenieAsset, txRoute?: RoutingItem[]): boolean
 const itemInRouteAndSamePool = (
   item: UpdatedGenieAsset,
   routeItem: UpdatedGenieAsset,
-  txRoute?: RoutingItem[]
+  txRoute?: RoutingItem[],
 ): boolean => {
   return (
     itemHasRoute(routeItem, txRoute) &&
@@ -76,7 +76,7 @@ const itemInRouteAndSamePool = (
 
 export const compareAssetsWithTransactionRoute = (
   items: UpdatedGenieAsset[],
-  txRoute?: RoutingItem[]
+  txRoute?: RoutingItem[],
 ): { hasPriceAdjustment: boolean; updatedAssets: UpdatedGenieAsset[] } => {
   let hasPriceAdjustment = false
   const updatedAssets = items.map((item) => {
@@ -94,7 +94,7 @@ export const compareAssetsWithTransactionRoute = (
     if (route && 'priceInfo' in route.assetOut) {
       const { hasPriceDiff, hasVisiblePriceDiff } = getPriceDiff(
         newPriceInfo.basePrice,
-        route.assetOut.priceInfo.basePrice
+        route.assetOut.priceInfo.basePrice,
       )
 
       newPriceInfo = route.assetOut.priceInfo

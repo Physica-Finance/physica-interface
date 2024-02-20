@@ -18,12 +18,12 @@ export function useSyncWidgetSettings() {
       const appTtl = widgetTtl === undefined ? widgetTtl : widgetTtl * 60
       setAppTtl(appTtl ?? DEFAULT_DEADLINE_FROM_NOW)
     },
-    [setAppTtl]
+    [setAppTtl],
   )
 
   const [appSlippage, setAppSlippage] = useUserSlippageTolerance()
   const [widgetSlippage, setWidgetSlippage] = useState<string | undefined>(
-    appSlippage === 'auto' ? undefined : appSlippage.toFixed(2)
+    appSlippage === 'auto' ? undefined : appSlippage.toFixed(2),
   )
   const onSlippageChange = useCallback(
     (widgetSlippage: Slippage) => {
@@ -34,7 +34,7 @@ export function useSyncWidgetSettings() {
         setAppSlippage(new Percent(Math.floor(Number(widgetSlippage.max) * 100), 10_000))
       }
     },
-    [setAppSlippage]
+    [setAppSlippage],
   )
 
   const [routerPreference, onRouterPreferenceChange] = useState(RouterPreference.API)
@@ -56,7 +56,7 @@ export function useSyncWidgetSettings() {
   }, [appSlippage, widgetSlippage, widgetTtl, routerPreference])
   const settingsHandlers: SwapEventHandlers = useMemo(
     () => ({ onSettingsReset, onSlippageChange, onTransactionDeadlineChange, onRouterPreferenceChange }),
-    [onSettingsReset, onSlippageChange, onTransactionDeadlineChange, onRouterPreferenceChange]
+    [onSettingsReset, onSlippageChange, onTransactionDeadlineChange, onRouterPreferenceChange],
   )
 
   return { settings: { settings, ...settingsHandlers } }

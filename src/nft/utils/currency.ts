@@ -47,7 +47,7 @@ export const ethNumberStandardFormatter = (
   amount: string | number | undefined,
   includeDollarSign = false,
   removeZeroes = false,
-  roundToNearestWholeNumber = false
+  roundToNearestWholeNumber = false,
 ): string => {
   if (!amount) return '-'
 

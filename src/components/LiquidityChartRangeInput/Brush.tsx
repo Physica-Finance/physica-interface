@@ -105,7 +105,7 @@ export const Brush = ({
 
       setLocalBrushExtent(scaled)
     },
-    [xScale, brushExtent, setBrushExtent]
+    [xScale, brushExtent, setBrushExtent],
   )
 
   // keep local and external brush extent in sync
@@ -268,6 +268,6 @@ export const Brush = ({
       westHandleColor,
       westHandleInView,
       xScale,
-    ]
+    ],
   )
 }

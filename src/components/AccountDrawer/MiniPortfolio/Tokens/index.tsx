@@ -40,7 +40,7 @@ export default function Tokens({ account }: { account: string }) {
     return !hideSmallBalances
       ? data?.portfolios?.[0].tokenBalances ?? []
       : data?.portfolios?.[0].tokenBalances?.filter((tokenBalance) =>
-          meetsThreshold(tokenBalance, hideSmallBalances)
+          meetsThreshold(tokenBalance, hideSmallBalances),
         ) ?? []
   }, [data?.portfolios, hideSmallBalances])
 
@@ -48,7 +48,7 @@ export default function Tokens({ account }: { account: string }) {
     return !hideSmallBalances
       ? []
       : data?.portfolios?.[0].tokenBalances?.filter(
-          (tokenBalance) => !meetsThreshold(tokenBalance, hideSmallBalances)
+          (tokenBalance) => !meetsThreshold(tokenBalance, hideSmallBalances),
         ) ?? []
   }, [data?.portfolios, hideSmallBalances])
 
@@ -70,12 +70,12 @@ export default function Tokens({ account }: { account: string }) {
           tokenBalance.token &&
           meetsThreshold(tokenBalance, hideSmallBalances) && (
             <TokenRow key={tokenBalance.id} {...tokenBalance} token={tokenBalance.token} />
-          )
+          ),
       )}
       <ExpandoRow isExpanded={showHiddenTokens} toggle={toggleHiddenTokens} numItems={hiddenTokens.length}>
         {hiddenTokens.map(
           (tokenBalance) =>
-            tokenBalance.token && <TokenRow key={tokenBalance.id} {...tokenBalance} token={tokenBalance.token} />
+            tokenBalance.token && <TokenRow key={tokenBalance.id} {...tokenBalance} token={tokenBalance.token} />,
         )}
       </ExpandoRow>
     </PortfolioTabWrapper>

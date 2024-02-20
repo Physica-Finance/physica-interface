@@ -16,7 +16,7 @@ const listCache = new Map<string, TokenList>()
 export default async function fetchTokenList(
   listUrl: string,
   resolveENSContentHash: (ensName: string) => Promise<string>,
-  skipValidation?: boolean
+  skipValidation?: boolean,
 ): Promise<TokenList> {
   const cached = listCache?.get(listUrl) // avoid spurious re-fetches
   if (cached) {

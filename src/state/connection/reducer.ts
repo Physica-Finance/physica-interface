@@ -22,7 +22,9 @@ const connectionSlice = createSlice({
   reducers: {
     updateConnectionError(
       state,
-      { payload: { connectionType, error } }: { payload: { connectionType: ConnectionType; error: string | undefined } }
+      {
+        payload: { connectionType, error },
+      }: { payload: { connectionType: ConnectionType; error: string | undefined } },
     ) {
       state.errorByConnectionType[connectionType] = error
     },

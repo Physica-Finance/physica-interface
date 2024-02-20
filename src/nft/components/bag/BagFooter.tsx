@@ -298,7 +298,7 @@ export const BagFooter = ({ setModalIsOpen, eventProperties }: BagFooterProps) =
   const defaultCurrency = useCurrency('ETH')
   const inputCurrencyBalance = useTokenBalance(
     account ?? undefined,
-    !!inputCurrency && inputCurrency.isToken ? inputCurrency : undefined
+    !!inputCurrency && inputCurrency.isToken ? inputCurrency : undefined,
   )
   const {
     isLocked: bagIsLocked,
@@ -312,7 +312,7 @@ export const BagFooter = ({ setModalIsOpen, eventProperties }: BagFooterProps) =
       setBagExpanded,
       setBagStatus,
     }),
-    shallow
+    shallow,
   )
   const [tokenSelectorOpen, setTokenSelectorOpen] = useState(false)
   const isPending = PENDING_BAG_STATUSES.includes(bagStatus)
@@ -335,7 +335,7 @@ export const BagFooter = ({ setModalIsOpen, eventProperties }: BagFooterProps) =
     trade?.inputAmount.currency.isToken ? (trade?.inputAmount as CurrencyAmount<Token>) : undefined,
     maximumAmountIn,
     shouldUsePayWithAnyToken,
-    true
+    true,
   )
   usePayWithAnyTokenSwap(trade, allowance, allowedSlippage)
   const priceImpact = usePriceImpact(trade)

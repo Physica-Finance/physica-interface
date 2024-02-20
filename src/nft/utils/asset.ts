@@ -3,7 +3,7 @@ import { DetailsOrigin, GenieAsset, Listing, UpdatedGenieAsset, WalletAsset } fr
 export function getRarityStatus(
   rarityStatusCache: Map<string, boolean>,
   id: string,
-  assets?: (GenieAsset | undefined)[]
+  assets?: (GenieAsset | undefined)[],
 ) {
   if (rarityStatusCache.has(id)) {
     return rarityStatusCache.get(id)

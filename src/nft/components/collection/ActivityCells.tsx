@@ -98,7 +98,7 @@ export const BuyCell = ({
   const isNftGraphqlEnabled = useNftGraphqlEnabled()
   const asset = useMemo(
     () => buildActivityAsset(event, collectionName, ethPriceInUSD, isNftGraphqlEnabled),
-    [event, collectionName, ethPriceInUSD, isNftGraphqlEnabled]
+    [event, collectionName, ethPriceInUSD, isNftGraphqlEnabled],
   )
   const isSelected = useMemo(() => {
     return itemsInBag.some((item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address)
@@ -195,7 +195,7 @@ export const PriceCell = ({ marketplace, price }: { marketplace?: Markets | stri
           ? formatEth(parseFloat(price?.toString()))
           : putCommas(formatEthPrice(price.toString()))?.toString()
         : null,
-    [isNftGraphqlEnabled, price]
+    [isNftGraphqlEnabled, price],
   )
 
   return (
@@ -276,7 +276,7 @@ export const EventCell = ({
           ? formatEth(parseFloat(price?.toString()))
           : putCommas(formatEthPrice(price.toString()))?.toString()
         : null,
-    [isNftGraphqlEnabled, price]
+    [isNftGraphqlEnabled, price],
   )
   return (
     <Column height="full" justifyContent="center" gap="4">

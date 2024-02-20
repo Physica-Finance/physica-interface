@@ -50,5 +50,5 @@ export default createReducer<MintState>(initialState, (builder) =>
           otherTypedValue: '',
         }
       }
-    })
+    }),
 )

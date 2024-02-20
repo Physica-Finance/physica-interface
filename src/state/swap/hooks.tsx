@@ -32,10 +32,10 @@ export function useSwapActionHandlers(dispatch: React.Dispatch<AnyAction>): {
         selectCurrency({
           field,
           currencyId: currency.isToken ? currency.address : currency.isNative ? 'PLANQ' : '',
-        })
+        }),
       )
     },
-    [dispatch]
+    [dispatch],
   )
 
   const onSwitchTokens = useCallback(() => {
@@ -46,14 +46,14 @@ export function useSwapActionHandlers(dispatch: React.Dispatch<AnyAction>): {
     (field: Field, typedValue: string) => {
       dispatch(typeInput({ field, typedValue }))
     },
-    [dispatch]
+    [dispatch],
   )
 
   const onChangeRecipient = useCallback(
     (recipient: string | null) => {
       dispatch(setRecipient({ recipient }))
     },
-    [dispatch]
+    [dispatch],
   )
 
   return {
@@ -99,19 +99,19 @@ export function useDerivedSwapInfo(state: SwapState): {
 
   const relevantTokenBalances = useCurrencyBalances(
     account ?? undefined,
-    useMemo(() => [inputCurrency ?? undefined, outputCurrency ?? undefined], [inputCurrency, outputCurrency])
+    useMemo(() => [inputCurrency ?? undefined, outputCurrency ?? undefined], [inputCurrency, outputCurrency]),
   )
 
   const isExactIn: boolean = independentField === Field.INPUT
   const parsedAmount = useMemo(
     () => tryParseCurrencyAmount(typedValue, (isExactIn ? inputCurrency : outputCurrency) ?? undefined),
-    [inputCurrency, isExactIn, outputCurrency, typedValue]
+    [inputCurrency, isExactIn, outputCurrency, typedValue],
   )
 
   const trade = useBestTrade(
     isExactIn ? TradeType.EXACT_INPUT : TradeType.EXACT_OUTPUT,
     parsedAmount,
-    (isExactIn ? outputCurrency : inputCurrency) ?? undefined
+    (isExactIn ? outputCurrency : inputCurrency) ?? undefined,
   )
 
   const currencyBalances = useMemo(
@@ -119,7 +119,7 @@ export function useDerivedSwapInfo(state: SwapState): {
       [Field.INPUT]: relevantTokenBalances[0],
       [Field.OUTPUT]: relevantTokenBalances[1],
     }),
-    [relevantTokenBalances]
+    [relevantTokenBalances],
   )
 
   const currencies: { [field in Field]?: Currency | null } = useMemo(
@@ -127,7 +127,7 @@ export function useDerivedSwapInfo(state: SwapState): {
       [Field.INPUT]: inputCurrency,
       [Field.OUTPUT]: outputCurrency,
     }),
-    [inputCurrency, outputCurrency]
+    [inputCurrency, outputCurrency],
   )
 
   // allowed slippage is either auto slippage, or custom user defined slippage if auto slippage disabled
@@ -177,7 +177,7 @@ export function useDerivedSwapInfo(state: SwapState): {
       trade,
       allowedSlippage,
     }),
-    [allowedSlippage, currencies, currencyBalances, inputError, parsedAmount, trade]
+    [allowedSlippage, currencies, currencyBalances, inputError, parsedAmount, trade],
   )
 }
 
@@ -262,7 +262,7 @@ export function useDefaultsFromURLSearch(): SwapState {
         inputCurrencyId,
         outputCurrencyId,
         recipient: parsedSwapState.recipient,
-      })
+      }),
     )
   }, [dispatch, chainId, parsedSwapState])
 

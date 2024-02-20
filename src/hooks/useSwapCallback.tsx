@@ -15,7 +15,7 @@ export function useSwapCallback(
   trade: Trade<Currency, Currency, TradeType> | undefined, // trade to execute, required
   fiatValues: { amountIn: number | undefined; amountOut: number | undefined }, // usd values for amount in and out, logged for analytics
   allowedSlippage: Percent, // in bips
-  permitSignature: PermitSignature | undefined
+  permitSignature: PermitSignature | undefined,
 ): { callback: null | (() => Promise<string>) } {
   const deadline = useTransactionDeadline()
 
@@ -52,7 +52,7 @@ export function useSwapCallback(
                 outputCurrencyId: currencyId(trade.outputAmount.currency),
                 outputCurrencyAmountRaw: trade.outputAmount.quotient.toString(),
                 expectedInputCurrencyAmountRaw: trade.inputAmount.quotient.toString(),
-              }
+              },
         )
         return response.hash
       })

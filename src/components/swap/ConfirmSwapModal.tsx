@@ -50,7 +50,7 @@ export default function ConfirmSwapModal({
   const [shouldLogModalCloseEvent, setShouldLogModalCloseEvent] = useState(false)
   const showAcceptChanges = useMemo(
     () => Boolean(trade && originalTrade && tradeMeaningfullyDiffers(trade, originalTrade)),
-    [originalTrade, trade]
+    [originalTrade, trade],
   )
 
   const onModalDismiss = useCallback(() => {
@@ -118,7 +118,7 @@ export default function ConfirmSwapModal({
           bottomContent={modalBottom}
         />
       ),
-    [onModalDismiss, modalBottom, modalHeader, swapErrorMessage]
+    [onModalDismiss, modalBottom, modalHeader, swapErrorMessage],
   )
 
   return (

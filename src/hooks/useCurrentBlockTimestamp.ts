@@ -9,7 +9,7 @@ export default function useCurrentBlockTimestamp(): BigNumber | undefined {
   const multicall = useInterfaceMulticall()
   const resultStr: string | undefined = useSingleCallResult(
     multicall,
-    'getCurrentBlockTimestamp'
+    'getCurrentBlockTimestamp',
   )?.result?.[0]?.toString()
   return useMemo(() => (typeof resultStr === 'string' ? BigNumber.from(resultStr) : undefined), [resultStr])
 }

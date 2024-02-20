@@ -24,7 +24,7 @@ export function useAllCurrencyCombinations(currencyA?: Currency, currencyB?: Cur
         .flatMap((base): [Token, Token][] => bases.map((otherBase) => [base, otherBase]))
         // though redundant with the first filter below, that expression runs more often, so this is probably worthwhile
         .filter(([t0, t1]) => !t0.equals(t1)),
-    [bases]
+    [bases],
   )
 
   return useMemo(
@@ -67,6 +67,6 @@ export function useAllCurrencyCombinations(currencyA?: Currency, currencyB?: Cur
               return true
             })
         : [],
-    [tokenA, tokenB, bases, basePairs, chainId]
+    [tokenA, tokenB, bases, basePairs, chainId],
   )
 }

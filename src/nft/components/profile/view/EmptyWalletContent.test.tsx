@@ -10,7 +10,7 @@ describe('EmptyWalletContent.tsx', () => {
         <EmptyWalletModule type="token" />
         <EmptyWalletModule type="activity" />
         <EmptyWalletModule type="pool" />
-      </div>
+      </div>,
     )
     expect(asFragment()).toMatchSnapshot()
   })

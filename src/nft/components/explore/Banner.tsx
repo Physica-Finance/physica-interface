@@ -132,11 +132,11 @@ const Banner = () => {
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    }
+    },
   )
   const { data: gqlData } = useTrendingCollections(
     TRENDING_COLLECTION_SIZE + EXCLUDED_COLLECTIONS.length,
-    HistoryDuration.Day
+    HistoryDuration.Day,
   )
 
   const collections = useMemo(() => {
@@ -152,7 +152,7 @@ const Banner = () => {
       if (!collections) return
       setActiveCollectionIdx((idx) => calculateCardIndex(idx + direction, collections.length))
     },
-    [collections]
+    [collections],
   )
 
   const activeCollection = collections?.[activeCollectionIdx]

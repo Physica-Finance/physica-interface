@@ -19,7 +19,7 @@ function mockSwapInfo(
   inputCurrency: Token,
   inputCurrencyAmountRaw: string,
   outputCurrency: Token,
-  outputCurrencyAmountRaw: string
+  outputCurrencyAmountRaw: string,
 ): ExactInputSwapTransactionInfo | ExactOutputSwapTransactionInfo {
   if (type === MockTradeType.EXACT_INPUT) {
     return {
@@ -111,7 +111,7 @@ jest.mock('../../../../state/transactions/hooks', () => {
               MockUSDC_MAINNET,
               mockCurrencyAmountRawUSDC,
               MockDAI,
-              mockCurrencyAmountRaw
+              mockCurrencyAmountRaw,
             ),
             ...mockCommonFields('0x123', mockAccount1, MockTxStatus.Confirmed),
           } as TransactionDetails,
@@ -123,9 +123,9 @@ jest.mock('../../../../state/transactions/hooks', () => {
             MockUSDC_MAINNET,
             mockCurrencyAmountRawUSDC,
             MockDAI,
-            mockCurrencyAmountRaw
+            mockCurrencyAmountRaw,
           ),
-          '0xswap_exact_input'
+          '0xswap_exact_input',
         ),
         ...mockMultiStatus(
           mockSwapInfo(
@@ -133,9 +133,9 @@ jest.mock('../../../../state/transactions/hooks', () => {
             MockUSDC_MAINNET,
             mockCurrencyAmountRawUSDC,
             MockDAI,
-            mockCurrencyAmountRaw
+            mockCurrencyAmountRaw,
           ),
-          '0xswap_exact_output'
+          '0xswap_exact_output',
         ),
         ...mockMultiStatus(
           {
@@ -143,7 +143,7 @@ jest.mock('../../../../state/transactions/hooks', () => {
             tokenAddress: MockDAI.address,
             spender: mockSpenderAddress,
           },
-          '0xapproval'
+          '0xapproval',
         ),
         ...mockMultiStatus(
           {
@@ -152,7 +152,7 @@ jest.mock('../../../../state/transactions/hooks', () => {
             currencyAmountRaw: mockCurrencyAmountRaw,
             chainId: mockChainId,
           },
-          '0xwrap'
+          '0xwrap',
         ),
         ...mockMultiStatus(
           {
@@ -161,7 +161,7 @@ jest.mock('../../../../state/transactions/hooks', () => {
             currencyAmountRaw: mockCurrencyAmountRaw,
             chainId: mockChainId,
           },
-          '0xunwrap'
+          '0xunwrap',
         ),
         ...mockMultiStatus(
           {
@@ -173,7 +173,7 @@ jest.mock('../../../../state/transactions/hooks', () => {
             expectedAmountBaseRaw: mockCurrencyAmountRawUSDC,
             expectedAmountQuoteRaw: mockCurrencyAmountRaw,
           },
-          '0xadd_liquidity_v3'
+          '0xadd_liquidity_v3',
         ),
         ...mockMultiStatus(
           {
@@ -183,7 +183,7 @@ jest.mock('../../../../state/transactions/hooks', () => {
             expectedAmountBaseRaw: mockCurrencyAmountRawUSDC,
             expectedAmountQuoteRaw: mockCurrencyAmountRaw,
           },
-          '0xremove_liquidity_v3'
+          '0xremove_liquidity_v3',
         ),
         ...mockMultiStatus(
           {
@@ -193,7 +193,7 @@ jest.mock('../../../../state/transactions/hooks', () => {
             expectedAmountBaseRaw: mockCurrencyAmountRawUSDC,
             expectedAmountQuoteRaw: mockCurrencyAmountRaw,
           },
-          '0xadd_liquidity_v2'
+          '0xadd_liquidity_v2',
         ),
         ...mockMultiStatus(
           {
@@ -203,7 +203,7 @@ jest.mock('../../../../state/transactions/hooks', () => {
             expectedCurrencyOwed0: mockCurrencyAmountRawUSDC,
             expectedCurrencyOwed1: mockCurrencyAmountRaw,
           },
-          '0xcollect_fees'
+          '0xcollect_fees',
         ),
         ...mockMultiStatus(
           {
@@ -212,7 +212,7 @@ jest.mock('../../../../state/transactions/hooks', () => {
             quoteCurrencyId: MockDAI.address,
             isFork: false,
           },
-          '0xmigrate_v3_liquidity'
+          '0xmigrate_v3_liquidity',
         ),
       ]
     },
@@ -227,7 +227,7 @@ describe('parseLocalActivity', () => {
         MockUSDC_MAINNET,
         mockCurrencyAmountRawUSDC,
         MockDAI,
-        mockCurrencyAmountRaw
+        mockCurrencyAmountRaw,
       ),
       receipt: {
         transactionHash: '0x123',
@@ -268,7 +268,7 @@ describe('parseLocalActivity', () => {
         MockUSDC_MAINNET,
         mockCurrencyAmountRawUSDC,
         MockDAI,
-        mockCurrencyAmountRaw
+        mockCurrencyAmountRaw,
       ),
       receipt: {
         transactionHash: '0x123',
@@ -292,7 +292,7 @@ describe('parseLocalActivity', () => {
         MockUSDC_MAINNET,
         mockCurrencyAmountRawUSDC,
         MockDAI,
-        mockCurrencyAmountRaw
+        mockCurrencyAmountRaw,
       ),
       receipt: {
         transactionHash: '0x123',

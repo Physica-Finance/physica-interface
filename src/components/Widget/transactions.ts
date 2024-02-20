@@ -137,7 +137,7 @@ export function useSyncWidgetTransactions() {
         }
       }
     },
-    [addTransaction, chainId, trace]
+    [addTransaction, chainId, trace],
   )
 
   const onTxSuccess: OnTxSuccess = useCallback((hash: string, tx) => {
@@ -152,7 +152,7 @@ export function useSyncWidgetTransactions() {
           blockNumber: tx.receipt?.blockNumber,
           allowedSlippage: slippageTolerance,
           succeeded: tx.receipt?.status === 1,
-        })
+        }),
       )
     }
   }, [])

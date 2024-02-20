@@ -20,7 +20,7 @@ describe('#getExplorerLink', () => {
   })
   it('bnb chain', () => {
     expect(getExplorerLink(SupportedChainId.BNB, 'abc', ExplorerDataType.ADDRESS)).toEqual(
-      'https://bscscan.com/address/abc'
+      'https://bscscan.com/address/abc',
     )
   })
   it('polygon', () => {

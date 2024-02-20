@@ -20,23 +20,11 @@ export function getWarningCopy(warning: Warning | null, plural = false) {
   if (warning) {
     switch (warning.level) {
       case WARNING_LEVEL.MEDIUM:
-        heading = (
-          <Plural
-            value={plural ? 2 : 1}
-            _1="This token isn't provide Listing by us."
-            other="Please DYOR."
-          />
-        )
+        heading = <Plural value={plural ? 2 : 1} _1="This token isn't provide Listing by us." other="Please DYOR." />
         description = <Trans>Always conduct your own research before trading.</Trans>
         break
       case WARNING_LEVEL.UNKNOWN:
-        heading = (
-          <Plural
-            value={plural ? 2 : 1}
-            _1="This token isn't provide Listing by us."
-            other="Please DYOR."
-          />
-        )
+        heading = <Plural value={plural ? 2 : 1} _1="This token isn't provide Listing by us." other="Please DYOR." />
         description = <Trans>Always conduct your own research before trading.</Trans>
         break
       case WARNING_LEVEL.BLOCKED:

@@ -135,7 +135,7 @@ describe('swap reducer', () => {
             chainId: 1,
             address: '0x123',
           },
-        })
+        }),
       )
       expect(store.getState().tokens).toEqual({ 1: { '0x123': { address: '0x123', chainId: 1 } } })
     })
@@ -165,7 +165,7 @@ describe('swap reducer', () => {
       store.dispatch(
         addSerializedPair({
           serializedPair: buildSerializedPair('0x123', '0x456', 1),
-        })
+        }),
       )
       expect(store.getState().pairs).toEqual({
         1: { '0x123;0x456': buildSerializedPair('0x123', '0x456', 1) },
@@ -176,12 +176,12 @@ describe('swap reducer', () => {
       store.dispatch(
         addSerializedPair({
           serializedPair: buildSerializedPair('0x123', '0x456', 1),
-        })
+        }),
       )
       store.dispatch(
         addSerializedPair({
           serializedPair: buildSerializedPair('0x123', '0x456', 1),
-        })
+        }),
       )
       expect(store.getState().pairs).toEqual({
         1: { '0x123;0x456': buildSerializedPair('0x123', '0x456', 1) },
@@ -192,12 +192,12 @@ describe('swap reducer', () => {
       store.dispatch(
         addSerializedPair({
           serializedPair: buildSerializedPair('0x123', '0x456', 1),
-        })
+        }),
       )
       store.dispatch(
         addSerializedPair({
           serializedPair: buildSerializedPair('0x123', '0x789', 1),
-        })
+        }),
       )
       expect(store.getState().pairs).toEqual({
         1: {
@@ -211,12 +211,12 @@ describe('swap reducer', () => {
       store.dispatch(
         addSerializedPair({
           serializedPair: buildSerializedPair('0x123', '0x456', 1),
-        })
+        }),
       )
       store.dispatch(
         addSerializedPair({
           serializedPair: buildSerializedPair('0x123', '0x456', 5),
-        })
+        }),
       )
       expect(store.getState().pairs).toEqual({
         1: {

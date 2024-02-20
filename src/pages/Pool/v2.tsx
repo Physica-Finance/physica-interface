@@ -99,24 +99,24 @@ export default function Pool() {
   if (unsupportedV2Network) trackedTokenPairs = []
   const tokenPairsWithLiquidityTokens = useMemo(
     () => trackedTokenPairs.map((tokens) => ({ liquidityToken: toV2LiquidityToken(tokens), tokens })),
-    [trackedTokenPairs]
+    [trackedTokenPairs],
   )
   const liquidityTokens = useMemo(
     () => tokenPairsWithLiquidityTokens.map((tpwlt) => tpwlt.liquidityToken),
-    [tokenPairsWithLiquidityTokens]
+    [tokenPairsWithLiquidityTokens],
   )
   const [v2PairsBalances, fetchingV2PairBalances] = useTokenBalancesWithLoadingIndicator(
     account ?? undefined,
-    liquidityTokens
+    liquidityTokens,
   )
 
   // fetch the reserves for all V2 pools in which the user has a balance
   const liquidityTokensWithBalances = useMemo(
     () =>
       tokenPairsWithLiquidityTokens.filter(({ liquidityToken }) =>
-        v2PairsBalances[liquidityToken.address]?.greaterThan('0')
+        v2PairsBalances[liquidityToken.address]?.greaterThan('0'),
       ),
-    [tokenPairsWithLiquidityTokens, v2PairsBalances]
+    [tokenPairsWithLiquidityTokens, v2PairsBalances],
   )
 
   const v2Pairs = useV2Pairs(liquidityTokensWithBalances.map(({ tokens }) => tokens))
@@ -128,7 +128,7 @@ export default function Pool() {
   // show liquidity even if its deposited in rewards contract
   const stakingInfo = useStakingInfo()
   const stakingInfosWithBalance = stakingInfo?.filter((pool) =>
-    JSBI.greaterThan(pool.stakedAmount.quotient, BIG_INT_ZERO)
+    JSBI.greaterThan(pool.stakedAmount.quotient, BIG_INT_ZERO),
   )
   const stakingPairs = useV2Pairs(stakingInfosWithBalance?.map((stakingInfo) => stakingInfo.tokens))
 
@@ -251,7 +251,7 @@ export default function Pool() {
                             pair={stakingPair[1]}
                             stakedBalance={stakingInfosWithBalance[i].stakedAmount}
                           />
-                        )
+                        ),
                     )}
                     <RowFixed justify="center" style={{ width: '100%' }}>
                       <ButtonOutlined

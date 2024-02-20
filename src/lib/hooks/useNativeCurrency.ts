@@ -12,6 +12,6 @@ export default function useNativeCurrency(): NativeCurrency | Token {
         ? nativeOnChain(chainId)
         : // display Planq when not connected
           nativeOnChain(SupportedChainId.PLANQ),
-    [chainId]
+    [chainId],
   )
 }

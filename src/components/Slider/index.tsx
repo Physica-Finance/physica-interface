@@ -109,7 +109,7 @@ export default function Slider({
     (e: ChangeEvent<HTMLInputElement>) => {
       onChange(parseInt(e.target.value))
     },
-    [onChange]
+    [onChange],
   )
 
   return (

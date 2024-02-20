@@ -109,7 +109,7 @@ function AddLiquidity() {
 
   // check for existing position if tokenId in url
   const { position: existingPositionDetails, loading: positionLoading } = useV3PositionFromTokenId(
-    tokenId ? BigNumber.from(tokenId) : undefined
+    tokenId ? BigNumber.from(tokenId) : undefined,
   )
   const hasExistingPosition = !!existingPositionDetails && !positionLoading
   const { position: existingPosition } = useDerivedPositionInfo(existingPositionDetails)
@@ -154,7 +154,7 @@ function AddLiquidity() {
     quoteCurrency ?? undefined,
     feeAmount,
     baseCurrency ?? undefined,
-    existingPosition
+    existingPosition,
   )
 
   const { onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput, onStartPriceInput } =
@@ -190,7 +190,7 @@ function AddLiquidity() {
         [field]: maxAmountSpend(currencyBalances[field]),
       }
     },
-    {}
+    {},
   )
 
   const atMaxAmounts: { [field in Field]?: CurrencyAmount<Currency> } = [Field.CURRENCY_A, Field.CURRENCY_B].reduce(
@@ -200,7 +200,7 @@ function AddLiquidity() {
         [field]: maxAmounts[field]?.equalTo(parsedAmounts[field] ?? '0'),
       }
     },
-    {}
+    {},
   )
 
   const argentWalletContract = useArgentWalletContract()
@@ -208,15 +208,15 @@ function AddLiquidity() {
   // check whether the user has approved the router on the tokens
   const [approvalA, approveACallback] = useApproveCallback(
     argentWalletContract ? undefined : parsedAmounts[Field.CURRENCY_A],
-    chainId ? NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId] : undefined
+    chainId ? NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId] : undefined,
   )
   const [approvalB, approveBCallback] = useApproveCallback(
     argentWalletContract ? undefined : parsedAmounts[Field.CURRENCY_B],
-    chainId ? NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId] : undefined
+    chainId ? NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId] : undefined,
   )
 
   const allowedSlippage = useUserSlippageToleranceWithDefault(
-    outOfRange ? ZERO_PERCENT : DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE
+    outOfRange ? ZERO_PERCENT : DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE,
   )
 
   async function onAdd() {
@@ -344,7 +344,7 @@ function AddLiquidity() {
         }
       }
     },
-    [chainId]
+    [chainId],
   )
 
   const handleCurrencyASelect = useCallback(
@@ -356,7 +356,7 @@ function AddLiquidity() {
         navigate(`/add/${idA}/${idB}`)
       }
     },
-    [handleCurrencySelect, currencyIdB, navigate]
+    [handleCurrencySelect, currencyIdB, navigate],
   )
 
   const handleCurrencyBSelect = useCallback(
@@ -368,7 +368,7 @@ function AddLiquidity() {
         navigate(`/add/${idA}/${idB}`)
       }
     },
-    [handleCurrencySelect, currencyIdA, navigate]
+    [handleCurrencySelect, currencyIdA, navigate],
   )
 
   const handleFeePoolSelect = useCallback(
@@ -377,7 +377,7 @@ function AddLiquidity() {
       onRightRangeInput('')
       navigate(`/add/${currencyIdA}/${currencyIdB}/${newFeeAmount}`)
     },
-    [currencyIdA, currencyIdB, navigate, onLeftRangeInput, onRightRangeInput]
+    [currencyIdA, currencyIdB, navigate, onLeftRangeInput, onRightRangeInput],
   )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -553,14 +553,14 @@ function AddLiquidity() {
       data: usdcValueCurrencyA ? parseFloat(usdcValueCurrencyA.toSignificant()) : undefined,
       isLoading: false,
     }),
-    [usdcValueCurrencyA]
+    [usdcValueCurrencyA],
   )
   const currencyBFiat = useMemo(
     () => ({
       data: usdcValueCurrencyB ? parseFloat(usdcValueCurrencyB.toSignificant()) : undefined,
       isLoading: false,
     }),
-    [usdcValueCurrencyB]
+    [usdcValueCurrencyB],
   )
 
   const owner = useSingleCallResult(tokenId ? positionManager : null, 'ownerOf', [tokenId]).result?.[0]
@@ -630,7 +630,7 @@ function AddLiquidity() {
                         onFieldAInput(formattedAmounts[Field.CURRENCY_B] ?? '')
                       }
                       navigate(
-                        `/add/${currencyIdB as string}/${currencyIdA as string}${feeAmount ? '/' + feeAmount : ''}`
+                        `/add/${currencyIdB as string}/${currencyIdA as string}${feeAmount ? '/' + feeAmount : ''}`,
                       )
                     }}
                   />

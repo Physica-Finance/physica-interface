@@ -75,7 +75,7 @@ function isSameAddress(a?: string, b?: string) {
 function callsPositionManagerContract(assetActivity: AssetActivityPartsFragment) {
   return isSameAddress(
     assetActivity.transaction.to,
-    NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[fromGraphQLChain(assetActivity.chain)]
+    NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[fromGraphQLChain(assetActivity.chain)],
   )
 }
 
@@ -243,7 +243,7 @@ function parseRemoteActivity(assetActivity: AssetActivityPartsFragment): Activit
 
         return acc
       },
-      { NftTransfer: [], TokenTransfer: [], TokenApproval: [], NftApproval: [], NftApproveForAll: [] }
+      { NftTransfer: [], TokenTransfer: [], TokenApproval: [], NftApproval: [], NftApproveForAll: [] },
     )
     const defaultFields = {
       hash: assetActivity.transaction.hash,

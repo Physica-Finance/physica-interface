@@ -24,7 +24,7 @@ export function outboundLink(
   }: {
     label: string
   },
-  hitCallback: () => unknown
+  hitCallback: () => unknown,
 ) {
   return googleAnalytics.outboundLink({ label }, hitCallback)
 }

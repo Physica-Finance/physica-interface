@@ -192,7 +192,7 @@ export const ListPage = () => {
       sellAssets,
       issues,
     }),
-    shallow
+    shallow,
   )
   const { listings, collectionsRequiringApproval, setLooksRareNonce, setCollectionStatusAndCallback } = useNFTList(
     ({ listings, collectionsRequiringApproval, setLooksRareNonce, setCollectionStatusAndCallback }) => ({
@@ -201,7 +201,7 @@ export const ListPage = () => {
       setLooksRareNonce,
       setCollectionStatusAndCallback,
     }),
-    shallow
+    shallow,
   )
 
   const totalEthListingValue = useMemo(() => getTotalEthValue(sellAssets), [sellAssets])

@@ -15,7 +15,7 @@ export function useSubscribeTransactionState(setModalIsOpen: (isOpen: boolean) =
       setBagStatus,
       setLocked,
     }),
-    shallow
+    shallow,
   )
 
   useEffect(() => {

@@ -102,7 +102,7 @@ export const BagRow = ({ asset, usdPrice, removeAsset, showRemove, grayscale, is
   const assetEthPriceFormatted = formatWeiToDecimal(assetEthPrice)
   const assetUSDPriceFormatted = ethNumberStandardFormatter(
     usdPrice ? parseFloat(formatEther(assetEthPrice)) * usdPrice : usdPrice,
-    true
+    true,
   )
 
   const handleRemoveClick = useCallback(
@@ -111,7 +111,7 @@ export const BagRow = ({ asset, usdPrice, removeAsset, showRemove, grayscale, is
       e.stopPropagation()
       removeAsset([asset])
     },
-    [asset, removeAsset]
+    [asset, removeAsset],
   )
 
   return (
@@ -183,7 +183,7 @@ export const PriceChangeBagRow = ({ asset, usdPrice, markAssetAsReviewed, top, i
       const toKeep = false
       markAssetAsReviewed(asset, toKeep)
     },
-    [asset, markAssetAsReviewed]
+    [asset, markAssetAsReviewed],
   )
   const handleKeep = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
@@ -192,14 +192,14 @@ export const PriceChangeBagRow = ({ asset, usdPrice, markAssetAsReviewed, top, i
       const toKeep = true
       markAssetAsReviewed(asset, toKeep)
     },
-    [asset, markAssetAsReviewed]
+    [asset, markAssetAsReviewed],
   )
   return (
     <Column className={styles.priceChangeColumn} borderTopColor={top ? 'backgroundOutline' : 'transparent'}>
       <Row className={styles.priceChangeRow}>
         {isPriceIncrease ? <SquareArrowUpIcon /> : <SquareArrowDownIcon />}
         <Box>{`Price ${isPriceIncrease ? 'increased' : 'decreased'} from ${formatWeiToDecimal(
-          asset.priceInfo.ETHPrice
+          asset.priceInfo.ETHPrice,
         )} ETH`}</Box>
       </Row>
       <Box style={{ marginLeft: '-8px', marginRight: '-8px' }}>

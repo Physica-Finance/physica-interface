@@ -147,14 +147,14 @@ function getDateFromBlock(
   targetBlock: number | undefined,
   currentBlock: number | undefined,
   averageBlockTimeInSeconds: number | undefined,
-  currentTimestamp: BigNumber | undefined
+  currentTimestamp: BigNumber | undefined,
 ): Date | undefined {
   if (targetBlock && currentBlock && averageBlockTimeInSeconds && currentTimestamp) {
     const date = new Date()
     date.setTime(
       currentTimestamp
         .add(BigNumber.from(averageBlockTimeInSeconds).mul(BigNumber.from(targetBlock - currentBlock)))
-        .toNumber() * ms`1 second`
+        .toNumber() * ms`1 second`,
     )
     return date
   }
@@ -199,13 +199,13 @@ export default function VotePage() {
     proposalData?.startBlock,
     currentBlock,
     (chainId && AVERAGE_BLOCK_TIME_IN_SECS[chainId]) ?? DEFAULT_AVERAGE_BLOCK_TIME_IN_SECS,
-    currentTimestamp
+    currentTimestamp,
   )
   const endDate = getDateFromBlock(
     proposalData?.endBlock,
     currentBlock,
     (chainId && AVERAGE_BLOCK_TIME_IN_SECS[chainId]) ?? DEFAULT_AVERAGE_BLOCK_TIME_IN_SECS,
-    currentTimestamp
+    currentTimestamp,
   )
   const now = new Date()
   const locale = useActiveLocale()
@@ -245,13 +245,13 @@ export default function VotePage() {
 
   const uniBalance: CurrencyAmount<Token> | undefined = useTokenBalance(
     account ?? undefined,
-    chainId ? UNI[chainId] : undefined
+    chainId ? UNI[chainId] : undefined,
   )
   const userDelegatee: string | undefined = useUserDelegatee()
 
   // in blurb link to home page if they are able to unlock
   const showLinkForUnlock = Boolean(
-    uniBalance && JSBI.notEqual(uniBalance.quotient, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS
+    uniBalance && JSBI.notEqual(uniBalance.quotient, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS,
   )
 
   // show links in propsoal details if content is an address

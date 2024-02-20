@@ -92,7 +92,7 @@ export const Activity = ({ contractAddress, rarityVerified, collectionName, chai
             .filter((key) => activeFilters[key as ActivityEventType])
             .map((key) => key as ActivityEventType),
         },
-        pageParam
+        pageParam,
       )
     },
     {
@@ -103,7 +103,7 @@ export const Activity = ({ contractAddress, rarityVerified, collectionName, chai
       refetchIntervalInBackground: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    }
+    },
   )
 
   const {
@@ -118,7 +118,7 @@ export const Activity = ({ contractAddress, rarityVerified, collectionName, chai
         .filter((key) => activeFilters[key]),
       address: contractAddress,
     },
-    25
+    25,
   )
 
   const { events, gatedHasNext, gatedLoadMore, gatedLoading, gatedIsLoadingMore } = {
@@ -163,7 +163,7 @@ export const Activity = ({ contractAddress, rarityVerified, collectionName, chai
         </FilterBox>
       )
     },
-    [activeFilters, isDarkMode]
+    [activeFilters, isDarkMode],
   )
 
   return (
@@ -225,7 +225,7 @@ export const Activity = ({ contractAddress, rarityVerified, collectionName, chai
                         ethPriceInUSD={ethPriceInUSD}
                       />
                     </Box>
-                  )
+                  ),
               )}
             </InfiniteScroll>
           </Column>

@@ -76,7 +76,7 @@ export const useBag = create<BagState>()(
             let index = -1
             if (asset.tokenType !== NftStandard.Erc1155) {
               index = itemsInBag.findIndex(
-                (n) => n.asset.tokenId === asset.tokenId && n.asset.address === asset.address
+                (n) => n.asset.tokenId === asset.tokenId && n.asset.address === asset.address,
               )
             }
             if (index !== -1) {
@@ -112,8 +112,8 @@ export const useBag = create<BagState>()(
               !assets.some((asset) =>
                 asset.id
                   ? asset.id === item.asset.id
-                  : asset.tokenId === item.asset.tokenId && asset.address === item.asset.address
-              )
+                  : asset.tokenId === item.asset.tokenId && asset.address === item.asset.address,
+              ),
           )
           return {
             itemsInBag: itemsCopy,
@@ -125,7 +125,7 @@ export const useBag = create<BagState>()(
         set(({ itemsInBag }) => {
           if (get().isLocked) return { itemsInBag: get().itemsInBag }
           const itemsInBagCopy = itemsInBag.map((item) =>
-            item.asset.address === contractAddress && item.inSweep ? { ...item, inSweep: false } : item
+            item.asset.address === contractAddress && item.inSweep ? { ...item, inSweep: false } : item,
           )
           if (itemsInBag.length === 0)
             return {
@@ -150,6 +150,6 @@ export const useBag = create<BagState>()(
           else return {}
         }),
     }),
-    { name: 'useBag' }
-  )
+    { name: 'useBag' },
+  ),
 )

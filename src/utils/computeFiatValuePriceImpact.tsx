@@ -3,7 +3,7 @@ import { Percent } from '@uniswap/sdk-core'
 const PRECISION = 10000
 export function computeFiatValuePriceImpact(
   fiatValueInput: number | undefined | null,
-  fiatValueOutput: number | undefined | null
+  fiatValueOutput: number | undefined | null,
 ): Percent | undefined {
   if (!fiatValueOutput || !fiatValueInput) return undefined
   if (fiatValueInput === 0) return undefined

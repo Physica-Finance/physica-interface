@@ -134,7 +134,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
 
   const { prices, blanks } = useMemo(
     () => (originalPrices && originalPrices.length > 0 ? fixChart(originalPrices) : { prices: null, blanks: [] }),
-    [originalPrices]
+    [originalPrices],
   )
 
   const chartAvailable = !!prices && prices.length > 0
@@ -167,7 +167,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
   // x scale
   const timeScale = useMemo(
     () => scaleLinear().domain([startingPrice.timestamp, endingPrice.timestamp]).range([0, width]),
-    [startingPrice, endingPrice, width]
+    [startingPrice, endingPrice, width],
   )
   // y scale
   const rdScale = useMemo(
@@ -175,12 +175,12 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
       scaleLinear()
         .domain(getPriceBounds(originalPrices ?? []))
         .range([graphInnerHeight, 0]),
-    [originalPrices, graphInnerHeight]
+    [originalPrices, graphInnerHeight],
   )
 
   function tickFormat(
     timePeriod: TimePeriod,
-    locale: string
+    locale: string,
   ): [TickFormatter<NumberValue>, (v: number) => string, NumberValue[]] {
     const offsetTime = (endingPrice.timestamp.valueOf() - startingPrice.timestamp.valueOf()) / 24
     const startDateWithOffset = new Date((startingPrice.timestamp.valueOf() + offsetTime) * 1000)
@@ -230,7 +230,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
       const index = bisect(
         prices.map((x) => x.timestamp),
         x0,
-        1
+        1,
       )
 
       const d0 = prices[index - 1]
@@ -247,7 +247,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
         setDisplayPrice(pricePoint)
       }
     },
-    [timeScale, prices]
+    [timeScale, prices],
   )
 
   const resetDisplay = useCallback(() => {

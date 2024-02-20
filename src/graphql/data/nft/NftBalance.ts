@@ -123,7 +123,7 @@ export function useNftBalance(
   after?: string,
   last?: number,
   before?: string,
-  skip = false
+  skip = false,
 ) {
   const { data, loading, fetchMore } = useNftBalanceQuery({
     variables: {
@@ -152,7 +152,7 @@ export function useNftBalance(
           after: data?.nftBalances?.pageInfo?.endCursor,
         },
       }),
-    [data?.nftBalances?.pageInfo?.endCursor, fetchMore]
+    [data?.nftBalances?.pageInfo?.endCursor, fetchMore],
   )
 
   const walletAssets: WalletAsset[] | undefined = data?.nftBalances?.edges?.map((queryAsset) => {

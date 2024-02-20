@@ -30,7 +30,7 @@ function useETHValue(currencyAmount?: CurrencyAmount<Currency>): {
     TradeType.EXACT_OUTPUT,
     amountOut,
     currencyAmount?.currency,
-    RouterPreference.PRICE
+    RouterPreference.PRICE,
   )
 
   // Get ETH value of ETH or WETH

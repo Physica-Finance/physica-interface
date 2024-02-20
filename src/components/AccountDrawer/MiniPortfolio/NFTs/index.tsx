@@ -19,7 +19,7 @@ export default function NFTs({ account }: { account: string }) {
     undefined,
     undefined,
     undefined,
-    !walletDrawerOpen
+    !walletDrawerOpen,
   )
 
   const [currentTokenPlayingMedia, setCurrentTokenPlayingMedia] = useState<string | undefined>()

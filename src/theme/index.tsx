@@ -20,7 +20,7 @@ export const MEDIA_WIDTHS = {
 const MAX_CONTENT_WIDTH = '1200px'
 
 const deprecated_mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(
-  MEDIA_WIDTHS
+  MEDIA_WIDTHS,
 ).reduce((acc, size) => {
   acc[size] = (a: any, b: any, c: any) => css`
     @media (max-width: ${(MEDIA_WIDTHS as any)[size]}px) {

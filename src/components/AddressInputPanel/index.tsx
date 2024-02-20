@@ -98,7 +98,7 @@ export default function AddressInputPanel({
       const withoutSpaces = input.replace(/\s+/g, '')
       onChange(withoutSpaces)
     },
-    [onChange]
+    [onChange],
   )
 
   const error = Boolean(value.length > 0 && !loading && !address)

@@ -135,7 +135,7 @@ describe('#useBestV3Trade ExactOut', () => {
       TradeType.EXACT_OUTPUT,
       undefined,
       USDC_MAINNET,
-      RouterPreference.CLIENT
+      RouterPreference.CLIENT,
     )
     expect(useClientSideV3Trade).toHaveBeenCalledWith(TradeType.EXACT_OUTPUT, DAIAmount, USDC_MAINNET)
     expect(result.current).toEqual({ state: TradeState.VALID, trade: undefined })
@@ -152,7 +152,7 @@ describe('#useBestV3Trade ExactOut', () => {
       TradeType.EXACT_OUTPUT,
       undefined,
       USDC_MAINNET,
-      RouterPreference.CLIENT
+      RouterPreference.CLIENT,
     )
     expect(result.current).toEqual({ state: TradeState.NO_ROUTE_FOUND, trade: undefined })
   })

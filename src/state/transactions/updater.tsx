@@ -20,7 +20,7 @@ export default function Updater() {
   const onCheck = useCallback(
     ({ chainId, hash, blockNumber }: { chainId: number; hash: string; blockNumber: number }) =>
       dispatch(checkedTransaction({ chainId, hash, blockNumber })),
-    [dispatch]
+    [dispatch],
   )
   const onReceipt = useCallback(
     ({ chainId, hash, receipt }: { chainId: number; hash: string; receipt: SerializableTransactionReceipt }) => {
@@ -38,7 +38,7 @@ export default function Updater() {
             transactionHash: receipt.transactionHash,
             transactionIndex: receipt.transactionIndex,
           },
-        })
+        }),
       )
 
       addPopup(
@@ -46,10 +46,10 @@ export default function Updater() {
           txn: { hash },
         },
         hash,
-        isL2 ? L2_TXN_DISMISS_MS : DEFAULT_TXN_DISMISS_MS
+        isL2 ? L2_TXN_DISMISS_MS : DEFAULT_TXN_DISMISS_MS,
       )
     },
-    [addPopup, dispatch, isL2]
+    [addPopup, dispatch, isL2],
   )
 
   const pendingTransactions = useMemo(() => (chainId ? transactions[chainId] ?? {} : {}), [chainId, transactions])

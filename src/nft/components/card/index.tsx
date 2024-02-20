@@ -75,7 +75,7 @@ export const NftCard = ({
       bagExpanded: state.bagExpanded,
       setBagExpanded: state.setBagExpanded,
     }),
-    shallow
+    shallow,
   )
 
   const collectionNft = 'marketplace' in asset
@@ -112,7 +112,7 @@ export const NftCard = ({
           uniformAspectRatio,
           setUniformAspectRatio,
           renderedHeight,
-          setRenderedHeight
+          setRenderedHeight,
         )}
       </MediaContainer>
       {!hideDetails && (

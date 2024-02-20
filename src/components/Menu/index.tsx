@@ -126,7 +126,7 @@ export const Menu = ({ flyoutAlignment = FlyoutAlignment.RIGHT, ToggleUI, menuIt
               <InternalMenuItem to={link} key={i}>
                 {content}
               </InternalMenuItem>
-            )
+            ),
           )}
         </MenuFlyout>
       )}

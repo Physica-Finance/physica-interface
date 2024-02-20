@@ -102,7 +102,7 @@ export const MULTICALL_ADDRESS: AddressMap = {
  * The oldest V0 governance address
  */
 export const GOVERNANCE_ALPHA_V0_ADDRESSES: AddressMap = constructSameAddressMap(
-  '0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F'
+  '0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F',
 )
 /**
  * The older V1 governance address

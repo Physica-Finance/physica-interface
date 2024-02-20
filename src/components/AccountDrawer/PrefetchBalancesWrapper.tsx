@@ -30,7 +30,7 @@ function useHasUpdatedTx() {
     if (!previousPendingTxs) return false
     return Object.values(currentChainTxs).some(
       (tx) => !isTxPending(tx) && wasPending(previousPendingTxs, tx),
-      [currentChainTxs, previousPendingTxs]
+      [currentChainTxs, previousPendingTxs],
     )
   }, [currentChainTxs, previousPendingTxs])
 }

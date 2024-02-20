@@ -44,7 +44,7 @@ const ArrowWrapper = styled.div`
 const formatAnalyticsEventProperties = (
   trade: InterfaceTrade<Currency, Currency, TradeType>,
   priceUpdate: number | undefined,
-  response: SwapPriceUpdateUserResponse
+  response: SwapPriceUpdateUserResponse,
 ) => ({
   chain_id:
     trade.inputAmount.currency.chainId === trade.outputAmount.currency.chainId
@@ -92,7 +92,7 @@ export default function SwapModalHeader({
     if (shouldLogModalCloseEvent && showAcceptChanges) {
       sendAnalyticsEvent(
         SwapEventName.SWAP_PRICE_UPDATE_ACKNOWLEDGED,
-        formatAnalyticsEventProperties(trade, priceUpdate, SwapPriceUpdateUserResponse.REJECTED)
+        formatAnalyticsEventProperties(trade, priceUpdate, SwapPriceUpdateUserResponse.REJECTED),
       )
     }
     setShouldLogModalCloseEvent(false)

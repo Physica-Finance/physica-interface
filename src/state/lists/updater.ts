@@ -49,7 +49,7 @@ export default function Updater(): null {
       const list = lists[listUrl]
       if (!list || (!list.current && !list.loadingRequestId && !list.error)) {
         fetchList(listUrl, /* isUnsupportedList= */ true).catch((error) =>
-          console.debug('list added fetching error', error)
+          console.debug('list added fetching error', error),
         )
       }
     })

@@ -218,7 +218,7 @@ export default function AuthenticatedHeader({ account, openSettings }: { account
     }
   }, [fiatOnrampAvailabilityChecked, fiatOnrampAvailable, openFoRModalWithAnalytics])
   const disableBuyCryptoButton = Boolean(
-    error || (!fiatOnrampAvailable && fiatOnrampAvailabilityChecked) || fiatOnrampAvailabilityLoading
+    error || (!fiatOnrampAvailable && fiatOnrampAvailabilityChecked) || fiatOnrampAvailabilityLoading,
   )
   const [showFiatOnrampUnavailableTooltip, setShow] = useState<boolean>(false)
   const openFiatOnrampUnavailableTooltip = useCallback(() => setShow(true), [setShow])
@@ -275,7 +275,7 @@ export default function AuthenticatedHeader({ account, openSettings }: { account
                   <PortfolioArrow change={absoluteChange as number} />
                   <ThemedText.BodySecondary>
                     {`${formatNumber(Math.abs(absoluteChange as number), NumberType.PortfolioBalance)} (${formatDelta(
-                      percentChange
+                      percentChange,
                     )})`}
                   </ThemedText.BodySecondary>
                 </>

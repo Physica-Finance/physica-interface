@@ -41,7 +41,7 @@ export const CollectionAsset = ({
 
   const { isSelected } = useMemo(() => {
     const matchingItems = itemsInBag.filter(
-      (item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address
+      (item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address,
     )
 
     const isSelected = matchingItems.length > 0

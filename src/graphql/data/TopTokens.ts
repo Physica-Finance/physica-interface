@@ -97,12 +97,12 @@ function useSortedTokens(tokens: TopTokens100Query['topTokens']) {
         break
       case TokenSortMethod.PERCENT_CHANGE:
         tokenArray = tokenArray.sort(
-          (a, b) => (b?.market?.pricePercentChange?.value ?? 0) - (a?.market?.pricePercentChange?.value ?? 0)
+          (a, b) => (b?.market?.pricePercentChange?.value ?? 0) - (a?.market?.pricePercentChange?.value ?? 0),
         )
         break
       case TokenSortMethod.TOTAL_VALUE_LOCKED:
         tokenArray = tokenArray.sort(
-          (a, b) => (b?.market?.totalValueLocked?.value ?? 0) - (a?.market?.totalValueLocked?.value ?? 0)
+          (a, b) => (b?.market?.totalValueLocked?.value ?? 0) - (a?.market?.totalValueLocked?.value ?? 0),
         )
         break
       case TokenSortMethod.VOLUME:
@@ -154,14 +154,14 @@ export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
     useTopTokensSparklineQuery({
       variables: { duration, chain },
     }),
-    PollingInterval.Slow
+    PollingInterval.Slow,
   )
 
   const sparklines = useMemo(() => {
     const unwrappedTokens = sparklineQuery?.topTokens?.map((topToken) => unwrapToken(chainId, topToken))
     const map: SparklineMap = {}
     unwrappedTokens?.forEach(
-      (current) => current?.address && (map[current.address] = current?.market?.priceHistory?.filter(isPricePoint))
+      (current) => current?.address && (map[current.address] = current?.market?.priceHistory?.filter(isPricePoint)),
     )
     return map
   }, [chainId, sparklineQuery?.topTokens])
@@ -170,7 +170,7 @@ export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
     useTopTokens100Query({
       variables: { duration, chain },
     }),
-    PollingInterval.Fast
+    PollingInterval.Fast,
   )
 
   const unwrappedTokens = useMemo(() => data?.topTokens?.map((token) => unwrapToken(chainId, token)), [chainId, data])
@@ -184,11 +184,11 @@ export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
           [cur.address]: i + 1,
         }
       }, {}) ?? {},
-    [sortedTokens]
+    [sortedTokens],
   )
   const filteredTokens = useFilteredTokens(sortedTokens)
   return useMemo(
     () => ({ tokens: filteredTokens, tokenSortRank, loadingTokens, sparklines }),
-    [filteredTokens, tokenSortRank, loadingTokens, sparklines]
+    [filteredTokens, tokenSortRank, loadingTokens, sparklines],
   )
 }

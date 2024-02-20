@@ -103,14 +103,14 @@ const Bag = () => {
       resetSellAssets: reset,
       sellAssets,
     }),
-    shallow
+    shallow,
   )
 
   const { setProfilePageState } = useProfilePageState(({ setProfilePageState }) => ({ setProfilePageState }))
 
   const { bagStatus, bagIsLocked, reset, bagExpanded, toggleBag, setBagExpanded } = useBag(
     (state) => ({ ...state, bagIsLocked: state.isLocked, uncheckedItemsInBag: state.itemsInBag }),
-    shallow
+    shallow,
   )
   const { uncheckedItemsInBag } = useBag(({ itemsInBag }) => ({ uncheckedItemsInBag: itemsInBag }))
 
@@ -153,14 +153,14 @@ const Bag = () => {
   const isSellingAssets = sellAssets.length > 0
 
   const shouldRenderEmptyState = Boolean(
-    (!isProfilePage && !isBuyingAssets && bagStatus === BagStatus.ADDING_TO_BAG) || (isProfilePage && !isSellingAssets)
+    (!isProfilePage && !isBuyingAssets && bagStatus === BagStatus.ADDING_TO_BAG) || (isProfilePage && !isSellingAssets),
   )
 
   const eventProperties = useMemo(
     () => ({
       ...formatAssetEventProperties(itemsInBag.map((item) => item.asset)),
     }),
-    [itemsInBag]
+    [itemsInBag],
   )
 
   if (!bagExpanded || !isNFTPage) {

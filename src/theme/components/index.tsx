@@ -322,7 +322,7 @@ export function CopyContractAddress({ address }: { address: string }) {
       setTooltipX(e.clientX)
       setCopied(address)
     },
-    [address, setCopied]
+    [address, setCopied],
   )
 
   const truncated = `${address.slice(0, 4)}...${address.slice(-3)}`
@@ -390,7 +390,7 @@ export const CopyHelper = forwardRef<CopyHelperRefType, CopyHelperProps>(
       iconColor = 'currentColor',
       children,
     }: CopyHelperProps,
-    ref
+    ref,
   ) => {
     const [isCopied, setCopied] = useCopyClipboard()
     const copy = useCallback(() => {
@@ -434,7 +434,7 @@ export const CopyHelper = forwardRef<CopyHelperRefType, CopyHelperProps>(
         {iconPosition === 'right' && Icon && <Icon size={iconSize} strokeWidth={1.5} color={iconColor} />}
       </CopyHelperContainer>
     )
-  }
+  },
 )
 CopyHelper.displayName = 'CopyHelper'
 
