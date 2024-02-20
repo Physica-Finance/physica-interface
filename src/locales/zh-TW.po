@@ -56,7 +56,7 @@ msgid "24H volume"
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/StatsSection.tsx
-msgid "24H volume is the amount of the asset that has been traded on Uniswap v3 during the past 24 hours."
+msgid "24H volume is the amount of the asset that has been traded on Physica Finance during the past 24 hours."
 msgstr ""
 
 #: src/pages/RemoveLiquidity/V3.tsx
@@ -246,8 +246,8 @@ msgid "An error occurred loading tokens. Please try again."
 msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "嘗試執行此兌換時發生錯誤。您可能需要增加滑點限制。如果還是不行，則可能是您正在交易的代幣與Uniswap不兼容。注：Uniswap V3不兼容轉賬時帶扣除費用（fee-on-transfer）的代幣和彈性供應（rebase）代幣。"
+msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
+msgstr "嘗試執行此兌換時發生錯誤。您可能需要增加滑點限制。如果還是不行，則可能是您正在交易的代幣與Uniswap不兼容。注：Physica Finance不兼容轉賬時帶扣除費用（fee-on-transfer）的代幣和彈性供應（rebase）代幣。"
 
 #: src/nft/components/bag/BagFooter.tsx
 #: src/pages/Swap/index.tsx
@@ -903,8 +903,8 @@ msgid "For"
 msgstr "贊成"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Uniswap V3."
-msgstr "對於下面顯示的每個流動池，單擊“遷移”以從 Uniswap V2 贖回您的流動資金，並將其註入到 Uniswap V3。"
+msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Physica Finance."
+msgstr "對於下面顯示的每個流動池，單擊“遷移”以從 Uniswap V2 贖回您的流動資金，並將其註入到 Physica Finance。"
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -1184,8 +1184,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "遷移 V2 流動資金"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Uniswap V3."
-msgstr "將您的流動資金從 Uniswap V2 遷移到 Uniswap V3。"
+msgid "Migrate your liquidity tokens from Uniswap V2 to Physica Finance."
+msgstr "將您的流動資金從 Uniswap V2 遷移到 Physica Finance。"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1217,7 +1217,7 @@ msgid "Missing chart data"
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/PriceChart.tsx
-msgid "Missing price data due to recently low trading volume on Uniswap v3"
+msgid "Missing price data due to recently low trading volume on Physica Finance"
 msgstr ""
 
 #: src/components/FiatOnrampModal/index.tsx
@@ -1990,8 +1990,8 @@ msgid "The output token cannot be transferred. There may be an issue with the ou
 msgstr "輸出代幣無法進行轉賬。輸出代幣可能有些問題。"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "輸出代幣無法進行轉賬。輸出代幣可能有些問題。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與Uniswap V3不相容。"
+msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
+msgstr "輸出代幣無法進行轉賬。輸出代幣可能有些問題。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與Physica Finance不相容。"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "The price of this pool is outside of your selected range. Your position is not currently earning fees."
@@ -2050,8 +2050,8 @@ msgid "This transaction could not be sent because the deadline has passed. Pleas
 msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "由於兌換率變動，該交易將不會成功。請嘗試增加滑點容差。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與Uniswap V3不兼容。"
+msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
+msgstr "由於兌換率變動，該交易將不會成功。請嘗試增加滑點容差。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與Physica Finance不兼容。"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
@@ -2102,7 +2102,7 @@ msgid "Total"
 msgstr ""
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Total value locked (TVL) is the aggregate amount of the asset available across all Uniswap v3 liquidity pools."
+msgid "Total value locked (TVL) is the aggregate amount of the asset available across all Physica Finance liquidity pools."
 msgstr ""
 
 #: src/components/swap/RouterLabel.tsx
@@ -2309,7 +2309,7 @@ msgid "View transaction on Explorer"
 msgstr "在以太坊資源瀏覽器上查看"
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Volume is the amount of the asset that has been traded on Uniswap v3 during the selected time frame."
+msgid "Volume is the amount of the asset that has been traded on Physica Finance during the selected time frame."
 msgstr ""
 
 #: src/pages/Vote/VotePage.tsx
@@ -2433,8 +2433,8 @@ msgid "You are creating a pool"
 msgstr "您正在創建一個流動池"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
-msgstr "您是此 Uniswap V3 流動池的第一個流動資金提供者。您的流動資金將以當前的 {0} 兌換率遷移。"
+msgid "You are the first liquidity provider for this Physica Finance pool. Your liquidity will migrate at the current {0} price."
+msgstr "您是此 Physica Finance 流動池的第一個流動資金提供者。您的流動資金將以當前的 {0} 兌換率遷移。"
 
 #: src/pages/AddLiquidityV2/index.tsx
 msgid "You are the first liquidity provider."
@@ -2470,8 +2470,8 @@ msgid "You receive"
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You should only deposit liquidity into Uniswap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
-msgstr "請確保以您認為是正確的兌換率來將流動資金註入到 Uniswap V3。 <0/>如果兌換率看起來不正確，您可以進行兌換交易以移動兌換率，或者等待別人進行此操作。"
+msgid "You should only deposit liquidity into Physica Finance at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
+msgstr "請確保以您認為是正確的兌換率來將流動資金註入到 Physica Finance。 <0/>如果兌換率看起來不正確，您可以進行兌換交易以移動兌換率，或者等待別人進行此操作。"
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "You will also collect fees earned from this position."
@@ -2759,7 +2759,7 @@ msgstr "選擇 {0}%"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "{0}. Try increasing your slippage tolerance.\n"
-"Note: fee-on-transfer and rebase tokens are incompatible with Uniswap V3."
+"Note: fee-on-transfer and rebase tokens are incompatible with Physica Finance."
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx

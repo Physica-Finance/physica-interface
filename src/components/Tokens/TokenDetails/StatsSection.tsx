@@ -98,7 +98,7 @@ export default function StatsSection(props: StatsSectionProps) {
               value={volume24H}
               description={
                 <Trans>
-                  24H volume is the amount of the asset that has been traded on Uniswap v3 during the past 24 hours.
+                  24H volume is the amount of the asset that has been traded on Physica Finance during the past 24 hours.
                 </Trans>
               }
               title={<Trans>24H volume</Trans>}

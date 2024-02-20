@@ -56,7 +56,7 @@ msgid "24H volume"
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/StatsSection.tsx
-msgid "24H volume is the amount of the asset that has been traded on Uniswap v3 during the past 24 hours."
+msgid "24H volume is the amount of the asset that has been traded on Physica Finance during the past 24 hours."
 msgstr ""
 
 #: src/pages/RemoveLiquidity/V3.tsx
@@ -246,8 +246,8 @@ msgid "An error occurred loading tokens. Please try again."
 msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "교환을 실행하는 중에 오류가 발생했습니다. 가격변동 허용치를 높여야 할 수도 있습니다. 그래도 작동하지 않으면 교환중인 토큰이 Uniswap과 호환되지 않는 것일 수 있습니다. 참고: 전송 수수료 및 리베이스 토큰은 Uniswap V3와 호환되지 않습니다."
+msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
+msgstr "교환을 실행하는 중에 오류가 발생했습니다. 가격변동 허용치를 높여야 할 수도 있습니다. 그래도 작동하지 않으면 교환중인 토큰이 Uniswap과 호환되지 않는 것일 수 있습니다. 참고: 전송 수수료 및 리베이스 토큰은 Physica Finance와 호환되지 않습니다."
 
 #: src/nft/components/bag/BagFooter.tsx
 #: src/pages/Swap/index.tsx
@@ -903,8 +903,8 @@ msgid "For"
 msgstr "찬성"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Uniswap V3."
-msgstr "아래 표시된 각 풀에 대해 마이그레이션을 클릭하여 Uniswap V2에서 유동성을 제거하고 Uniswap V3에 입금하십시오."
+msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Physica Finance."
+msgstr "아래 표시된 각 풀에 대해 마이그레이션을 클릭하여 Uniswap V2에서 유동성을 제거하고 Physica Finance에 입금하십시오."
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -1184,8 +1184,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "V2 유동성 마이그레이션"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Uniswap V3."
-msgstr "유동성 토큰을 Uniswap V2에서 Uniswap V3로 마이그레이션하십시오."
+msgid "Migrate your liquidity tokens from Uniswap V2 to Physica Finance."
+msgstr "유동성 토큰을 Uniswap V2에서 Physica Finance로 마이그레이션하십시오."
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1217,7 +1217,7 @@ msgid "Missing chart data"
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/PriceChart.tsx
-msgid "Missing price data due to recently low trading volume on Uniswap v3"
+msgid "Missing price data due to recently low trading volume on Physica Finance"
 msgstr ""
 
 #: src/components/FiatOnrampModal/index.tsx
@@ -1990,8 +1990,8 @@ msgid "The output token cannot be transferred. There may be an issue with the ou
 msgstr "산출 토큰을 이체할 수 없습니다. 산출 토큰에 문제가 있을 수 있습니다."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "산출 토큰을 이체할 수 없습니다. 산출 토큰에 문제가 있을 수 있습니다. 참고: 이체 수수료 및 리베이스 토큰이 Uniswap V3와 호환되지 않습니다."
+msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
+msgstr "산출 토큰을 이체할 수 없습니다. 산출 토큰에 문제가 있을 수 있습니다. 참고: 이체 수수료 및 리베이스 토큰이 Physica Finance와 호환되지 않습니다."
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "The price of this pool is outside of your selected range. Your position is not currently earning fees."
@@ -2050,8 +2050,8 @@ msgid "This transaction could not be sent because the deadline has passed. Pleas
 msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "이 거래는 가격 변동으로 인해 성공하지 못합니다. 슬리피지 허용치를 높이십시오. 참고: 이체 수수료 및 리베이스 토큰은 Uniswap V3와 호환되지 않습니다."
+msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
+msgstr "이 거래는 가격 변동으로 인해 성공하지 못합니다. 슬리피지 허용치를 높이십시오. 참고: 이체 수수료 및 리베이스 토큰은 Physica Finance와 호환되지 않습니다."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
@@ -2102,7 +2102,7 @@ msgid "Total"
 msgstr ""
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Total value locked (TVL) is the aggregate amount of the asset available across all Uniswap v3 liquidity pools."
+msgid "Total value locked (TVL) is the aggregate amount of the asset available across all Physica Finance liquidity pools."
 msgstr ""
 
 #: src/components/swap/RouterLabel.tsx
@@ -2309,7 +2309,7 @@ msgid "View transaction on Explorer"
 msgstr "Explorer에서 거래 보기"
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Volume is the amount of the asset that has been traded on Uniswap v3 during the selected time frame."
+msgid "Volume is the amount of the asset that has been traded on Physica Finance during the selected time frame."
 msgstr ""
 
 #: src/pages/Vote/VotePage.tsx
@@ -2433,8 +2433,8 @@ msgid "You are creating a pool"
 msgstr "풀을 만들고 있습니다."
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
-msgstr "귀하는 이 Uniswap V3 풀의 최초 유동성 제공자입니다. 유동성은 현재 {0} 가격으로 마이그레이션됩니다."
+msgid "You are the first liquidity provider for this Physica Finance pool. Your liquidity will migrate at the current {0} price."
+msgstr "귀하는 이 Physica Finance 풀의 최초 유동성 제공자입니다. 유동성은 현재 {0} 가격으로 마이그레이션됩니다."
 
 #: src/pages/AddLiquidityV2/index.tsx
 msgid "You are the first liquidity provider."
@@ -2470,8 +2470,8 @@ msgid "You receive"
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You should only deposit liquidity into Uniswap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
-msgstr "유동성을 Uniswap V3에 정확하다고 생각하는 가격으로 예치해야합니다. <0/> 가격이 잘못된 것 같으면 교환하여 가격을 이동하거나 다른 사람이 이동하기를 기다릴 수 있습니다."
+msgid "You should only deposit liquidity into Physica Finance at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
+msgstr "유동성을 Physica Finance에 정확하다고 생각하는 가격으로 예치해야합니다. <0/> 가격이 잘못된 것 같으면 교환하여 가격을 이동하거나 다른 사람이 이동하기를 기다릴 수 있습니다."
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "You will also collect fees earned from this position."
@@ -2759,7 +2759,7 @@ msgstr "{0}% 선택"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "{0}. Try increasing your slippage tolerance.\n"
-"Note: fee-on-transfer and rebase tokens are incompatible with Uniswap V3."
+"Note: fee-on-transfer and rebase tokens are incompatible with Physica Finance."
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx

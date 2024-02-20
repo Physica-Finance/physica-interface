@@ -56,7 +56,7 @@ msgid "24H volume"
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/StatsSection.tsx
-msgid "24H volume is the amount of the asset that has been traded on Uniswap v3 during the past 24 hours."
+msgid "24H volume is the amount of the asset that has been traded on Physica Finance during the past 24 hours."
 msgstr ""
 
 #: src/pages/RemoveLiquidity/V3.tsx
@@ -246,8 +246,8 @@ msgid "An error occurred loading tokens. Please try again."
 msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Hiba történt a csere végrehajtása során. Lehet, hogy növelnie kell a csúszási toleranciát. Ha ez nem működik, akkor összeférhetetlenség állhat fenn az Ön által forgalmazott tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Uniswap V3 verzióval."
+msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
+msgstr "Hiba történt a csere végrehajtása során. Lehet, hogy növelnie kell a csúszási toleranciát. Ha ez nem működik, akkor összeférhetetlenség állhat fenn az Ön által forgalmazott tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Physica Finance verzióval."
 
 #: src/nft/components/bag/BagFooter.tsx
 #: src/pages/Swap/index.tsx
@@ -904,8 +904,8 @@ msgid "For"
 msgstr "Számára"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Uniswap V3."
-msgstr "Az alább látható egyes poolok esetében kattintson a migrálás gombra, hogy eltávolítsa a likviditását az Uniswap V2-ből, és letétbe helyezze az Uniswap V3-ban."
+msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Physica Finance."
+msgstr "Az alább látható egyes poolok esetében kattintson a migrálás gombra, hogy eltávolítsa a likviditását az Uniswap V2-ből, és letétbe helyezze az Physica Finance-ban."
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -1185,8 +1185,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "V2 likviditás migrálása"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Uniswap V3."
-msgstr "Likviditási tokenek migrálása az Uniswap V2-ről az Uniswap V3-ra."
+msgid "Migrate your liquidity tokens from Uniswap V2 to Physica Finance."
+msgstr "Likviditási tokenek migrálása az Uniswap V2-ről az Physica Finance-ra."
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1218,7 +1218,7 @@ msgid "Missing chart data"
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/PriceChart.tsx
-msgid "Missing price data due to recently low trading volume on Uniswap v3"
+msgid "Missing price data due to recently low trading volume on Physica Finance"
 msgstr ""
 
 #: src/components/FiatOnrampModal/index.tsx
@@ -1991,8 +1991,8 @@ msgid "The output token cannot be transferred. There may be an issue with the ou
 msgstr "Az output token nem transzferálható. Probléma lehet az output tokennel."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "A kimeneti token nem vihető át. Probléma lehet a kimeneti tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Uniswap V3 verzióval."
+msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
+msgstr "A kimeneti token nem vihető át. Probléma lehet a kimeneti tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Physica Finance verzióval."
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "The price of this pool is outside of your selected range. Your position is not currently earning fees."
@@ -2051,8 +2051,8 @@ msgid "This transaction could not be sent because the deadline has passed. Pleas
 msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Ez a tranzakció az ármozgás miatt nem fog sikerülni. Próbáld meg növelni a csúszástűrést. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Uniswap V3 verzióval."
+msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
+msgstr "Ez a tranzakció az ármozgás miatt nem fog sikerülni. Próbáld meg növelni a csúszástűrést. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Physica Finance verzióval."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
@@ -2103,7 +2103,7 @@ msgid "Total"
 msgstr ""
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Total value locked (TVL) is the aggregate amount of the asset available across all Uniswap v3 liquidity pools."
+msgid "Total value locked (TVL) is the aggregate amount of the asset available across all Physica Finance liquidity pools."
 msgstr ""
 
 #: src/components/swap/RouterLabel.tsx
@@ -2310,7 +2310,7 @@ msgid "View transaction on Explorer"
 msgstr "Tranzakció megtekintése az Explorerben"
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Volume is the amount of the asset that has been traded on Uniswap v3 during the selected time frame."
+msgid "Volume is the amount of the asset that has been traded on Physica Finance during the selected time frame."
 msgstr ""
 
 #: src/pages/Vote/VotePage.tsx
@@ -2434,8 +2434,8 @@ msgid "You are creating a pool"
 msgstr "Poolt hoz létre"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
-msgstr "Ön az első likviditásszolgáltató ebben az Uniswap V3 poolban. Likviditása a jelenlegi {0} áron migrál."
+msgid "You are the first liquidity provider for this Physica Finance pool. Your liquidity will migrate at the current {0} price."
+msgstr "Ön az első likviditásszolgáltató ebben az Physica Finance poolban. Likviditása a jelenlegi {0} áron migrál."
 
 #: src/pages/AddLiquidityV2/index.tsx
 msgid "You are the first liquidity provider."
@@ -2471,8 +2471,8 @@ msgid "You receive"
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You should only deposit liquidity into Uniswap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
-msgstr "Csak olyan áron helyezhet el likviditást az Uniswap V3-ban, amelyet helyesnek tart. <0/>Ha az ár helytelennek tűnik, akkor vagy cserét hajt végre az ár elmozdítása érdekében, vagy megvárhatja, hogy valaki más megtegye ezt."
+msgid "You should only deposit liquidity into Physica Finance at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
+msgstr "Csak olyan áron helyezhet el likviditást az Physica Finance-ban, amelyet helyesnek tart. <0/>Ha az ár helytelennek tűnik, akkor vagy cserét hajt végre az ár elmozdítása érdekében, vagy megvárhatja, hogy valaki más megtegye ezt."
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "You will also collect fees earned from this position."
@@ -2761,7 +2761,7 @@ msgstr "{0}% választ"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "{0}. Try increasing your slippage tolerance.\n"
-"Note: fee-on-transfer and rebase tokens are incompatible with Uniswap V3."
+"Note: fee-on-transfer and rebase tokens are incompatible with Physica Finance."
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
