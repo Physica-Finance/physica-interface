@@ -1,6 +1,0 @@
-import type { AllPerformanceEntry, ReplayPerformanceEntry } from '../types';
-/**
- * Create replay performance entries from the browser performance entries.
- */
-export declare function createPerformanceEntries(entries: AllPerformanceEntry[]): ReplayPerformanceEntry[];
-//# sourceMappingURL=createPerformanceEntries.d.ts.map
