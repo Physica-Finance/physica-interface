@@ -23,7 +23,9 @@ export default function usePermit2Approval(
     enabled && chainId
       ? shouldUseNftRouter && chainId === 1
         ? NFT_UNIVERSAL_ROUTER_MAINNET_ADDRESS
-        : UNIVERSAL_ROUTER_ADDRESS(chainId)
+        : chainId !== 7070
+        ? UNIVERSAL_ROUTER_ADDRESS(chainId)
+        : undefined
       : undefined,
   )
   const isApprovalLoading = allowance.state === AllowanceState.REQUIRED && allowance.isApprovalLoading

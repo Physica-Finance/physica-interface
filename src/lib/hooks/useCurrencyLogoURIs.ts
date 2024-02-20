@@ -54,7 +54,7 @@ function getTokenLogoURI(address: string, chainId: SupportedChainId = SupportedC
     SupportedChainId.BNB,
   ]
   if (networksWithUrls.includes(chainId)) {
-    return `https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/${networkName}/assets/${address}/logo.png`
+    return `https://raw.githubusercontent.com/SynergyNodes/assets-all/master/blockchains/${networkName}/assets/${address}/logo.png`
   }
 
   // Celo logo logo is hosted elsewhere.

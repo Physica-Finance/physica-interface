@@ -84,6 +84,7 @@ function traceSpan(span?: Span) {
  * @param metadata - Any data or tags to include in the trace.
  */
 export async function trace<T>(name: string, callback: TraceCallback<T>, metadata?: TraceMetadata): Promise<T> {
-  const transaction = Sentry.startTransaction({ name, data: metadata?.data, tags: metadata?.tags })
+  const transaction = new Span()
+  //Sentry.startTransaction({ name, data: metadata?.data, tags: metadata?.tags })
   return traceSpan(transaction)(callback)
 }

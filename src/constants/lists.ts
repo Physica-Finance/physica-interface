@@ -1,9 +1,8 @@
-export const UNI_LIST = 'https://raw.githubusercontent.com/alfset/top-holder-token/main/test-token.json'
 export const UNI_EXTENDED_LIST = 'https://gateway.ipfs.io/ipns/extendedtokens.uniswap.org'
 const UNI_UNSUPPORTED_LIST = 'https://gateway.ipfs.io/ipns/unsupportedtokens.uniswap.org'
 const AAVE_LIST = 'tokenlist.aave.eth'
 const BA_LIST = 'https://raw.githubusercontent.com/The-Blockchain-Association/sec-notice-list/master/ba-sec-list.json'
-export const PLANQ_LIST = 'https://raw.githubusercontent.com/alfset/top-holder-token/main/test-token.json'
+export const PLANQ_LIST = 'https://raw.githubusercontent.com/Physica-Finance/token-list/main/token.json'
 const CMC_ALL_LIST = 'https://s3.coinmarketcap.com/generated/dex/tokens/eth-tokens-all.json'
 const COINGECKO_LIST = 'https://tokens.coingecko.com/uniswap/all.json'
 const COINGECKO_BNB_LIST = 'https://tokens.coingecko.com/binance-smart-chain/all.json'
@@ -24,7 +23,7 @@ export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST, UNI_UNSUPPORTED_LIST]
 export const DEFAULT_ACTIVE_LIST_URLS: string[] = [PLANQ_LIST]
 export const DEFAULT_INACTIVE_LIST_URLS: string[] = [
   UNI_EXTENDED_LIST,
-  COMPOUND_LIST,
+  /*COMPOUND_LIST,
   AAVE_LIST,
   CMC_ALL_LIST,
   COINGECKO_LIST,
@@ -37,7 +36,7 @@ export const DEFAULT_INACTIVE_LIST_URLS: string[] = [
   OPTIMISM_LIST,
   CELO_LIST,
   PLASMA_BNB_LIST,
-  ...UNSUPPORTED_LIST_URLS,
+  ...UNSUPPORTED_LIST_URLS,*/
 ]
 
 export const DEFAULT_LIST_OF_LISTS: string[] = [...DEFAULT_ACTIVE_LIST_URLS, ...DEFAULT_INACTIVE_LIST_URLS]
