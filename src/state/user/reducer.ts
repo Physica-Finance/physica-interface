@@ -61,7 +61,7 @@ export const initialState: UserState = {
   selectedWallet: undefined,
   userExpertMode: false,
   userLocale: null,
-  userClientSideRouter: false,
+  userClientSideRouter: true,
   userHideClosedPositions: false,
   userSlippageTolerance: 'auto',
   userSlippageToleranceHasBeenMigratedToAuto: true,
