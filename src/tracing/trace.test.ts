@@ -92,33 +92,33 @@ describe('trace', () => {
       const errorEvent: ErrorEvent = {
         type: undefined,
         request: {
-          url: 'https://app.uniswap.org',
+          url: 'https://app.physica.finance',
         },
       }
       const eventHint: EventHint = {}
-      expect((beforeSend(errorEvent, eventHint) as ErrorEvent)?.request?.url).toEqual('https://app.uniswap.org')
+      expect((beforeSend(errorEvent, eventHint) as ErrorEvent)?.request?.url).toEqual('https://app.physica.finance')
     })
 
     it('handles hash with path', async () => {
       const errorEvent: ErrorEvent = {
         type: undefined,
         request: {
-          url: 'https://app.uniswap.org/#/pools',
+          url: 'https://app.physica.finance/#/pools',
         },
       }
       const eventHint: EventHint = {}
-      expect((beforeSend(errorEvent, eventHint) as ErrorEvent)?.request?.url).toEqual('https://app.uniswap.org/pools')
+      expect((beforeSend(errorEvent, eventHint) as ErrorEvent)?.request?.url).toEqual('https://app.physica.finance/pools')
     })
 
     it('handles just hash', async () => {
       const errorEvent: ErrorEvent = {
         type: undefined,
         request: {
-          url: 'https://app.uniswap.org/#',
+          url: 'https://app.physica.finance/#',
         },
       }
       const eventHint: EventHint = {}
-      expect((beforeSend(errorEvent, eventHint) as ErrorEvent)?.request?.url).toEqual('https://app.uniswap.org')
+      expect((beforeSend(errorEvent, eventHint) as ErrorEvent)?.request?.url).toEqual('https://app.physica.finance')
     })
   })
 

@@ -48,12 +48,12 @@ describe('filterKnownErrors', () => {
     it('filters 499 error coded chunk error', () => {
       jest.spyOn(window.performance, 'getEntriesByType').mockReturnValue([
         {
-          name: 'https://app.uniswap.org/static/js/20.d55382e0.chunk.js',
+          name: 'https://app.physica.finance/static/js/20.d55382e0.chunk.js',
           responseStatus: 499,
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
+        'Loading chunk 20 failed. (error: https://app.physica.finance/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
@@ -61,12 +61,12 @@ describe('filterKnownErrors', () => {
     it('filters 499 error coded chunk timeout', () => {
       jest.spyOn(window.performance, 'getEntriesByType').mockReturnValue([
         {
-          name: 'https://app.uniswap.org/static/js/20.d55382e0.chunk.js',
+          name: 'https://app.physica.finance/static/js/20.d55382e0.chunk.js',
           responseStatus: 499,
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (timeout: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
+        'Loading chunk 20 failed. (timeout: https://app.physica.finance/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
@@ -74,12 +74,12 @@ describe('filterKnownErrors', () => {
     it('filters 499 error coded chunk missing', () => {
       jest.spyOn(window.performance, 'getEntriesByType').mockReturnValue([
         {
-          name: 'https://app.uniswap.org/static/js/20.d55382e0.chunk.js',
+          name: 'https://app.physica.finance/static/js/20.d55382e0.chunk.js',
           responseStatus: 499,
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (missing: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
+        'Loading chunk 20 failed. (missing: https://app.physica.finance/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
@@ -87,7 +87,7 @@ describe('filterKnownErrors', () => {
     it('filters 499 error coded CSS chunk error', () => {
       jest.spyOn(window.performance, 'getEntriesByType').mockReturnValue([
         {
-          name: 'https://app.uniswap.org/static/css/12.d5b3cfe3.chunk.css',
+          name: 'https://app.physica.finance/static/css/12.d5b3cfe3.chunk.css',
           responseStatus: 499,
         } as PerformanceEntry,
       ])
@@ -98,12 +98,12 @@ describe('filterKnownErrors', () => {
     it('keeps error when status is different than 499', () => {
       jest.spyOn(window.performance, 'getEntriesByType').mockReturnValue([
         {
-          name: 'https://app.uniswap.org/static/js/20.d55382e0.chunk.js',
+          name: 'https://app.physica.finance/static/js/20.d55382e0.chunk.js',
           responseStatus: 400,
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
+        'Loading chunk 20 failed. (error: https://app.physica.finance/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).not.toBeNull()
     })
@@ -111,7 +111,7 @@ describe('filterKnownErrors', () => {
     it('keeps CSS error when status is different than 499', () => {
       jest.spyOn(window.performance, 'getEntriesByType').mockReturnValue([
         {
-          name: 'https://app.uniswap.org/static/css/12.d5b3cfe3.chunk.css',
+          name: 'https://app.physica.finance/static/css/12.d5b3cfe3.chunk.css',
           responseStatus: 400,
         } as PerformanceEntry,
       ])
@@ -122,14 +122,14 @@ describe('filterKnownErrors', () => {
     it('filters out error when resource is missing', () => {
       jest.spyOn(window.performance, 'getEntriesByType').mockReturnValue([])
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
+        'Loading chunk 20 failed. (error: https://app.physica.finance/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
 
     it('filters out error when performance is undefined', () => {
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
+        'Loading chunk 20 failed. (error: https://app.physica.finance/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
@@ -137,11 +137,11 @@ describe('filterKnownErrors', () => {
     it('filters out error when responseStatus is undefined', () => {
       jest.spyOn(window.performance, 'getEntriesByType').mockReturnValue([
         {
-          name: 'https://app.uniswap.org/static/js/20.d55382e0.chunk.js',
+          name: 'https://app.physica.finance/static/js/20.d55382e0.chunk.js',
         } as PerformanceEntry,
       ])
       const originalException = new Error(
-        'Loading chunk 20 failed. (error: https://app.uniswap.org/static/js/20.d55382e0.chunk.js)',
+        'Loading chunk 20 failed. (error: https://app.physica.finance/static/js/20.d55382e0.chunk.js)',
       )
       expect(filterKnownErrors(ERROR, { originalException })).toBeNull()
     })
