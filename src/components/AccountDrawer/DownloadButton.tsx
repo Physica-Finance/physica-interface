@@ -49,7 +49,7 @@ export function openDownloadApp(element: InterfaceElementName) {
   else openWalletMicrosite()
 }
 
-// Launches App Store if on an iOS device, else navigates to Uniswap Wallet microsite
+// Launches App Store if on an iOS device, else navigates to Physica FinanceWallet microsite
 export function DownloadButton({
   onClick,
   text = 'Download',

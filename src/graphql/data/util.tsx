@@ -68,6 +68,7 @@ export const CHAIN_ID_TO_BACKEND_NAME: { [key: number]: Chain } = {
   [SupportedChainId.OPTIMISM]: Chain.Optimism,
   [SupportedChainId.OPTIMISM_GOERLI]: Chain.Optimism,
   [SupportedChainId.BNB]: Chain.Bnb,
+  [SupportedChainId.PLANQ]: Chain.Planq,
 }
 
 export function chainIdToBackendName(chainId: number | undefined) {
@@ -113,6 +114,7 @@ const URL_CHAIN_PARAM_TO_BACKEND: { [key: string]: Chain } = {
   ethereum: Chain.Ethereum,
   polygon: Chain.Polygon,
   celo: Chain.Celo,
+  planq: Chain.Planq,
   arbitrum: Chain.Arbitrum,
   optimism: Chain.Optimism,
   bnb: Chain.Bnb,
@@ -132,6 +134,7 @@ export const CHAIN_NAME_TO_CHAIN_ID: { [key in Chain]: SupportedChainId } = {
   [Chain.Arbitrum]: SupportedChainId.ARBITRUM_ONE,
   [Chain.UnknownChain]: SupportedChainId.MAINNET,
   [Chain.Bnb]: SupportedChainId.BNB,
+  [Chain.Planq]: SupportedChainId.PLANQ,
   [Chain.Avalanche]: SupportedChainId.MAINNET,
   [Chain.Base]: SupportedChainId.MAINNET,
   [Chain.EthereumSepolia]: SupportedChainId.MAINNET,

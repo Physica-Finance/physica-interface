@@ -121,13 +121,13 @@ export default function MigrateV2() {
               <Trans>Migrate V2 Liquidity</Trans>
             </ThemedText.DeprecatedMediumHeader>
             <div>
-              <QuestionHelper text={<Trans>Migrate your liquidity tokens from Uniswap V2 to Physica Finance.</Trans>} />
+              <QuestionHelper text={<Trans>Migrate your liquidity tokens from Physica Finance V2 to Physica Finance.</Trans>} />
             </div>
           </AutoRow>
 
           <ThemedText.DeprecatedBody style={{ marginBottom: 8, fontWeight: 400 }}>
             <Trans>
-              For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into
+              For each pool shown below, click migrate to remove your liquidity from Physica Finance V2 and deposit it into
               Physica Finance.
             </Trans>
           </ThemedText.DeprecatedBody>
