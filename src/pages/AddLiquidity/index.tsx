@@ -3,7 +3,7 @@ import type { TransactionResponse } from '@ethersproject/providers'
 import { Trans } from '@lingui/macro'
 import { TraceEvent } from '@uniswap/analytics'
 import { BrowserEvent, InterfaceElementName, InterfaceEventName } from '@uniswap/analytics-events'
-import { Currency, CurrencyAmount, Percent } from '@uniswap/sdk-core'
+import { Currency, CurrencyAmount, Fraction, Percent } from '@uniswap/sdk-core'
 import { FeeAmount, NonfungiblePositionManager } from '@uniswap/v3-sdk'
 import { useWeb3React } from '@web3-react/core'
 import { useToggleAccountDrawer } from 'components/AccountDrawer'
@@ -421,6 +421,54 @@ function AddLiquidity() {
   }`
 
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const handleSetEasyRange = useCallback(() => {
+    const minPrice = price?.divide('100').multiply('75')
+    if (minPrice) searchParams.set('minPrice', minPrice.toSignificant(5))
+    const maxPrice = price?.divide('100').multiply('125')
+    if (maxPrice) searchParams.set('maxPrice', maxPrice.toSignificant(5))
+    setSearchParams(searchParams)
+    if (minPrice && maxPrice) {
+      onLeftRangeInput(minPrice.toSignificant(6))
+      onRightRangeInput(maxPrice.toSignificant(6))
+    }
+    sendEvent({
+      category: 'Liquidity',
+      action: 'Easy Range Clicked',
+    })
+  }, [price, searchParams, setSearchParams])
+
+  const handleSetMediumRange = useCallback(() => {
+    const minPrice = price?.divide('100').multiply('85')
+    if (minPrice) searchParams.set('minPrice', minPrice.toSignificant(5))
+    const maxPrice = price?.divide('100').multiply('115')
+    if (maxPrice) searchParams.set('maxPrice', maxPrice.toSignificant(5))
+    setSearchParams(searchParams)
+    if (minPrice && maxPrice) {
+      onLeftRangeInput(minPrice.toSignificant(6))
+      onRightRangeInput(maxPrice.toSignificant(6))
+    }
+    sendEvent({
+      category: 'Liquidity',
+      action: 'Medium Range Clicked',
+    })
+  }, [price, searchParams, setSearchParams])
+
+  const handleSetHardcoreRange = useCallback(() => {
+    const minPrice = price?.divide('100').multiply('95')
+    if (minPrice) searchParams.set('minPrice', minPrice.toSignificant(5))
+    const maxPrice = price?.divide('100').multiply('105')
+    if (maxPrice) searchParams.set('maxPrice', maxPrice.toSignificant(5))
+    setSearchParams(searchParams)
+    if (minPrice && maxPrice) {
+      onLeftRangeInput(minPrice.toSignificant(6))
+      onRightRangeInput(maxPrice.toSignificant(6))
+    }
+    sendEvent({
+      category: 'Liquidity',
+      action: 'Hard Range Clicked',
+    })
+  }, [price, searchParams, setSearchParams])
 
   const handleSetFullRange = useCallback(() => {
     getSetFullRange()
@@ -890,7 +938,14 @@ function AddLiquidity() {
                               feeAmount={feeAmount}
                               ticksAtLimit={ticksAtLimit}
                             />
-                            {!noLiquidity && <PresetsButtons onSetFullRange={handleSetFullRange} />}
+                            {!noLiquidity && (
+                              <PresetsButtons
+                                onSetFullRange={handleSetFullRange}
+                                onSetEasyRange={handleSetEasyRange}
+                                onSetMediumRange={handleSetMediumRange}
+                                onSetHardcoreRange={handleSetHardcoreRange}
+                              />
+                            )}
                           </AutoColumn>
                         </StackedItem>
                       </StackedContainer>

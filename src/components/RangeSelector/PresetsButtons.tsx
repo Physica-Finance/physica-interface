@@ -14,11 +14,36 @@ const Button = styled(ButtonOutlined).attrs(() => ({
 
 interface PresetsButtonsProps {
   onSetFullRange: () => void
+  onSetEasyRange: () => void
+  onSetMediumRange: () => void
+  onSetHardcoreRange: () => void
 }
 
-export default function PresetsButtons({ onSetFullRange }: PresetsButtonsProps) {
+export default function PresetsButtons({
+  onSetFullRange,
+  onSetEasyRange,
+  onSetMediumRange,
+  onSetHardcoreRange,
+}: PresetsButtonsProps) {
   return (
     <AutoRow gap="4px" width="auto">
+      <AutoRow gap="4px" width="auto">
+        <Button onClick={onSetEasyRange}>
+          <ThemedText.DeprecatedBody fontSize={12}>
+            <Trans>Easy</Trans>
+          </ThemedText.DeprecatedBody>
+        </Button>
+        <Button onClick={onSetMediumRange}>
+          <ThemedText.DeprecatedBody fontSize={12}>
+            <Trans>Medium</Trans>
+          </ThemedText.DeprecatedBody>
+        </Button>
+        <Button onClick={onSetHardcoreRange}>
+          <ThemedText.DeprecatedBody fontSize={12}>
+            <Trans>Hard</Trans>
+          </ThemedText.DeprecatedBody>
+        </Button>
+      </AutoRow>
       <Button onClick={onSetFullRange}>
         <ThemedText.DeprecatedBody fontSize={12}>
           <Trans>Full Range</Trans>
