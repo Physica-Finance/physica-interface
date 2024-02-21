@@ -17,10 +17,15 @@ export const MissingImageLogo = styled.div<{ size?: string }>`
   width: ${({ size }) => size ?? '24px'};
 `
 
-export const LogoImage = styled.img<{ size: string; useBG?: boolean }>`
+export const LogoImage = styled.img<{ size: string; useBG?: boolean; radius?: string }>`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
   border-radius: 50%;
+  ${({ radius }) =>
+    radius &&
+    css`
+      border-radius: 0%;
+    `}
 
   ${({ useBG }) =>
     useBG &&

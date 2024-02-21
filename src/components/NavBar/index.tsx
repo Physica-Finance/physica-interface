@@ -87,7 +87,7 @@ const Navbar = ({ blur }: { blur: boolean }) => {
                 data-testid="uniswap-logo"
                 className={styles.logo}
                 onClick={() => {
-                  window.location.href = 'https://landing-physica.vercel.app/'
+                  window.location.href = 'https://physica.finance/'
                 }}
               />
             </Box>
