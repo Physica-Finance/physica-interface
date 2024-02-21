@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { isMobile } from 'utils/userAgent'
 import { getCLS, getFCP, getFID, getLCP, Metric } from 'web-vitals'
 
-import GoogleAnalyticsProvider from './GoogleAnalyticsProvider'
+/*import GoogleAnalyticsProvider from './GoogleAnalyticsProvider'
 
 const GOOGLE_ANALYTICS_CLIENT_ID_STORAGE_KEY = 'ga_client_id'
 const GOOGLE_ANALYTICS_ID: string | undefined = process.env.REACT_APP_GOOGLE_ANALYTICS_ID
@@ -13,9 +13,9 @@ const GOOGLE_ANALYTICS_ID: string | undefined = process.env.REACT_APP_GOOGLE_ANA
 const storedClientId = window.localStorage.getItem(GOOGLE_ANALYTICS_CLIENT_ID_STORAGE_KEY)
 
 const googleAnalytics = new GoogleAnalyticsProvider()
-
+*/
 export function sendEvent(event: string | UaEventOptions, params?: any) {
-  return googleAnalytics.sendEvent(event, params)
+  //return googleAnalytics.sendEvent(event, params)
 }
 
 export function outboundLink(
@@ -26,14 +26,14 @@ export function outboundLink(
   },
   hitCallback: () => unknown,
 ) {
-  return googleAnalytics.outboundLink({ label }, hitCallback)
+  //return googleAnalytics.outboundLink({ label }, hitCallback)
 }
 
 export function sendTiming(timingCategory: any, timingVar: any, timingValue: any, timingLabel: any) {
-  return googleAnalytics.gaCommandSendTiming(timingCategory, timingVar, timingValue, timingLabel)
+  //return googleAnalytics.gaCommandSendTiming(timingCategory, timingVar, timingValue, timingLabel)
 }
 
-if (typeof GOOGLE_ANALYTICS_ID === 'string') {
+/*if (typeof GOOGLE_ANALYTICS_ID === 'string') {
   googleAnalytics.initialize(GOOGLE_ANALYTICS_ID, {
     gaOptions: {
       storage: 'none',
@@ -50,8 +50,8 @@ if (typeof GOOGLE_ANALYTICS_ID === 'string') {
       : 'mobileRegular',
   })
 } else {
-  googleAnalytics.initialize('test', { gtagOptions: { debug_mode: true } })
-}
+  //googleAnalytics.initialize('test', { gtagOptions: { debug_mode: true } })
+}*/
 
 const installed = Boolean(window.navigator.serviceWorker?.controller)
 const hit = Boolean((window as any).__isDocumentCached)
@@ -63,7 +63,7 @@ function reportWebVitals({ name, delta, id }: Metric) {
 }
 
 // tracks web vitals and pageviews
-export function useAnalyticsReporter() {
+/*export function useAnalyticsReporter() {
   const { pathname, search } = useLocation()
   useEffect(() => {
     getFCP(reportWebVitals)
@@ -92,3 +92,4 @@ export function useAnalyticsReporter() {
     })
   }, [])
 }
+*/
