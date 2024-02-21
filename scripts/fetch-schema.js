@@ -15,6 +15,7 @@ function fetchSchema(url, outputFile) {
       if (stderr) {
         throw new Error(stderr)
       } else {
+        stdout = stdout.replace('UNKNOWN_CHAIN', 'PLANQ\n  UNKNOWN_CHAIN')
         fs.writeFile(outputFile, stdout)
       }
     })
