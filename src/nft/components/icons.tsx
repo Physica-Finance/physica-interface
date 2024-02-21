@@ -10,7 +10,7 @@ import logo from '../../assets/images/logo.png'
 type SVGProps = React.SVGProps<SVGSVGElement> & { fill?: string; height?: string | number; width?: string | number }
 
 export const UniIcon = (props: SVGProps) => (
-  <LogoImage size="" radius="0%" width="190vw" height="50vh" src={logo}></LogoImage>
+  <LogoImage size="" radius="0%" width="100%" height="64px" src={logo}></LogoImage>
 )
 
 export const ChevronUpIcon = ({

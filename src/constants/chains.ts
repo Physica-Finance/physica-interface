@@ -27,7 +27,7 @@ export enum SupportedChainId {
 }
 
 export const CHAIN_IDS_TO_NAMES = {
-  [SupportedChainId.PLANQ]: 'PLANQ',
+  [SupportedChainId.PLANQ]: 'planq',
   [SupportedChainId.MAINNET]: 'mainnet',
   [SupportedChainId.GOERLI]: 'goerli',
   [SupportedChainId.POLYGON]: 'polygon',
@@ -71,6 +71,7 @@ export const UNSUPPORTED_V2POOL_CHAIN_IDS = [
   SupportedChainId.ARBITRUM_ONE,
   SupportedChainId.BNB,
   SupportedChainId.ARBITRUM_GOERLI,
+  SupportedChainId.PLANQ,
 ] as const
 
 export const TESTNET_CHAIN_IDS = [

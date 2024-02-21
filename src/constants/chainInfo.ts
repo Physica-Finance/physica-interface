@@ -70,7 +70,8 @@ const CHAIN_INFO: ChainInfoMap = {
     label: 'Planq',
     logoUrl: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/planq/images/planq.svg',
     nativeCurrency: { name: 'Planq', symbol: 'PLANQ', decimals: 18 },
-    color: darkTheme.chain_1,
+    color: darkTheme.chain_7070,
+    backgroundColor: darkTheme.chain_7070_background,
   },
   [SupportedChainId.MAINNET]: {
     networkType: NetworkType.L1,

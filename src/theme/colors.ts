@@ -93,6 +93,7 @@ export const colors = {
   networkOptimismSoft: 'rgba(255, 4, 32, 0.16)',
   networkPolygon: '#A457FF',
   networkArbitrum: '#28A0F0',
+  networkPlanq: '#2850f0',
   networkBsc: '#F0B90B',
   networkPolygonSoft: 'rgba(164, 87, 255, 0.16)',
   networkEthereumSoft: 'rgba(98, 126, 234, 0.16)',
@@ -112,6 +113,7 @@ const commonTheme = {
   chain_137: colors.networkPolygon,
   chain_42: colors.networkArbitrum,
   chain_56: colors.networkBsc,
+  chain_7070: colors.networkPlanq,
   chain_420: colors.networkOptimism,
   chain_42161: colors.networkArbitrum,
   chain_421613: colors.networkArbitrum,
@@ -120,6 +122,7 @@ const commonTheme = {
   chain_10_background: colors.red900,
   chain_42161_background: colors.blue900,
   chain_56_background: colors.networkBsc,
+  chain_7070_background: colors.networkPlanq,
   promotional: colors.magenta300,
 
   brandedGradient: 'linear-gradient(139.57deg, #FF79C9 4.35%, #FFB8E2 96.44%);',
