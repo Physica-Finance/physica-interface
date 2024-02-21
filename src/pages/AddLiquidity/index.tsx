@@ -429,8 +429,8 @@ function AddLiquidity() {
     if (maxPrice) searchParams.set('maxPrice', maxPrice.toSignificant(5))
     setSearchParams(searchParams)
     if (minPrice && maxPrice) {
-      onLeftRangeInput(minPrice.toSignificant(6))
-      onRightRangeInput(maxPrice.toSignificant(6))
+      onLeftRangeInput((!invertPrice ? minPrice : maxPrice?.invert())?.toSignificant(6))
+      onRightRangeInput((!invertPrice ? maxPrice : minPrice?.invert())?.toSignificant(6))
     }
     sendEvent({
       category: 'Liquidity',
@@ -445,8 +445,8 @@ function AddLiquidity() {
     if (maxPrice) searchParams.set('maxPrice', maxPrice.toSignificant(5))
     setSearchParams(searchParams)
     if (minPrice && maxPrice) {
-      onLeftRangeInput(minPrice.toSignificant(6))
-      onRightRangeInput(maxPrice.toSignificant(6))
+      onLeftRangeInput((!invertPrice ? minPrice : maxPrice?.invert())?.toSignificant(6))
+      onRightRangeInput((!invertPrice ? maxPrice : minPrice?.invert())?.toSignificant(6))
     }
     sendEvent({
       category: 'Liquidity',
@@ -461,8 +461,8 @@ function AddLiquidity() {
     if (maxPrice) searchParams.set('maxPrice', maxPrice.toSignificant(5))
     setSearchParams(searchParams)
     if (minPrice && maxPrice) {
-      onLeftRangeInput(minPrice.toSignificant(6))
-      onRightRangeInput(maxPrice.toSignificant(6))
+      onLeftRangeInput((!invertPrice ? minPrice : maxPrice?.invert())?.toSignificant(6))
+      onRightRangeInput((!invertPrice ? maxPrice : minPrice?.invert())?.toSignificant(6))
     }
     sendEvent({
       category: 'Liquidity',
