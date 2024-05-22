@@ -152,7 +152,7 @@ msgid "Add"
 msgstr "追加"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
-msgid "Add <0/> and <1/> to Uniswap V2"
+msgid "Add <0/> and <1/> to Physica Finance V2"
 msgstr "<0/>と<1/>をユニスワップV2に追加"
 
 #: src/components/vote/DelegateModal.tsx
@@ -370,7 +370,7 @@ msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportio
 msgstr "流動性を追加することで、このペアのすべての取引で発生する0.3%の手数料のうち、プールのシェアに応じた報酬を獲得します。報酬はリアルタイムにプールに追加され、反映されます。報酬は流動性を引き出すことで請求できます。"
 
 #: src/components/WalletModal/index.tsx
-msgid "By connecting a wallet, you agree to Uniswap Labs’ <0>Terms of Service</0> and consent to its <1>Privacy Policy</1>."
+msgid "By connecting a wallet, you agree to Physica Finance Labs’ <0>Terms of Service</0> and consent to its <1>Privacy Policy</1>."
 msgstr ""
 
 #: src/pages/Vote/styled.tsx
@@ -415,7 +415,7 @@ msgid "Claim UNI reward for {0}"
 msgstr "{0} のUNI報酬を請求する"
 
 #: src/components/WalletDropdown/AuthenticatedHeader.tsx
-msgid "Claim Uniswap NFT Airdrop"
+msgid "Claim Physica Finance NFT Airdrop"
 msgstr ""
 
 #: src/pages/Pool/PositionPage.tsx
@@ -720,7 +720,7 @@ msgid "Don’t see one of your v2 positions? <0>Import it.</0>"
 msgstr "V2の流動性が表示されない場合、該当のトークンを<0>インポート</0>してください"
 
 #: src/components/vote/DelegateModal.tsx
-msgid "Earned UNI tokens represent voting shares in Uniswap governance."
+msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
 msgstr "保有するUNIトークンは、Uniswapのガバナンスにおける投票権を表します。"
 
 #: src/components/FeeSelector/index.tsx
@@ -839,8 +839,8 @@ msgid "Explore NFTs"
 msgstr "NFTを探す"
 
 #: src/pages/Pool/CTACards.tsx
-msgid "Explore Uniswap Analytics."
-msgstr "Uniswap Analyticsをご覧ください。"
+msgid "Explore Physica Finance Analytics."
+msgstr "Physica Finance Analyticsをご覧ください。"
 
 #: src/components/Tokens/TokenDetails/InvalidTokenDetails.tsx
 msgid "Explore tokens"
@@ -903,8 +903,8 @@ msgid "For"
 msgstr "賛成"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Physica Finance."
-msgstr "以下の各流動性について「移行」ボタンをクリックすると、Uniswap V2から流動性を取り出し、Physica Financeに移行します。"
+msgid "For each pool shown below, click migrate to remove your liquidity from Physica Finance V2 and deposit it into Physica Finance."
+msgstr "以下の各流動性について「移行」ボタンをクリックすると、Physica Finance V2から流動性を取り出し、Physica Financeに移行します。"
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -1184,8 +1184,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "V2の流動性を移行"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Physica Finance."
-msgstr "Uniswap V2からPhysica Financeに流動性トークンを移行します。"
+msgid "Migrate your liquidity tokens from Physica Finance V2 to Physica Finance."
+msgstr "Physica Finance V2からPhysica Financeに流動性トークンを移行します。"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1403,7 +1403,7 @@ msgid "Pending"
 msgstr "保留中"
 
 #: src/pages/Swap/index.tsx
-msgid "Permission is required for Uniswap to swap each token. This will expire after one month for your security."
+msgid "Permission is required for Physica Finance to swap each token. This will expire after one month for your security."
 msgstr ""
 
 #: src/components/vote/ProposalEmptyState.tsx
@@ -1566,7 +1566,7 @@ msgid "Rates"
 msgstr "レート"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Read more about Uniswap governance"
+msgid "Read more about Physica Finance governance"
 msgstr "Uniswapガバナンスについてもっと見る"
 
 #: src/pages/Pool/v2.tsx
@@ -1916,7 +1916,7 @@ msgid "TVL"
 msgstr "TVL"
 
 #: src/components/Popups/ClaimPopup.tsx
-msgid "Thanks for being part of the Uniswap community <0/>"
+msgid "Thanks for being part of the Physica Finance community <0/>"
 msgstr "Uniswapコミュニティにご参加いただきありがとうございます <0/>"
 
 #: src/components/FeeSelector/index.tsx
@@ -1924,7 +1924,7 @@ msgid "The % you will earn in fees."
 msgstr "設定する手数料率"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
+msgid "The Physica Finance invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
 msgstr "Uniswap不変式 x * y = kはスワップで満たされませんでした。これは通常、スワップするトークンの1つが転送時のカスタム動作を組み込んでいることを意味します。"
 
 #: src/components/swap/AdvancedSwapDetails.tsx
@@ -1940,8 +1940,8 @@ msgid "The app fetches on-chain data and constructs contract calls with an Infur
 msgstr "アプリはオンチェーンデータを取得し、InfuraAPIを使用してコントラクト呼び出しを構築します。"
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "The app fetches the optimal trade route from a Uniswap Labs server."
-msgstr "アプリは、Uniswap Labsサーバーから最適な取引ルートを取得します。"
+msgid "The app fetches the optimal trade route from a Physica Finance Labs server."
+msgstr "アプリは、Physica Finance Labsサーバーから最適な取引ルートを取得します。"
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "The app logs anonymized usage statistics in order to improve over time."
@@ -2010,7 +2010,7 @@ msgid "There is no liquidity data."
 msgstr "流動性データはありません。"
 
 #: src/components/ConnectedAccountBlocked/index.tsx
-msgid "This address is blocked on the Uniswap Labs interface because it is associated with one or more"
+msgid "This address is blocked on the Physica Finance Labs interface because it is associated with one or more"
 msgstr ""
 
 #: src/components/PrivacyPolicy/index.tsx
@@ -2030,7 +2030,7 @@ msgid "This route optimizes your total output by considering split routes, multi
 msgstr ""
 
 #: src/pages/Tokens/index.tsx
-msgid "This table contains the top tokens by Uniswap volume, sorted based on your input."
+msgid "This table contains the top tokens by Physica Finance volume, sorted based on your input."
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/InvalidTokenDetails.tsx
@@ -2073,7 +2073,7 @@ msgid "To (at least)"
 msgstr "買うトークン（少なくとも）"
 
 #: src/components/Popups/FailedNetworkSwitchPopup.tsx
-msgid "To use Uniswap on {0}, switch the network in your wallet’s settings."
+msgid "To use Physica Finance on {0}, switch the network in your wallet’s settings."
 msgstr ""
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
@@ -2162,7 +2162,7 @@ msgid "UNI has arrived"
 msgstr "UNIの登場"
 
 #: src/pages/Vote/Landing.tsx
-msgid "UNI tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or delegate your votes to a third party."
+msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
 msgstr "UNIトークンはUniswapガバナンスにおける投票権を表します。各提案に対して自分で投票するか、もしくは第三者に投票を委任することができます。"
 
 #: src/pages/RemoveLiquidity/index.tsx
@@ -2182,35 +2182,35 @@ msgid "Undetermined"
 msgstr "未定"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Uniswap Governance"
+msgid "Physica Finance Governance"
 msgstr "Uniswapのガバナンス"
 
 #: src/components/TaxServiceModal/TaxServiceBanner.tsx
-msgid "Uniswap Labs can save you up to 20% on CoinTracker and TokenTax"
+msgid "Physica Finance Labs can save you up to 20% on CoinTracker and TokenTax"
 msgstr ""
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "Uniswap Labs' Terms of Service"
+msgid "Physica Finance Labs' Terms of Service"
 msgstr "UniswapLabsの利用規約"
 
 #: src/pages/Pool/v2.tsx
-msgid "Uniswap V2 is not available on this network."
+msgid "Physica Finance V2 is not available on this network."
 msgstr ""
 
 #: src/components/SwitchLocaleLink/index.tsx
-msgid "Uniswap available in: <0>{0}</0>"
+msgid "Physica Finance available in: <0>{0}</0>"
 msgstr "利用可能言語: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Uniswap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
+msgid "Physica Finance governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
 msgstr "Uniswapのガバナンスは、レイヤー1でのみ使用できます。提案と投票を表示するために、ネットワークをEthereumメインネットに切り替えて下さい。"
 
 #: src/nft/components/collection/TransactionCompleteModal.tsx
-msgid "Uniswap has granted your wish!"
+msgid "Physica Finance has granted your wish!"
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "Uniswap migration contract↗"
+msgid "Physica Finance migration contract↗"
 msgstr "Uniswap移行コントラクト↗"
 
 #: src/pages/Vote/Landing.tsx
@@ -2262,7 +2262,7 @@ msgid "Update Delegation"
 msgstr "委任を更新"
 
 #: src/components/Settings/index.tsx
-msgid "Use the Uniswap Labs API to get faster quotes."
+msgid "Use the Physica Finance Labs API to get faster quotes."
 msgstr ""
 
 #: src/pages/Pool/index.tsx
@@ -2658,15 +2658,15 @@ msgstr ""
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {このトークンは、米国の主要な中央集権型取引所で取引されていないか、Uniswap で頻繁に交換されていません。} other {これらのトークンは、主要な米国の中央集権型取引所で取引されていないか、Uniswap で頻繁に交換されていません。}}"
+msgstr "{0, plural, =1 {このトークンは、米国の主要な中央集権型取引所で取引されていないか、Physica Finance で頻繁に交換されていません。} other {これらのトークンは、主要な米国の中央集権型取引所で取引されていないか、Physica Finance で頻繁に交換されていません。}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
 msgstr "{0, plural, =1 {このトークンは、主要な米国の中央集権型取引所では取引されていません。} other {これらのトークンは、主要な米国の集中型取引所では取引されていません。}}"
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {You can't trade this token using the Uniswap App.} other {You can't trade these tokens using the Uniswap App.}}"
-msgstr "{0, plural, =1 {Uniswap アプリを使用してこのトークンを取引することはできません。} other {Uniswap アプリを使用してこれらのトークンを取引することはできません。}}"
+msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
+msgstr "{0, plural, =1 {Physica Finance アプリを使用してこのトークンを取引することはできません。} other {Physica Finance アプリを使用してこれらのトークンを取引することはできません。}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
 msgid "{0, plural, =1 {listing} other {listings}}"

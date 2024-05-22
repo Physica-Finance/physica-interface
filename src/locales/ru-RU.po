@@ -152,8 +152,8 @@ msgid "Add"
 msgstr "Добавить"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
-msgid "Add <0/> and <1/> to Uniswap V2"
-msgstr "Добавить <0/> и <1/> в Uniswap V2"
+msgid "Add <0/> and <1/> to Physica Finance V2"
+msgstr "Добавить <0/> и <1/> в Physica Finance V2"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Add Delegate +"
@@ -370,7 +370,7 @@ msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportio
 msgstr "Добавив ликвидность, вы будете зарабатывать 0,3% от всех сделок на этой паре пропорционально вашей доле в пуле. Комиссии добавляются в пул, начисляются в режиме реального времени и могут быть востребованы путём вывода вашей ликвидности."
 
 #: src/components/WalletModal/index.tsx
-msgid "By connecting a wallet, you agree to Uniswap Labs’ <0>Terms of Service</0> and consent to its <1>Privacy Policy</1>."
+msgid "By connecting a wallet, you agree to Physica Finance Labs’ <0>Terms of Service</0> and consent to its <1>Privacy Policy</1>."
 msgstr ""
 
 #: src/pages/Vote/styled.tsx
@@ -415,7 +415,7 @@ msgid "Claim UNI reward for {0}"
 msgstr "Востребовать награду в UNI за {0}"
 
 #: src/components/WalletDropdown/AuthenticatedHeader.tsx
-msgid "Claim Uniswap NFT Airdrop"
+msgid "Claim Physica Finance NFT Airdrop"
 msgstr ""
 
 #: src/pages/Pool/PositionPage.tsx
@@ -720,7 +720,7 @@ msgid "Don’t see one of your v2 positions? <0>Import it.</0>"
 msgstr "Не видите какую-то из ваших позиций в V2? <0>Импортируйте её.</0>"
 
 #: src/components/vote/DelegateModal.tsx
-msgid "Earned UNI tokens represent voting shares in Uniswap governance."
+msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
 msgstr "Заработанные токены UNI представляют собой права голоса в управлении Uniswap."
 
 #: src/components/FeeSelector/index.tsx
@@ -839,8 +839,8 @@ msgid "Explore NFTs"
 msgstr ""
 
 #: src/pages/Pool/CTACards.tsx
-msgid "Explore Uniswap Analytics."
-msgstr "Изучите Uniswap Analytics."
+msgid "Explore Physica Finance Analytics."
+msgstr "Изучите Physica Finance Analytics."
 
 #: src/components/Tokens/TokenDetails/InvalidTokenDetails.tsx
 msgid "Explore tokens"
@@ -903,8 +903,8 @@ msgid "For"
 msgstr "За"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Physica Finance."
-msgstr "Для каждого указанного ниже пула нажмите «Перенести», чтобы удалить ликвидность из Uniswap V2 и внести её в Physica Finance."
+msgid "For each pool shown below, click migrate to remove your liquidity from Physica Finance V2 and deposit it into Physica Finance."
+msgstr "Для каждого указанного ниже пула нажмите «Перенести», чтобы удалить ликвидность из Physica Finance V2 и внести её в Physica Finance."
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -1184,8 +1184,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "Перенести ликвидность из V2"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Physica Finance."
-msgstr "Перенесите ваши токены ликвидности из Uniswap V2 в Physica Finance."
+msgid "Migrate your liquidity tokens from Physica Finance V2 to Physica Finance."
+msgstr "Перенесите ваши токены ликвидности из Physica Finance V2 в Physica Finance."
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1403,7 +1403,7 @@ msgid "Pending"
 msgstr "Ожидает"
 
 #: src/pages/Swap/index.tsx
-msgid "Permission is required for Uniswap to swap each token. This will expire after one month for your security."
+msgid "Permission is required for Physica Finance to swap each token. This will expire after one month for your security."
 msgstr ""
 
 #: src/components/vote/ProposalEmptyState.tsx
@@ -1566,7 +1566,7 @@ msgid "Rates"
 msgstr "Тарифы"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Read more about Uniswap governance"
+msgid "Read more about Physica Finance governance"
 msgstr "Подробнее об управлении Uniswap"
 
 #: src/pages/Pool/v2.tsx
@@ -1916,16 +1916,16 @@ msgid "TVL"
 msgstr ""
 
 #: src/components/Popups/ClaimPopup.tsx
-msgid "Thanks for being part of the Uniswap community <0/>"
-msgstr "Спасибо, что присоединились к сообществу Uniswap <0/>"
+msgid "Thanks for being part of the Physica Finance community <0/>"
+msgstr "Спасибо, что присоединились к сообществу Physica Finance <0/>"
 
 #: src/components/FeeSelector/index.tsx
 msgid "The % you will earn in fees."
 msgstr "%, который вы заработаете в виде комиссий."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
-msgstr "Инвариант Uniswap x * y = k не соблюдается при обмене. Обычно это означает, что один из токенов, которые вы обмениваете, имеет особенности поведения при его передаче."
+msgid "The Physica Finance invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
+msgstr "Инвариант Physica Finance x * y = k не соблюдается при обмене. Обычно это означает, что один из токенов, которые вы обмениваете, имеет особенности поведения при его передаче."
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "The amount you expect to receive at the current market price. You may receive less or more if the market price changes while your transaction is pending."
@@ -1940,8 +1940,8 @@ msgid "The app fetches on-chain data and constructs contract calls with an Infur
 msgstr "Приложение получает данные, хранящиеся в блокчейне, и конструирует вызовы контрактов при помощи API от Infura."
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "The app fetches the optimal trade route from a Uniswap Labs server."
-msgstr "Приложение получает оптимальный маршрут для сделки с сервера Uniswap Labs."
+msgid "The app fetches the optimal trade route from a Physica Finance Labs server."
+msgstr "Приложение получает оптимальный маршрут для сделки с сервера Physica Finance Labs."
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "The app logs anonymized usage statistics in order to improve over time."
@@ -2010,8 +2010,8 @@ msgid "There is no liquidity data."
 msgstr "Нет данных о ликвидности."
 
 #: src/components/ConnectedAccountBlocked/index.tsx
-msgid "This address is blocked on the Uniswap Labs interface because it is associated with one or more"
-msgstr "Этот адрес заблокирован в интерфейсе Uniswap Labs, поскольку он связан с одним или несколькими"
+msgid "This address is blocked on the Physica Finance Labs interface because it is associated with one or more"
+msgstr "Этот адрес заблокирован в интерфейсе Physica Finance Labs, поскольку он связан с одним или несколькими"
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "This app uses the following third-party APIs:"
@@ -2030,7 +2030,7 @@ msgid "This route optimizes your total output by considering split routes, multi
 msgstr "Этот маршрут оптимизирует количество токенов к получению с учётом разбивки маршрутов, сложных маршрутов и стоимости газа на каждом шаге."
 
 #: src/pages/Tokens/index.tsx
-msgid "This table contains the top tokens by Uniswap volume, sorted based on your input."
+msgid "This table contains the top tokens by Physica Finance volume, sorted based on your input."
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/InvalidTokenDetails.tsx
@@ -2073,7 +2073,7 @@ msgid "To (at least)"
 msgstr "На токены (минимум)"
 
 #: src/components/Popups/FailedNetworkSwitchPopup.tsx
-msgid "To use Uniswap on {0}, switch the network in your wallet’s settings."
+msgid "To use Physica Finance on {0}, switch the network in your wallet’s settings."
 msgstr ""
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
@@ -2162,7 +2162,7 @@ msgid "UNI has arrived"
 msgstr "UNI здесь"
 
 #: src/pages/Vote/Landing.tsx
-msgid "UNI tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or delegate your votes to a third party."
+msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
 msgstr "Токены UNI представляют собой права голоса в управлении Uniswap. Вы можете проголосовать по каждому предложению самостоятельно или делегировать свои голоса третьей стороне."
 
 #: src/pages/RemoveLiquidity/index.tsx
@@ -2182,36 +2182,36 @@ msgid "Undetermined"
 msgstr "Не определено"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Uniswap Governance"
+msgid "Physica Finance Governance"
 msgstr "Управление Uniswap"
 
 #: src/components/TaxServiceModal/TaxServiceBanner.tsx
-msgid "Uniswap Labs can save you up to 20% on CoinTracker and TokenTax"
+msgid "Physica Finance Labs can save you up to 20% on CoinTracker and TokenTax"
 msgstr ""
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "Uniswap Labs' Terms of Service"
-msgstr "Условия предоставления услуг Uniswap Labs"
+msgid "Physica Finance Labs' Terms of Service"
+msgstr "Условия предоставления услуг Physica Finance Labs"
 
 #: src/pages/Pool/v2.tsx
-msgid "Uniswap V2 is not available on this network."
+msgid "Physica Finance V2 is not available on this network."
 msgstr ""
 
 #: src/components/SwitchLocaleLink/index.tsx
-msgid "Uniswap available in: <0>{0}</0>"
-msgstr "Uniswap доступен на языке <0>{0}</0>"
+msgid "Physica Finance available in: <0>{0}</0>"
+msgstr "Physica Finance доступен на языке <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Uniswap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
-msgstr "Управление Uniswap доступно только на 1-м уровне. Переключитесь на основную сеть Ethereum, чтобы просматривать предложения и голосовать."
+msgid "Physica Finance governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
+msgstr "Управление Physica Finance доступно только на 1-м уровне. Переключитесь на основную сеть Ethereum, чтобы просматривать предложения и голосовать."
 
 #: src/nft/components/collection/TransactionCompleteModal.tsx
-msgid "Uniswap has granted your wish!"
+msgid "Physica Finance has granted your wish!"
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "Uniswap migration contract↗"
-msgstr "Контракт переноса Uniswap ↗"
+msgid "Physica Finance migration contract↗"
+msgstr "Контракт переноса Physica Finance ↗"
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -2262,8 +2262,8 @@ msgid "Update Delegation"
 msgstr "Обновить делегирование"
 
 #: src/components/Settings/index.tsx
-msgid "Use the Uniswap Labs API to get faster quotes."
-msgstr "Использовать API от Uniswap Labs, чтобы быстрее получать котировки."
+msgid "Use the Physica Finance Labs API to get faster quotes."
+msgstr "Использовать API от Physica Finance Labs, чтобы быстрее получать котировки."
 
 #: src/pages/Pool/index.tsx
 msgid "V2 liquidity"
@@ -2665,7 +2665,7 @@ msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized excha
 msgstr "{0, plural, =1 {Этот токен не торгуется на ведущих централизованных биржах США.} other {Эти токены не торгуются на ведущих централизованных биржах США.}}"
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {You can't trade this token using the Uniswap App.} other {You can't trade these tokens using the Uniswap App.}}"
+msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
 msgstr "{0, plural, =1 {Вы не можете обменять этот токен с помощью приложения Uniswap.} other {Вы не можете торговать этими токенами с помощью приложения Uniswap.}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
