@@ -721,7 +721,7 @@ msgstr "No veieu cap de les vostres posicions v2? <0> Importeu-la.</0>"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
-msgstr "Les fitxes UNI obtingudes representen accions de vot en la governança Uniswap."
+msgstr "Les fitxes UNI obtingudes representen accions de vot en la governança Physica Finance."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -1567,7 +1567,7 @@ msgstr "Tarifes"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Read more about Physica Finance governance"
-msgstr "Llegiu més sobre la governança Uniswap"
+msgstr "Llegiu més sobre la governança Physica Finance"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "Grups principals"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2163,7 +2163,7 @@ msgstr "Ha arribat UNI"
 
 #: src/pages/Vote/Landing.tsx
 msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "Les fitxesUNI representen accions de vot en el govern Uniswap. Podeu votar vosaltres cada proposta o delegar els vostres vots a un tercer."
+msgstr "Les fitxesUNI representen accions de vot en el govern Physica Finance. Podeu votar vosaltres cada proposta o delegar els vostres vots a un tercer."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2183,7 +2183,7 @@ msgstr ""
 
 #: src/pages/Vote/Landing.tsx
 msgid "Physica Finance Governance"
-msgstr "Governança Uniswap"
+msgstr "Governança Physica Finance"
 
 #: src/components/TaxServiceModal/TaxServiceBanner.tsx
 msgid "Physica Finance Labs can save you up to 20% on CoinTracker and TokenTax"
@@ -2211,7 +2211,7 @@ msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Physica Finance migration contract↗"
-msgstr "Contracte de migració Uniswap↗"
+msgstr "Contracte de migració Physica Finance↗"
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -2657,8 +2657,8 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {Aquest testimoni no es negocia a les principals borses centralitzades dels EUA ni s'intercanvia amb freqüència a Uniswap.} other {Aquestes fitxes no es comercialitzen a les principals borses centralitzades dels EUA ni s'intercanvien amb freqüència a Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
+msgstr "{0, plural, =1 {Aquest testimoni no es negocia a les principals borses centralitzades dels EUA ni s'intercanvia amb freqüència a Physica Finance.} other {Aquestes fitxes no es comercialitzen a les principals borses centralitzades dels EUA ni s'intercanvien amb freqüència a Physica Finance.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
@@ -2666,7 +2666,7 @@ msgstr "{0, plural, =1 {Aquest testimoni no es negocia a les principals borses c
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
-msgstr "{0, plural, =1 {No podeu intercanviar aquest testimoni mitjançant l'aplicació Uniswap.} other {No podeu intercanviar aquests fitxes amb l'aplicació Uniswap.}}"
+msgstr "{0, plural, =1 {No podeu intercanviar aquest testimoni mitjançant l'aplicació Physica Finance.} other {No podeu intercanviar aquests fitxes amb l'aplicació Physica Finance.}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
 msgid "{0, plural, =1 {listing} other {listings}}"

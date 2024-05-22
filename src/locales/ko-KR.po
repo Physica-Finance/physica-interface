@@ -247,7 +247,7 @@ msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
-msgstr "교환을 실행하는 중에 오류가 발생했습니다. 가격변동 허용치를 높여야 할 수도 있습니다. 그래도 작동하지 않으면 교환중인 토큰이 Uniswap과 호환되지 않는 것일 수 있습니다. 참고: 전송 수수료 및 리베이스 토큰은 Physica Finance와 호환되지 않습니다."
+msgstr "교환을 실행하는 중에 오류가 발생했습니다. 가격변동 허용치를 높여야 할 수도 있습니다. 그래도 작동하지 않으면 교환중인 토큰이 Physica Finance과 호환되지 않는 것일 수 있습니다. 참고: 전송 수수료 및 리베이스 토큰은 Physica Finance와 호환되지 않습니다."
 
 #: src/nft/components/bag/BagFooter.tsx
 #: src/pages/Swap/index.tsx
@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "상위 풀"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2657,8 +2657,8 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {이 토큰은 미국의 주요 중앙 집중식 거래소에서 거래되거나 Uniswap에서 자주 교환되지 않습니다.} other {이 토큰은 미국의 주요 중앙 집중식 거래소에서 거래되거나 Uniswap에서 자주 교환되지 않습니다.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
+msgstr "{0, plural, =1 {이 토큰은 미국의 주요 중앙 집중식 거래소에서 거래되거나 Physica Finance에서 자주 교환되지 않습니다.} other {이 토큰은 미국의 주요 중앙 집중식 거래소에서 거래되거나 Physica Finance에서 자주 교환되지 않습니다.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"

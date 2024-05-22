@@ -721,7 +721,7 @@ msgstr "Non vedi una delle tue posizioni v2? <0>Importala.</0>"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
-msgstr "I token UNI guadagnati rappresentano le quote di voto nella governance di Uniswap."
+msgstr "I token UNI guadagnati rappresentano le quote di voto nella governance di Physica Finance."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -1567,7 +1567,7 @@ msgstr "Tariffe"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Read more about Physica Finance governance"
-msgstr "Per saperne di più sulla governance di Uniswap"
+msgstr "Per saperne di più sulla governance di Physica Finance"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "I pool migliori"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2163,7 +2163,7 @@ msgstr "È arrivata l'UNI"
 
 #: src/pages/Vote/Landing.tsx
 msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "I token UNI rappresentano le quote di voto nella governance di Uniswap. Puoi votare su ogni proposta tu stesso o delegare i tuoi voti a terzi."
+msgstr "I token UNI rappresentano le quote di voto nella governance di Physica Finance. Puoi votare su ogni proposta tu stesso o delegare i tuoi voti a terzi."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2211,7 +2211,7 @@ msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Physica Finance migration contract↗"
-msgstr "Contratto di migrazione Uniswap↗"
+msgstr "Contratto di migrazione Physica Finance↗"
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -2657,8 +2657,8 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {Questo token non viene scambiato nelle principali borse centralizzate statunitensi o scambiato frequentemente su Uniswap.} other {Questi token non vengono scambiati nelle principali borse centralizzate statunitensi o scambiati frequentemente su Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
+msgstr "{0, plural, =1 {Questo token non viene scambiato nelle principali borse centralizzate statunitensi o scambiato frequentemente su Physica Finance.} other {Questi token non vengono scambiati nelle principali borse centralizzate statunitensi o scambiati frequentemente su Physica Finance.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
@@ -2666,7 +2666,7 @@ msgstr "{0, plural, =1 {Questo token non è scambiato nelle principali borse cen
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
-msgstr "{0, plural, =1 {Non puoi scambiare questo token usando l'app Uniswap.} other {Non puoi scambiare questi token utilizzando l'app Uniswap.}}"
+msgstr "{0, plural, =1 {Non puoi scambiare questo token usando l'app Physica Finance.} other {Non puoi scambiare questi token utilizzando l'app Physica Finance.}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
 msgid "{0, plural, =1 {listing} other {listings}}"

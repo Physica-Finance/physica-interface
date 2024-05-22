@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "Najlepsze pule"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2657,8 +2657,8 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {Ten token nie jest przedmiotem obrotu na wiodących scentralizowanych giełdach w USA ani nie jest często wymieniany na Uniswap.} other {Te tokeny nie są przedmiotem obrotu na wiodących scentralizowanych giełdach w USA ani nie są często wymieniane na Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
+msgstr "{0, plural, =1 {Ten token nie jest przedmiotem obrotu na wiodących scentralizowanych giełdach w USA ani nie jest często wymieniany na Physica Finance.} other {Te tokeny nie są przedmiotem obrotu na wiodących scentralizowanych giełdach w USA ani nie są często wymieniane na Physica Finance.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
@@ -2666,7 +2666,7 @@ msgstr "{0, plural, =1 {Ten token nie jest przedmiotem obrotu na wiodących scen
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
-msgstr "{0, plural, =1 {Nie możesz handlować tym tokenem za pomocą aplikacji Uniswap.} other {Nie możesz handlować tymi tokenami za pomocą aplikacji Uniswap.}}"
+msgstr "{0, plural, =1 {Nie możesz handlować tym tokenem za pomocą aplikacji Physica Finance.} other {Nie możesz handlować tymi tokenami za pomocą aplikacji Physica Finance.}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
 msgid "{0, plural, =1 {listing} other {listings}}"

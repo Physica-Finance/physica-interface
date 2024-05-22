@@ -2095,7 +2095,7 @@ msgid "Top pools"
 msgstr "Legjobb poolok"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2658,8 +2658,8 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {Ezzel a tokent nem kereskednek vezető amerikai központosított tőzsdéken, és nem cserélik gyakran Uniswapon.} other {Ezekkel a tokenekkel nem kereskednek vezető amerikai központosított tőzsdéken, és nem cserélik őket gyakran Uniswapon.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
+msgstr "{0, plural, =1 {Ezzel a tokent nem kereskednek vezető amerikai központosított tőzsdéken, és nem cserélik gyakran Physica Financeon.} other {Ezekkel a tokenekkel nem kereskednek vezető amerikai központosított tőzsdéken, és nem cserélik őket gyakran Physica Financeon.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"

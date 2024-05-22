@@ -8,7 +8,7 @@ describe('Token details', () => {
   })
 
   it('Uniswap token should have all information populated', () => {
-    // Uniswap token
+    // Physica Finance token
     cy.visit(`/tokens/ethereum/${UNI_ADDRESS}`)
 
     // Price chart should be filled in

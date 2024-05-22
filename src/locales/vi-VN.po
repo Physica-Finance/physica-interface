@@ -721,7 +721,7 @@ msgstr "Bạn không thấy một trong các vị trí v2 của mình? <0> Nhậ
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
-msgstr "Token UNI kiếm được đại diện cho cổ phần có quyền biểu quyết trong quản trị Uniswap."
+msgstr "Token UNI kiếm được đại diện cho cổ phần có quyền biểu quyết trong quản trị Physica Finance."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -1567,7 +1567,7 @@ msgstr "Tỷ giá"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Read more about Physica Finance governance"
-msgstr "Đọc thêm về quản trị Uniswap"
+msgstr "Đọc thêm về quản trị Physica Finance"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "Pool hàng đầu"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2163,7 +2163,7 @@ msgstr "UNI đã đến"
 
 #: src/pages/Vote/Landing.tsx
 msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "Mã token UNI đại diện cho cổ phần có quyền biểu quyết trong quản trị Uniswap. Bạn có thể tự bỏ phiếu cho từng đề xuất hoặc ủy thác phiếu bầu của mình cho bên thứ ba."
+msgstr "Mã token UNI đại diện cho cổ phần có quyền biểu quyết trong quản trị Physica Finance. Bạn có thể tự bỏ phiếu cho từng đề xuất hoặc ủy thác phiếu bầu của mình cho bên thứ ba."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2183,7 +2183,7 @@ msgstr ""
 
 #: src/pages/Vote/Landing.tsx
 msgid "Physica Finance Governance"
-msgstr "Quản trị Uniswap"
+msgstr "Quản trị Physica Finance"
 
 #: src/components/TaxServiceModal/TaxServiceBanner.tsx
 msgid "Physica Finance Labs can save you up to 20% on CoinTracker and TokenTax"
@@ -2211,7 +2211,7 @@ msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Physica Finance migration contract↗"
-msgstr "Hợp đồng di chuyển Uniswap↗"
+msgstr "Hợp đồng di chuyển Physica Finance↗"
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -2657,8 +2657,8 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {Mã thông báo này không được giao dịch trên các sàn giao dịch tập trung hàng đầu của Hoa Kỳ hoặc thường xuyên được hoán đổi trên Uniswap.} other {Các mã thông báo này không được giao dịch trên các sàn giao dịch tập trung hàng đầu của Hoa Kỳ hoặc thường xuyên được hoán đổi trên Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
+msgstr "{0, plural, =1 {Mã thông báo này không được giao dịch trên các sàn giao dịch tập trung hàng đầu của Hoa Kỳ hoặc thường xuyên được hoán đổi trên Physica Finance.} other {Các mã thông báo này không được giao dịch trên các sàn giao dịch tập trung hàng đầu của Hoa Kỳ hoặc thường xuyên được hoán đổi trên Physica Finance.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
@@ -2666,7 +2666,7 @@ msgstr "{0, plural, =1 {Mã thông báo này không được giao dịch trên c
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
-msgstr "{0, plural, =1 {Bạn không thể giao dịch mã thông báo này bằng Ứng dụng Uniswap.} other {Bạn không thể giao dịch các mã thông báo này bằng Ứng dụng Uniswap.}}"
+msgstr "{0, plural, =1 {Bạn không thể giao dịch mã thông báo này bằng Ứng dụng Physica Finance.} other {Bạn không thể giao dịch các mã thông báo này bằng Ứng dụng Physica Finance.}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
 msgid "{0, plural, =1 {listing} other {listings}}"

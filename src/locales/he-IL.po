@@ -721,7 +721,7 @@ msgstr "אינך רואה את אחת מעמדות ה- v2 שלך? <0> יבא א�
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
-msgstr "אסימונים של UNI שהושכרו מייצגים מניות הצבעה בממשל Uniswap."
+msgstr "אסימונים של UNI שהושכרו מייצגים מניות הצבעה בממשל Physica Finance."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -1567,7 +1567,7 @@ msgstr "תעריפים"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Read more about Physica Finance governance"
-msgstr "קרא עוד על ממשל Uniswap"
+msgstr "קרא עוד על ממשל Physica Finance"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "בריכות מובילות"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2163,7 +2163,7 @@ msgstr "UNI הגיע"
 
 #: src/pages/Vote/Landing.tsx
 msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "אסימונים של UNI מייצגים מניות הצבעה בממשל Uniswap. אתה יכול להצביע על כל הצעה בעצמך או להאציל את קולותיך לצד שלישי."
+msgstr "אסימונים של UNI מייצגים מניות הצבעה בממשל Physica Finance. אתה יכול להצביע על כל הצעה בעצמך או להאציל את קולותיך לצד שלישי."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2657,8 +2657,8 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {אסימון זה אינו נסחר בבורסות מובילות בארה\"ב או מוחלף לעתים קרובות ב-Uniswap.} other {האסימונים הללו אינם נסחרים בבורסות מובילות בארה\"ב או מוחלפים לעתים קרובות ב-Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
+msgstr "{0, plural, =1 {אסימון זה אינו נסחר בבורסות מובילות בארה\"ב או מוחלף לעתים קרובות ב-Physica Finance.} other {האסימונים הללו אינם נסחרים בבורסות מובילות בארה\"ב או מוחלפים לעתים קרובות ב-Physica Finance.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
@@ -2666,7 +2666,7 @@ msgstr "{0, plural, =1 {אסימון זה אינו נסחר בבורסות מו�
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
-msgstr "{0, plural, =1 {אינך יכול לסחור באסימון זה באמצעות אפליקציית Uniswap.} other {אתה לא יכול לסחור באסימונים האלה באמצעות אפליקציית Uniswap.}}"
+msgstr "{0, plural, =1 {אינך יכול לסחור באסימון זה באמצעות אפליקציית Physica Finance.} other {אתה לא יכול לסחור באסימונים האלה באמצעות אפליקציית Physica Finance.}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
 msgid "{0, plural, =1 {listing} other {listings}}"

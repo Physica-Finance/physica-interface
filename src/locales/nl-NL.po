@@ -721,7 +721,7 @@ msgstr "Ziet u één van uw v2 posities niet? <0>Importeer deze.</0>"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
-msgstr "Verdiende UNI-tokens vertegenwoordigen stemgerechtigde aandelen in Uniswap-bestuur."
+msgstr "Verdiende UNI-tokens vertegenwoordigen stemgerechtigde aandelen in Physica Finance-bestuur."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -1567,7 +1567,7 @@ msgstr "Tarieven"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Read more about Physica Finance governance"
-msgstr "Lees meer over Uniswap-bestuur"
+msgstr "Lees meer over Physica Finance-bestuur"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -1917,7 +1917,7 @@ msgstr ""
 
 #: src/components/Popups/ClaimPopup.tsx
 msgid "Thanks for being part of the Physica Finance community <0/>"
-msgstr "Bedankt dat u deel uitmaakt van de Uniswap-gemeenschap <0/>"
+msgstr "Bedankt dat u deel uitmaakt van de Physica Finance-gemeenschap <0/>"
 
 #: src/components/FeeSelector/index.tsx
 msgid "The % you will earn in fees."
@@ -1925,7 +1925,7 @@ msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "The Physica Finance invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
-msgstr "Aan de Uniswap-invariant x * y = k werd door de swap niet voldaan. Dit betekent meestal dat een van de tokens die u ruilt, aangepast gedrag bij overdracht bevat."
+msgstr "Aan de Physica Finance-invariant x * y = k werd door de swap niet voldaan. Dit betekent meestal dat een van de tokens die u ruilt, aangepast gedrag bij overdracht bevat."
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "The amount you expect to receive at the current market price. You may receive less or more if the market price changes while your transaction is pending."
@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "Top pools"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2163,7 +2163,7 @@ msgstr "UNI is gearriveerd"
 
 #: src/pages/Vote/Landing.tsx
 msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "UNI tokens vertegenwoordigen stemaandelen in het bestuur van Uniswap. U kunt zelf over elk voorstel stemmen of uw stemmen aan een derde partij overdragen."
+msgstr "UNI tokens vertegenwoordigen stemaandelen in het bestuur van Physica Finance. U kunt zelf over elk voorstel stemmen of uw stemmen aan een derde partij overdragen."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2183,7 +2183,7 @@ msgstr ""
 
 #: src/pages/Vote/Landing.tsx
 msgid "Physica Finance Governance"
-msgstr "Uniswap-bestuur"
+msgstr "Physica Finance-bestuur"
 
 #: src/components/TaxServiceModal/TaxServiceBanner.tsx
 msgid "Physica Finance Labs can save you up to 20% on CoinTracker and TokenTax"
@@ -2657,8 +2657,8 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {Dit token wordt niet verhandeld op toonaangevende gecentraliseerde beurzen in de VS of vaak geruild op Uniswap.} other {Deze tokens worden niet verhandeld op toonaangevende Amerikaanse centrale beurzen of vaak geruild op Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
+msgstr "{0, plural, =1 {Dit token wordt niet verhandeld op toonaangevende gecentraliseerde beurzen in de VS of vaak geruild op Physica Finance.} other {Deze tokens worden niet verhandeld op toonaangevende Amerikaanse centrale beurzen of vaak geruild op Physica Finance.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
@@ -2666,7 +2666,7 @@ msgstr "{0, plural, =1 {Dit token wordt niet verhandeld op toonaangevende gecent
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
-msgstr "{0, plural, =1 {U kunt deze token niet verhandelen met de Uniswap-app.} other {Je kunt deze tokens niet verhandelen met de Physica Finance App.}}"
+msgstr "{0, plural, =1 {U kunt deze token niet verhandelen met de Physica Finance-app.} other {Je kunt deze tokens niet verhandelen met de Physica Finance App.}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
 msgid "{0, plural, =1 {listing} other {listings}}"

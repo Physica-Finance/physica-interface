@@ -247,7 +247,7 @@ msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
-msgstr "尝试执行此兑换时发生错误。您可能需要增加滑点限制。如果还是不行，则可能是您正在交易的代币与Uniswap不兼容。注：Physica Finance不兼容转账时带扣除费用（fee-on-transfer）的代币和弹性供应（rebase）代币。"
+msgstr "尝试执行此兑换时发生错误。您可能需要增加滑点限制。如果还是不行，则可能是您正在交易的代币与Physica Finance不兼容。注：Physica Finance不兼容转账时带扣除费用（fee-on-transfer）的代币和弹性供应（rebase）代币。"
 
 #: src/nft/components/bag/BagFooter.tsx
 #: src/pages/Swap/index.tsx
@@ -1567,7 +1567,7 @@ msgstr "费率"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Read more about Physica Finance governance"
-msgstr "阅读有关Uniswap治理的更多信息"
+msgstr "阅读有关Physica Finance治理的更多信息"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "顶级流动池"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2163,7 +2163,7 @@ msgstr "UNI 代币已到账"
 
 #: src/pages/Vote/Landing.tsx
 msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "UNI代币代表了Uniswap治理中的投票份额。您可以自行为提案进行投票，或将您的投票权委托给第三方。"
+msgstr "UNI代币代表了Physica Finance治理中的投票份额。您可以自行为提案进行投票，或将您的投票权委托给第三方。"
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2183,7 +2183,7 @@ msgstr "未定"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Physica Finance Governance"
-msgstr "Uniswap治理"
+msgstr "Physica Finance治理"
 
 #: src/components/TaxServiceModal/TaxServiceBanner.tsx
 msgid "Physica Finance Labs can save you up to 20% on CoinTracker and TokenTax"
@@ -2199,7 +2199,7 @@ msgstr ""
 
 #: src/components/SwitchLocaleLink/index.tsx
 msgid "Physica Finance available in: <0>{0}</0>"
-msgstr "Uniswap可用：<0>{0}</0>"
+msgstr "Physica Finance可用：<0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
 msgid "Physica Finance governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
@@ -2657,7 +2657,7 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
 msgstr "{0, plural, =1 {该代币不在美国领先的中心化交易所交易，也不经常在 Physica Finance 上交换。} other {这些代币不在美国领先的中心化交易所交易，也不经常在 Physica Finance 上交换。}}"
 
 #: src/constants/tokenSafety.tsx

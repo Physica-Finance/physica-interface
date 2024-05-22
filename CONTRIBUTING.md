@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to the Uniswap interface! 🦄
+Thank you for your interest in contributing to the Physica Finance interface! 🦄
 
 # Development
 

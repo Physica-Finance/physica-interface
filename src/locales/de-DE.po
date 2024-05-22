@@ -721,7 +721,7 @@ msgstr "Sie sehen eine Ihrer v2-Positionen nicht? <0>Importiere sie.</0>"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
-msgstr "Erhaltene UNI-Token stellen Stimmbeteiligungen an der Uniswap-Governance dar."
+msgstr "Erhaltene UNI-Token stellen Stimmbeteiligungen an der Physica Finance-Governance dar."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -1917,7 +1917,7 @@ msgstr ""
 
 #: src/components/Popups/ClaimPopup.tsx
 msgid "Thanks for being part of the Physica Finance community <0/>"
-msgstr "Danke, dass du Teil der Uniswap-Community bist <0/>"
+msgstr "Danke, dass du Teil der Physica Finance-Community bist <0/>"
 
 #: src/components/FeeSelector/index.tsx
 msgid "The % you will earn in fees."
@@ -1925,7 +1925,7 @@ msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "The Physica Finance invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
-msgstr "Die Uniswap-Invariante x*y=k wurde durch den Tausch nicht erfüllt. Dies bedeutet normalerweise, dass einer der Token, die Sie austauschen, ein benutzerdefiniertes Verhalten bei der Übertragung enthält."
+msgstr "Die Physica Finance-Invariante x*y=k wurde durch den Tausch nicht erfüllt. Dies bedeutet normalerweise, dass einer der Token, die Sie austauschen, ein benutzerdefiniertes Verhalten bei der Übertragung enthält."
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "The amount you expect to receive at the current market price. You may receive less or more if the market price changes while your transaction is pending."
@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "Top Pools"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2203,7 +2203,7 @@ msgstr "Physica Finance verfügbar in: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
 msgid "Physica Finance governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
-msgstr "Uniswap-Governance ist nur auf Layer 1 verfügbar. Schalten Sie Ihr Netzwerk auf Ethereum Mainnet um, um Anträge und Abstimmungen anzuzeigen."
+msgstr "Physica Finance-Governance ist nur auf Layer 1 verfügbar. Schalten Sie Ihr Netzwerk auf Ethereum Mainnet um, um Anträge und Abstimmungen anzuzeigen."
 
 #: src/nft/components/collection/TransactionCompleteModal.tsx
 msgid "Physica Finance has granted your wish!"
@@ -2657,7 +2657,7 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
 msgstr "{0, plural, =1 {Dieser Token wird nicht an führenden zentralisierten US-Börsen gehandelt oder häufig auf Physica Finance getauscht.} other {Diese Token werden nicht an führenden zentralisierten US-Börsen gehandelt oder häufig auf Physica Finance getauscht.}}"
 
 #: src/constants/tokenSafety.tsx
@@ -2666,7 +2666,7 @@ msgstr "{0, plural, =1 {Dieser Token wird nicht an führenden zentralisierten US
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
-msgstr "{0, plural, =1 {Sie können diesen Token nicht über die Uniswap-App handeln.} other {Sie können diese Token nicht über die Uniswap-App handeln.}}"
+msgstr "{0, plural, =1 {Sie können diesen Token nicht über die Physica Finance-App handeln.} other {Sie können diese Token nicht über die Physica Finance-App handeln.}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
 msgid "{0, plural, =1 {listing} other {listings}}"

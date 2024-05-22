@@ -30,7 +30,7 @@ export class WalletConnectPopup extends WalletConnect {
   }
 }
 
-// Custom class for Uniswap Wallet specific functionality
+// Custom class for Physica Finance Wallet specific functionality
 export class UniwalletConnect extends WalletConnectPopup {
   ANALYTICS_EVENT = 'Uniswap Wallet QR Scan'
   static UNI_URI_AVAILABLE = 'uni_uri_available'
@@ -47,10 +47,10 @@ export class UniwalletConnect extends WalletConnectPopup {
 
     this.events.on(URI_AVAILABLE, (uri) => {
       if (!uri) return
-      // Emits custom wallet connect code, parseable by the Uniswap Wallet
+      // Emits custom wallet connect code, parseable by the Physica Finance Wallet
       this.events.emit(UniwalletConnect.UNI_URI_AVAILABLE, `hello_uniwallet:${uri}`)
 
-      // Opens deeplink to Uniswap Wallet if on iOS
+      // Opens deeplink to Physica Finance Wallet if on iOS
       if (isIOS) {
         const newTab = window.open(``)
 

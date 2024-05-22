@@ -247,7 +247,7 @@ msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
-msgstr "スワップ実行時にエラーが発生しました。スリッページの許容範囲を広げる必要がある可能性があります。それでも上手くいかない場合、取引しているトークンとの互換性がない可能性があります。注：転送時に手数料が発生するトークンおよびリベースするトークンは、UniswapV3と互換性がありません。"
+msgstr "スワップ実行時にエラーが発生しました。スリッページの許容範囲を広げる必要がある可能性があります。それでも上手くいかない場合、取引しているトークンとの互換性がない可能性があります。注：転送時に手数料が発生するトークンおよびリベースするトークンは、Physica FinanceV3と互換性がありません。"
 
 #: src/nft/components/bag/BagFooter.tsx
 #: src/pages/Swap/index.tsx
@@ -721,7 +721,7 @@ msgstr "V2の流動性が表示されない場合、該当のトークンを<0>�
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
-msgstr "保有するUNIトークンは、Uniswapのガバナンスにおける投票権を表します。"
+msgstr "保有するUNIトークンは、Physica Financeのガバナンスにおける投票権を表します。"
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -1567,7 +1567,7 @@ msgstr "レート"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Read more about Physica Finance governance"
-msgstr "Uniswapガバナンスについてもっと見る"
+msgstr "Physica Financeガバナンスについてもっと見る"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -1917,7 +1917,7 @@ msgstr "TVL"
 
 #: src/components/Popups/ClaimPopup.tsx
 msgid "Thanks for being part of the Physica Finance community <0/>"
-msgstr "Uniswapコミュニティにご参加いただきありがとうございます <0/>"
+msgstr "Physica Financeコミュニティにご参加いただきありがとうございます <0/>"
 
 #: src/components/FeeSelector/index.tsx
 msgid "The % you will earn in fees."
@@ -1925,7 +1925,7 @@ msgstr "設定する手数料率"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "The Physica Finance invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
-msgstr "Uniswap不変式 x * y = kはスワップで満たされませんでした。これは通常、スワップするトークンの1つが転送時のカスタム動作を組み込んでいることを意味します。"
+msgstr "Physica Finance不変式 x * y = kはスワップで満たされませんでした。これは通常、スワップするトークンの1つが転送時のカスタム動作を組み込んでいることを意味します。"
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "The amount you expect to receive at the current market price. You may receive less or more if the market price changes while your transaction is pending."
@@ -1991,7 +1991,7 @@ msgstr "購入するトークンを転送できません。購入するトーク
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
-msgstr "購入するトークンを転送できません。購入するトークンに問題がある可能性があります。注：転送時に手数料が発生するトークンおよびリベースするトークンは、UniswapV3と互換性がありません。"
+msgstr "購入するトークンを転送できません。購入するトークンに問題がある可能性があります。注：転送時に手数料が発生するトークンおよびリベースするトークンは、Physica FinanceV3と互換性がありません。"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "The price of this pool is outside of your selected range. Your position is not currently earning fees."
@@ -2051,7 +2051,7 @@ msgstr ""
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Physica Finance."
-msgstr "価格変動により、この取引は成功しません。スリッページの許容範囲を広げてみてください。注：転送時に手数料が発生するトークンおよびリベーストークンは、UniswapV3と互換性がありません。"
+msgstr "価格変動により、この取引は成功しません。スリッページの許容範囲を広げてみてください。注：転送時に手数料が発生するトークンおよびリベーストークンは、Physica FinanceV3と互換性がありません。"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
@@ -2094,8 +2094,8 @@ msgid "Top pools"
 msgstr "上位のプール"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
-msgstr "Uniswapの上位トークン"
+msgid "Top tokens on Physica Finance"
+msgstr "Physica Financeの上位トークン"
 
 #: src/nft/components/bag/BagFooter.tsx
 msgid "Total"
@@ -2163,7 +2163,7 @@ msgstr "UNIの登場"
 
 #: src/pages/Vote/Landing.tsx
 msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "UNIトークンはUniswapガバナンスにおける投票権を表します。各提案に対して自分で投票するか、もしくは第三者に投票を委任することができます。"
+msgstr "UNIトークンはPhysica Financeガバナンスにおける投票権を表します。各提案に対して自分で投票するか、もしくは第三者に投票を委任することができます。"
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2183,7 +2183,7 @@ msgstr "未定"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Physica Finance Governance"
-msgstr "Uniswapのガバナンス"
+msgstr "Physica Financeのガバナンス"
 
 #: src/components/TaxServiceModal/TaxServiceBanner.tsx
 msgid "Physica Finance Labs can save you up to 20% on CoinTracker and TokenTax"
@@ -2191,7 +2191,7 @@ msgstr ""
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "Physica Finance Labs' Terms of Service"
-msgstr "UniswapLabsの利用規約"
+msgstr "Physica FinanceLabsの利用規約"
 
 #: src/pages/Pool/v2.tsx
 msgid "Physica Finance V2 is not available on this network."
@@ -2203,7 +2203,7 @@ msgstr "利用可能言語: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
 msgid "Physica Finance governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
-msgstr "Uniswapのガバナンスは、レイヤー1でのみ使用できます。提案と投票を表示するために、ネットワークをEthereumメインネットに切り替えて下さい。"
+msgstr "Physica Financeのガバナンスは、レイヤー1でのみ使用できます。提案と投票を表示するために、ネットワークをEthereumメインネットに切り替えて下さい。"
 
 #: src/nft/components/collection/TransactionCompleteModal.tsx
 msgid "Physica Finance has granted your wish!"
@@ -2211,7 +2211,7 @@ msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Physica Finance migration contract↗"
-msgstr "Uniswap移行コントラクト↗"
+msgstr "Physica Finance移行コントラクト↗"
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -2657,7 +2657,7 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
 msgstr "{0, plural, =1 {このトークンは、米国の主要な中央集権型取引所で取引されていないか、Physica Finance で頻繁に交換されていません。} other {これらのトークンは、主要な米国の中央集権型取引所で取引されていないか、Physica Finance で頻繁に交換されていません。}}"
 
 #: src/constants/tokenSafety.tsx

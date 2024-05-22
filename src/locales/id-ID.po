@@ -721,7 +721,7 @@ msgstr "Tidak melihat salah satu posisi v2 Anda? <0> Impor.</0>"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Earned UNI tokens represent voting shares in Physica Finance governance."
-msgstr "Token UNI yang diperoleh mewakili hak suara dalam pengaturan Uniswap."
+msgstr "Token UNI yang diperoleh mewakili hak suara dalam pengaturan Physica Finance."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -1567,7 +1567,7 @@ msgstr "Tarif"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Read more about Physica Finance governance"
-msgstr "Baca selengkapnya tentang pengaturan Uniswap"
+msgstr "Baca selengkapnya tentang pengaturan Physica Finance"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -2094,7 +2094,7 @@ msgid "Top pools"
 msgstr "Kolam atas"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
+msgid "Top tokens on Physica Finance"
 msgstr ""
 
 #: src/nft/components/bag/BagFooter.tsx
@@ -2163,7 +2163,7 @@ msgstr "UNI telah sampai"
 
 #: src/pages/Vote/Landing.tsx
 msgid "UNI tokens represent voting shares in Physica Finance governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "Token UNI menunjukkan hak suara dalam pengaturan Uniswap. Anda dapat memberikan suara secara langsung pada tiap usulan atau mendelegasikannya kepada pihak ketiga."
+msgstr "Token UNI menunjukkan hak suara dalam pengaturan Physica Finance. Anda dapat memberikan suara secara langsung pada tiap usulan atau mendelegasikannya kepada pihak ketiga."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2183,7 +2183,7 @@ msgstr "Tidak dapat ditentukan"
 
 #: src/pages/Vote/Landing.tsx
 msgid "Physica Finance Governance"
-msgstr "Tata Kelola Uniswap"
+msgstr "Tata Kelola Physica Finance"
 
 #: src/components/TaxServiceModal/TaxServiceBanner.tsx
 msgid "Physica Finance Labs can save you up to 20% on CoinTracker and TokenTax"
@@ -2211,7 +2211,7 @@ msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Physica Finance migration contract↗"
-msgstr "Kontrak migrasi Uniswap↗"
+msgstr "Kontrak migrasi Physica Finance↗"
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -2657,8 +2657,8 @@ msgid "{0, plural, =1 {Resolve issue} other {{1}}}"
 msgstr ""
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {Token ini tidak diperdagangkan di bursa terpusat AS terkemuka atau sering ditukar di Uniswap.} other {Token ini tidak diperdagangkan di bursa terpusat AS terkemuka atau sering ditukar di Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica Finance.}}"
+msgstr "{0, plural, =1 {Token ini tidak diperdagangkan di bursa terpusat AS terkemuka atau sering ditukar di Physica Finance.} other {Token ini tidak diperdagangkan di bursa terpusat AS terkemuka atau sering ditukar di Physica Finance.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
@@ -2666,7 +2666,7 @@ msgstr "{0, plural, =1 {Token ini tidak diperdagangkan di bursa terpusat AS terk
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {You can't trade this token using the Physica Finance App.} other {You can't trade these tokens using the Physica Finance App.}}"
-msgstr "{0, plural, =1 {Anda tidak dapat memperdagangkan token ini menggunakan Aplikasi Uniswap.} other {Anda tidak dapat memperdagangkan token ini menggunakan Aplikasi Uniswap.}}"
+msgstr "{0, plural, =1 {Anda tidak dapat memperdagangkan token ini menggunakan Aplikasi Physica Finance.} other {Anda tidak dapat memperdagangkan token ini menggunakan Aplikasi Physica Finance.}}"
 
 #: src/nft/components/profile/list/Modal/ListModalSection.tsx
 msgid "{0, plural, =1 {listing} other {listings}}"
