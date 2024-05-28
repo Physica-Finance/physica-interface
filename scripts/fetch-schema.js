@@ -10,7 +10,7 @@ const thegraphConfig = require('../graphql_thegraph.config')
 const exec = promisify(child_process.exec)
 
 function fetchSchema(url, outputFile) {
-  exec(`npx get-graphql-schema --h Origin=https://app.uniswap.org https://api.uniswap.org/v1/graphql`)
+  exec(`npx get-graphql-schema --h Origin=https://app.uniswap.org ${url}`)
     .then(({ stderr, stdout }) => {
       if (stderr) {
         throw new Error(stderr)
