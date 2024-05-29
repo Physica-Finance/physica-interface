@@ -8,7 +8,6 @@
         "contracts:compile:abi": "typechain --target ethers-v5 --out-dir src/abis/types \"./src/abis/**/*.json\"",
         "contracts:compile:v3": "typechain --target ethers-v5 --out-dir src/types/v3 \"./node_modules/@uniswap/**/artifacts/contracts/**/*[!dbg].json\"",
         "contracts:compile": "yarn contracts:compile:abi && yarn contracts:compile:v3",
-        "prepare-uniswap-v3": "cd ./node_modules/@uniswap/v3-sdk && yarn install && yarn build",
         "graphql:fetch": "node scripts/fetch-schema.js",
         "graphql:generate:data": "graphql-codegen --config apollo-codegen.ts",
         "graphql:generate:thegraph": "graphql-codegen --config apollo-codegen_thegraph.ts",
@@ -18,7 +17,7 @@
         "i18n:compile": "yarn i18n:extract && lingui compile",
         "i18n:pseudo": "lingui extract --locale pseudo && lingui compile",
         "prepare": "yarn contracts:compile && yarn graphql:fetch && yarn graphql:generate && yarn i18n:compile",
-        "postinstall": "patch-package && yarn prepare-uniswap-v3",
+        "postinstall": "patch-package",
         "start": "craco start",
         "build": "craco build",
         "build:e2e": "REACT_APP_CSP_ALLOW_UNSAFE_EVAL=true REACT_APP_ADD_COVERAGE_INSTRUMENTATION=true craco build",
@@ -167,7 +166,7 @@
         "@uniswap/v2-sdk": "^3.0.1",
         "@uniswap/v3-core": "1.0.0",
         "@uniswap/v3-periphery": "^1.1.1",
-        "@uniswap/v3-sdk": "https://github.com/Physica-Finance/sdks.git#1d41a9ed0b843c45133acb9a9451270b5399ffe9",
+        "@uniswap/v3-sdk": "^3.9.0",
         "@uniswap/widgets": "^2.49.0",
         "@vanilla-extract/css": "^1.7.2",
         "@vanilla-extract/css-utils": "^0.1.2",
@@ -253,7 +252,6 @@
     },
     "resolutions": {
         "@web3-react/coinbase-wallet": "^8.2.0",
-        "jsbi": "3.2.5",
         "@web3-react/core": "^8.2.0",
         "@web3-react/eip1193": "^8.2.0",
         "@web3-react/empty": "^8.2.0",
@@ -262,8 +260,7 @@
         "@web3-react/network": "^8.2.0",
         "@web3-react/types": "^8.2.0",
         "@web3-react/url": "^8.2.0",
-        "@web3-react/walletconnect": "^8.2.0",
-        "**/@uniswap/v3-sdk": "https://github.com/Physica-Finance/sdks.git#1d41a9ed0b843c45133acb9a9451270b5399ffe9"
+        "@web3-react/walletconnect": "^8.2.0"
     },
     "engines": {
         "npm": "please-use-yarn",
