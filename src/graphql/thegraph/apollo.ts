@@ -15,9 +15,11 @@ const CHAIN_SUBGRAPH_URL: Record<number, string> = {
   [SupportedChainId.CELO]: 'https://api.thegraph.com/subgraphs/name/jesse-sawa/uniswap-celo',
 
   [SupportedChainId.BNB]: 'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-bsc',
+
+  [SupportedChainId.PLANQ]: 'https://subgraph.planq.finance/subgraphs/name/ianlapham/uniswap-v3',
 }
 
-const httpLink = new HttpLink({ uri: CHAIN_SUBGRAPH_URL[SupportedChainId.MAINNET] })
+const httpLink = new HttpLink({ uri: CHAIN_SUBGRAPH_URL[SupportedChainId.PLANQ] })
 
 // This middleware will allow us to dynamically update the uri for the requests based off chainId
 // For more information: https://www.apollographql.com/docs/react/networking/advanced-http-networking/

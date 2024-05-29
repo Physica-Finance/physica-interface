@@ -95,7 +95,7 @@ export function useExpertModeManager(): [boolean, () => void] {
 export function useClientSideRouter(): [boolean, (userClientSideRouter: boolean) => void] {
   const dispatch = useAppDispatch()
 
-  const clientSideRouter = useAppSelector((state) => Boolean(state.user.userClientSideRouter))
+  const clientSideRouter = useAppSelector((state) => Boolean(true))
 
   const setClientSideRouter = useCallback(
     (newClientSideRouter: boolean) => {
