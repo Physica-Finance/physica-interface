@@ -263,7 +263,7 @@ export default function AuthenticatedHeader({ account, openSettings }: { account
           </TraceEvent>
         </IconContainer>
       </HeaderWrapper>
-      <PortfolioDrawerContainer>
+      {/* <PortfolioDrawerContainer>
         {totalBalance !== undefined ? (
           <FadeInColumn gap="xs">
             <ThemedText.HeadlineLarge fontWeight={500}>
@@ -327,7 +327,7 @@ export default function AuthenticatedHeader({ account, openSettings }: { account
           </FiatOnrampNotAvailableText>
         )}
         <MiniPortfolio account={account} />
-      </PortfolioDrawerContainer>
+      </PortfolioDrawerContainer>*/}
     </AuthenticatedHeaderWrapper>
   )
 }

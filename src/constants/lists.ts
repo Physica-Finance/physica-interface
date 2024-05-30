@@ -17,7 +17,7 @@ export const ARBITRUM_LIST = 'https://bridge.arbitrum.io/token-list-42161.json'
 export const CELO_LIST = 'https://celo-org.github.io/celo-token-list/celo.tokenlist.json'
 export const PLASMA_BNB_LIST = 'https://raw.githubusercontent.com/plasmadlt/plasma-finance-token-list/master/bnb.json'
 
-export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST, UNI_UNSUPPORTED_LIST]
+export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST]
 
 // default lists to be 'active' aka searched across
 export const DEFAULT_ACTIVE_LIST_URLS: string[] = [PLANQ_LIST]
@@ -39,4 +39,4 @@ export const DEFAULT_INACTIVE_LIST_URLS: string[] = [
   ...UNSUPPORTED_LIST_URLS,*/
 ]
 
-export const DEFAULT_LIST_OF_LISTS: string[] = [...DEFAULT_ACTIVE_LIST_URLS, ...DEFAULT_INACTIVE_LIST_URLS]
+export const DEFAULT_LIST_OF_LISTS: string[] = [...DEFAULT_ACTIVE_LIST_URLS]

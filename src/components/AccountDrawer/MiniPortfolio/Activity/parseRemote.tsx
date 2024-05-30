@@ -12,7 +12,6 @@ import {
   TokenApprovalPartsFragment,
   TokenTransferPartsFragment,
 } from 'graphql/data/__generated__/types-and-hooks'
-import { fromGraphQLChain } from 'graphql/data/util'
 import ms from 'ms.macro'
 import { useEffect, useState } from 'react'
 import { isAddress } from 'utils'
@@ -75,7 +74,7 @@ function isSameAddress(a?: string, b?: string) {
 function callsPositionManagerContract(assetActivity: AssetActivityPartsFragment) {
   return isSameAddress(
     assetActivity.transaction.to,
-    NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[fromGraphQLChain(assetActivity.chain)],
+    NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[7070],
   )
 }
 
@@ -93,12 +92,12 @@ function getCollectionCounts(nftTransfers: NftTransferPartsFragment[]): { [key: 
 function getSwapTitle(sent: TokenTransferPartsFragment, received: TokenTransferPartsFragment) {
   if (
     sent.tokenStandard === 'NATIVE' &&
-    isSameAddress(nativeOnChain(fromGraphQLChain(sent.asset.chain)).wrapped.address, received.asset.address)
+    isSameAddress(nativeOnChain(7070).wrapped.address, received.asset.address)
   )
     return t`Wrapped`
   else if (
     received.tokenStandard === 'NATIVE' &&
-    isSameAddress(nativeOnChain(fromGraphQLChain(received.asset.chain)).wrapped.address, received.asset.address)
+    isSameAddress(nativeOnChain(7070).wrapped.address, received.asset.address)
   ) {
     return t`Unwrapped`
   } else {
@@ -247,7 +246,7 @@ function parseRemoteActivity(assetActivity: AssetActivityPartsFragment): Activit
     )
     const defaultFields = {
       hash: assetActivity.transaction.hash,
-      chainId: fromGraphQLChain(assetActivity.chain),
+      chainId: 7070,
       status: assetActivity.transaction.status,
       timestamp: assetActivity.timestamp,
       logos: getLogoSrcs(changes),

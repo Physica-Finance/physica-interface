@@ -77,6 +77,15 @@ export default function RadialGradientByChainUpdater(): null {
         backgroundRadialGradientElement.style.background = darkMode ? polygonDarkGradient : polygonLightGradient
         break
       }
+      case SupportedChainId.PLANQ: {
+        setBackground(backgroundResetStyles)
+        const planqLightGradient =
+          'radial-gradient(100% 100% at 50% 0%, rgba(106, 232, 238, 0.7) 0%, rgba(147, 220, 255, 0.65) 39.48%, rgba(255, 255, 255, 0) 100%), rgb(255, 255, 255)'
+        const planqDarkGradient =
+          'radial-gradient(100% 100% at 50% 0%, rgba(20, 46, 49, 0.29) 0%, rgba(27, 70, 109, 0.65) 49.48%, rgba(31, 33, 40, 0) 100%, rgba(31, 33, 40, 0) 100%), rgb(13, 14, 14)'
+        backgroundRadialGradientElement.style.background = darkMode ? planqDarkGradient : planqLightGradient
+        break
+      }
       case SupportedChainId.CELO:
       case SupportedChainId.CELO_ALFAJORES: {
         setBackground(backgroundResetStyles)

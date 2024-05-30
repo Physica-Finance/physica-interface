@@ -207,7 +207,6 @@ function AccountDrawer() {
       )}
       <Scrim onClick={toggleWalletDrawer} open={walletDrawerOpen} />
       <AccountDrawerWrapper open={walletDrawerOpen}>
-        {/* id used for child InfiniteScrolls to reference when it has reached the bottom of the component */}
         <AccountDrawerScrollWrapper ref={scrollRef} id="wallet-dropdown-scroll-wrapper">
           <DefaultMenu />
         </AccountDrawerScrollWrapper>

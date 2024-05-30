@@ -1,5 +1,7 @@
 import { CurrencyAmount, Token } from '@uniswap/sdk-core'
-import { abi as IUniswapV3PoolStateABI } from '@uniswap/v3-core/artifacts/contracts/interfaces/pool/IUniswapV3PoolState.sol/IUniswapV3PoolState.json'
+import {
+  abi as IUniswapV3PoolStateABI
+} from '@uniswap/v3-core/artifacts/contracts/interfaces/pool/IUniswapV3PoolState.sol/IUniswapV3PoolState.json'
 import { computePoolAddress, Pool, Position } from '@uniswap/v3-sdk'
 import { V3_CORE_FACTORY_ADDRESSES } from 'constants/addresses'
 import { SupportedChainId } from 'constants/chains'
@@ -42,11 +44,7 @@ type FeeAmounts = [BigNumber, BigNumber]
 const MAX_UINT128 = BigNumber.from(2).pow(128).sub(1)
 
 const DEFAULT_CHAINS = [
-  SupportedChainId.MAINNET,
-  SupportedChainId.ARBITRUM_ONE,
-  SupportedChainId.OPTIMISM,
-  SupportedChainId.POLYGON,
-  SupportedChainId.CELO,
+  SupportedChainId.PLANQ,
 ]
 
 type UseMultiChainPositionsData = { positions: PositionInfo[] | undefined; loading: boolean }
@@ -133,7 +131,8 @@ export default function useMultiChainPositions(account: string, chains = DEFAULT
         let poolAddress = poolAddressCache.get(details, chainId)
         if (!poolAddress) {
           const factoryAddress = V3_CORE_FACTORY_ADDRESSES[chainId]
-          poolAddress = computePoolAddress({ factoryAddress, tokenA, tokenB, fee: details.fee })
+          poolAddress = computePoolAddress({ factoryAddress, tokenA, tokenB, fee: details.fee, initCodeHashManualOverride: "0xc2da9e6e524eb944c4b2cc7b6c49696cc4b64e53467d21befda7a3c1d79a3395" })
+
           poolAddressCache.set(details, chainId, poolAddress)
         }
         poolPairs.push([tokenA, tokenB])

@@ -20,9 +20,9 @@ class TokenSafetyLookupTable {
     const dict: { [key: string]: TOKEN_LIST_TYPES } = {}
 
     // Initialize extended tokens first
-    store.getState().lists.byUrl[UNI_EXTENDED_LIST].current?.tokens.forEach((token) => {
+    /*store.getState().lists.byUrl[UNI_EXTENDED_LIST].current?.tokens.forEach((token) => {
       dict[token.address.toLowerCase()] = TOKEN_LIST_TYPES.UNI_EXTENDED
-    })
+    })*/
 
     // Initialize default tokens second, so that any tokens on both default and extended will display as default (no warning)
     store.getState().lists.byUrl[PLANQ_LIST].current?.tokens.forEach((token) => {
