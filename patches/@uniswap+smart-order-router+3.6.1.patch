@@ -294,7 +294,7 @@ index ce7755c..b5dd43e 100644
  exports.USDC_ETHEREUM_GNOSIS = new sdk_core_1.Token(util_1.ChainId.GNOSIS, '0xddafbb505ad214d7b80b1f830fccc89b60fb7a83', 6, 'USDC', 'USDC from Ethereum on Gnosis');
  exports.WXDAI_GNOSIS = new sdk_core_1.Token(util_1.ChainId.GNOSIS, '0xe91d153e0b41518a2ce8dd3d7944fa863463a97d', 18, 'WXDAI', 'Wrapped XDAI on Gnosis');
  exports.WBTC_GNOSIS = new sdk_core_1.Token(util_1.ChainId.GNOSIS, '0x8e5bbbb09ed1ebde8674cda39a0c169401db4252', 8, 'WBTC', 'Wrapped BTC from Ethereum on Gnosis');
-+exports.USDC_PLANQ = new sdk_core_1.Token(util_1.ChainId.PLANQ, '0x75e20c5d4aade76143b8b74d1c5e2865347f9d3b', 18, 'USDC', 'USD Coin bridged using Deltaswap');
++exports.USDC_PLANQ = new sdk_core_1.Token(util_1.ChainId.PLANQ, '0xecEEEfCEE421D8062EF8d6b4D814efe4dc898265', 6, 'USDC', 'USDC Noble');
  // Moonbeam Tokens
  exports.USDC_MOONBEAM = new sdk_core_1.Token(util_1.ChainId.MOONBEAM, '0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b', 6, 'USDC', 'USD Coin bridged using Multichain');
  exports.WGLMR_MOONBEAM = new sdk_core_1.Token(util_1.ChainId.MOONBEAM, '0xAcc15dC74880C9944775448304B263D191c6077F', 18, 'WGLMR', 'Wrapped GLMR');
@@ -1741,7 +1741,7 @@ index 8e60fb8..ae40799 100644
  export const USDC_ETHEREUM_GNOSIS = new Token(ChainId.GNOSIS, '0xddafbb505ad214d7b80b1f830fccc89b60fb7a83', 6, 'USDC', 'USDC from Ethereum on Gnosis');
  export const WXDAI_GNOSIS = new Token(ChainId.GNOSIS, '0xe91d153e0b41518a2ce8dd3d7944fa863463a97d', 18, 'WXDAI', 'Wrapped XDAI on Gnosis');
  export const WBTC_GNOSIS = new Token(ChainId.GNOSIS, '0x8e5bbbb09ed1ebde8674cda39a0c169401db4252', 8, 'WBTC', 'Wrapped BTC from Ethereum on Gnosis');
-+export const USDC_PLANQ = new Token(ChainId.PLANQ, '0x75e20c5d4aade76143b8b74d1c5e2865347f9d3b', 18, 'USDC', 'USD Coin bridged using Deltaswap');
++export const USDC_PLANQ = new Token(ChainId.PLANQ, '0xecEEEfCEE421D8062EF8d6b4D814efe4dc898265', 6, 'USDC', 'USDC Noble');
  // Moonbeam Tokens
  export const USDC_MOONBEAM = new Token(ChainId.MOONBEAM, '0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b', 6, 'USDC', 'USD Coin bridged using Multichain');
  export const WGLMR_MOONBEAM = new Token(ChainId.MOONBEAM, '0xAcc15dC74880C9944775448304B263D191c6077F', 18, 'WGLMR', 'Wrapped GLMR');
