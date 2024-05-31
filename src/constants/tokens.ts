@@ -121,14 +121,14 @@ export const USDT_PLANQ = new Token(
   '0xfD6fF17b542260f95660BBD71470Fe6eEC72801D',
   18,
   'USDT',
-  'Tether USD',
+  'Tether USD Deltaswap',
 )
 export const USDC_PLANQ = new Token(
   SupportedChainId.PLANQ,
-  '0xfD6fF17b542260f95660BBD71470Fe6eEC72801D',
-  18,
+  '0xecEEEfCEE421D8062EF8d6b4D814efe4dc898265',
+  6,
   'USDC',
-  'Planq USDC',
+  'USDC Noble',
 )
 export const WBTC_POLYGON = new Token(
   SupportedChainId.POLYGON,
