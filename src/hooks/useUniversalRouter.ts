@@ -90,12 +90,7 @@ export function useUniversalRouterSwapCallback(
             .getSigner()
             .sendTransaction({ ...tx, gasLimit })
             .then((response) => {
-              sendAnalyticsEvent(
-                SwapEventName.SWAP_SIGNED,
-                formatSwapSignedAnalyticsEventProperties({ trade, fiatValues, txHash: response.hash }),
-              )
               if (tx.data !== response.data) {
-                sendAnalyticsEvent(SwapEventName.SWAP_MODIFIED_IN_WALLET, { txHash: response.hash })
                 throw new ModifiedSwapError()
               }
               return response
