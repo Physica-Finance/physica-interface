@@ -70,7 +70,7 @@ const ListWrapper = styled.div`
 `
 
 function Balance({ balance }: { balance: CurrencyAmount<Currency> }) {
-  return <StyledBalanceText title={balance.toExact()}>{balance.toSignificant(4)}</StyledBalanceText>
+  return <StyledBalanceText title={balance.toExact()}>{balance.toSignificant(8)}</StyledBalanceText>
 }
 
 const TagContainer = styled.div`

@@ -308,7 +308,7 @@ export default function CurrencyInputPanel({
                       renderBalance ? (
                         renderBalance(selectedCurrencyBalance)
                       ) : (
-                        <Trans>Balance: {formatCurrencyAmount(selectedCurrencyBalance, 4)}</Trans>
+                        <Trans>Balance: {formatCurrencyAmount(selectedCurrencyBalance, 8)}</Trans>
                       )
                     ) : null}
                   </ThemedText.DeprecatedBody>

@@ -442,7 +442,7 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     SupportedChainId.PLANQ,
     '0x5EBCdf1De1781e8B5D41c016B0574aD53E2F6E1A',
     18,
-    'WPLANQ',
+    'WPLQ',
     'Wrapped PLANQ',
   ),
 }
@@ -462,7 +462,7 @@ function getCeloNativeCurrency(chainId: number) {
   }
 }
 
-function isPLANQ(chainId: number): chainId is SupportedChainId.PLANQ | SupportedChainId.PLANQ {
+function isPLANQ(chainId: number): chainId is SupportedChainId.PLANQ {
   return chainId === SupportedChainId.PLANQ || chainId === SupportedChainId.PLANQ
 }
 
@@ -568,6 +568,7 @@ export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in SupportedCha
     [SupportedChainId.OPTIMISM]: USDC_OPTIMISM.address,
     [SupportedChainId.OPTIMISM_GOERLI]: USDC_OPTIMISM_GOERLI.address,
     [SupportedChainId.POLYGON]: USDC_POLYGON.address,
+    [SupportedChainId.PLANQ]: USDC_PLANQ.address,
     [SupportedChainId.POLYGON_MUMBAI]: USDC_POLYGON_MUMBAI.address,
     [SupportedChainId.BNB]: USDC_BSC.address,
     [SupportedChainId.CELO]: PORTAL_USDC_CELO.address,
