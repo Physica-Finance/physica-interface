@@ -5,6 +5,12 @@ if (typeof INFURA_KEY === 'undefined') {
   throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`)
 }
 
+const NODIES_KEY = process.env.REACT_APP_NODIES_KEY
+if (typeof NODIES_KEY === 'undefined') {
+  throw new Error(`REACT_APP_NODIES_KEY must be a defined environment variable`)
+}
+
+
 /**
  * Fallback JSON-RPC endpoints.
  * These are used if the integrator does not provide an endpoint, or if the endpoint does not work.
@@ -16,6 +22,12 @@ if (typeof INFURA_KEY === 'undefined') {
  * These "Safe" URLs are listed first, followed by other fallback URLs, which are taken from chainlist.org.
  */
 export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
+  [SupportedChainId.PLANQ]: [
+    // "Safe" URLs
+    'https://planq-rpc.nodies.app',
+    // "Fallback" URLs
+    'https://evm-rpc.planq.network',
+  ],
   [SupportedChainId.MAINNET]: [
     // "Safe" URLs
     'https://api.mycryptoapi.com/eth',
@@ -94,6 +106,7 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
  * These are the URLs used by the interface when there is not another available source of chain data.
  */
 export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
+  [SupportedChainId.PLANQ]: [`https://lb.nodies.app/v1/${NODIES_KEY}`, ...FALLBACK_URLS[SupportedChainId.PLANQ]],
   [SupportedChainId.MAINNET]: [
     `https://mainnet.infura.io/v3/${INFURA_KEY}`,
     ...FALLBACK_URLS[SupportedChainId.MAINNET],

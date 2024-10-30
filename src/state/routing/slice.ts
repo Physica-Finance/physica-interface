@@ -93,18 +93,7 @@ export const routingApi = createApi({
         let result
 
         try {
-          if (routerPreference === RouterPreference.API) {
-            const query = qs.stringify({
-              ...API_QUERY_PARAMS,
-              tokenInAddress,
-              tokenInChainId,
-              tokenOutAddress,
-              tokenOutChainId,
-              amount,
-              type,
-            })
-            result = await fetch(`quote?${query}`)
-          } else {
+
             const router = getRouter(args.tokenInChainId)
             result = await getClientSideQuote(
               args,
@@ -113,7 +102,7 @@ export const routingApi = createApi({
               // This change is intentionally being deferred to first see what effect router caching has.
               CLIENT_PARAMS
             )
-          }
+
 
           return { data: result.data as GetQuoteResult }
         } catch (e) {

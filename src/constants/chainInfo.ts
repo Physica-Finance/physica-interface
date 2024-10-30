@@ -1,5 +1,6 @@
 import celoCircleLogoUrl from 'assets/images/celoCircle.png'
 import ethereumLogoUrl from 'assets/images/ethereum-logo.png'
+import planqLogoUrl from 'assets/images/planq-logo.png'
 import polygonCircleLogoUrl from 'assets/images/polygonCircle.png'
 import { default as arbitrumCircleLogoUrl, default as arbitrumLogoUrl } from 'assets/svg/arbitrum_logo.svg'
 import celoLogo from 'assets/svg/celo_logo.svg'
@@ -62,6 +63,16 @@ const CHAIN_INFO: ChainInfoMap = {
     label: 'Ethereum',
     logoUrl: ethereumLogoUrl,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+    color: darkTheme.chain_1,
+  },
+  [SupportedChainId.PLANQ]: {
+    networkType: NetworkType.L1,
+    docs: 'https://docs.planq.network/',
+    explorer: 'https://evm.planq.network/',
+    infoLink: 'https://planq.network/',
+    label: 'Planq',
+    logoUrl: planqLogoUrl,
+    nativeCurrency: { name: 'Planq', symbol: 'PLQ', decimals: 18 },
     color: darkTheme.chain_1,
   },
   [SupportedChainId.RINKEBY]: {
