@@ -57,7 +57,7 @@ type ChainInfoMap = { readonly [chainId: number]: L1ChainInfo | L2ChainInfo } & 
 const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.MAINNET]: {
     networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
+    docs: 'https://docs.planq.network/',
     explorer: 'https://etherscan.io/',
     infoLink: 'https://info.uniswap.org/#/',
     label: 'Ethereum',
@@ -78,7 +78,7 @@ const CHAIN_INFO: ChainInfoMap = {
   },
   [SupportedChainId.RINKEBY]: {
     networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
+    docs: 'https://docs.planq.network/',
     explorer: 'https://rinkeby.etherscan.io/',
     infoLink: 'https://info.uniswap.org/#/',
     label: 'Rinkeby',
@@ -88,7 +88,7 @@ const CHAIN_INFO: ChainInfoMap = {
   },
   [SupportedChainId.ROPSTEN]: {
     networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
+    docs: 'https://docs.planq.network/',
     explorer: 'https://ropsten.etherscan.io/',
     infoLink: 'https://info.uniswap.org/#/',
     label: 'Ropsten',
@@ -98,7 +98,7 @@ const CHAIN_INFO: ChainInfoMap = {
   },
   [SupportedChainId.KOVAN]: {
     networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
+    docs: 'https://docs.planq.network/',
     explorer: 'https://kovan.etherscan.io/',
     infoLink: 'https://info.uniswap.org/#/',
     label: 'Kovan',
@@ -108,7 +108,7 @@ const CHAIN_INFO: ChainInfoMap = {
   },
   [SupportedChainId.GOERLI]: {
     networkType: NetworkType.L1,
-    docs: 'https://docs.uniswap.org/',
+    docs: 'https://docs.planq.network/',
     explorer: 'https://goerli.etherscan.io/',
     infoLink: 'https://info.uniswap.org/#/',
     label: 'Görli',

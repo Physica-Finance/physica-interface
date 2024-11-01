@@ -52,14 +52,14 @@ export const MORE_CARDS = [
   {
     to: '/pool',
     title: 'Earn',
-    description: 'Provide liquidity to pools on Uniswap and earn fees on swaps.',
+    description: 'Provide liquidity to pools on Physica and earn fees on swaps.',
     lightIcon: <StyledCardLogo src={lightArrowImgSrc} alt="Analytics" />,
     darkIcon: <StyledCardLogo src={darkArrowImgSrc} alt="Analytics" />,
     cta: 'Provide liquidity',
     elementName: InterfaceElementName.ABOUT_PAGE_EARN_CARD,
   },
   {
-    to: 'https://docs.uniswap.org',
+    to: 'https://docs.planq.network',
     external: true,
     title: 'Build dApps',
     description: 'Build apps and tools on the largest DeFi protocol on Ethereum.',

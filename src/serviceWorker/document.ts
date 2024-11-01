@@ -22,7 +22,7 @@ export function matchDocument({ request, url }: RouteMatchCallbackOptions) {
     return false
   }
 
-  // If this isn't app.uniswap.org (or a local build), skip.
+  // If this isn't app.physica.finance (or a local build), skip.
   // IPFS gateways may not have domain separation, so they cannot use document caching.
   if (url.hostname !== 'app.physica.finance' && !isDevelopment()) {
     return false

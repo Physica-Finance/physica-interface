@@ -1,5 +1,5 @@
 /**
- * List of all the networks supported by the Uniswap Interface
+ * List of all the networks supported by the Physica Interface
  */
 export enum SupportedChainId {
   MAINNET = 1,

@@ -113,7 +113,7 @@ const LogoSectionContent = () => {
   const isDarkMode = useIsDarkMode()
   return (
     <>
-      <StyledLogo src={isDarkMode ? darkUnicornImgSrc : lightUnicornImgSrc} alt="Uniswap Logo" />
+      <StyledLogo src={isDarkMode ? darkUnicornImgSrc : lightUnicornImgSrc} alt="Physica Logo" />
       <SocialLinks>
         <SocialLink href="https://discord.gg/FCfyBSbCU5" target="_blank" rel="noopener noreferrer">
           <DiscordIcon size={32} />
@@ -154,7 +154,6 @@ export const AboutFooter = () => {
         <LinkGroup>
           <LinkGroupTitle>Protocol</LinkGroupTitle>
           <ExternalTextLink href="https://physica.finance.org/community">Community</ExternalTextLink>
-          <ExternalTextLink href="https://uniswap.org/governance">Governance</ExternalTextLink>
           <ExternalTextLink href="https://planq.network/developers">Developers</ExternalTextLink>
         </LinkGroup>
       </FooterLinks>

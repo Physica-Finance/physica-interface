@@ -264,7 +264,7 @@ const OwnerContainer = ({ asset }: { asset: WalletAsset }) => {
           </>
         ) : (
           <ThemedText.BodySecondary fontSize="14px" lineHeight="20px">
-            Get the best price for your NFT by selling with Uniswap.
+            Get the best price for your NFT by selling with Physica.
           </ThemedText.BodySecondary>
         )}
       </PriceRow>

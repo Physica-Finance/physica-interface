@@ -390,7 +390,7 @@ function V2PairMigration({
         {chainId && migrator && (
           <ExternalLink href={getExplorerLink(chainId, migrator.address, ExplorerDataType.ADDRESS)}>
             <ThemedText.DeprecatedBlue display="inline">
-              <Trans>Uniswap migration contract↗</Trans>
+              <Trans>Physica migration contract↗</Trans>
             </ThemedText.DeprecatedBlue>
           </ExternalLink>
         )}
@@ -442,7 +442,7 @@ function V2PairMigration({
                 textAlign="center"
               >
                 <Trans>
-                  You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the
+                  You are the first liquidity provider for this Physica V3 pool. Your liquidity will migrate at the
                   current {isNotUniswap ? 'SushiSwap' : 'V2'} price.
                 </Trans>
               </ThemedText.DeprecatedBody>
@@ -511,7 +511,7 @@ function V2PairMigration({
               </AutoColumn>
               <ThemedText.DeprecatedBody fontSize={14} style={{ marginTop: 8, fontWeight: 400 }}>
                 <Trans>
-                  You should only deposit liquidity into Uniswap V3 at a price you believe is correct. <br />
+                  You should only deposit liquidity into Physica V3 at a price you believe is correct. <br />
                   If the price seems incorrect, you can either make a swap to move the price or wait for someone else to
                   do so.
                 </Trans>

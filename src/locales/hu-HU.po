@@ -56,8 +56,8 @@ msgid "24H volume"
 msgstr "24 órás hangerő"
 
 #: src/components/Tokens/TokenDetails/StatsSection.tsx
-msgid "24H volume is the amount of the asset that has been traded on Uniswap v3 during the past 24 hours."
-msgstr "A 24 órás volumen az eszköz azon mennyisége, amellyel az elmúlt 24 órában Uniswap v3-on kereskedtek."
+msgid "24H volume is the amount of the asset that has been traded on Physica v3 during the past 24 hours."
+msgstr "A 24 órás volumen az eszköz azon mennyisége, amellyel az elmúlt 24 órában Physica v3-on kereskedtek."
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "25%"
@@ -155,8 +155,8 @@ msgid "Add"
 msgstr "Hozzáadás"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
-msgid "Add <0/> and <1/> to Uniswap V2"
-msgstr "A <0/> és <1/> hozzáadása a Uniswap V2 -hez"
+msgid "Add <0/> and <1/> to Physica V2"
+msgstr "A <0/> és <1/> hozzáadása a Physica V2 -hez"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Add Delegate +"
@@ -225,8 +225,8 @@ msgid "Allow high price impact trades and skip the confirm screen. Use at your o
 msgstr "Engedélyezze a magas árfolyamú kereskedéseket, és hagyja ki a megerősítő képernyőt. Használat csak saját felelősségre."
 
 #: src/pages/Swap/index.tsx
-msgid "Allow the Uniswap Protocol to use your {0}"
-msgstr "Engedélyezze az Uniswap protokollnak a(z) {0} használatát"
+msgid "Allow the Physica Protocol to use your {0}"
+msgstr "Engedélyezze az Physica protokollnak a(z) {0} használatát"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Allowed"
@@ -246,8 +246,8 @@ msgid "An error occurred loading tokens. Please try again."
 msgstr "Hiba történt a tokenek betöltésekor. Kérlek próbáld újra."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Hiba történt a csere végrehajtása során. Lehet, hogy növelnie kell a csúszási toleranciát. Ha ez nem működik, akkor összeférhetetlenség állhat fenn az Ön által forgalmazott tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Uniswap V3 verzióval."
+msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Physica V3."
+msgstr "Hiba történt a csere végrehajtása során. Lehet, hogy növelnie kell a csúszási toleranciát. Ha ez nem működik, akkor összeférhetetlenség állhat fenn az Ön által forgalmazott tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Physica V3 verzióval."
 
 #: src/pages/Swap/index.tsx
 msgid "Approval failed. Try again."
@@ -371,8 +371,8 @@ msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportio
 msgstr "Likviditás hozzáadásával az összes kereskedés 3%-át keresheti meg ezen a páron, a poolból való részesedéssel arányosan. A díjakat a poolhoz adjuk hozzá, valós időben halmozódnak fel, és a likviditás kivonásával lehet igényelni."
 
 #: src/components/WalletModal/index.tsx
-msgid "By connecting a wallet, you agree to Uniswap Labs’ <0>Terms of Service</0> and consent to its <1>Privacy Policy</1>."
-msgstr "A pénztárca csatlakoztatásával Ön elfogadja az Uniswap Labs <0>szolgáltatási feltételeit</0> és elfogadja a <1>adatvédelmi szabályzatát</1>."
+msgid "By connecting a wallet, you agree to Physica Labs’ <0>Terms of Service</0> and consent to its <1>Privacy Policy</1>."
+msgstr "A pénztárca csatlakoztatásával Ön elfogadja az Physica Labs <0>szolgáltatási feltételeit</0> és elfogadja a <1>adatvédelmi szabályzatát</1>."
 
 #: src/pages/Vote/styled.tsx
 msgid "Canceled"
@@ -416,7 +416,7 @@ msgid "Claim UNI reward for {0}"
 msgstr "Kérjen UNI jutalmat {0}"
 
 #: src/components/WalletDropdown/AuthenticatedHeader.tsx
-msgid "Claim Uniswap NFT Airdrop"
+msgid "Claim Physica NFT Airdrop"
 msgstr ""
 
 #: src/pages/Pool/PositionPage.tsx
@@ -713,8 +713,8 @@ msgid "Don’t see one of your v2 positions? <0>Import it.</0>"
 msgstr "Nem látja az egyik v2 pozícióját? <0> Importálja.</0>"
 
 #: src/components/vote/DelegateModal.tsx
-msgid "Earned UNI tokens represent voting shares in Uniswap governance."
-msgstr "A megszerzett UNI-tokenek a szavazati részesedéseket jelentik az Uniswap irányításában."
+msgid "Earned UNI tokens represent voting shares in Physica governance."
+msgstr "A megszerzett UNI-tokenek a szavazati részesedéseket jelentik az Physica irányításában."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -833,8 +833,8 @@ msgid "Explore NFTs"
 msgstr ""
 
 #: src/pages/Pool/CTACards.tsx
-msgid "Explore Uniswap Analytics."
-msgstr "Fedezze fel az Uniswap Analytics szolgáltatást."
+msgid "Explore Physica Analytics."
+msgstr "Fedezze fel az Physica Analytics szolgáltatást."
 
 #: src/components/Tokens/TokenDetails/InvalidTokenDetails.tsx
 msgid "Explore tokens"
@@ -877,8 +877,8 @@ msgid "For"
 msgstr "Számára"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Uniswap V3."
-msgstr "Az alább látható egyes poolok esetében kattintson a migrálás gombra, hogy eltávolítsa a likviditását az Uniswap V2-ből, és letétbe helyezze az Uniswap V3-ban."
+msgid "For each pool shown below, click migrate to remove your liquidity from Physica V2 and deposit it into Physica V3."
+msgstr "Az alább látható egyes poolok esetében kattintson a migrálás gombra, hogy eltávolítsa a likviditását az Physica V2-ből, és letétbe helyezze az Physica V3-ban."
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -901,7 +901,7 @@ msgid "Get support"
 msgstr ""
 
 #: src/components/FiatOnrampAnnouncement/index.tsx
-msgid "Get tokens at the best prices in web3 on Uniswap, powered by Moonpay."
+msgid "Get tokens at the best prices in web3 on Physica, powered by Moonpay."
 msgstr ""
 
 #: src/components/NavBar/MenuDropdown.tsx
@@ -1131,8 +1131,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "V2 likviditás migrálása"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Uniswap V3."
-msgstr "Likviditási tokenek migrálása az Uniswap V2-ről az Uniswap V3-ra."
+msgid "Migrate your liquidity tokens from Physica V2 to Physica V3."
+msgstr "Likviditási tokenek migrálása az Physica V2-ről az Physica V3-ra."
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1168,7 +1168,7 @@ msgid "Missing dependencies"
 msgstr "Hiányzó függőségek"
 
 #: src/components/Tokens/TokenDetails/PriceChart.tsx
-msgid "Missing price data due to recently low trading volume on Uniswap v3"
+msgid "Missing price data due to recently low trading volume on Physica v3"
 msgstr ""
 
 #: src/components/FiatOnrampModal/index.tsx
@@ -1323,7 +1323,7 @@ msgid "Pending"
 msgstr "Függőben levő"
 
 #: src/pages/Swap/index.tsx
-msgid "Permission is required for Uniswap to swap each token. This will expire after one month for your security."
+msgid "Permission is required for Physica to swap each token. This will expire after one month for your security."
 msgstr ""
 
 #: src/components/vote/ProposalEmptyState.tsx
@@ -1483,8 +1483,8 @@ msgid "Rates"
 msgstr "Árfolyamok"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Read more about Uniswap governance"
-msgstr "További információk az Uniswap irányításáról"
+msgid "Read more about Physica governance"
+msgstr "További információk az Physica irányításáról"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -1791,16 +1791,16 @@ msgid "TVL"
 msgstr "TVL"
 
 #: src/components/Popups/ClaimPopup.tsx
-msgid "Thanks for being part of the Uniswap community <0/>"
-msgstr "Köszönjük, hogy az Uniswap közösség tagja <0/>"
+msgid "Thanks for being part of the Physica community <0/>"
+msgstr "Köszönjük, hogy az Physica közösség tagja <0/>"
 
 #: src/components/FeeSelector/index.tsx
 msgid "The % you will earn in fees."
 msgstr "A díjakban keresett%."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
-msgstr "A Uniswap invariáns x*y=k nem teljesült a swap során. Ez általában azt jelenti, hogy a cserélendő tokenek egyike egyéni viselkedést tartalmaz az átadáskor."
+msgid "The Physica invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
+msgstr "A Physica invariáns x*y=k nem teljesült a swap során. Ez általában azt jelenti, hogy a cserélendő tokenek egyike egyéni viselkedést tartalmaz az átadáskor."
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "The amount you expect to receive at the current market price. You may receive less or more if the market price changes while your transaction is pending."
@@ -1815,8 +1815,8 @@ msgid "The app fetches on-chain data and constructs contract calls with an Infur
 msgstr "Az alkalmazás lekéri a láncon belüli adatokat, és szerződéshívásokat hoz létre egy Infura API-val."
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "The app fetches the optimal trade route from a Uniswap Labs server."
-msgstr "Az alkalmazás lekéri az optimális kereskedelmi útvonalat egy Uniswap Labs szerverről."
+msgid "The app fetches the optimal trade route from a Physica Labs server."
+msgstr "Az alkalmazás lekéri az optimális kereskedelmi útvonalat egy Physica Labs szerverről."
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "The app logs anonymized usage statistics in order to improve over time."
@@ -1868,8 +1868,8 @@ msgid "The output token cannot be transferred. There may be an issue with the ou
 msgstr "Az output token nem transzferálható. Probléma lehet az output tokennel."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "A kimeneti token nem vihető át. Probléma lehet a kimeneti tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Uniswap V3 verzióval."
+msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Physica V3."
+msgstr "A kimeneti token nem vihető át. Probléma lehet a kimeneti tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Physica V3 verzióval."
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "The price of this pool is outside of your selected range. Your position is not currently earning fees."
@@ -1892,8 +1892,8 @@ msgid "There is no liquidity data."
 msgstr "Nincs likviditási adat."
 
 #: src/components/ConnectedAccountBlocked/index.tsx
-msgid "This address is blocked on the Uniswap Labs interface because it is associated with one or more"
-msgstr "Ez a cím le van tiltva az Uniswap Labs felületén, mert egy vagy több címhez van társítva"
+msgid "This address is blocked on the Physica Labs interface because it is associated with one or more"
+msgstr "Ez a cím le van tiltva az Physica Labs felületén, mert egy vagy több címhez van társítva"
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "This app uses the following third-party APIs:"
@@ -1916,7 +1916,7 @@ msgid "This route optimizes your total output by considering split routes, multi
 msgstr "Ez az útvonal optimalizálja a teljes teljesítményt az osztott útvonalak, a több ugrás és az egyes lépések gázköltségének figyelembevételével."
 
 #: src/pages/Tokens/index.tsx
-msgid "This table contains the top tokens by Uniswap volume, sorted based on your input."
+msgid "This table contains the top tokens by Physica volume, sorted based on your input."
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/InvalidTokenDetails.tsx
@@ -1932,8 +1932,8 @@ msgid "This tool will safely migrate your {0} liquidity to V3. The process is co
 msgstr "Ez az eszköz biztonságosan migrálja a {0} likviditását a V3-ba. A folyamat teljesen megbízhatatlan köszönhetően"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Ez a tranzakció az ármozgás miatt nem fog sikerülni. Próbáld meg növelni a csúszástűrést. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Uniswap V3 verzióval."
+msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Physica V3."
+msgstr "Ez a tranzakció az ármozgás miatt nem fog sikerülni. Próbáld meg növelni a csúszástűrést. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Physica V3 verzióval."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
@@ -1955,7 +1955,7 @@ msgid "To (at least)"
 msgstr "(Legalább)"
 
 #: src/components/Popups/FailedNetworkSwitchPopup.tsx
-msgid "To use Uniswap on {0}, switch the network in your wallet’s settings."
+msgid "To use Physica on {0}, switch the network in your wallet’s settings."
 msgstr ""
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
@@ -1972,16 +1972,16 @@ msgid "Top pools"
 msgstr "Legjobb poolok"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
-msgstr "A legjobb tokenek az Uniswap-on"
+msgid "Top tokens on Physica"
+msgstr "A legjobb tokenek az Physica-on"
 
 #: src/nft/components/bag/BagFooter.tsx
 msgid "Total"
 msgstr ""
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Total value locked (TVL) is the amount of the asset that’s currently in a Uniswap v3 liquidity pool."
-msgstr "A teljes zárolt érték (TVL) az eszköz azon összege, amely jelenleg egy Uniswap v3 likviditási készletben van."
+msgid "Total value locked (TVL) is the amount of the asset that’s currently in a Physica v3 liquidity pool."
+msgstr "A teljes zárolt érték (TVL) az eszköz azon összege, amely jelenleg egy Physica v3 likviditási készletben van."
 
 #: src/components/swap/RouterLabel.tsx
 msgid "Trade Route"
@@ -2042,8 +2042,8 @@ msgid "UNI has arrived"
 msgstr "Megérkezett az UNI"
 
 #: src/pages/Vote/Landing.tsx
-msgid "UNI tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "Az UNI tokenek szavazati részvényeket képviselnek az Uniswap irányításában. Az egyes javaslatokról saját maga is szavazhat, vagy szavazatait átruházhatja egy harmadik félre."
+msgid "UNI tokens represent voting shares in Physica governance. You can vote on each proposal yourself or delegate your votes to a third party."
+msgstr "Az UNI tokenek szavazati részvényeket képviselnek az Physica irányításában. Az egyes javaslatokról saját maga is szavazhat, vagy szavazatait átruházhatja egy harmadik félre."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2066,32 +2066,32 @@ msgid "Unexpected issue with estimating the gas. Please try again."
 msgstr "Váratlan probléma a gáz becslésével. Kérlek próbáld újra."
 
 #: src/pages/Vote/Landing.tsx
-msgid "Uniswap Governance"
-msgstr "Uniswap irányítás"
+msgid "Physica Governance"
+msgstr "Physica irányítás"
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "Uniswap Labs' Terms of Service"
-msgstr "Az Uniswap Labs szolgáltatási feltételei"
+msgid "Physica Labs' Terms of Service"
+msgstr "Az Physica Labs szolgáltatási feltételei"
 
 #: src/components/SwitchLocaleLink/index.tsx
-msgid "Uniswap available in: <0>{0}</0>"
-msgstr "Az Uniswap itt érhető el: <0>{0}</0>"
+msgid "Physica available in: <0>{0}</0>"
+msgstr "Az Physica itt érhető el: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Uniswap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
+msgid "Physica governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
 msgstr "Az uniswap irányítás csak az 1. rétegben érhető el. A javaslatok és a szavazatok megtekintéséhez kapcsolja hálózatát Ethereum Mainnet-re."
 
 #: src/nft/components/collection/TransactionCompleteModal.tsx
-msgid "Uniswap has granted your wish!"
+msgid "Physica has granted your wish!"
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "Uniswap migration contract↗"
-msgstr "Uniswap migrációs szerződés↗"
+msgid "Physica migration contract↗"
+msgstr "Physica migrációs szerződés↗"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Ismeretlen hiba{0}. Próbálja meg növelni a csúszástűrést. Megjegyzés: az átutalási és újbóli alapkivonási díjak nem kompatibilisek az Uniswap V3 -mal."
+msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Physica V3."
+msgstr "Ismeretlen hiba{0}. Próbálja meg növelni a csúszástűrést. Megjegyzés: az átutalási és újbóli alapkivonási díjak nem kompatibilisek az Physica V3 -mal."
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -2142,8 +2142,8 @@ msgid "Update Delegation"
 msgstr "Delegálás frissítése"
 
 #: src/components/Settings/index.tsx
-msgid "Use the Uniswap Labs API to get faster quotes."
-msgstr "A Uniswap Labs API segítségével gyorsabb árajánlatokat kaphat."
+msgid "Use the Physica Labs API to get faster quotes."
+msgstr "A Physica Labs API segítségével gyorsabb árajánlatokat kaphat."
 
 #: src/pages/Pool/v2.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
@@ -2190,8 +2190,8 @@ msgid "View transaction on Explorer"
 msgstr "Tranzakció megtekintése az Explorerben"
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Volume is the amount of the asset that has been traded on Uniswap v3 during the selected time frame."
-msgstr "A mennyiség annak az eszköznek az összege, amellyel az Uniswap v3-on kereskedtek a kiválasztott időkeretben."
+msgid "Volume is the amount of the asset that has been traded on Physica v3 during the selected time frame."
+msgstr "A mennyiség annak az eszköznek az összege, amellyel az Physica v3-on kereskedtek a kiválasztott időkeretben."
 
 #: src/pages/Vote/VotePage.tsx
 msgid "Vote Against"
@@ -2314,8 +2314,8 @@ msgid "You are creating a pool"
 msgstr "Poolt hoz létre"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
-msgstr "Ön az első likviditásszolgáltató ebben az Uniswap V3 poolban. Likviditása a jelenlegi {0} áron migrál."
+msgid "You are the first liquidity provider for this Physica V3 pool. Your liquidity will migrate at the current {0} price."
+msgstr "Ön az első likviditásszolgáltató ebben az Physica V3 poolban. Likviditása a jelenlegi {0} áron migrál."
 
 #: src/pages/AddLiquidityV2/index.tsx
 msgid "You are the first liquidity provider."
@@ -2346,8 +2346,8 @@ msgid "You must connect an account."
 msgstr "Csatlakoznia kell egy fiókhoz."
 
 #: src/pages/Swap/index.tsx
-msgid "You must give the Uniswap smart contracts permission to use your {0}. You only have to do this once per token."
-msgstr "Engedélyt kell adnia az Uniswap intelligens szerződéseknek a(z) {0} használatához. Ezt tokenenként csak egyszer kell megtennie."
+msgid "You must give the Physica smart contracts permission to use your {0}. You only have to do this once per token."
+msgstr "Engedélyt kell adnia az Physica intelligens szerződéseknek a(z) {0} használatához. Ezt tokenenként csak egyszer kell megtennie."
 
 #: src/pages/CreateProposal/index.tsx
 msgid "You must have {formattedProposalThreshold} votes to submit a proposal"
@@ -2358,8 +2358,8 @@ msgid "You receive"
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You should only deposit liquidity into Uniswap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
-msgstr "Csak olyan áron helyezhet el likviditást az Uniswap V3-ban, amelyet helyesnek tart. <0/>Ha az ár helytelennek tűnik, akkor vagy cserét hajt végre az ár elmozdítása érdekében, vagy megvárhatja, hogy valaki más megtegye ezt."
+msgid "You should only deposit liquidity into Physica V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
+msgstr "Csak olyan áron helyezhet el likviditást az Physica V3-ban, amelyet helyesnek tart. <0/>Ha az ár helytelennek tűnik, akkor vagy cserét hajt végre az ár elmozdítása érdekében, vagy megvárhatja, hogy valaki más megtegye ezt."
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "You will also collect fees earned from this position."
@@ -2526,16 +2526,16 @@ msgid "to"
 msgstr "nak nek"
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {Ezzel a tokent nem kereskednek vezető amerikai központosított tőzsdéken, és nem cserélik gyakran Uniswapon.} other {Ezekkel a tokenekkel nem kereskednek vezető amerikai központosított tőzsdéken, és nem cserélik őket gyakran Uniswapon.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica.}}"
+msgstr "{0, plural, =1 {Ezzel a tokent nem kereskednek vezető amerikai központosított tőzsdéken, és nem cserélik gyakran Physicaon.} other {Ezekkel a tokenekkel nem kereskednek vezető amerikai központosított tőzsdéken, és nem cserélik őket gyakran Physicaon.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
 msgstr "{0, plural, =1 {Ezzel a tokennel nem kereskednek a vezető amerikai központosított tőzsdéken.} other {Ezekkel a tokenekkel nem kereskednek a vezető amerikai központosított tőzsdéken.}}"
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {You can't trade this token using the Uniswap App.} other {You can't trade these tokens using the Uniswap App.}}"
-msgstr "{0, plural, =1 {Ezzel a tokent nem lehet kereskedni az Uniswap alkalmazással.} other {Ezekkel a tokenekkel nem kereskedhet az Uniswap alkalmazással.}}"
+msgid "{0, plural, =1 {You can't trade this token using the Physica App.} other {You can't trade these tokens using the Physica App.}}"
+msgstr "{0, plural, =1 {Ezzel a tokent nem lehet kereskedni az Physica alkalmazással.} other {Ezekkel a tokenekkel nem kereskedhet az Physica alkalmazással.}}"
 
 #: src/components/CurrencyInputPanel/FiatValue.tsx
 #: src/components/ErrorBoundary/index.tsx

@@ -365,7 +365,7 @@ const AuthenticatedHeader = () => {
         )*/}
         {/*isClaimAvailable && (
           <UNIButton size={ButtonSize.medium} emphasis={ButtonEmphasis.medium} onClick={openNftModal}>
-            <Trans>Claim Uniswap NFT Airdrop</Trans>
+            <Trans>Claim Physica NFT Airdrop</Trans>
           </UNIButton>
         )*/}
       </Column>

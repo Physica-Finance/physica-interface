@@ -35,24 +35,21 @@ export default function ConnectedAccountBlocked(props: ConnectedAccountBlockedPr
           {props.account}
         </ThemedText.DeprecatedDarkGray>
         <ThemedText.DeprecatedMain fontSize={14} marginBottom={12}>
-          <Trans>This address is blocked on the Uniswap Labs interface because it is associated with one or more</Trans>{' '}
-          <ExternalLink href="https://help.uniswap.org/en/articles/6149816">
-            <Trans>blocked activities</Trans>
-          </ExternalLink>
+          <Trans>This address is blocked on the Physica interface because it is associated with one or more blocked activities</Trans>{' '}
           .
         </ThemedText.DeprecatedMain>
         <ThemedText.DeprecatedMain fontSize={12}>
           <Trans>If you believe this is an error, please send an email including your address to </Trans>{' '}
         </ThemedText.DeprecatedMain>
         <Copy
-          toCopy="compliance@uniswap.org"
+          toCopy="compliance@physica.finance"
           fontSize={14}
           iconSize={16}
           gap={6}
           color={theme.accentAction}
           iconPosition="right"
         >
-          compliance@uniswap.org
+          compliance@physica.finance
         </Copy>
       </ContentWrapper>
     </Modal>

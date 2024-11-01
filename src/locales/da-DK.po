@@ -56,8 +56,8 @@ msgid "24H volume"
 msgstr "24H volumen"
 
 #: src/components/Tokens/TokenDetails/StatsSection.tsx
-msgid "24H volume is the amount of the asset that has been traded on Uniswap v3 during the past 24 hours."
-msgstr "24H volumen er mængden af aktivet, der er blevet handlet på Uniswap v3 i løbet af de seneste 24 timer."
+msgid "24H volume is the amount of the asset that has been traded on Physica v3 during the past 24 hours."
+msgstr "24H volumen er mængden af aktivet, der er blevet handlet på Physica v3 i løbet af de seneste 24 timer."
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "25%"
@@ -155,8 +155,8 @@ msgid "Add"
 msgstr "Tilføj"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
-msgid "Add <0/> and <1/> to Uniswap V2"
-msgstr "Tilføj <0/> og <1/> til Uniswap V2"
+msgid "Add <0/> and <1/> to Physica V2"
+msgstr "Tilføj <0/> og <1/> til Physica V2"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Add Delegate +"
@@ -225,8 +225,8 @@ msgid "Allow high price impact trades and skip the confirm screen. Use at your o
 msgstr "Tillad høj pris påvirkning handler og springer over bekræftelsesskærmen. Brug på egen risiko."
 
 #: src/pages/Swap/index.tsx
-msgid "Allow the Uniswap Protocol to use your {0}"
-msgstr "Tillad Uniswap-protokollen at bruge din {0}"
+msgid "Allow the Physica Protocol to use your {0}"
+msgstr "Tillad Physica-protokollen at bruge din {0}"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Allowed"
@@ -246,8 +246,8 @@ msgid "An error occurred loading tokens. Please try again."
 msgstr "Der opstod en fejl under indlæsning af tokens. Prøv igen."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Der opstod en fejl under forsøg på at udføre denne swap. Det kan være nødvendigt at øge din glidningstolerance. Hvis det ikke virker, kan der være en uforenelighed med det token, du handler. Bemærk: gebyr ved overførsel og rebase-tokens er inkompatibelt med Uniswap V3."
+msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Physica V3."
+msgstr "Der opstod en fejl under forsøg på at udføre denne swap. Det kan være nødvendigt at øge din glidningstolerance. Hvis det ikke virker, kan der være en uforenelighed med det token, du handler. Bemærk: gebyr ved overførsel og rebase-tokens er inkompatibelt med Physica V3."
 
 #: src/pages/Swap/index.tsx
 msgid "Approval failed. Try again."
@@ -371,8 +371,8 @@ msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportio
 msgstr "Ved at tilføje likviditet optjener du 0,3 % af alle handler på dette par proportionalt med din andel af puljen. Gebyrer tilføjes til puljen, tilfalder i realtid og kan hævdes ved at trække din likviditet tilbage."
 
 #: src/components/WalletModal/index.tsx
-msgid "By connecting a wallet, you agree to Uniswap Labs’ <0>Terms of Service</0> and consent to its <1>Privacy Policy</1>."
-msgstr "Ved at tilslutte en tegnebog accepterer du Uniswap Labs' <0>Servicevilkår</0> og samtykker til dens <1>Privatlivspolitik</1>."
+msgid "By connecting a wallet, you agree to Physica Labs’ <0>Terms of Service</0> and consent to its <1>Privacy Policy</1>."
+msgstr "Ved at tilslutte en tegnebog accepterer du Physica Labs' <0>Servicevilkår</0> og samtykker til dens <1>Privatlivspolitik</1>."
 
 #: src/pages/Vote/styled.tsx
 msgid "Canceled"
@@ -416,7 +416,7 @@ msgid "Claim UNI reward for {0}"
 msgstr "Gør krav på UNI -belønning for {0}"
 
 #: src/components/WalletDropdown/AuthenticatedHeader.tsx
-msgid "Claim Uniswap NFT Airdrop"
+msgid "Claim Physica NFT Airdrop"
 msgstr ""
 
 #: src/pages/Pool/PositionPage.tsx
@@ -713,8 +713,8 @@ msgid "Don’t see one of your v2 positions? <0>Import it.</0>"
 msgstr "Kan du ikke se en af dine v2-positioner? <0>Importér den.</0>"
 
 #: src/components/vote/DelegateModal.tsx
-msgid "Earned UNI tokens represent voting shares in Uniswap governance."
-msgstr "Optjente UNI-tokens repræsenterer stemmeaktier i Uniswap governance."
+msgid "Earned UNI tokens represent voting shares in Physica governance."
+msgstr "Optjente UNI-tokens repræsenterer stemmeaktier i Physica governance."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -832,8 +832,8 @@ msgid "Explore NFTs"
 msgstr ""
 
 #: src/pages/Pool/CTACards.tsx
-msgid "Explore Uniswap Analytics."
-msgstr "Udforsk Uniswap Analytics."
+msgid "Explore Physica Analytics."
+msgstr "Udforsk Physica Analytics."
 
 #: src/components/Tokens/TokenDetails/InvalidTokenDetails.tsx
 msgid "Explore tokens"
@@ -876,8 +876,8 @@ msgid "For"
 msgstr "Til"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Uniswap V3."
-msgstr "For hver pulje vist nedenfor skal du klikke på migrer for at fjerne din likviditet fra Uniswap V2 og indsætte den i Uniswap V3."
+msgid "For each pool shown below, click migrate to remove your liquidity from Physica V2 and deposit it into Physica V3."
+msgstr "For hver pulje vist nedenfor skal du klikke på migrer for at fjerne din likviditet fra Physica V2 og indsætte den i Physica V3."
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -900,7 +900,7 @@ msgid "Get support"
 msgstr ""
 
 #: src/components/FiatOnrampAnnouncement/index.tsx
-msgid "Get tokens at the best prices in web3 on Uniswap, powered by Moonpay."
+msgid "Get tokens at the best prices in web3 on Physica, powered by Moonpay."
 msgstr ""
 
 #: src/components/NavBar/MenuDropdown.tsx
@@ -1130,8 +1130,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "Migrer V2-likviditet"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Uniswap V3."
-msgstr "Migrer dine likviditetstokens fra Uniswap V2 til Uniswap V3."
+msgid "Migrate your liquidity tokens from Physica V2 to Physica V3."
+msgstr "Migrer dine likviditetstokens fra Physica V2 til Physica V3."
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1167,7 +1167,7 @@ msgid "Missing dependencies"
 msgstr "Manglende afhængigheder"
 
 #: src/components/Tokens/TokenDetails/PriceChart.tsx
-msgid "Missing price data due to recently low trading volume on Uniswap v3"
+msgid "Missing price data due to recently low trading volume on Physica v3"
 msgstr ""
 
 #: src/components/FiatOnrampModal/index.tsx
@@ -1322,7 +1322,7 @@ msgid "Pending"
 msgstr "Verserende"
 
 #: src/pages/Swap/index.tsx
-msgid "Permission is required for Uniswap to swap each token. This will expire after one month for your security."
+msgid "Permission is required for Physica to swap each token. This will expire after one month for your security."
 msgstr ""
 
 #: src/components/vote/ProposalEmptyState.tsx
@@ -1482,8 +1482,8 @@ msgid "Rates"
 msgstr "Satser"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Read more about Uniswap governance"
-msgstr "Læs mere om Uniswap governance"
+msgid "Read more about Physica governance"
+msgstr "Læs mere om Physica governance"
 
 #: src/pages/Pool/v2.tsx
 msgid "Read more about providing liquidity"
@@ -1790,16 +1790,16 @@ msgid "TVL"
 msgstr "TVL"
 
 #: src/components/Popups/ClaimPopup.tsx
-msgid "Thanks for being part of the Uniswap community <0/>"
-msgstr "Tak, fordi du er en del af Uniswap-gruppen <0/>"
+msgid "Thanks for being part of the Physica community <0/>"
+msgstr "Tak, fordi du er en del af Physica-gruppen <0/>"
 
 #: src/components/FeeSelector/index.tsx
 msgid "The % you will earn in fees."
 msgstr "Den%, du tjener i gebyrer."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
-msgstr "Uniswap-invarianten x * y = k var ikke tilfreds med byttet. Dette betyder normalt, at et af de tokens, du bytter, indeholder brugerdefineret adfærd ved overførsel."
+msgid "The Physica invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
+msgstr "Physica-invarianten x * y = k var ikke tilfreds med byttet. Dette betyder normalt, at et af de tokens, du bytter, indeholder brugerdefineret adfærd ved overførsel."
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "The amount you expect to receive at the current market price. You may receive less or more if the market price changes while your transaction is pending."
@@ -1814,8 +1814,8 @@ msgid "The app fetches on-chain data and constructs contract calls with an Infur
 msgstr "Appen henter on-chain data og konstruerer kontraktopkald med en Infura API."
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "The app fetches the optimal trade route from a Uniswap Labs server."
-msgstr "Appen henter den optimale handelsrute fra en Uniswap Labs-server."
+msgid "The app fetches the optimal trade route from a Physica Labs server."
+msgstr "Appen henter den optimale handelsrute fra en Physica Labs-server."
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "The app logs anonymized usage statistics in order to improve over time."
@@ -1867,8 +1867,8 @@ msgid "The output token cannot be transferred. There may be an issue with the ou
 msgstr "Output-token kan ikke overføres. Der kan være et problem med output-token."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Output-token kan ikke overføres. Der kan være et problem med output-token. Bemærk: gebyr ved overførsel og rebase-tokens er inkompatibelt med Uniswap V3."
+msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Physica V3."
+msgstr "Output-token kan ikke overføres. Der kan være et problem med output-token. Bemærk: gebyr ved overførsel og rebase-tokens er inkompatibelt med Physica V3."
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "The price of this pool is outside of your selected range. Your position is not currently earning fees."
@@ -1891,8 +1891,8 @@ msgid "There is no liquidity data."
 msgstr "Der er ingen likviditetsdata."
 
 #: src/components/ConnectedAccountBlocked/index.tsx
-msgid "This address is blocked on the Uniswap Labs interface because it is associated with one or more"
-msgstr "Denne adresse er blokeret på Uniswap Labs-grænsefladen, fordi den er knyttet til en eller flere"
+msgid "This address is blocked on the Physica Labs interface because it is associated with one or more"
+msgstr "Denne adresse er blokeret på Physica Labs-grænsefladen, fordi den er knyttet til en eller flere"
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "This app uses the following third-party APIs:"
@@ -1915,7 +1915,7 @@ msgid "This route optimizes your total output by considering split routes, multi
 msgstr "Denne rute optimerer dit samlede output ved at overveje opdelte ruter, flere hop og gasomkostningerne for hvert trin."
 
 #: src/pages/Tokens/index.tsx
-msgid "This table contains the top tokens by Uniswap volume, sorted based on your input."
+msgid "This table contains the top tokens by Physica volume, sorted based on your input."
 msgstr ""
 
 #: src/components/Tokens/TokenDetails/InvalidTokenDetails.tsx
@@ -1931,8 +1931,8 @@ msgid "This tool will safely migrate your {0} liquidity to V3. The process is co
 msgstr "Dette værktøj vil sikkert overføre din {0}-likviditet til V3. Processen er helt troværdig takket være"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Denne transaktion lykkes ikke på grund af prisbevægelse. Prøv at øge din glidningstolerance. Bemærk: gebyr ved overførsel og rebase-tokens er inkompatibelt med Uniswap V3."
+msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Physica V3."
+msgstr "Denne transaktion lykkes ikke på grund af prisbevægelse. Prøv at øge din glidningstolerance. Bemærk: gebyr ved overførsel og rebase-tokens er inkompatibelt med Physica V3."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
@@ -1954,7 +1954,7 @@ msgid "To (at least)"
 msgstr "Til (mindst)"
 
 #: src/components/Popups/FailedNetworkSwitchPopup.tsx
-msgid "To use Uniswap on {0}, switch the network in your wallet’s settings."
+msgid "To use Physica on {0}, switch the network in your wallet’s settings."
 msgstr ""
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
@@ -1971,16 +1971,16 @@ msgid "Top pools"
 msgstr "Toppuljer"
 
 #: src/pages/Tokens/index.tsx
-msgid "Top tokens on Uniswap"
-msgstr "Top tokens på Uniswap"
+msgid "Top tokens on Physica"
+msgstr "Top tokens på Physica"
 
 #: src/nft/components/bag/BagFooter.tsx
 msgid "Total"
 msgstr ""
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Total value locked (TVL) is the amount of the asset that’s currently in a Uniswap v3 liquidity pool."
-msgstr "Total værdi låst (TVL) er mængden af aktivet, der i øjeblikket er i en Uniswap v3-likviditetspulje."
+msgid "Total value locked (TVL) is the amount of the asset that’s currently in a Physica v3 liquidity pool."
+msgstr "Total værdi låst (TVL) er mængden af aktivet, der i øjeblikket er i en Physica v3-likviditetspulje."
 
 #: src/components/swap/RouterLabel.tsx
 msgid "Trade Route"
@@ -2041,8 +2041,8 @@ msgid "UNI has arrived"
 msgstr "UNI er ankommet"
 
 #: src/pages/Vote/Landing.tsx
-msgid "UNI tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "UNI-tokens repræsenterer stemmeandele i Uniswap governance. Du kan selv stemme om hvert forslag eller uddelegere dine stemmer til en tredjepart."
+msgid "UNI tokens represent voting shares in Physica governance. You can vote on each proposal yourself or delegate your votes to a third party."
+msgstr "UNI-tokens repræsenterer stemmeandele i Physica governance. Du kan selv stemme om hvert forslag eller uddelegere dine stemmer til en tredjepart."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -2065,32 +2065,32 @@ msgid "Unexpected issue with estimating the gas. Please try again."
 msgstr "Uventet problem med estimering af gassen. Prøv igen."
 
 #: src/pages/Vote/Landing.tsx
-msgid "Uniswap Governance"
-msgstr "Uniswap Governance"
+msgid "Physica Governance"
+msgstr "Physica Governance"
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "Uniswap Labs' Terms of Service"
-msgstr "Uniswap Labs' servicevilkår"
+msgid "Physica Labs' Terms of Service"
+msgstr "Physica Labs' servicevilkår"
 
 #: src/components/SwitchLocaleLink/index.tsx
-msgid "Uniswap available in: <0>{0}</0>"
-msgstr "Uniswap tilgængelig i: <0>{0}</0>"
+msgid "Physica available in: <0>{0}</0>"
+msgstr "Physica tilgængelig i: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Uniswap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
-msgstr "Uniswap-styring er kun tilgængelig i lag 1. Skift dit netværk til Ethereum Mainnet for at se forslag og afstemning."
+msgid "Physica governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
+msgstr "Physica-styring er kun tilgængelig i lag 1. Skift dit netværk til Ethereum Mainnet for at se forslag og afstemning."
 
 #: src/nft/components/collection/TransactionCompleteModal.tsx
-msgid "Uniswap has granted your wish!"
+msgid "Physica has granted your wish!"
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "Uniswap migration contract↗"
-msgstr "Uniswap migrationskontrakt↗"
+msgid "Physica migration contract↗"
+msgstr "Physica migrationskontrakt↗"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Ukendt fejl{0}. Prøv at øge din glidetolerance. Bemærk: gebyr ved overførsel og rebase -tokens er inkompatibelt med Uniswap V3."
+msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Physica V3."
+msgstr "Ukendt fejl{0}. Prøv at øge din glidetolerance. Bemærk: gebyr ved overførsel og rebase -tokens er inkompatibelt med Physica V3."
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -2141,8 +2141,8 @@ msgid "Update Delegation"
 msgstr "Opdater delegation"
 
 #: src/components/Settings/index.tsx
-msgid "Use the Uniswap Labs API to get faster quotes."
-msgstr "Brug Uniswap Labs API til at få hurtigere tilbud."
+msgid "Use the Physica Labs API to get faster quotes."
+msgstr "Brug Physica Labs API til at få hurtigere tilbud."
 
 #: src/pages/Pool/v2.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
@@ -2189,8 +2189,8 @@ msgid "View transaction on Explorer"
 msgstr "Se transaktion i Explorer"
 
 #: src/components/Tokens/TokenTable/TokenRow.tsx
-msgid "Volume is the amount of the asset that has been traded on Uniswap v3 during the selected time frame."
-msgstr "Volumen er mængden af aktivet, der er blevet handlet på Uniswap v3 i den valgte tidsramme."
+msgid "Volume is the amount of the asset that has been traded on Physica v3 during the selected time frame."
+msgstr "Volumen er mængden af aktivet, der er blevet handlet på Physica v3 i den valgte tidsramme."
 
 #: src/pages/Vote/VotePage.tsx
 msgid "Vote Against"
@@ -2313,8 +2313,8 @@ msgid "You are creating a pool"
 msgstr "Du opretter en pulje"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
-msgstr "Du er den første likviditetsudbyder til denne Uniswap V3-pulje. Din likviditet vil migrere til den aktuelle {0}-pris."
+msgid "You are the first liquidity provider for this Physica V3 pool. Your liquidity will migrate at the current {0} price."
+msgstr "Du er den første likviditetsudbyder til denne Physica V3-pulje. Din likviditet vil migrere til den aktuelle {0}-pris."
 
 #: src/pages/AddLiquidityV2/index.tsx
 msgid "You are the first liquidity provider."
@@ -2345,8 +2345,8 @@ msgid "You must connect an account."
 msgstr "Du skal forbinde en konto."
 
 #: src/pages/Swap/index.tsx
-msgid "You must give the Uniswap smart contracts permission to use your {0}. You only have to do this once per token."
-msgstr "Du skal give Uniswap smart contracts tilladelse til at bruge din {0}. Du behøver kun at gøre dette én gang pr. token."
+msgid "You must give the Physica smart contracts permission to use your {0}. You only have to do this once per token."
+msgstr "Du skal give Physica smart contracts tilladelse til at bruge din {0}. Du behøver kun at gøre dette én gang pr. token."
 
 #: src/pages/CreateProposal/index.tsx
 msgid "You must have {formattedProposalThreshold} votes to submit a proposal"
@@ -2357,8 +2357,8 @@ msgid "You receive"
 msgstr ""
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You should only deposit liquidity into Uniswap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
-msgstr "Du bør kun indbetale likviditet til Uniswap V3 til en pris, du mener er korrekt. <0/>Hvis prisen synes forkert, kan du enten lave et bytte for at flytte prisen eller vente på, at en anden gør det."
+msgid "You should only deposit liquidity into Physica V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
+msgstr "Du bør kun indbetale likviditet til Physica V3 til en pris, du mener er korrekt. <0/>Hvis prisen synes forkert, kan du enten lave et bytte for at flytte prisen eller vente på, at en anden gør det."
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "You will also collect fees earned from this position."
@@ -2525,16 +2525,16 @@ msgid "to"
 msgstr "til"
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Uniswap.}}"
-msgstr "{0, plural, =1 {Dette token handles ikke på førende amerikanske centraliserede børser eller byttes ofte på Uniswap.} other {Disse tokens handles ikke på førende amerikanske centraliserede børser eller byttes ofte på Uniswap.}}"
+msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges or frequently swapped on Physica.} other {These tokens aren't traded on leading U.S. centralized exchanges or frequently swapped on Physica.}}"
+msgstr "{0, plural, =1 {Dette token handles ikke på førende amerikanske centraliserede børser eller byttes ofte på Physica.} other {Disse tokens handles ikke på førende amerikanske centraliserede børser eller byttes ofte på Physica.}}"
 
 #: src/constants/tokenSafety.tsx
 msgid "{0, plural, =1 {This token isn't traded on leading U.S. centralized exchanges.} other {These tokens aren't traded on leading U.S. centralized exchanges.}}"
 msgstr "{0, plural, =1 {Dette token handles ikke på førende amerikanske centraliserede børser.} other {Disse tokens handles ikke på førende amerikanske centraliserede børser.}}"
 
 #: src/constants/tokenSafety.tsx
-msgid "{0, plural, =1 {You can't trade this token using the Uniswap App.} other {You can't trade these tokens using the Uniswap App.}}"
-msgstr "{0, plural, =1 {Du kan ikke bytte dette token ved hjælp af Uniswap-appen.} other {Du kan ikke bytte disse tokens ved hjælp af Uniswap-appen.}}"
+msgid "{0, plural, =1 {You can't trade this token using the Physica App.} other {You can't trade these tokens using the Physica App.}}"
+msgstr "{0, plural, =1 {Du kan ikke bytte dette token ved hjælp af Physica-appen.} other {Du kan ikke bytte disse tokens ved hjælp af Physica-appen.}}"
 
 #: src/components/CurrencyInputPanel/FiatValue.tsx
 #: src/components/ErrorBoundary/index.tsx

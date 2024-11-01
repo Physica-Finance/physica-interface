@@ -49,7 +49,7 @@ const StyledLinkOut = styled(ArrowDown)`
 const EXTERNAL_APIS = [
   {
     name: 'Auto Router',
-    description: <Trans>The app fetches the optimal trade route from a Uniswap Labs server.</Trans>,
+    description: <Trans>The app fetches the optimal trade route from a Physica Labs server.</Trans>,
   },
   {
     name: 'Infura',
@@ -124,12 +124,12 @@ function PrivacyPolicy() {
       <AutoColumn gap="16px">
         <AutoColumn gap="sm" style={{ width: '100%' }}>
           <StyledExternalCard>
-            <ExternalLink href="https://uniswap.org/terms-of-service">
+            <ExternalLink href="https://physica.finance/terms-of-service">
               <RowBetween>
                 <AutoRow gap="4px">
                   <Info size={20} />
                   <ThemedText.DeprecatedMain fontSize={14} color="accentAction">
-                    <Trans>Uniswap Labs&apos; Terms of Service</Trans>
+                    <Trans>Physica Labs&apos; Terms of Service</Trans>
                   </ThemedText.DeprecatedMain>
                 </AutoRow>
                 <StyledLinkOut size={20} />
@@ -137,7 +137,7 @@ function PrivacyPolicy() {
             </ExternalLink>
           </StyledExternalCard>
           <StyledExternalCard>
-            <ExternalLink href="https://uniswap.org/privacy-policy/">
+            <ExternalLink href="https://physica.finance/privacy-policy/">
               <RowBetween>
                 <AutoRow gap="4px">
                   <Info size={20} />

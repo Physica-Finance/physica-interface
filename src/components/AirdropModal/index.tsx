@@ -275,7 +275,7 @@ const AirdropModal = () => {
               <ImageContainer>
                 <TextContainer>
                   <SyledCloseIcon onClick={usdcAirdropToggle} stroke="white" />
-                  <MainHeader>Uniswap NFT Airdrop</MainHeader>
+                  <MainHeader>Physica NFT Airdrop</MainHeader>
                   <USDCLabel>{totalAmount} USDC</USDCLabel>
                   <Line />
                   <RewardsDetailsContainer>
@@ -302,8 +302,8 @@ const AirdropModal = () => {
                   As a long time supporter of Genie, you’ve been awarded {totalAmount} USDC tokens.
                 </RewardsInformationText>
                 <ReactLinkWrap>
-                  <LinkWrap href="https://uniswap.org/blog/uniswap-nft-aggregator-announcement" target="_blank">
-                    <ThemedText.Link>Read more about Uniswap NFT.</ThemedText.Link>
+                  <LinkWrap href="https://physica.finance/blog/uniswap-nft-aggregator-announcement" target="_blank">
+                    <ThemedText.Link>Read more about Physica NFT.</ThemedText.Link>
                   </LinkWrap>
                 </ReactLinkWrap>
 
