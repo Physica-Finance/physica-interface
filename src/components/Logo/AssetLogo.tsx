@@ -2,7 +2,7 @@ import { getChainInfo } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import useTokenLogoSource from 'hooks/useAssetLogoSource'
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled, {css} from 'styled-components/macro'
 
 const MissingImageLogo = styled.div<{ size?: string }>`
   --size: ${({ size }) => size};
@@ -17,13 +17,24 @@ const MissingImageLogo = styled.div<{ size?: string }>`
   width: ${({ size }) => size ?? '24px'};
 `
 
-const LogoImage = styled.img<{ size: string }>`
+export const LogoImage = styled.img<{ size: string; useBG?: boolean; radius?: string }>`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
-  background: radial-gradient(white 60%, #ffffff00 calc(70% + 1px));
   border-radius: 50%;
-  box-shadow: 0 0 1px white;
+  ${({ radius }) =>
+    radius &&
+    css`
+      border-radius: 0%;
+    `}
+
+  ${({ useBG }) =>
+    useBG &&
+    css`
+      background: radial-gradient(white 60%, #ffffff00 calc(70% + 1px));
+      box-shadow: 0 0 1px white;
+    `}
 `
+
 
 export type AssetLogoBaseProps = {
   symbol?: string | null

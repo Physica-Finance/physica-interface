@@ -58,6 +58,7 @@ export const colors = {
   yellowVibrant: '#FAF40A',
   // TODO: add gold 50-900
   gold200: '#EEB317',
+  gold400: '#B17900',
   goldVibrant: '#FEB239',
   green50: '#E3F3E6',
   green100: '#BFEECA',
@@ -82,6 +83,7 @@ export const colors = {
   blue900: '#040E34',
   blueVibrant: '#587BFF',
   // TODO: add magenta 50-900
+  magenta300: '#FD82FF',
   magentaVibrant: '#FC72FF',
   purple300: '#8440F2',
   purple900: '#1C0337',
@@ -90,8 +92,9 @@ export const colors = {
   networkOptimism: '#FF0420',
   networkOptimismSoft: 'rgba(255, 4, 32, 0.16)',
   networkPolygon: '#A457FF',
-  networkPlanq: '#2850f0',
   networkArbitrum: '#28A0F0',
+  networkPlanq: '#2850f0',
+  networkBsc: '#F0B90B',
   networkPolygonSoft: 'rgba(164, 87, 255, 0.16)',
   networkEthereumSoft: 'rgba(98, 126, 234, 0.16)',
 }
@@ -104,23 +107,29 @@ const commonTheme = {
 
   chain_1: colors.networkEthereum,
   chain_3: colors.yellow400,
-  chain_4: colors.pink400,
+  chain_4: colors.blue400,
   chain_5: colors.green400,
   chain_10: colors.networkOptimism,
   chain_137: colors.networkPolygon,
   chain_42: colors.networkArbitrum,
+  chain_56: colors.networkBsc,
+  chain_7070: colors.networkPlanq,
   chain_420: colors.networkOptimism,
-  chain_42161: colors.networkEthereum,
-  chain_421611: colors.networkEthereum,
+  chain_42161: colors.networkArbitrum,
+  chain_421613: colors.networkArbitrum,
   chain_80001: colors.networkPolygon,
   chain_137_background: colors.purple900,
   chain_10_background: colors.red900,
   chain_42161_background: colors.blue900,
-  chain_7070: colors.networkPlanq,
-  chain_7070_background: colors.blue900,
+  chain_56_background: colors.networkBsc,
+  chain_7070_background: colors.networkPlanq,
+  promotional: colors.magenta300,
+
+  brandedGradient: 'linear-gradient(139.57deg, #FF79C9 4.35%, #FFB8E2 96.44%);',
+  promotionalGradient: 'radial-gradient(101.8% 4091.31% at 0% 0%, #4673FA 0%, #9646FA 100%);',
 
   hoverState: opacify(24, colors.blue200),
-  hoverDefault: opacify(8, colors.gray200),
+  hoverDefault: opacify(8, colors.gray300),
 }
 
 export const darkTheme = {
@@ -134,13 +143,14 @@ export const darkTheme = {
   backgroundModule: colors.gray800,
   backgroundInteractive: colors.gray700,
   backgroundFloating: opacify(12, colors.black),
-  backgroundOutline: colors.gray750,
+  backgroundOutline: opacify(24, colors.gray300),
   backgroundScrim: opacify(72, colors.gray900),
   backgroundScrolledSurface: opacify(72, colors.gray900),
 
   textPrimary: colors.white,
   textSecondary: colors.gray300,
   textTertiary: colors.gray500,
+  textNotFound: '#AAEEFF',
 
   accentAction: colors.blue400,
   accentActive: colors.blue400,
@@ -180,7 +190,7 @@ export const lightTheme: Theme = {
 
   userThemeColor: colors.magentaVibrant,
 
-  background: '#faf9fa', //INTENTIONALLY OFF THEME TO GIVE WHITE BG A SOFTER VISUAL
+  background: '#FFF8DC', //INTENTIONALLY OFF THEME TO GIVE WHITE BG A SOFTER VISUAL
   backgroundBackdrop: colors.white,
   backgroundSurface: colors.white,
   backgroundModule: colors.gray50,
@@ -193,25 +203,26 @@ export const lightTheme: Theme = {
   textPrimary: colors.gray900,
   textSecondary: colors.gray400,
   textTertiary: colors.gray300,
+  textNotFound: '#AAEEFF',
 
-  accentAction: colors.pink400,
-  accentActive: colors.blue400,
+  accentAction: '#4C82FB',
+  accentActive: '#4C82FB',
   accentSuccess: colors.green300,
-  accentWarning: colors.gold200,
+  accentWarning: colors.gold400,
   accentFailure: colors.red400,
   accentCritical: colors.red400,
 
-  accentActionSoft: opacify(24, colors.pink400),
+  accentActionSoft: opacify(12, colors.red400),
   accentActiveSoft: opacify(24, colors.blue400),
   accentSuccessSoft: opacify(24, colors.green300),
-  accentWarningSoft: opacify(24, colors.gold200),
+  accentWarningSoft: opacify(24, colors.gold400),
   accentFailureSoft: opacify(12, colors.red400),
 
   accentTextDarkPrimary: opacify(80, colors.gray900),
   accentTextDarkSecondary: opacify(60, colors.gray900),
   accentTextDarkTertiary: opacify(24, colors.gray900),
 
-  accentTextLightPrimary: colors.gray50,
+  accentTextLightPrimary: colors.blue900,
   accentTextLightSecondary: opacify(72, colors.gray50),
   accentTextLightTertiary: opacify(12, colors.gray50),
 
@@ -220,7 +231,7 @@ export const lightTheme: Theme = {
   shallowShadow:
     '6px 6px 10px rgba(51, 53, 72, 0.01), 2px 2px 6px rgba(51, 53, 72, 0.02), 1px 2px 2px rgba(51, 53, 72, 0.02);',
 
-  networkDefaultShadow: `0px 40px 120px ${opacify(12, colors.pink400)}`,
+  networkDefaultShadow: `0px 40px 120px ${opacify(12, colors.red400)}`,
 
   stateOverlayHover: opacify(8, colors.gray300),
   stateOverlayPressed: opacify(24, colors.gray200),

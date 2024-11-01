@@ -177,7 +177,7 @@ const CHAIN_INFO: ChainInfoMap = {
     defaultListUrl: ARBITRUM_LIST,
     helpCenterUrl: 'https://help.uniswap.org/en/collections/3137787-uniswap-on-arbitrum',
     nativeCurrency: { name: 'Rinkeby Arbitrum Ether', symbol: 'rinkArbETH', decimals: 18 },
-    color: darkTheme.chain_421611,
+    color: darkTheme.chain_42161,
   },
   [SupportedChainId.POLYGON]: {
     networkType: NetworkType.L1,
