@@ -1,11 +1,11 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import { formatEther } from "@ethersproject/units";
-import clsx from "clsx";
-import { ButtonEmphasis, ButtonSize, ThemeButton } from "components/Button";
-import { TimedLoader } from "nft/components/bag/TimedLoader";
-import { Box } from "nft/components/Box";
-import { Suspicious } from "nft/components/collection/Card";
-import { Column, Row } from "nft/components/Flex";
+import { BigNumber } from '@ethersproject/bignumber'
+import { formatEther } from '@ethersproject/units'
+import clsx from 'clsx'
+import { ButtonEmphasis, ButtonSize, ThemeButton } from 'components/Button'
+import { TimedLoader } from 'nft/components/bag/TimedLoader'
+import { Box } from 'nft/components/Box'
+import { Suspicious } from 'nft/components/collection/Card'
+import { Column, Row } from 'nft/components/Flex'
 import {
   ChevronDownBagIcon,
   ChevronUpBagIcon,
@@ -14,26 +14,16 @@ import {
   SquareArrowDownIcon,
   SquareArrowUpIcon,
   VerifiedIcon,
-} from "nft/components/icons";
-import { bodySmall } from "nft/css/common.css";
-import { loadingBlock } from "nft/css/loading.css";
-import { GenieAsset, UpdatedGenieAsset } from "nft/types";
-import {
-  ethNumberStandardFormatter,
-  formatWeiToDecimal,
-  getAssetHref,
-} from "nft/utils";
-import {
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components/macro";
+} from 'nft/components/icons'
+import { bodySmall } from 'nft/css/common.css'
+import { loadingBlock } from 'nft/css/loading.css'
+import { GenieAsset, UpdatedGenieAsset } from 'nft/types'
+import { ethNumberStandardFormatter, formatWeiToDecimal, getAssetHref } from 'nft/utils'
+import { MouseEvent, useCallback, useEffect, useReducer, useState } from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components/macro'
 
-import * as styles from "./BagRow.css";
+import * as styles from './BagRow.css'
 
 export const RemoveButton = styled(ThemeButton)`
   border-radius: 12px;
@@ -41,14 +31,14 @@ export const RemoveButton = styled(ThemeButton)`
   line-height: 16px;
   margin-left: 16px;
   padding: 12px 14px;
-`;
+`
 const ReviewButton = styled(ThemeButton)`
   border-radius: 12px;
   flex: 1 1 auto;
   font-size: 14px;
   padding: 8px;
   width: 50%;
-`;
+`
 const RemoveAssetOverlay = styled.div`
   position: absolute;
   display: block;
@@ -61,30 +51,22 @@ const RemoveAssetOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
-export const RemoveAssetButton = ({
-  onClick,
-}: {
-  onClick: (e: MouseEvent<HTMLDivElement>) => void;
-}) => (
+export const RemoveAssetButton = ({ onClick }: { onClick: (e: MouseEvent<HTMLDivElement>) => void }) => (
   <RemoveAssetOverlay onClick={onClick}>
     <CircularCloseIcon />
   </RemoveAssetOverlay>
-);
+)
 
 const NoContentContainer = () => (
-  <Box
-    position="relative"
-    background="loadingBackground"
-    className={styles.bagRowImage}
-  >
+  <Box position="relative" background="loadingBackground" className={styles.bagRowImage}>
     <Box
       position="absolute"
       textAlign="center"
       left="1/2"
       top="1/2"
-      style={{ transform: "translate3d(-50%, -50%, 0)" }}
+      style={{ transform: 'translate3d(-50%, -50%, 0)' }}
       color="gray500"
       fontSize="12"
       fontWeight="normal"
@@ -96,114 +78,77 @@ const NoContentContainer = () => (
       available
     </Box>
   </Box>
-);
+)
 
 interface BagRowProps {
-  asset: UpdatedGenieAsset;
-  usdPrice: number | undefined;
-  removeAsset: (assets: GenieAsset[]) => void;
-  showRemove?: boolean;
-  grayscale?: boolean;
-  isMobile: boolean;
+  asset: UpdatedGenieAsset
+  usdPrice: number | undefined
+  removeAsset: (assets: GenieAsset[]) => void
+  showRemove?: boolean
+  grayscale?: boolean
+  isMobile: boolean
 }
 
-export const BagRow = ({
-  asset,
-  usdPrice,
-  removeAsset,
-  showRemove,
-  grayscale,
-  isMobile,
-}: BagRowProps) => {
-  const [loadedImage, setImageLoaded] = useState(false);
-  const [noImageAvailable, setNoImageAvailable] = useState(
-    !asset.smallImageUrl
-  );
+export const BagRow = ({ asset, usdPrice, removeAsset, showRemove, grayscale, isMobile }: BagRowProps) => {
+  const [loadedImage, setImageLoaded] = useState(false)
+  const [noImageAvailable, setNoImageAvailable] = useState(!asset.smallImageUrl)
 
-  const [cardHovered, setCardHovered] = useState(false);
-  const handleMouseEnter = useCallback(() => setCardHovered(true), []);
-  const handleMouseLeave = useCallback(() => setCardHovered(false), []);
-  const showRemoveButton = Boolean(showRemove && cardHovered && !isMobile);
+  const [cardHovered, setCardHovered] = useState(false)
+  const handleMouseEnter = useCallback(() => setCardHovered(true), [])
+  const handleMouseLeave = useCallback(() => setCardHovered(false), [])
+  const showRemoveButton = Boolean(showRemove && cardHovered && !isMobile)
 
-  const assetEthPrice = asset.updatedPriceInfo
-    ? asset.updatedPriceInfo.ETHPrice
-    : asset.priceInfo.ETHPrice;
-  const assetEthPriceFormatted = formatWeiToDecimal(assetEthPrice);
+  const assetEthPrice = asset.updatedPriceInfo ? asset.updatedPriceInfo.ETHPrice : asset.priceInfo.ETHPrice
+  const assetEthPriceFormatted = formatWeiToDecimal(assetEthPrice)
   const assetUSDPriceFormatted = ethNumberStandardFormatter(
     usdPrice ? parseFloat(formatEther(assetEthPrice)) * usdPrice : usdPrice,
-    true
-  );
+    true,
+  )
 
   const handleRemoveClick = useCallback(
     (e: MouseEvent<HTMLElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      removeAsset([asset]);
+      e.preventDefault()
+      e.stopPropagation()
+      removeAsset([asset])
     },
-    [asset, removeAsset]
-  );
+    [asset, removeAsset],
+  )
 
   return (
-    <Link to={getAssetHref(asset)} style={{ textDecoration: "none" }}>
-      <Row
-        className={styles.bagRow}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+    <Link to={getAssetHref(asset)} style={{ textDecoration: 'none' }}>
+      <Row className={styles.bagRow} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Box position="relative" display="flex">
-          {showRemove && isMobile && (
-            <RemoveAssetButton onClick={handleRemoveClick} />
-          )}
+          {showRemove && isMobile && <RemoveAssetButton onClick={handleRemoveClick} />}
           {!noImageAvailable && (
             <Box
               as="img"
               src={asset.smallImageUrl}
               alt={asset.name}
-              className={clsx(
-                styles.bagRowImage,
-                grayscale && !cardHovered && styles.grayscaleImage
-              )}
+              className={clsx(styles.bagRowImage, grayscale && !cardHovered && styles.grayscaleImage)}
               onLoad={() => {
-                setImageLoaded(true);
+                setImageLoaded(true)
               }}
               onError={() => {
-                setNoImageAvailable(true);
+                setNoImageAvailable(true)
               }}
-              visibility={loadedImage ? "visible" : "hidden"}
+              visibility={loadedImage ? 'visible' : 'hidden'}
             />
           )}
-          {!loadedImage && (
-            <Box
-              position="absolute"
-              className={`${styles.bagRowImage} ${loadingBlock}`}
-            />
-          )}
+          {!loadedImage && <Box position="absolute" className={`${styles.bagRowImage} ${loadingBlock}`} />}
           {noImageAvailable && <NoContentContainer />}
         </Box>
-        <Column
-          overflow="hidden"
-          width="full"
-          color={grayscale ? "textSecondary" : "textPrimary"}
-        >
+        <Column overflow="hidden" width="full" color={grayscale ? 'textSecondary' : 'textPrimary'}>
           <Row overflow="hidden" width="full" whiteSpace="nowrap">
-            <Box className={styles.assetName}>
-              {asset.name ?? `#${asset.tokenId}`}
-            </Box>
+            <Box className={styles.assetName}>{asset.name ?? `#${asset.tokenId}`}</Box>
             {asset.susFlag && <Suspicious />}
           </Row>
           <Row overflow="hidden" whiteSpace="nowrap" gap="2">
             <Box className={styles.collectionName}>{asset.collectionName}</Box>
-            {asset.collectionIsVerified && (
-              <VerifiedIcon className={styles.icon} />
-            )}
+            {asset.collectionIsVerified && <VerifiedIcon className={styles.icon} />}
           </Row>
         </Column>
         {showRemoveButton && (
-          <RemoveButton
-            onClick={handleRemoveClick}
-            emphasis={ButtonEmphasis.medium}
-            size={ButtonSize.medium}
-          >
+          <RemoveButton onClick={handleRemoveClick} emphasis={ButtonEmphasis.medium} size={ButtonSize.medium}>
             Remove
           </RemoveButton>
         )}
@@ -213,117 +158,87 @@ export const BagRow = ({
               {assetEthPriceFormatted}
               &nbsp;ETH
             </Box>
-            <Box className={styles.collectionName}>
-              {assetUSDPriceFormatted}
-            </Box>
+            <Box className={styles.collectionName}>{assetUSDPriceFormatted}</Box>
           </Column>
         )}
       </Row>
     </Link>
-  );
-};
-
-interface PriceChangeBagRowProps {
-  asset: UpdatedGenieAsset;
-  usdPrice: number | undefined;
-  markAssetAsReviewed: (asset: UpdatedGenieAsset, toKeep: boolean) => void;
-  top?: boolean;
-  isMobile: boolean;
+  )
 }
 
-export const PriceChangeBagRow = ({
-  asset,
-  usdPrice,
-  markAssetAsReviewed,
-  top,
-  isMobile,
-}: PriceChangeBagRowProps) => {
-  const isPriceIncrease = BigNumber.from(asset.updatedPriceInfo?.ETHPrice).gt(
-    BigNumber.from(asset.priceInfo.ETHPrice)
-  );
+interface PriceChangeBagRowProps {
+  asset: UpdatedGenieAsset
+  usdPrice: number | undefined
+  markAssetAsReviewed: (asset: UpdatedGenieAsset, toKeep: boolean) => void
+  top?: boolean
+  isMobile: boolean
+}
+
+export const PriceChangeBagRow = ({ asset, usdPrice, markAssetAsReviewed, top, isMobile }: PriceChangeBagRowProps) => {
+  const isPriceIncrease = BigNumber.from(asset.updatedPriceInfo?.ETHPrice).gt(BigNumber.from(asset.priceInfo.ETHPrice))
   const handleRemove = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const toKeep = false;
-      markAssetAsReviewed(asset, toKeep);
+      e.preventDefault()
+      e.stopPropagation()
+      const toKeep = false
+      markAssetAsReviewed(asset, toKeep)
     },
-    [asset, markAssetAsReviewed]
-  );
+    [asset, markAssetAsReviewed],
+  )
   const handleKeep = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const toKeep = true;
-      markAssetAsReviewed(asset, toKeep);
+      e.preventDefault()
+      e.stopPropagation()
+      const toKeep = true
+      markAssetAsReviewed(asset, toKeep)
     },
-    [asset, markAssetAsReviewed]
-  );
+    [asset, markAssetAsReviewed],
+  )
   return (
-    <Column
-      className={styles.priceChangeColumn}
-      borderTopColor={top ? "backgroundOutline" : "transparent"}
-    >
+    <Column className={styles.priceChangeColumn} borderTopColor={top ? 'backgroundOutline' : 'transparent'}>
       <Row className={styles.priceChangeRow}>
         {isPriceIncrease ? <SquareArrowUpIcon /> : <SquareArrowDownIcon />}
-        <Box>{`Price ${
-          isPriceIncrease ? "increased" : "decreased"
-        } from ${formatWeiToDecimal(asset.priceInfo.ETHPrice)} ETH`}</Box>
+        <Box>{`Price ${isPriceIncrease ? 'increased' : 'decreased'} from ${formatWeiToDecimal(
+          asset.priceInfo.ETHPrice,
+        )} ETH`}</Box>
       </Row>
-      <Box style={{ marginLeft: "-8px", marginRight: "-8px" }}>
-        <BagRow
-          asset={asset}
-          usdPrice={usdPrice}
-          removeAsset={() => undefined}
-          isMobile={isMobile}
-        />
+      <Box style={{ marginLeft: '-8px', marginRight: '-8px' }}>
+        <BagRow asset={asset} usdPrice={usdPrice} removeAsset={() => undefined} isMobile={isMobile} />
       </Box>
       <Row gap="8" justifyContent="space-between">
-        <ReviewButton
-          onClick={handleRemove}
-          emphasis={ButtonEmphasis.medium}
-          size={ButtonSize.small}
-        >
+        <ReviewButton onClick={handleRemove} emphasis={ButtonEmphasis.medium} size={ButtonSize.small}>
           Remove
         </ReviewButton>
-        <ReviewButton
-          onClick={handleKeep}
-          emphasis={ButtonEmphasis.high}
-          size={ButtonSize.small}
-        >
+        <ReviewButton onClick={handleKeep} emphasis={ButtonEmphasis.high} size={ButtonSize.small}>
           Keep
         </ReviewButton>
       </Row>
     </Column>
-  );
-};
+  )
+}
 
 interface UnavailableAssetsHeaderRowProps {
-  assets?: UpdatedGenieAsset[];
-  usdPrice: number | undefined;
-  clearUnavailableAssets: () => void;
-  didOpenUnavailableAssets: boolean;
-  setDidOpenUnavailableAssets: (didOpen: boolean) => void;
-  isMobile: boolean;
+  assets?: UpdatedGenieAsset[]
+  usdPrice: number | undefined
+  clearUnavailableAssets: () => void
+  didOpenUnavailableAssets: boolean
+  setDidOpenUnavailableAssets: (didOpen: boolean) => void
+  isMobile: boolean
 }
 
 interface UnavailableAssetsPreviewProps {
-  assets: UpdatedGenieAsset[];
+  assets: UpdatedGenieAsset[]
 }
 
-const ASSET_PREVIEW_WIDTH = 32;
-const ASSET_PREVIEW_OFFSET = 20;
+const ASSET_PREVIEW_WIDTH = 32
+const ASSET_PREVIEW_OFFSET = 20
 
-const UnavailableAssetsPreview = ({
-  assets,
-}: UnavailableAssetsPreviewProps) => (
+const UnavailableAssetsPreview = ({ assets }: UnavailableAssetsPreviewProps) => (
   <Column
     display="grid"
     style={{
       gridTemplateColumns: `repeat(${assets.length}, 20px)`,
-      width: `${
-        ASSET_PREVIEW_WIDTH + (assets.length - 1) * ASSET_PREVIEW_OFFSET
-      }px`,
+      width: `${ASSET_PREVIEW_WIDTH + (assets.length - 1) * ASSET_PREVIEW_OFFSET}px`,
     }}
   >
     {assets.map((asset, index) => (
@@ -342,7 +257,7 @@ const UnavailableAssetsPreview = ({
       />
     ))}
   </Column>
-);
+)
 
 export const UnavailableAssetsHeaderRow = ({
   assets,
@@ -352,60 +267,51 @@ export const UnavailableAssetsHeaderRow = ({
   setDidOpenUnavailableAssets,
   isMobile,
 }: UnavailableAssetsHeaderRowProps) => {
-  const [isOpen, toggleOpen] = useReducer((s) => !s, false);
-  const timerLimit = 8;
-  const [timeLeft, setTimeLeft] = useState(timerLimit);
+  const [isOpen, toggleOpen] = useReducer((s) => !s, false)
+  const timerLimit = 8
+  const [timeLeft, setTimeLeft] = useState(timerLimit)
 
   useEffect(() => {
     if (!timeLeft) {
       if (!didOpenUnavailableAssets) {
-        clearUnavailableAssets();
-        setDidOpenUnavailableAssets(false);
+        clearUnavailableAssets()
+        setDidOpenUnavailableAssets(false)
       }
-      return;
+      return
     }
 
     const intervalId = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
-    }, 1000);
+      setTimeLeft(timeLeft - 1)
+    }, 1000)
 
-    return () => clearInterval(intervalId);
-  }, [
-    timeLeft,
-    clearUnavailableAssets,
-    didOpenUnavailableAssets,
-    setDidOpenUnavailableAssets,
-  ]);
+    return () => clearInterval(intervalId)
+  }, [timeLeft, clearUnavailableAssets, didOpenUnavailableAssets, setDidOpenUnavailableAssets])
 
-  if (!assets || assets.length === 0) return null;
+  if (!assets || assets.length === 0) return null
 
-  const moreThanOneUnavailable = assets.length > 1;
-  const isShowingAssets = isOpen || !moreThanOneUnavailable;
+  const moreThanOneUnavailable = assets.length > 1
+  const isShowingAssets = isOpen || !moreThanOneUnavailable
 
   return (
     <Column className={styles.unavailableAssetsContainer}>
       <Column>
         <Row
           justifyContent="space-between"
-          marginBottom={isShowingAssets ? "12" : "0"}
-          cursor={moreThanOneUnavailable ? "pointer" : "default"}
+          marginBottom={isShowingAssets ? '12' : '0'}
+          cursor={moreThanOneUnavailable ? 'pointer' : 'default'}
           onClick={() => {
             if (moreThanOneUnavailable) {
-              !didOpenUnavailableAssets && setDidOpenUnavailableAssets(true);
-              toggleOpen();
+              !didOpenUnavailableAssets && setDidOpenUnavailableAssets(true)
+              toggleOpen()
             }
           }}
         >
           <Row gap="12" color="textSecondary" className={bodySmall}>
-            {!isShowingAssets && (
-              <UnavailableAssetsPreview assets={assets.slice(0, 5)} />
-            )}
+            {!isShowingAssets && <UnavailableAssetsPreview assets={assets.slice(0, 5)} />}
             No longer available
           </Row>
           {moreThanOneUnavailable && (
-            <Row color="textSecondary">
-              {isOpen ? <ChevronUpBagIcon /> : <ChevronDownBagIcon />}
-            </Row>
+            <Row color="textSecondary">{isOpen ? <ChevronUpBagIcon /> : <ChevronDownBagIcon />}</Row>
           )}
           {!didOpenUnavailableAssets && (
             <Row
@@ -422,7 +328,7 @@ export const UnavailableAssetsHeaderRow = ({
             </Row>
           )}
         </Row>
-        <Column gap="8" style={{ marginLeft: "-8px", marginRight: "-8px" }}>
+        <Column gap="8" style={{ marginLeft: '-8px', marginRight: '-8px' }}>
           {isShowingAssets &&
             assets.map((asset) => (
               <BagRow
@@ -437,5 +343,5 @@ export const UnavailableAssetsHeaderRow = ({
         </Column>
       </Column>
     </Column>
-  );
-};
+  )
+}

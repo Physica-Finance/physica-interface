@@ -8,22 +8,19 @@ import JSBI from 'jsbi'
  */
 export default function tryParseCurrencyAmount<T extends Currency>(
   value?: string,
-  currency?: T
+  currency?: T,
 ): CurrencyAmount<T> | undefined {
   if (!value || !currency) {
-    return undefined;
+    return undefined
   }
   try {
-    const typedValueParsed = parseUnits(value, currency.decimals).toString();
-    if (typedValueParsed !== "0") {
-      return CurrencyAmount.fromRawAmount(
-        currency,
-        JSBI.BigInt(typedValueParsed)
-      );
+    const typedValueParsed = parseUnits(value, currency.decimals).toString()
+    if (typedValueParsed !== '0') {
+      return CurrencyAmount.fromRawAmount(currency, JSBI.BigInt(typedValueParsed))
     }
   } catch (error) {
     // fails if the user specifies too many decimal places of precision (or maybe exceed max uint?)
-    console.debug(`Failed to parse input amount: "${value}"`, error);
+    console.debug(`Failed to parse input amount: "${value}"`, error)
   }
-  return undefined;
+  return undefined
 }

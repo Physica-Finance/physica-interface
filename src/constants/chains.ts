@@ -23,33 +23,31 @@ export enum SupportedChainId {
 }
 
 export const CHAIN_IDS_TO_NAMES = {
-  [SupportedChainId.MAINNET]: "mainnet",
-  [SupportedChainId.PLANQ]: "planq",
-  [SupportedChainId.ROPSTEN]: "ropsten",
-  [SupportedChainId.RINKEBY]: "rinkeby",
-  [SupportedChainId.GOERLI]: "goerli",
-  [SupportedChainId.KOVAN]: "kovan",
-  [SupportedChainId.POLYGON]: "polygon",
-  [SupportedChainId.POLYGON_MUMBAI]: "polygon_mumbai",
-  [SupportedChainId.CELO]: "celo",
-  [SupportedChainId.CELO_ALFAJORES]: "celo_alfajores",
-  [SupportedChainId.ARBITRUM_ONE]: "arbitrum",
-  [SupportedChainId.ARBITRUM_RINKEBY]: "arbitrum_rinkeby",
-  [SupportedChainId.OPTIMISM]: "optimism",
-  [SupportedChainId.OPTIMISM_GOERLI]: "optimism_goerli",
-};
+  [SupportedChainId.MAINNET]: 'mainnet',
+  [SupportedChainId.PLANQ]: 'planq',
+  [SupportedChainId.ROPSTEN]: 'ropsten',
+  [SupportedChainId.RINKEBY]: 'rinkeby',
+  [SupportedChainId.GOERLI]: 'goerli',
+  [SupportedChainId.KOVAN]: 'kovan',
+  [SupportedChainId.POLYGON]: 'polygon',
+  [SupportedChainId.POLYGON_MUMBAI]: 'polygon_mumbai',
+  [SupportedChainId.CELO]: 'celo',
+  [SupportedChainId.CELO_ALFAJORES]: 'celo_alfajores',
+  [SupportedChainId.ARBITRUM_ONE]: 'arbitrum',
+  [SupportedChainId.ARBITRUM_RINKEBY]: 'arbitrum_rinkeby',
+  [SupportedChainId.OPTIMISM]: 'optimism',
+  [SupportedChainId.OPTIMISM_GOERLI]: 'optimism_goerli',
+}
 
 /**
  * Array of all the supported chain IDs
  */
-export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = Object.values(
-  SupportedChainId
-).filter((id) => typeof id === "number") as SupportedChainId[];
+export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = Object.values(SupportedChainId).filter(
+  (id) => typeof id === 'number',
+) as SupportedChainId[]
 
-export function isSupportedChain(
-  chainId: number | null | undefined
-): chainId is SupportedChainId {
-  return !!chainId && !!SupportedChainId[chainId];
+export function isSupportedChain(chainId: number | null | undefined): chainId is SupportedChainId {
+  return !!chainId && !!SupportedChainId[chainId]
 }
 
 export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
@@ -59,7 +57,7 @@ export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
   SupportedChainId.OPTIMISM,
   SupportedChainId.ARBITRUM_ONE,
   SupportedChainId.PLANQ,
-];
+]
 
 /**
  * Unsupported networks for V2 pool behavior.
@@ -68,7 +66,7 @@ export const UNSUPPORTED_V2POOL_CHAIN_IDS = [
   SupportedChainId.POLYGON,
   SupportedChainId.OPTIMISM,
   SupportedChainId.ARBITRUM_ONE,
-];
+]
 
 export const TESTNET_CHAIN_IDS = [
   SupportedChainId.ROPSTEN,
@@ -78,9 +76,9 @@ export const TESTNET_CHAIN_IDS = [
   SupportedChainId.POLYGON_MUMBAI,
   SupportedChainId.ARBITRUM_RINKEBY,
   SupportedChainId.OPTIMISM_GOERLI,
-] as const;
+] as const
 
-export type SupportedTestnetChainId = typeof TESTNET_CHAIN_IDS[number];
+export type SupportedTestnetChainId = typeof TESTNET_CHAIN_IDS[number]
 
 /**
  * All the chain IDs that are running the Ethereum protocol.
@@ -96,9 +94,9 @@ export const L1_CHAIN_IDS = [
   SupportedChainId.CELO,
   SupportedChainId.CELO_ALFAJORES,
   SupportedChainId.PLANQ,
-] as const;
+] as const
 
-export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number];
+export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number]
 
 /**
  * Controls some L2 specific behavior, e.g. slippage tolerance, special UI behavior.
@@ -109,6 +107,6 @@ export const L2_CHAIN_IDS = [
   SupportedChainId.ARBITRUM_RINKEBY,
   SupportedChainId.OPTIMISM,
   SupportedChainId.OPTIMISM_GOERLI,
-] as const;
+] as const
 
-export type SupportedL2ChainId = typeof L2_CHAIN_IDS[number];
+export type SupportedL2ChainId = typeof L2_CHAIN_IDS[number]

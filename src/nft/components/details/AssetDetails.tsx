@@ -1,37 +1,32 @@
-import { OpacityHoverState, ScrollBarStyles } from "components/Common";
-import Resource from "components/Tokens/TokenDetails/Resource";
-import { MouseoverTooltip } from "components/Tooltip/index";
-import { Box } from "nft/components/Box";
-import { reduceFilters } from "nft/components/collection/Activity";
-import { LoadingSparkle } from "nft/components/common/Loading/LoadingSparkle";
-import { AssetPriceDetails } from "nft/components/details/AssetPriceDetails";
-import { Center } from "nft/components/Flex";
-import { themeVars, vars } from "nft/css/sprinkles.css";
-import { ActivityFetcher } from "nft/queries/genie/ActivityFetcher";
-import {
-  ActivityEventResponse,
-  ActivityEventType,
-  CollectionInfoForAsset,
-  GenieAsset,
-} from "nft/types";
-import { shortenAddress } from "nft/utils/address";
-import { formatEthPrice } from "nft/utils/currency";
-import { isAudio } from "nft/utils/isAudio";
-import { isVideo } from "nft/utils/isVideo";
-import { putCommas } from "nft/utils/putCommas";
-import { fallbackProvider, getRarityProviderLogo } from "nft/utils/rarity";
-import { useCallback, useMemo, useReducer, useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { useInfiniteQuery, useQuery } from "react-query";
-import { Link as RouterLink } from "react-router-dom";
-import { useIsDarkMode } from "state/user/hooks";
-import styled from "styled-components/macro";
+import { OpacityHoverState, ScrollBarStyles } from 'components/Common'
+import Resource from 'components/Tokens/TokenDetails/Resource'
+import { MouseoverTooltip } from 'components/Tooltip/index'
+import { Box } from 'nft/components/Box'
+import { reduceFilters } from 'nft/components/collection/Activity'
+import { LoadingSparkle } from 'nft/components/common/Loading/LoadingSparkle'
+import { AssetPriceDetails } from 'nft/components/details/AssetPriceDetails'
+import { Center } from 'nft/components/Flex'
+import { themeVars, vars } from 'nft/css/sprinkles.css'
+import { ActivityFetcher } from 'nft/queries/genie/ActivityFetcher'
+import { ActivityEventResponse, ActivityEventType, CollectionInfoForAsset, GenieAsset } from 'nft/types'
+import { shortenAddress } from 'nft/utils/address'
+import { formatEthPrice } from 'nft/utils/currency'
+import { isAudio } from 'nft/utils/isAudio'
+import { isVideo } from 'nft/utils/isVideo'
+import { putCommas } from 'nft/utils/putCommas'
+import { fallbackProvider, getRarityProviderLogo } from 'nft/utils/rarity'
+import { useCallback, useMemo, useReducer, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { useInfiniteQuery, useQuery } from 'react-query'
+import { Link as RouterLink } from 'react-router-dom'
+import { useIsDarkMode } from 'state/user/hooks'
+import styled from 'styled-components/macro'
 
-import AssetActivity, { LoadingAssetActivity } from "./AssetActivity";
-import * as styles from "./AssetDetails.css";
-import DetailsContainer from "./DetailsContainer";
-import InfoContainer from "./InfoContainer";
-import TraitsContainer from "./TraitsContainer";
+import AssetActivity, { LoadingAssetActivity } from './AssetActivity'
+import * as styles from './AssetDetails.css'
+import DetailsContainer from './DetailsContainer'
+import InfoContainer from './InfoContainer'
+import TraitsContainer from './TraitsContainer'
 
 const AssetPriceDetailsContainer = styled.div`
   margin-top: 20px;
@@ -39,19 +34,19 @@ const AssetPriceDetailsContainer = styled.div`
   @media (max-width: 960px) {
     display: block;
   }
-`;
+`
 
 const MediaContainer = styled.div`
   display: flex;
   justify-content: center;
-`;
+`
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 780px;
-`;
+`
 
 const AddressTextLink = styled.a`
   display: inline-block;
@@ -60,19 +55,19 @@ const AddressTextLink = styled.a`
   max-width: 100%;
   word-wrap: break-word;
   ${OpacityHoverState};
-`;
+`
 
 const SocialsContainer = styled.div`
   display: flex;
   gap: 16px;
   margin-top: 20px;
-`;
+`
 
 const DescriptionText = styled.div`
   margin-top: 8px;
   font-size: 14px;
   line-height: 20px;
-`;
+`
 
 const RarityWrap = styled.span`
   display: flex;
@@ -81,7 +76,7 @@ const RarityWrap = styled.span`
   border-radius: 4px;
   align-items: center;
   gap: 4px;
-`;
+`
 
 const EmptyActivitiesContainer = styled.div`
   display: flex;
@@ -92,7 +87,7 @@ const EmptyActivitiesContainer = styled.div`
   font-size: 28px;
   line-height: 36px;
   padding: 56px 0px;
-`;
+`
 
 const Link = styled(RouterLink)`
   color: ${({ theme }) => theme.accentAction};
@@ -102,7 +97,7 @@ const Link = styled(RouterLink)`
   margin-top: 12px;
   cursor: pointer;
   ${OpacityHoverState};
-`;
+`
 
 const ActivitySelectContainer = styled.div`
   display: flex;
@@ -114,7 +109,7 @@ const ActivitySelectContainer = styled.div`
   @media (max-width: 720px) {
     padding-bottom: 8px;
   }
-`;
+`
 
 const ContentNotAvailable = styled.div`
   display: flex;
@@ -127,7 +122,7 @@ const ContentNotAvailable = styled.div`
   border-radius: 12px;
   width: 450px;
   height: 450px;
-`;
+`
 
 const FilterBox = styled.div<{ backgroundColor: string }>`
   box-sizing: border-box;
@@ -141,29 +136,29 @@ const FilterBox = styled.div<{ backgroundColor: string }>`
   cursor: pointer;
   box-sizing: border-box;
   ${OpacityHoverState};
-`;
+`
 
 const ByText = styled.span`
   font-size: 14px;
   line-height: 20px;
-`;
+`
 
 const Img = styled.img`
   background-color: white;
-`;
+`
 
 const HoverImageContainer = styled.div`
   display: flex;
   margin-right: 4px;
-`;
+`
 
 const HoverContainer = styled.div`
   display: flex;
-`;
+`
 
 const ContainerText = styled.span`
   font-size: 14px;
-`;
+`
 
 const AudioPlayer = ({
   imageUrl,
@@ -174,39 +169,33 @@ const AudioPlayer = ({
 }: GenieAsset & { dominantColor: [number, number, number] }) => {
   return (
     <Box position="relative" display="inline-block" alignSelf="center">
-      <Box
-        as="audio"
-        className={styles.audioControls}
-        width="292"
-        controls
-        src={animationUrl}
-      />
+      <Box as="audio" className={styles.audioControls} width="292" controls src={animationUrl} />
       <img
         className={styles.image}
         src={imageUrl}
         alt={name || collectionName}
         style={{
-          ["--shadow" as string]: `rgba(${dominantColor.join(", ")}, 0.5)`,
-          minWidth: "300px",
-          minHeight: "300px",
+          ['--shadow' as string]: `rgba(${dominantColor.join(', ')}, 0.5)`,
+          minWidth: '300px',
+          minHeight: '300px',
         }}
       />
     </Box>
-  );
-};
+  )
+}
 
 const initialFilterState = {
   [ActivityEventType.Listing]: true,
   [ActivityEventType.Sale]: true,
   [ActivityEventType.Transfer]: false,
   [ActivityEventType.CancelListing]: false,
-};
+}
 
 enum MediaType {
-  Audio = "audio",
-  Video = "video",
-  Image = "image",
-  Embed = "embed",
+  Audio = 'audio',
+  Video = 'video',
+  Image = 'image',
+  Embed = 'embed',
 }
 
 const AssetView = ({
@@ -214,38 +203,21 @@ const AssetView = ({
   asset,
   dominantColor,
 }: {
-  mediaType: MediaType;
-  asset: GenieAsset;
-  dominantColor: [number, number, number];
+  mediaType: MediaType
+  asset: GenieAsset
+  dominantColor: [number, number, number]
 }) => {
   const style = {
-    ["--shadow" as string]: `rgba(${dominantColor.join(", ")}, 0.5)`,
-  };
+    ['--shadow' as string]: `rgba(${dominantColor.join(', ')}, 0.5)`,
+  }
 
   switch (mediaType) {
     case MediaType.Video:
-      return (
-        <video
-          src={asset.animationUrl}
-          className={styles.image}
-          autoPlay
-          controls
-          muted
-          loop
-          style={style}
-        />
-      );
+      return <video src={asset.animationUrl} className={styles.image} autoPlay controls muted loop style={style} />
     case MediaType.Image:
-      return (
-        <img
-          className={styles.image}
-          src={asset.imageUrl}
-          alt={asset.name || asset.collectionName}
-          style={style}
-        />
-      );
+      return <img className={styles.image} src={asset.imageUrl} alt={asset.name || asset.collectionName} style={style} />
     case MediaType.Audio:
-      return <AudioPlayer {...asset} dominantColor={dominantColor} />;
+      return <AudioPlayer {...asset} dominantColor={dominantColor} />
     case MediaType.Embed:
       return (
         <div className={styles.embedContainer}>
@@ -262,52 +234,51 @@ const AssetView = ({
             allowFullScreen
           />
         </div>
-      );
+      )
   }
-};
+}
 
 interface AssetDetailsProps {
-  asset: GenieAsset;
-  collection: CollectionInfoForAsset;
+  asset: GenieAsset
+  collection: CollectionInfoForAsset
 }
 
 export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
-  const [dominantColor] = useState<[number, number, number]>([0, 0, 0]);
+  const [dominantColor] = useState<[number, number, number]>([0, 0, 0])
 
   const { rarityProvider } = useMemo(
     () =>
       asset.rarity
         ? {
             rarityProvider: asset?.rarity?.providers?.find(
-              ({ provider: _provider }) =>
-                _provider === asset.rarity?.primaryProvider
+              ({ provider: _provider }) => _provider === asset.rarity?.primaryProvider,
             ),
           }
         : {},
-    [asset.rarity]
-  );
+    [asset.rarity],
+  )
 
   const assetMediaType = useMemo(() => {
-    if (isAudio(asset.animationUrl ?? "")) {
-      return MediaType.Audio;
-    } else if (isVideo(asset.animationUrl ?? "")) {
-      return MediaType.Video;
+    if (isAudio(asset.animationUrl ?? '')) {
+      return MediaType.Audio
+    } else if (isVideo(asset.animationUrl ?? '')) {
+      return MediaType.Video
     } else if (asset.animationUrl) {
-      return MediaType.Embed;
+      return MediaType.Embed
     }
-    return MediaType.Image;
-  }, [asset]);
+    return MediaType.Image
+  }, [asset])
 
-  const { address: contractAddress, tokenId: token_id } = asset;
+  const { address: contractAddress, tokenId: token_id } = asset
 
   const { data: priceData } = useQuery<ActivityEventResponse>(
     [
-      "collectionActivity",
+      'collectionActivity',
       {
         contractAddress,
       },
     ],
-    async ({ pageParam = "" }) => {
+    async ({ pageParam = '' }) => {
       return await ActivityFetcher(
         contractAddress,
         {
@@ -315,54 +286,45 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
           eventTypes: [ActivityEventType.Sale],
         },
         pageParam,
-        "1"
-      );
+        '1',
+      )
     },
     {
       getNextPageParam: (lastPage) => {
-        return lastPage.events?.length === 25 ? lastPage.cursor : undefined;
+        return lastPage.events?.length === 25 ? lastPage.cursor : undefined
       },
       refetchInterval: 15000,
       refetchIntervalInBackground: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    }
-  );
+    },
+  )
 
-  const lastSalePrice = priceData?.events[0]?.price ?? null;
-  const formattedEthprice = formatEthPrice(lastSalePrice ?? "") || 0;
-  const formattedPrice = lastSalePrice
-    ? putCommas(formattedEthprice).toString()
-    : null;
-  const [activeFilters, filtersDispatch] = useReducer(
-    reduceFilters,
-    initialFilterState
-  );
+  const lastSalePrice = priceData?.events[0]?.price ?? null
+  const formattedEthprice = formatEthPrice(lastSalePrice ?? '') || 0
+  const formattedPrice = lastSalePrice ? putCommas(formattedEthprice).toString() : null
+  const [activeFilters, filtersDispatch] = useReducer(reduceFilters, initialFilterState)
 
   const Filter = useCallback(
     function ActivityFilter({ eventType }: { eventType: ActivityEventType }) {
-      const isActive = activeFilters[eventType];
-      const isDarkMode = useIsDarkMode();
+      const isActive = activeFilters[eventType]
+      const isDarkMode = useIsDarkMode()
 
       return (
         <FilterBox
           backgroundColor={
-            isActive
-              ? isDarkMode
-                ? vars.color.gray500
-                : vars.color.gray200
-              : themeVars.colors.backgroundInteractive
+            isActive ? (isDarkMode ? vars.color.gray500 : vars.color.gray200) : themeVars.colors.backgroundInteractive
           }
           onClick={() => filtersDispatch({ eventType })}
         >
           {eventType === ActivityEventType.CancelListing
-            ? "Cancellations"
-            : eventType.charAt(0) + eventType.slice(1).toLowerCase() + "s"}
+            ? 'Cancellations'
+            : eventType.charAt(0) + eventType.slice(1).toLowerCase() + 's'}
         </FilterBox>
-      );
+      )
     },
-    [activeFilters]
-  );
+    [activeFilters],
+  )
 
   const {
     data: eventsData,
@@ -373,14 +335,14 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
     isLoading: isActivityLoading,
   } = useInfiniteQuery<ActivityEventResponse>(
     [
-      "collectionActivity",
+      'collectionActivity',
       {
         contractAddress,
         activeFilters,
         token_id,
       },
     ],
-    async ({ pageParam = "" }) => {
+    async ({ pageParam = '' }) => {
       return await ActivityFetcher(
         contractAddress,
         {
@@ -389,30 +351,27 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
             .map((key) => key as ActivityEventType)
             .filter((key) => activeFilters[key]),
         },
-        pageParam
-      );
+        pageParam,
+      )
     },
     {
       getNextPageParam: (lastPage) => {
-        return lastPage.events?.length === 25 ? lastPage.cursor : undefined;
+        return lastPage.events?.length === 25 ? lastPage.cursor : undefined
       },
       refetchInterval: 15000,
       refetchIntervalInBackground: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    }
-  );
+    },
+  )
 
-  const rarity = asset?.rarity?.providers?.length
-    ? asset?.rarity?.providers?.[0]
-    : undefined;
-  const [showHolder, setShowHolder] = useState(false);
-  const rarityProviderLogo = getRarityProviderLogo(rarity?.provider);
+  const rarity = asset?.rarity?.providers?.length ? asset?.rarity?.providers?.[0] : undefined
+  const [showHolder, setShowHolder] = useState(false)
+  const rarityProviderLogo = getRarityProviderLogo(rarity?.provider)
   const events = useMemo(
-    () =>
-      isSuccess ? eventsData?.pages.map((page) => page.events).flat() : null,
-    [isSuccess, eventsData]
-  );
+    () => (isSuccess ? eventsData?.pages.map((page) => page.events).flat() : null),
+    [isSuccess, eventsData],
+  )
 
   return (
     <Column>
@@ -427,11 +386,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
             onError={() => setShowHolder(true)}
           />
         ) : (
-          <AssetView
-            asset={asset}
-            mediaType={assetMediaType}
-            dominantColor={dominantColor}
-          />
+          <AssetView asset={asset} mediaType={assetMediaType} dominantColor={dominantColor} />
         )}
       </MediaContainer>
       <AssetPriceDetailsContainer>
@@ -451,11 +406,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
                       <img src={rarityProviderLogo} alt="cardLogo" width={16} />
                     </HoverImageContainer>
                     <ContainerText>
-                      {`Ranking by ${
-                        rarity.provider === "Genie"
-                          ? fallbackProvider
-                          : rarity.provider
-                      }`}
+                      {`Ranking by ${rarity.provider === 'Genie' ? fallbackProvider : rarity.provider}`}
                     </ContainerText>
                   </HoverContainer>
                 }
@@ -472,9 +423,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
       <InfoContainer
         primaryHeader="Activity"
         defaultOpen
-        secondaryHeader={
-          formattedPrice ? `Last Sale: ${formattedPrice} ETH` : undefined
-        }
+        secondaryHeader={formattedPrice ? `Last Sale: ${formattedPrice} ETH` : undefined}
         data-testid="nft-details-activity"
       >
         <>
@@ -506,21 +455,14 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
               {!isActivityLoading && (
                 <EmptyActivitiesContainer>
                   <div>No activities yet</div>
-                  <Link to={`/nfts/collection/${asset.address}`}>
-                    View collection items
-                  </Link>{" "}
+                  <Link to={`/nfts/collection/${asset.address}`}>View collection items</Link>{' '}
                 </EmptyActivitiesContainer>
               )}
             </>
           )}
         </>
       </InfoContainer>
-      <InfoContainer
-        primaryHeader="Description"
-        defaultOpen
-        secondaryHeader={null}
-        data-testid="nft-details-description"
-      >
+      <InfoContainer primaryHeader="Description" defaultOpen secondaryHeader={null} data-testid="nft-details-description">
         <>
           <ByText>By </ByText>
           {asset?.creator && asset.creator?.address && (
@@ -533,33 +475,17 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
             </AddressTextLink>
           )}
 
-          <DescriptionText data-testid="nft-details-description-text">
-            {collection.collectionDescription}
-          </DescriptionText>
+          <DescriptionText data-testid="nft-details-description-text">{collection.collectionDescription}</DescriptionText>
           <SocialsContainer>
-            {collection.externalUrl && (
-              <Resource name="Website" link={`${collection.externalUrl}`} />
-            )}
-            {collection.twitterUrl && (
-              <Resource
-                name="Twitter"
-                link={`https://twitter.com/${collection.twitterUrl}`}
-              />
-            )}
-            {collection.discordUrl && (
-              <Resource name="Discord" link={collection.discordUrl} />
-            )}
+            {collection.externalUrl && <Resource name="Website" link={`${collection.externalUrl}`} />}
+            {collection.twitterUrl && <Resource name="Twitter" link={`https://twitter.com/${collection.twitterUrl}`} />}
+            {collection.discordUrl && <Resource name="Discord" link={collection.discordUrl} />}
           </SocialsContainer>
         </>
       </InfoContainer>
-      <InfoContainer
-        primaryHeader="Details"
-        defaultOpen
-        secondaryHeader={null}
-        data-testid="nft-details-asset-details"
-      >
+      <InfoContainer primaryHeader="Details" defaultOpen secondaryHeader={null} data-testid="nft-details-asset-details">
         <DetailsContainer asset={asset} collection={collection} />
       </InfoContainer>
     </Column>
-  );
-};
+  )
+}

@@ -1,9 +1,9 @@
-import { DEFAULT_ERC20_DECIMALS } from "constants/tokens";
-import gql from "graphql-tag";
-import { WrappedTokenInfo } from "state/lists/wrappedTokenInfo";
+import { DEFAULT_ERC20_DECIMALS } from 'constants/tokens'
+import gql from 'graphql-tag'
+import { WrappedTokenInfo } from 'state/lists/wrappedTokenInfo'
 
-import { TokenQuery } from "./__generated__/types-and-hooks";
-import { CHAIN_NAME_TO_CHAIN_ID } from "./util";
+import { TokenQuery } from './__generated__/types-and-hooks'
+import { CHAIN_NAME_TO_CHAIN_ID } from './util'
 
 /*
 The difference between Token and TokenProject:
@@ -63,26 +63,22 @@ gql`
       }
     }
   }
-`;
+`
 
-export type { Chain, TokenQuery } from "./__generated__/types-and-hooks";
+export type { Chain, TokenQuery } from './__generated__/types-and-hooks'
 
-export type TokenQueryData = TokenQuery["token"];
+export type TokenQueryData = TokenQuery['token']
 
 // TODO: Return a QueryToken from useTokenQuery instead of TokenQueryData to make it more usable in Currency-centric interfaces.
 export class QueryToken extends WrappedTokenInfo {
-  constructor(
-    address: string,
-    data: NonNullable<TokenQueryData>,
-    logoSrc?: string
-  ) {
+  constructor(address: string, data: NonNullable<TokenQueryData>, logoSrc?: string) {
     super({
       chainId: CHAIN_NAME_TO_CHAIN_ID[data.chain],
       address,
       decimals: data.decimals ?? DEFAULT_ERC20_DECIMALS,
-      symbol: data.symbol ?? "",
-      name: data.name ?? "",
+      symbol: data.symbol ?? '',
+      name: data.name ?? '',
       logoURI: logoSrc ?? data.project?.logoUrl ?? undefined,
-    });
+    })
   }
 }

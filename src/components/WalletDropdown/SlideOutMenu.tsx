@@ -1,6 +1,6 @@
-import { ScrollBarStyles } from "components/Common";
-import { ChevronLeft } from "react-feather";
-import styled from "styled-components/macro";
+import { ScrollBarStyles } from 'components/Common'
+import { ChevronLeft } from 'react-feather'
+import styled from 'styled-components/macro'
 
 const Menu = styled.div`
   width: 100%;
@@ -13,14 +13,14 @@ const Menu = styled.div`
   ::-webkit-scrollbar-track {
     margin-top: 40px;
   }
-`;
+`
 
 const Header = styled.span`
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-`;
+`
 
 const ClearAll = styled.div`
   display: inline-block;
@@ -39,7 +39,7 @@ const ClearAll = styled.div`
       },
     }) => `${duration.fast} opacity ${timing.in}`};
   }
-`;
+`
 
 const StyledChevron = styled(ChevronLeft)`
   cursor: pointer;
@@ -52,7 +52,7 @@ const StyledChevron = styled(ChevronLeft)`
       },
     }) => `${duration.fast} color ${timing.in}`};
   }
-`;
+`
 
 const BackSection = styled.div`
   position: absolute;
@@ -65,18 +65,18 @@ const BackSection = styled.div`
   display: flex;
   justify-content: space-between;
   z-index: 1;
-`;
+`
 
 const BackSectionContainer = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
   width: 100%;
-`;
+`
 
 const ChildrenContainer = styled.div`
   margin-top: 40px;
-`;
+`
 
 export const SlideOutMenu = ({
   children,
@@ -84,10 +84,10 @@ export const SlideOutMenu = ({
   title,
   onClear,
 }: {
-  onClose: () => void;
-  title: React.ReactNode;
-  children: React.ReactNode;
-  onClear?: () => void;
+  onClose: () => void
+  title: React.ReactNode
+  children: React.ReactNode
+  onClear?: () => void
 }) => (
   <Menu>
     <BackSection>
@@ -100,4 +100,4 @@ export const SlideOutMenu = ({
 
     <ChildrenContainer>{children}</ChildrenContainer>
   </Menu>
-);
+)

@@ -1,10 +1,10 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import clsx from "clsx";
-import { OpacityHoverState } from "components/Common";
-import { MouseoverTooltip } from "components/Tooltip";
-import { NftStandard } from "graphql/data/__generated__/types-and-hooks";
-import { Box } from "nft/components/Box";
-import { Row } from "nft/components/Flex";
+import { BigNumber } from '@ethersproject/bignumber'
+import clsx from 'clsx'
+import { OpacityHoverState } from 'components/Common'
+import { MouseoverTooltip } from 'components/Tooltip'
+import { NftStandard } from 'graphql/data/__generated__/types-and-hooks'
+import { Box } from 'nft/components/Box'
+import { Row } from 'nft/components/Flex'
 import {
   MinusIconLarge,
   PauseButtonIcon,
@@ -13,19 +13,13 @@ import {
   PoolIcon,
   RarityVerifiedIcon,
   VerifiedIcon,
-} from "nft/components/icons";
-import { body, bodySmall, buttonTextMedium, subhead } from "nft/css/common.css";
-import { themeVars } from "nft/css/sprinkles.css";
-import { useIsMobile } from "nft/hooks";
-import {
-  GenieAsset,
-  Rarity,
-  UniformAspectRatio,
-  UniformAspectRatios,
-  WalletAsset,
-} from "nft/types";
-import { fallbackProvider, isAudio, isVideo, putCommas } from "nft/utils";
-import { floorFormatter } from "nft/utils/numbers";
+} from 'nft/components/icons'
+import { body, bodySmall, buttonTextMedium, subhead } from 'nft/css/common.css'
+import { themeVars } from 'nft/css/sprinkles.css'
+import { useIsMobile } from 'nft/hooks'
+import { GenieAsset, Rarity, UniformAspectRatio, UniformAspectRatios, WalletAsset } from 'nft/types'
+import { fallbackProvider, isAudio, isVideo, putCommas } from 'nft/utils'
+import { floorFormatter } from 'nft/utils/numbers'
 import {
   createContext,
   MouseEvent,
@@ -37,33 +31,33 @@ import {
   useReducer,
   useRef,
   useState,
-} from "react";
-import { AlertTriangle } from "react-feather";
-import styled from "styled-components/macro";
-import { ThemedText } from "theme";
+} from 'react'
+import { AlertTriangle } from 'react-feather'
+import styled from 'styled-components/macro'
+import { ThemedText } from 'theme'
 
-import * as styles from "./Card.css";
+import * as styles from './Card.css'
 
 /* -------- ASSET CONTEXT -------- */
 export interface CardContextProps {
-  asset: GenieAsset | WalletAsset;
-  hovered: boolean;
-  selected: boolean;
-  href: string;
-  setHref: (href: string) => void;
-  addAssetToBag: () => void;
-  removeAssetFromBag: () => void;
+  asset: GenieAsset | WalletAsset
+  hovered: boolean
+  selected: boolean
+  href: string
+  setHref: (href: string) => void
+  addAssetToBag: () => void
+  removeAssetFromBag: () => void
 }
 
-const CardContext = createContext<CardContextProps | undefined>(undefined);
+const CardContext = createContext<CardContextProps | undefined>(undefined)
 
-const BORDER_RADIUS = "12";
+const BORDER_RADIUS = '12'
 
 const useCardContext = () => {
-  const context = useContext(CardContext);
-  if (!context) throw new Error("Must use context inside of provider");
-  return context;
-};
+  const context = useContext(CardContext)
+  if (!context) throw new Error('Must use context inside of provider')
+  return context
+}
 
 export enum AssetMediaType {
   Image,
@@ -73,33 +67,29 @@ export enum AssetMediaType {
 
 const useNotForSale = (asset: GenieAsset) =>
   useMemo(() => {
-    let notForSale = true;
-    notForSale =
-      asset.notForSale ||
-      BigNumber.from(asset.priceInfo ? asset.priceInfo.ETHPrice : 0).lt(0);
-    return notForSale;
-  }, [asset]);
+    let notForSale = true
+    notForSale = asset.notForSale || BigNumber.from(asset.priceInfo ? asset.priceInfo.ETHPrice : 0).lt(0)
+    return notForSale
+  }, [asset])
 
 const useAssetMediaType = (asset: GenieAsset | WalletAsset) =>
   useMemo(() => {
-    let assetMediaType = AssetMediaType.Image;
+    let assetMediaType = AssetMediaType.Image
     if (asset.animationUrl) {
       if (isAudio(asset.animationUrl)) {
-        assetMediaType = AssetMediaType.Audio;
+        assetMediaType = AssetMediaType.Audio
       } else if (isVideo(asset.animationUrl)) {
-        assetMediaType = AssetMediaType.Video;
+        assetMediaType = AssetMediaType.Video
       }
     }
-    return assetMediaType;
-  }, [asset]);
+    return assetMediaType
+  }, [asset])
 
 const baseHref = (asset: GenieAsset | WalletAsset) => {
-  if ("address" in asset)
-    return `/#/nfts/asset/${asset.address}/${asset.tokenId}?origin=collection`;
-  if ("asset_contract" in asset)
-    return `/#/nfts/asset/${asset.asset_contract.address}/${asset.tokenId}?origin=profile`;
-  return "/#/nfts/profile";
-};
+  if ('address' in asset) return `/#/nfts/asset/${asset.address}/${asset.tokenId}?origin=collection`
+  if ('asset_contract' in asset) return `/#/nfts/asset/${asset.asset_contract.address}/${asset.tokenId}?origin=profile`
+  return '/#/nfts/profile'
+}
 
 const DetailsLinkContainer = styled.a`
   display: flex;
@@ -114,13 +104,13 @@ const DetailsLinkContainer = styled.a`
   padding: 2px 6px;
   border-radius: 6px;
   ${OpacityHoverState};
-`;
+`
 
 const SuspiciousIcon = styled(AlertTriangle)`
   width: 16px;
   height: 16px;
   color: ${({ theme }) => theme.accentFailure};
-`;
+`
 
 const Erc1155ControlsRow = styled.div`
   position: absolute;
@@ -129,14 +119,14 @@ const Erc1155ControlsRow = styled.div`
   bottom: 12px;
   z-index: 2;
   justify-content: center;
-`;
+`
 
 const Erc1155ControlsContainer = styled.div`
   display: flex;
   border: 1px solid ${({ theme }) => theme.backgroundOutline};
   border-radius: ${BORDER_RADIUS}px;
   overflow: hidden;
-`;
+`
 
 const Erc1155ControlsDisplay = styled(ThemedText.HeadlineSmall)`
   display: flex;
@@ -145,7 +135,7 @@ const Erc1155ControlsDisplay = styled(ThemedText.HeadlineSmall)`
   background: ${({ theme }) => theme.backgroundBackdrop};
   justify-content: center;
   cursor: default;
-`;
+`
 
 const Erc1155ControlsInput = styled.div`
   display: flex;
@@ -158,47 +148,38 @@ const Erc1155ControlsInput = styled.div`
   :hover {
     color: ${({ theme }) => theme.accentAction};
   }
-`;
+`
 
 const RankingContainer = styled.div`
   position: absolute;
   top: 12px;
   left: 12px;
   z-index: 2;
-`;
+`
 
 const StyledImageContainer = styled.div<{ isDisabled?: boolean }>`
   position: relative;
   pointer-events: auto;
   &:hover {
-    opacity: ${({ isDisabled, theme }) =>
-      isDisabled ? theme.opacity.disabled : theme.opacity.enabled};
+    opacity: ${({ isDisabled, theme }) => (isDisabled ? theme.opacity.disabled : theme.opacity.enabled)};
   }
-  cursor: ${({ isDisabled }) => (isDisabled ? "default" : "pointer")};
-`;
+  cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
+`
 
 /* -------- ASSET CARD -------- */
 interface CardProps {
-  asset: GenieAsset | WalletAsset;
-  selected: boolean;
-  addAssetToBag: () => void;
-  removeAssetFromBag: () => void;
-  children: ReactNode;
-  isDisabled?: boolean;
-  onClick?: () => void;
+  asset: GenieAsset | WalletAsset
+  selected: boolean
+  addAssetToBag: () => void
+  removeAssetFromBag: () => void
+  children: ReactNode
+  isDisabled?: boolean
+  onClick?: () => void
 }
 
-const Container = ({
-  asset,
-  selected,
-  addAssetToBag,
-  removeAssetFromBag,
-  children,
-  isDisabled,
-  onClick,
-}: CardProps) => {
-  const [hovered, toggleHovered] = useReducer((s) => !s, false);
-  const [href, setHref] = useState(baseHref(asset));
+const Container = ({ asset, selected, addAssetToBag, removeAssetFromBag, children, isDisabled, onClick }: CardProps) => {
+  const [hovered, toggleHovered] = useReducer((s) => !s, false)
+  const [href, setHref] = useState(baseHref(asset))
 
   const providerValue = useMemo(
     () => ({
@@ -211,24 +192,23 @@ const Container = ({
       addAssetToBag,
       removeAssetFromBag,
     }),
-    [asset, hovered, selected, href, addAssetToBag, removeAssetFromBag]
-  );
+    [asset, hovered, selected, href, addAssetToBag, removeAssetFromBag],
+  )
 
-  const assetRef = useRef<HTMLDivElement>(null);
+  const assetRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
-    if (hovered && assetRef.current?.matches(":hover") === false)
-      toggleHovered();
-  }, [hovered]);
+    if (hovered && assetRef.current?.matches(':hover') === false) toggleHovered()
+  }, [hovered])
 
   const handleAssetInBag = (e: MouseEvent) => {
     if (!asset.notForSale) {
-      e.preventDefault();
-      !selected ? addAssetToBag() : removeAssetFromBag();
+      e.preventDefault()
+      !selected ? addAssetToBag() : removeAssetFromBag()
     }
-  };
+  }
 
-  const toggleHover = useCallback(() => toggleHovered(), []);
+  const toggleHover = useCallback(() => toggleHovered(), [])
 
   return (
     <CardContext.Provider value={providerValue}>
@@ -246,35 +226,24 @@ const Container = ({
         {children}
       </Box>
     </CardContext.Provider>
-  );
-};
+  )
+}
 
-const ImageContainer = ({
-  children,
-  isDisabled = false,
-}: {
-  children: ReactNode;
-  isDisabled?: boolean;
-}) => (
-  <StyledImageContainer isDisabled={isDisabled}>
-    {children}
-  </StyledImageContainer>
-);
+const ImageContainer = ({ children, isDisabled = false }: { children: ReactNode; isDisabled?: boolean }) => (
+  <StyledImageContainer isDisabled={isDisabled}>{children}</StyledImageContainer>
+)
 
 const handleUniformAspectRatio = (
   uniformAspectRatio: UniformAspectRatio,
   e: React.SyntheticEvent<HTMLElement, Event>,
   setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void,
   renderedHeight?: number,
-  setRenderedHeight?: (renderedHeight: number | undefined) => void
+  setRenderedHeight?: (renderedHeight: number | undefined) => void,
 ) => {
-  if (
-    uniformAspectRatio !== UniformAspectRatios.square &&
-    setUniformAspectRatio
-  ) {
-    const height = e.currentTarget.clientHeight;
-    const width = e.currentTarget.clientWidth;
-    const aspectRatio = width / height;
+  if (uniformAspectRatio !== UniformAspectRatios.square && setUniformAspectRatio) {
+    const height = e.currentTarget.clientHeight
+    const width = e.currentTarget.clientWidth
+    const aspectRatio = width / height
 
     if (
       (!renderedHeight || renderedHeight !== height) &&
@@ -282,35 +251,29 @@ const handleUniformAspectRatio = (
       uniformAspectRatio !== UniformAspectRatios.square &&
       setRenderedHeight
     ) {
-      setRenderedHeight(height);
+      setRenderedHeight(height)
     }
 
     if (uniformAspectRatio === UniformAspectRatios.unset) {
-      setUniformAspectRatio(
-        aspectRatio >= 1 ? UniformAspectRatios.square : aspectRatio
-      );
+      setUniformAspectRatio(aspectRatio >= 1 ? UniformAspectRatios.square : aspectRatio)
     } else if (uniformAspectRatio !== aspectRatio) {
-      setUniformAspectRatio(UniformAspectRatios.square);
-      setRenderedHeight && setRenderedHeight(undefined);
+      setUniformAspectRatio(UniformAspectRatios.square)
+      setRenderedHeight && setRenderedHeight(undefined)
     }
   }
-};
+}
 
-function getHeightFromAspectRatio(
-  uniformAspectRatio: UniformAspectRatio,
-  renderedHeight?: number
-): number | undefined {
-  return uniformAspectRatio === UniformAspectRatios.square ||
-    uniformAspectRatio === UniformAspectRatios.unset
+function getHeightFromAspectRatio(uniformAspectRatio: UniformAspectRatio, renderedHeight?: number): number | undefined {
+  return uniformAspectRatio === UniformAspectRatios.square || uniformAspectRatio === UniformAspectRatios.unset
     ? undefined
-    : renderedHeight;
+    : renderedHeight
 }
 
 interface ImageProps {
-  uniformAspectRatio?: UniformAspectRatio;
-  setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void;
-  renderedHeight?: number;
-  setRenderedHeight?: (renderedHeight: number | undefined) => void;
+  uniformAspectRatio?: UniformAspectRatio
+  setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void
+  renderedHeight?: number
+  setRenderedHeight?: (renderedHeight: number | undefined) => void
 }
 
 const Image = ({
@@ -319,76 +282,48 @@ const Image = ({
   renderedHeight,
   setRenderedHeight,
 }: ImageProps) => {
-  const { hovered, asset } = useCardContext();
-  const [noContent, setNoContent] = useState(
-    !asset.smallImageUrl && !asset.imageUrl
-  );
-  const [loaded, setLoaded] = useState(false);
-  const isMobile = useIsMobile();
+  const { hovered, asset } = useCardContext()
+  const [noContent, setNoContent] = useState(!asset.smallImageUrl && !asset.imageUrl)
+  const [loaded, setLoaded] = useState(false)
+  const isMobile = useIsMobile()
 
   if (noContent) {
-    return (
-      <NoContentContainer
-        height={getHeightFromAspectRatio(uniformAspectRatio, renderedHeight)}
-      />
-    );
+    return <NoContentContainer height={getHeightFromAspectRatio(uniformAspectRatio, renderedHeight)} />
   }
 
   return (
-    <Box
-      display="flex"
-      overflow="hidden"
-      borderTopLeftRadius={BORDER_RADIUS}
-      borderTopRightRadius={BORDER_RADIUS}
-    >
+    <Box display="flex" overflow="hidden" borderTopLeftRadius={BORDER_RADIUS} borderTopRightRadius={BORDER_RADIUS}>
       <Box
         as="img"
         width="full"
         style={{
-          aspectRatio: `${
-            uniformAspectRatio === UniformAspectRatios.square ||
-            !setUniformAspectRatio
-              ? "1"
-              : "auto"
-          }`,
-          transition: "transform 0.25s ease 0s",
+          aspectRatio: `${uniformAspectRatio === UniformAspectRatios.square || !setUniformAspectRatio ? '1' : 'auto'}`,
+          transition: 'transform 0.25s ease 0s',
         }}
         src={asset.imageUrl || asset.smallImageUrl}
         objectFit="contain"
         draggable={false}
         onError={() => setNoContent(true)}
         onLoad={(e) => {
-          handleUniformAspectRatio(
-            uniformAspectRatio,
-            e,
-            setUniformAspectRatio,
-            renderedHeight,
-            setRenderedHeight
-          );
-          setLoaded(true);
+          handleUniformAspectRatio(uniformAspectRatio, e, setUniformAspectRatio, renderedHeight, setRenderedHeight)
+          setLoaded(true)
         }}
-        className={clsx(
-          hovered && !isMobile && styles.cardImageHover,
-          !loaded && styles.loadingBackground
-        )}
+        className={clsx(hovered && !isMobile && styles.cardImageHover, !loaded && styles.loadingBackground)}
       />
     </Box>
-  );
-};
+  )
+}
 
 function getMediaAspectRatio(
   uniformAspectRatio: UniformAspectRatio,
-  setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void
+  setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void,
 ): string {
-  return uniformAspectRatio === UniformAspectRatios.square ||
-    !setUniformAspectRatio
-    ? "1"
-    : "auto";
+  return uniformAspectRatio === UniformAspectRatios.square || !setUniformAspectRatio ? '1' : 'auto'
 }
 
 interface MediaProps {
-  shouldPlay: boolean;
-  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void;
+  shouldPlay: boolean
+  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void
 }
 
 const Video = ({
@@ -399,26 +334,20 @@ const Video = ({
   shouldPlay,
   setCurrentTokenPlayingMedia,
 }: MediaProps & ImageProps) => {
-  const vidRef = useRef<HTMLVideoElement>(null);
-  const { hovered, asset } = useCardContext();
-  const [noContent, setNoContent] = useState(
-    !asset.smallImageUrl && !asset.imageUrl
-  );
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const isMobile = useIsMobile();
+  const vidRef = useRef<HTMLVideoElement>(null)
+  const { hovered, asset } = useCardContext()
+  const [noContent, setNoContent] = useState(!asset.smallImageUrl && !asset.imageUrl)
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const isMobile = useIsMobile()
 
   if (shouldPlay) {
-    vidRef.current?.play();
+    vidRef.current?.play()
   } else {
-    vidRef.current?.pause();
+    vidRef.current?.pause()
   }
 
   if (noContent) {
-    return (
-      <NoContentContainer
-        height={getHeightFromAspectRatio(uniformAspectRatio, renderedHeight)}
-      />
-    );
+    return <NoContentContainer height={getHeightFromAspectRatio(uniformAspectRatio, renderedHeight)} />
   }
 
   return (
@@ -429,32 +358,20 @@ const Video = ({
           alt={asset.name || asset.tokenId}
           width="full"
           style={{
-            aspectRatio: getMediaAspectRatio(
-              uniformAspectRatio,
-              setUniformAspectRatio
-            ),
-            transition: "transform 0.25s ease 0s",
-            willChange: "transform",
+            aspectRatio: getMediaAspectRatio(uniformAspectRatio, setUniformAspectRatio),
+            transition: 'transform 0.25s ease 0s',
+            willChange: 'transform',
           }}
           src={asset.imageUrl || asset.smallImageUrl}
           objectFit="contain"
           draggable={false}
           onError={() => setNoContent(true)}
           onLoad={(e) => {
-            handleUniformAspectRatio(
-              uniformAspectRatio,
-              e,
-              setUniformAspectRatio,
-              renderedHeight,
-              setRenderedHeight
-            );
-            setImageLoaded(true);
+            handleUniformAspectRatio(uniformAspectRatio, e, setUniformAspectRatio, renderedHeight, setRenderedHeight)
+            setImageLoaded(true)
           }}
-          visibility={shouldPlay ? "hidden" : "visible"}
-          className={clsx(
-            hovered && !isMobile && styles.cardImageHover,
-            !imageLoaded && styles.loadingBackground
-          )}
+          visibility={shouldPlay ? 'hidden' : 'visible'}
+          className={clsx(hovered && !isMobile && styles.cardImageHover, !imageLoaded && styles.loadingBackground)}
         />
       </Box>
       {shouldPlay ? (
@@ -464,9 +381,9 @@ const Video = ({
               width="100%"
               height="100%"
               onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setCurrentTokenPlayingMedia(undefined);
+                e.preventDefault()
+                e.stopPropagation()
+                setCurrentTokenPlayingMedia(undefined)
               }}
               className="playback-icon"
             />
@@ -477,16 +394,11 @@ const Video = ({
               ref={vidRef}
               width="full"
               style={{
-                aspectRatio: `${
-                  uniformAspectRatio === UniformAspectRatios.square ||
-                  !setUniformAspectRatio
-                    ? "1"
-                    : "auto"
-                }`,
+                aspectRatio: `${uniformAspectRatio === UniformAspectRatios.square || !setUniformAspectRatio ? '1' : 'auto'}`,
               }}
               onEnded={(e) => {
-                e.preventDefault();
-                setCurrentTokenPlayingMedia(undefined);
+                e.preventDefault()
+                setCurrentTokenPlayingMedia(undefined)
               }}
               loop
               playsInline
@@ -502,9 +414,9 @@ const Video = ({
               width="100%"
               height="100%"
               onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setCurrentTokenPlayingMedia(asset.tokenId);
+                e.preventDefault()
+                e.stopPropagation()
+                setCurrentTokenPlayingMedia(asset.tokenId)
               }}
               className="playback-icon"
             />
@@ -512,8 +424,8 @@ const Video = ({
         </Box>
       )}
     </>
-  );
-};
+  )
+}
 
 const Audio = ({
   uniformAspectRatio = UniformAspectRatios.square,
@@ -523,26 +435,20 @@ const Audio = ({
   shouldPlay,
   setCurrentTokenPlayingMedia,
 }: MediaProps & ImageProps) => {
-  const audRef = useRef<HTMLAudioElement>(null);
-  const { hovered, asset } = useCardContext();
-  const [noContent, setNoContent] = useState(
-    !asset.smallImageUrl && !asset.imageUrl
-  );
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const isMobile = useIsMobile();
+  const audRef = useRef<HTMLAudioElement>(null)
+  const { hovered, asset } = useCardContext()
+  const [noContent, setNoContent] = useState(!asset.smallImageUrl && !asset.imageUrl)
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const isMobile = useIsMobile()
 
   if (shouldPlay) {
-    audRef.current?.play();
+    audRef.current?.play()
   } else {
-    audRef.current?.pause();
+    audRef.current?.pause()
   }
 
   if (noContent) {
-    return (
-      <NoContentContainer
-        height={getHeightFromAspectRatio(uniformAspectRatio, renderedHeight)}
-      />
-    );
+    return <NoContentContainer height={getHeightFromAspectRatio(uniformAspectRatio, renderedHeight)} />
   }
 
   return (
@@ -553,30 +459,18 @@ const Audio = ({
           alt={asset.name || asset.tokenId}
           width="full"
           style={{
-            aspectRatio: getMediaAspectRatio(
-              uniformAspectRatio,
-              setUniformAspectRatio
-            ),
-            transition: "transform 0.4s ease 0s",
+            aspectRatio: getMediaAspectRatio(uniformAspectRatio, setUniformAspectRatio),
+            transition: 'transform 0.4s ease 0s',
           }}
           src={asset.imageUrl || asset.smallImageUrl}
           objectFit="contain"
           draggable={false}
           onError={() => setNoContent(true)}
           onLoad={(e) => {
-            handleUniformAspectRatio(
-              uniformAspectRatio,
-              e,
-              setUniformAspectRatio,
-              renderedHeight,
-              setRenderedHeight
-            );
-            setImageLoaded(true);
+            handleUniformAspectRatio(uniformAspectRatio, e, setUniformAspectRatio, renderedHeight, setRenderedHeight)
+            setImageLoaded(true)
           }}
-          className={clsx(
-            hovered && !isMobile && styles.cardImageHover,
-            !imageLoaded && styles.loadingBackground
-          )}
+          className={clsx(hovered && !isMobile && styles.cardImageHover, !imageLoaded && styles.loadingBackground)}
         />
       </Box>
       {shouldPlay ? (
@@ -586,9 +480,9 @@ const Audio = ({
               width="100%"
               height="100%"
               onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setCurrentTokenPlayingMedia(undefined);
+                e.preventDefault()
+                e.stopPropagation()
+                setCurrentTokenPlayingMedia(undefined)
               }}
               className="playback-icon"
             />
@@ -600,8 +494,8 @@ const Audio = ({
               width="full"
               height="full"
               onEnded={(e) => {
-                e.preventDefault();
-                setCurrentTokenPlayingMedia(undefined);
+                e.preventDefault()
+                setCurrentTokenPlayingMedia(undefined)
               }}
             >
               <source src={asset.animationUrl} />
@@ -615,9 +509,9 @@ const Audio = ({
               width="100%"
               height="100%"
               onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setCurrentTokenPlayingMedia(asset.tokenId);
+                e.preventDefault()
+                e.stopPropagation()
+                setCurrentTokenPlayingMedia(asset.tokenId)
               }}
               className="playback-icon"
             />
@@ -625,12 +519,12 @@ const Audio = ({
         </Box>
       )}
     </>
-  );
-};
+  )
+}
 
 /* -------- CARD DETAILS CONTAINER -------- */
 interface CardDetailsContainerProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 const DetailsContainer = ({ children }: CardDetailsContainerProps) => {
@@ -645,16 +539,16 @@ const DetailsContainer = ({ children }: CardDetailsContainerProps) => {
     >
       {children}
     </Row>
-  );
-};
+  )
+}
 
 const InfoContainer = ({ children }: { children: ReactNode }) => {
   return (
     <Box overflow="hidden" width="full">
       {children}
     </Box>
-  );
-};
+  )
+}
 
 const TruncatedTextRow = styled(Row)`
   padding: 2px;
@@ -663,37 +557,29 @@ const TruncatedTextRow = styled(Row)`
   display: block;
   overflow: hidden;
   flex: 1;
-`;
+`
 
 interface ProfileNftDetailsProps {
-  asset: WalletAsset;
-  hideDetails: boolean;
+  asset: WalletAsset
+  hideDetails: boolean
 }
 
 const ProfileNftDetails = ({ asset, hideDetails }: ProfileNftDetailsProps) => {
   const assetName = () => {
-    if (!asset.name && !asset.tokenId) return;
-    return asset.name ? asset.name : `#${asset.tokenId}`;
-  };
+    if (!asset.name && !asset.tokenId) return
+    return asset.name ? asset.name : `#${asset.tokenId}`
+  }
 
-  const shouldShowUserListedPrice =
-    !asset.notForSale && asset.asset_contract.tokenType !== NftStandard.Erc1155;
+  const shouldShowUserListedPrice = !asset.notForSale && asset.asset_contract.tokenType !== NftStandard.Erc1155
 
   return (
     <Box overflow="hidden" width="full" flexWrap="nowrap">
       <PrimaryRow>
         <PrimaryDetails>
-          <TruncatedTextRow
-            className={bodySmall}
-            style={{ color: themeVars.colors.textSecondary }}
-          >
-            {!!asset.asset_contract.name && (
-              <span>{asset.asset_contract.name}</span>
-            )}
+          <TruncatedTextRow className={bodySmall} style={{ color: themeVars.colors.textSecondary }}>
+            {!!asset.asset_contract.name && <span>{asset.asset_contract.name}</span>}
           </TruncatedTextRow>
-          {asset.collectionIsVerified && (
-            <VerifiedIcon height="18px" width="18px" />
-          )}
+          {asset.collectionIsVerified && <VerifiedIcon height="18px" width="18px" />}
         </PrimaryDetails>
         {!hideDetails && <DetailsLink />}
       </PrimaryRow>
@@ -708,54 +594,46 @@ const ProfileNftDetails = ({ asset, hideDetails }: ProfileNftDetailsProps) => {
         </TruncatedTextRow>
         {asset.susFlag && <Suspicious />}
       </Row>
-      <TruncatedTextRow
-        className={buttonTextMedium}
-        style={{ color: themeVars.colors.textPrimary }}
-      >
+      <TruncatedTextRow className={buttonTextMedium} style={{ color: themeVars.colors.textPrimary }}>
         {shouldShowUserListedPrice && asset.floor_sell_order_price
           ? `${floorFormatter(asset.floor_sell_order_price)} ETH`
-          : " "}
+          : ' '}
       </TruncatedTextRow>
     </Box>
-  );
-};
+  )
+}
 
 const PrimaryRow = ({ children }: { children: ReactNode }) => (
   <Row gap="8" justifyContent="space-between">
     {children}
   </Row>
-);
+)
 
 const PrimaryDetails = ({ children }: { children: ReactNode }) => (
   <Row justifyItems="center" overflow="hidden" whiteSpace="nowrap">
     {children}
   </Row>
-);
+)
 
 const PrimaryInfo = ({ children }: { children: ReactNode }) => {
   return (
-    <Box
-      overflow="hidden"
-      whiteSpace="nowrap"
-      textOverflow="ellipsis"
-      className={body}
-    >
+    <Box overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" className={body}>
       {children}
     </Box>
-  );
-};
+  )
+}
 
 const SecondaryRow = ({ children }: { children: ReactNode }) => (
   <Row height="20" justifyContent="space-between" marginTop="6">
     {children}
   </Row>
-);
+)
 
 const SecondaryDetails = ({ children }: { children: ReactNode }) => (
   <Row overflow="hidden" whiteSpace="nowrap">
     {children}
   </Row>
-);
+)
 
 const SecondaryInfo = ({ children }: { children: ReactNode }) => {
   return (
@@ -764,36 +642,36 @@ const SecondaryInfo = ({ children }: { children: ReactNode }) => {
       overflow="hidden"
       whiteSpace="nowrap"
       textOverflow="ellipsis"
-      style={{ lineHeight: "20px" }}
+      style={{ lineHeight: '20px' }}
       className={subhead}
     >
       {children}
     </Box>
-  );
-};
+  )
+}
 
 const TertiaryInfo = ({ children }: { children: ReactNode }) => {
   return (
     <Box marginTop="8" color="textSecondary">
       {children}
     </Box>
-  );
-};
+  )
+}
 
 interface Erc1155ControlsInterface {
-  quantity: string;
+  quantity: string
 }
 
 const Erc1155Controls = ({ quantity }: Erc1155ControlsInterface) => {
-  const { addAssetToBag, removeAssetFromBag } = useCardContext();
+  const { addAssetToBag, removeAssetFromBag } = useCardContext()
 
   return (
     <Erc1155ControlsRow>
       <Erc1155ControlsContainer>
         <Erc1155ControlsInput
           onClick={(e: MouseEvent) => {
-            e.stopPropagation();
-            removeAssetFromBag();
+            e.stopPropagation()
+            removeAssetFromBag()
           }}
         >
           <MinusIconLarge width="24px" height="24px" />
@@ -801,58 +679,48 @@ const Erc1155Controls = ({ quantity }: Erc1155ControlsInterface) => {
         <Erc1155ControlsDisplay>{quantity}</Erc1155ControlsDisplay>
         <Erc1155ControlsInput
           onClick={(e: MouseEvent) => {
-            e.stopPropagation();
-            addAssetToBag();
+            e.stopPropagation()
+            addAssetToBag()
           }}
         >
           <PlusIconLarge width="24px" height="24px" />
         </Erc1155ControlsInput>
       </Erc1155ControlsContainer>
     </Erc1155ControlsRow>
-  );
-};
+  )
+}
 
 const MarketplaceIcon = ({ marketplace }: { marketplace: string }) => {
   return (
-    <Box
-      as="img"
-      alt={marketplace}
-      src={`/nft/svgs/marketplaces/${marketplace}.svg`}
-      className={styles.marketplaceIcon}
-    />
-  );
-};
+    <Box as="img" alt={marketplace} src={`/nft/svgs/marketplaces/${marketplace}.svg`} className={styles.marketplaceIcon} />
+  )
+}
 
 const DetailsLink = () => {
-  const { asset } = useCardContext();
+  const { asset } = useCardContext()
 
   return (
     <DetailsLinkContainer
       href={baseHref(asset)}
       onClick={(e: MouseEvent) => {
-        e.stopPropagation();
+        e.stopPropagation()
       }}
     >
       <Box data-testid="nft-details-link">Details</Box>
     </DetailsLinkContainer>
-  );
-};
+  )
+}
 
 /* -------- RANKING CARD -------- */
 interface RankingProps {
-  rarity: Rarity;
-  provider: { url?: string; rank?: number };
-  rarityVerified: boolean;
-  rarityLogo?: string;
+  rarity: Rarity
+  provider: { url?: string; rank?: number }
+  rarityVerified: boolean
+  rarityLogo?: string
 }
 
-const Ranking = ({
-  rarity,
-  provider,
-  rarityVerified,
-  rarityLogo,
-}: RankingProps) => {
-  const { asset } = useCardContext();
+const Ranking = ({ rarity, provider, rarityVerified, rarityLogo }: RankingProps) => {
+  const { asset } = useCardContext()
 
   return (
     <>
@@ -867,15 +735,10 @@ const Ranking = ({
                 <Box width="full" className={bodySmall}>
                   {rarityVerified
                     ? `Verified by ${
-                        ("collectionName" in asset && asset.collectionName) ||
-                        ("asset_contract" in asset &&
-                          asset.asset_contract?.name)
+                        ('collectionName' in asset && asset.collectionName) ||
+                        ('asset_contract' in asset && asset.asset_contract?.name)
                       }`
-                    : `Ranking by ${
-                        rarity.primaryProvider === "Genie"
-                          ? fallbackProvider
-                          : rarity.primaryProvider
-                      }`}
+                    : `Ranking by ${rarity.primaryProvider === 'Genie' ? fallbackProvider : rarity.primaryProvider}`}
                 </Box>
               </Row>
             }
@@ -894,30 +757,26 @@ const Ranking = ({
         </RankingContainer>
       )}
     </>
-  );
-};
-const SUSPICIOUS_TEXT = "Blocked on OpenSea";
+  )
+}
+const SUSPICIOUS_TEXT = 'Blocked on OpenSea'
 
 const Suspicious = () => {
   return (
-    <MouseoverTooltip
-      text={<Box className={bodySmall}>{SUSPICIOUS_TEXT}</Box>}
-      placement="top"
-    >
+    <MouseoverTooltip text={<Box className={bodySmall}>{SUSPICIOUS_TEXT}</Box>} placement="top">
       <Box display="flex" flexShrink="0" marginLeft="4">
         <SuspiciousIcon />
       </Box>
     </MouseoverTooltip>
-  );
-};
+  )
+}
 
 const Pool = () => {
   return (
     <MouseoverTooltip
       text={
         <Box className={bodySmall}>
-          This NFT is part of a liquidity pool. Buying this will increase the
-          price of the remaining pooled NFTs.
+          This NFT is part of a liquidity pool. Buying this will increase the price of the remaining pooled NFTs.
         </Box>
       }
       placement="top"
@@ -926,8 +785,8 @@ const Pool = () => {
         <PoolIcon width="20" height="20" />
       </Box>
     </MouseoverTooltip>
-  );
-};
+  )
+}
 
 const NoContentContainer = ({ height }: { height?: number }) => (
   <>
@@ -935,8 +794,8 @@ const NoContentContainer = ({ height }: { height?: number }) => (
       position="relative"
       width="full"
       style={{
-        height: height ? `${height}px` : "auto",
-        paddingTop: "100%",
+        height: height ? `${height}px` : 'auto',
+        paddingTop: '100%',
         background: `linear-gradient(90deg, ${themeVars.colors.backgroundSurface} 0%, ${themeVars.colors.backgroundInteractive} 95.83%)`,
       }}
     >
@@ -945,7 +804,7 @@ const NoContentContainer = ({ height }: { height?: number }) => (
         textAlign="center"
         left="1/2"
         top="1/2"
-        style={{ transform: "translate3d(-50%, -50%, 0)" }}
+        style={{ transform: 'translate3d(-50%, -50%, 0)' }}
         color="gray500"
         className={body}
       >
@@ -955,7 +814,7 @@ const NoContentContainer = ({ height }: { height?: number }) => (
       </Box>
     </Box>
   </>
-);
+)
 
 export {
   Audio,
@@ -982,4 +841,4 @@ export {
   useAssetMediaType,
   useNotForSale,
   Video,
-};
+}

@@ -1,32 +1,32 @@
-import { Trans } from "@lingui/macro";
-import { useWeb3React } from "@web3-react/core";
-import { getYear, isSameDay, isSameWeek, isSameYear } from "date-fns";
-import ms from "ms.macro";
-import { useCallback, useMemo } from "react";
-import { useAppDispatch } from "state/hooks";
-import styled from "styled-components/macro";
-import { flexColumnNoWrap } from "theme/styles";
+import { Trans } from '@lingui/macro'
+import { useWeb3React } from '@web3-react/core'
+import { getYear, isSameDay, isSameWeek, isSameYear } from 'date-fns'
+import ms from 'ms.macro'
+import { useCallback, useMemo } from 'react'
+import { useAppDispatch } from 'state/hooks'
+import styled from 'styled-components/macro'
+import { flexColumnNoWrap } from 'theme/styles'
 
-import { useAllTransactions } from "../../state/transactions/hooks";
-import { clearAllTransactions } from "../../state/transactions/reducer";
-import { TransactionDetails } from "../../state/transactions/types";
-import { TransactionSummary } from "../AccountDetailsV2";
-import { SlideOutMenu } from "./SlideOutMenu";
+import { useAllTransactions } from '../../state/transactions/hooks'
+import { clearAllTransactions } from '../../state/transactions/reducer'
+import { TransactionDetails } from '../../state/transactions/types'
+import { TransactionSummary } from '../AccountDetailsV2'
+import { SlideOutMenu } from './SlideOutMenu'
 
-const THIRTY_DAYS = ms`30 days`;
+const THIRTY_DAYS = ms`30 days`
 
 const Divider = styled.div`
   margin-top: 16px;
   border-bottom: ${({ theme }) => `1px solid ${theme.backgroundOutline}`};
-`;
+`
 
 const TransactionListWrapper = styled.div`
   ${flexColumnNoWrap};
-`;
+`
 
 interface TransactionInformation {
-  title: string;
-  transactions: TransactionDetails[];
+  title: string
+  transactions: TransactionDetails[]
 }
 
 const TransactionTitle = styled.span`
@@ -36,14 +36,10 @@ const TransactionTitle = styled.span`
   padding-right: 12px;
   font-weight: 600;
   color: ${({ theme }) => theme.textTertiary};
-`;
+`
 
-const TransactionList = ({
-  transactionInformation,
-}: {
-  transactionInformation: TransactionInformation;
-}) => {
-  const { title, transactions } = transactionInformation;
+const TransactionList = ({ transactionInformation }: { transactionInformation: TransactionInformation }) => {
+  const { title, transactions } = transactionInformation
 
   return (
     <TransactionListWrapper key={title}>
@@ -56,71 +52,67 @@ const TransactionList = ({
         />
       ))}
     </TransactionListWrapper>
-  );
-};
+  )
+}
 
-const getConfirmedTransactions = (
-  confirmedTransactions: Array<TransactionDetails>
-) => {
-  const now = new Date().getTime();
+const getConfirmedTransactions = (confirmedTransactions: Array<TransactionDetails>) => {
+  const now = new Date().getTime()
 
-  const today: Array<TransactionDetails> = [];
-  const currentWeek: Array<TransactionDetails> = [];
-  const last30Days: Array<TransactionDetails> = [];
-  const currentYear: Array<TransactionDetails> = [];
-  const yearMap: { [key: string]: Array<TransactionDetails> } = {};
+  const today: Array<TransactionDetails> = []
+  const currentWeek: Array<TransactionDetails> = []
+  const last30Days: Array<TransactionDetails> = []
+  const currentYear: Array<TransactionDetails> = []
+  const yearMap: { [key: string]: Array<TransactionDetails> } = {}
 
   confirmedTransactions.forEach((transaction) => {
-    const { addedTime } = transaction;
+    const { addedTime } = transaction
 
     if (isSameDay(now, addedTime)) {
-      today.push(transaction);
+      today.push(transaction)
     } else if (isSameWeek(addedTime, now)) {
-      currentWeek.push(transaction);
+      currentWeek.push(transaction)
     } else if (now - addedTime < THIRTY_DAYS) {
-      last30Days.push(transaction);
+      last30Days.push(transaction)
     } else if (isSameYear(addedTime, now)) {
-      currentYear.push(transaction);
+      currentYear.push(transaction)
     } else {
-      const year = getYear(addedTime);
+      const year = getYear(addedTime)
 
       if (!yearMap[year]) {
-        yearMap[year] = [transaction];
+        yearMap[year] = [transaction]
       } else {
-        yearMap[year].push(transaction);
+        yearMap[year].push(transaction)
       }
     }
-  });
+  })
 
   const transactionGroups: Array<TransactionInformation> = [
     {
-      title: "Today",
+      title: 'Today',
       transactions: today,
     },
     {
-      title: "This week",
+      title: 'This week',
       transactions: currentWeek,
     },
     {
-      title: "Past 30 Days",
+      title: 'Past 30 Days',
       transactions: last30Days,
     },
     {
-      title: "This year",
+      title: 'This year',
       transactions: currentYear,
     },
-  ];
+  ]
 
   const sortedYears = Object.keys(yearMap)
     .sort((a, b) => parseInt(b) - parseInt(a))
-    .map((year) => ({ title: year, transactions: yearMap[year] }));
+    .map((year) => ({ title: year, transactions: yearMap[year] }))
 
-  transactionGroups.push(...sortedYears);
+  transactionGroups.push(...sortedYears)
 
-  return transactionGroups.filter(
-    (transactionInformation) => transactionInformation.transactions.length > 0
-  );
-};
+  return transactionGroups.filter((transactionInformation) => transactionInformation.transactions.length > 0)
+}
 
 const EmptyTransaction = styled.div`
   text-align: center;
@@ -130,69 +122,48 @@ const EmptyTransaction = styled.div`
   padding-left: 12px;
   padding-right: 12px;
   color: ${({ theme }) => theme.textSecondary};
-`;
+`
 
-export const TransactionHistoryMenu = ({
-  onClose,
-}: {
-  onClose: () => void;
-}) => {
-  const allTransactions = useAllTransactions();
-  const { chainId } = useWeb3React();
-  const dispatch = useAppDispatch();
-  const transactionGroupsInformation = [];
+export const TransactionHistoryMenu = ({ onClose }: { onClose: () => void }) => {
+  const allTransactions = useAllTransactions()
+  const { chainId } = useWeb3React()
+  const dispatch = useAppDispatch()
+  const transactionGroupsInformation = []
 
   const clearAllTransactionsCallback = useCallback(() => {
-    if (chainId) dispatch(clearAllTransactions({ chainId }));
-  }, [dispatch, chainId]);
+    if (chainId) dispatch(clearAllTransactions({ chainId }))
+  }, [dispatch, chainId])
 
   const [confirmed, pending] = useMemo(() => {
-    const confirmed: Array<TransactionDetails> = [];
-    const pending: Array<TransactionDetails> = [];
+    const confirmed: Array<TransactionDetails> = []
+    const pending: Array<TransactionDetails> = []
 
-    const sorted = Object.values(allTransactions).sort(
-      (a, b) => b.addedTime - a.addedTime
-    );
-    sorted.forEach((transaction) =>
-      transaction.receipt
-        ? confirmed.push(transaction)
-        : pending.push(transaction)
-    );
+    const sorted = Object.values(allTransactions).sort((a, b) => b.addedTime - a.addedTime)
+    sorted.forEach((transaction) => (transaction.receipt ? confirmed.push(transaction) : pending.push(transaction)))
 
-    return [confirmed, pending];
-  }, [allTransactions]);
+    return [confirmed, pending]
+  }, [allTransactions])
 
-  const confirmedTransactions = useMemo(
-    () => getConfirmedTransactions(confirmed),
-    [confirmed]
-  );
+  const confirmedTransactions = useMemo(() => getConfirmedTransactions(confirmed), [confirmed])
 
   if (pending.length)
     transactionGroupsInformation.push({
       title: `Pending (${pending.length})`,
       transactions: pending,
-    });
-  if (confirmedTransactions.length)
-    transactionGroupsInformation.push(...confirmedTransactions);
+    })
+  if (confirmedTransactions.length) transactionGroupsInformation.push(...confirmedTransactions)
 
   return (
     <SlideOutMenu
       onClose={onClose}
-      onClear={
-        transactionGroupsInformation.length > 0
-          ? clearAllTransactionsCallback
-          : undefined
-      }
+      onClear={transactionGroupsInformation.length > 0 ? clearAllTransactionsCallback : undefined}
       title={<Trans>Transactions</Trans>}
     >
       <Divider />
       {transactionGroupsInformation.length > 0 ? (
         <>
           {transactionGroupsInformation.map((transactionInformation) => (
-            <TransactionList
-              key={transactionInformation.title}
-              transactionInformation={transactionInformation}
-            />
+            <TransactionList key={transactionInformation.title} transactionInformation={transactionInformation} />
           ))}
         </>
       ) : (
@@ -201,5 +172,5 @@ export const TransactionHistoryMenu = ({
         </EmptyTransaction>
       )}
     </SlideOutMenu>
-  );
-};
+  )
+}

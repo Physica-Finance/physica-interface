@@ -1,22 +1,22 @@
-import { sendAnalyticsEvent, useTrace } from "@uniswap/analytics";
+import { sendAnalyticsEvent, useTrace } from '@uniswap/analytics'
 import {
   InterfaceEventName,
   InterfaceSectionName,
   SwapEventName,
   SwapPriceUpdateUserResponse,
-} from "@uniswap/analytics-events";
-import { Trade } from "@uniswap/router-sdk";
-import { Currency, TradeType } from "@uniswap/sdk-core";
+} from '@uniswap/analytics-events'
+import { Trade } from '@uniswap/router-sdk'
+import { Currency, TradeType } from '@uniswap/sdk-core'
 import {
   AddEthereumChainParameter,
   EMPTY_TOKEN_LIST,
   OnReviewSwapClick,
   SwapWidget,
   SwapWidgetSkeleton,
-} from "@uniswap/widgets";
-import { useWeb3React } from "@web3-react/core";
-import { usePermit2Enabled } from "featureFlags/flags/permit2";
-import { useActiveLocale } from "hooks/useActiveLocale";
+} from '@uniswap/widgets'
+import { useWeb3React } from '@web3-react/core'
+import { usePermit2Enabled } from 'featureFlags/flags/permit2'
+import { useActiveLocale } from 'hooks/useActiveLocale'
 import {
   formatPercentInBasisPointsNumber,
   formatSwapQuoteReceivedEventProperties,
@@ -24,31 +24,31 @@ import {
   getDurationFromDateMilliseconds,
   getPriceUpdateBasisPoints,
   getTokenAddress,
-} from "lib/utils/analytics";
-import { useCallback, useState } from "react";
-import { useToggleWalletModal } from "state/application/hooks";
-import { useIsDarkMode } from "state/user/hooks";
-import { computeRealizedPriceImpact } from "utils/prices";
-import { switchChain } from "utils/switchChain";
+} from 'lib/utils/analytics'
+import { useCallback, useState } from 'react'
+import { useToggleWalletModal } from 'state/application/hooks'
+import { useIsDarkMode } from 'state/user/hooks'
+import { computeRealizedPriceImpact } from 'utils/prices'
+import { switchChain } from 'utils/switchChain'
 
-import { DefaultTokens, useSyncWidgetInputs } from "./inputs";
-import { useSyncWidgetSettings } from "./settings";
-import { DARK_THEME, LIGHT_THEME } from "./theme";
-import { useSyncWidgetTransactions } from "./transactions";
+import { DefaultTokens, useSyncWidgetInputs } from './inputs'
+import { useSyncWidgetSettings } from './settings'
+import { DARK_THEME, LIGHT_THEME } from './theme'
+import { useSyncWidgetTransactions } from './transactions'
 
-export const DEFAULT_WIDGET_WIDTH = 360;
+export const DEFAULT_WIDGET_WIDTH = 360
 
-const WIDGET_ROUTER_URL = "https://api.uniswap.org/v1/";
+const WIDGET_ROUTER_URL = 'https://api.uniswap.org/v1/'
 
 function useWidgetTheme() {
-  return useIsDarkMode() ? DARK_THEME : LIGHT_THEME;
+  return useIsDarkMode() ? DARK_THEME : LIGHT_THEME
 }
 
 interface WidgetProps {
-  defaultTokens: DefaultTokens;
-  width?: number | string;
-  onDefaultTokenChange?: (token: Currency) => void;
-  onReviewSwapClick?: OnReviewSwapClick;
+  defaultTokens: DefaultTokens
+  width?: number | string
+  onDefaultTokenChange?: (token: Currency) => void
+  onReviewSwapClick?: OnReviewSwapClick
 }
 
 export default function Widget({
@@ -57,87 +57,74 @@ export default function Widget({
   onDefaultTokenChange,
   onReviewSwapClick,
 }: WidgetProps) {
-  const { connector, provider } = useWeb3React();
-  const locale = useActiveLocale();
-  const theme = useWidgetTheme();
+  const { connector, provider } = useWeb3React()
+  const locale = useActiveLocale()
+  const theme = useWidgetTheme()
   const { inputs, tokenSelector } = useSyncWidgetInputs({
     defaultTokens,
     onDefaultTokenChange,
-  });
-  const { settings } = useSyncWidgetSettings();
-  const { transactions } = useSyncWidgetTransactions();
+  })
+  const { settings } = useSyncWidgetSettings()
+  const { transactions } = useSyncWidgetTransactions()
 
-  const toggleWalletModal = useToggleWalletModal();
+  const toggleWalletModal = useToggleWalletModal()
   const onConnectWalletClick = useCallback(() => {
-    toggleWalletModal();
-    return false; // prevents the in-widget wallet modal from opening
-  }, [toggleWalletModal]);
+    toggleWalletModal()
+    return false // prevents the in-widget wallet modal from opening
+  }, [toggleWalletModal])
 
   const onSwitchChain = useCallback(
     // TODO(WEB-1757): Widget should not break if this rejects - upstream the catch to ignore it.
-    ({ chainId }: AddEthereumChainParameter) =>
-      switchChain(connector, Number(chainId)).catch(() => undefined),
-    [connector]
-  );
+    ({ chainId }: AddEthereumChainParameter) => switchChain(connector, Number(chainId)).catch(() => undefined),
+    [connector],
+  )
 
-  const trace = useTrace({ section: InterfaceSectionName.WIDGET });
-  const [initialQuoteDate, setInitialQuoteDate] = useState<Date>();
+  const trace = useTrace({ section: InterfaceSectionName.WIDGET })
+  const [initialQuoteDate, setInitialQuoteDate] = useState<Date>()
   const onInitialSwapQuote = useCallback(
     (trade: Trade<Currency, Currency, TradeType>) => {
-      setInitialQuoteDate(new Date());
+      setInitialQuoteDate(new Date())
       const eventProperties = {
         // TODO(1416): Include undefined values.
         ...formatSwapQuoteReceivedEventProperties(
           trade,
           /* gasUseEstimateUSD= */ undefined,
-          /* fetchingSwapQuoteStartTime= */ undefined
+          /* fetchingSwapQuoteStartTime= */ undefined,
         ),
         ...trace,
-      };
-      sendAnalyticsEvent(SwapEventName.SWAP_QUOTE_RECEIVED, eventProperties);
+      }
+      sendAnalyticsEvent(SwapEventName.SWAP_QUOTE_RECEIVED, eventProperties)
     },
-    [trace]
-  );
+    [trace],
+  )
   const onApproveToken = useCallback(() => {
-    const input = inputs.value.INPUT;
-    if (!input) return;
+    const input = inputs.value.INPUT
+    if (!input) return
     const eventProperties = {
       chain_id: input.chainId,
       token_symbol: input.symbol,
       token_address: getTokenAddress(input),
       ...trace,
-    };
-    sendAnalyticsEvent(
-      InterfaceEventName.APPROVE_TOKEN_TXN_SUBMITTED,
-      eventProperties
-    );
-  }, [inputs.value.INPUT, trace]);
+    }
+    sendAnalyticsEvent(InterfaceEventName.APPROVE_TOKEN_TXN_SUBMITTED, eventProperties)
+  }, [inputs.value.INPUT, trace])
   const onExpandSwapDetails = useCallback(() => {
-    sendAnalyticsEvent(SwapEventName.SWAP_DETAILS_EXPANDED, { ...trace });
-  }, [trace]);
+    sendAnalyticsEvent(SwapEventName.SWAP_DETAILS_EXPANDED, { ...trace })
+  }, [trace])
   const onSwapPriceUpdateAck = useCallback(
-    (
-      stale: Trade<Currency, Currency, TradeType>,
-      update: Trade<Currency, Currency, TradeType>
-    ) => {
+    (stale: Trade<Currency, Currency, TradeType>, update: Trade<Currency, Currency, TradeType>) => {
       const eventProperties = {
         chain_id: update.inputAmount.currency.chainId,
         response: SwapPriceUpdateUserResponse.ACCEPTED,
         token_in_symbol: update.inputAmount.currency.symbol,
         token_out_symbol: update.outputAmount.currency.symbol,
-        price_update_basis_points: getPriceUpdateBasisPoints(
-          stale.executionPrice,
-          update.executionPrice
-        ),
+        price_update_basis_points: getPriceUpdateBasisPoints(stale.executionPrice, update.executionPrice),
         ...trace,
-      };
-      sendAnalyticsEvent(
-        SwapEventName.SWAP_PRICE_UPDATE_ACKNOWLEDGED,
-        eventProperties
-      );
+      }
+      sendAnalyticsEvent(SwapEventName.SWAP_PRICE_UPDATE_ACKNOWLEDGED, eventProperties)
     },
-    [trace]
-  );
+    [trace],
+  )
   const onSubmitSwapClick = useCallback(
     (trade: Trade<Currency, Currency, TradeType>) => {
       const eventProperties = {
@@ -148,40 +135,28 @@ export default function Widget({
         token_out_address: getTokenAddress(trade.outputAmount.currency),
         token_in_symbol: trade.inputAmount.currency.symbol,
         token_out_symbol: trade.outputAmount.currency.symbol,
-        token_in_amount: formatToDecimal(
-          trade.inputAmount,
-          trade.inputAmount.currency.decimals
-        ),
-        token_out_amount: formatToDecimal(
-          trade.outputAmount,
-          trade.outputAmount.currency.decimals
-        ),
+        token_in_amount: formatToDecimal(trade.inputAmount, trade.inputAmount.currency.decimals),
+        token_out_amount: formatToDecimal(trade.outputAmount, trade.outputAmount.currency.decimals),
         token_in_amount_usd: undefined,
         token_out_amount_usd: undefined,
-        price_impact_basis_points: formatPercentInBasisPointsNumber(
-          computeRealizedPriceImpact(trade)
-        ),
+        price_impact_basis_points: formatPercentInBasisPointsNumber(computeRealizedPriceImpact(trade)),
         allowed_slippage_basis_points: undefined,
         is_auto_router_api: undefined,
         is_auto_slippage: undefined,
         chain_id: trade.inputAmount.currency.chainId,
-        duration_from_first_quote_to_swap_submission_milliseconds:
-          getDurationFromDateMilliseconds(initialQuoteDate),
+        duration_from_first_quote_to_swap_submission_milliseconds: getDurationFromDateMilliseconds(initialQuoteDate),
         swap_quote_block_number: undefined,
         ...trace,
-      };
-      sendAnalyticsEvent(
-        SwapEventName.SWAP_SUBMITTED_BUTTON_CLICKED,
-        eventProperties
-      );
+      }
+      sendAnalyticsEvent(SwapEventName.SWAP_SUBMITTED_BUTTON_CLICKED, eventProperties)
     },
-    [initialQuoteDate, trace]
-  );
+    [initialQuoteDate, trace],
+  )
 
-  const permit2Enabled = usePermit2Enabled();
+  const permit2Enabled = usePermit2Enabled()
 
   if (!(inputs.value.INPUT || inputs.value.OUTPUT)) {
-    return <WidgetSkeleton />;
+    return <WidgetSkeleton />
   }
 
   return (
@@ -211,14 +186,10 @@ export default function Widget({
       />
       {tokenSelector}
     </>
-  );
+  )
 }
 
-export function WidgetSkeleton({
-  width = DEFAULT_WIDGET_WIDTH,
-}: {
-  width?: number | string;
-}) {
-  const theme = useWidgetTheme();
-  return <SwapWidgetSkeleton theme={theme} width={width} />;
+export function WidgetSkeleton({ width = DEFAULT_WIDGET_WIDTH }: { width?: number | string }) {
+  const theme = useWidgetTheme()
+  return <SwapWidgetSkeleton theme={theme} width={width} />
 }

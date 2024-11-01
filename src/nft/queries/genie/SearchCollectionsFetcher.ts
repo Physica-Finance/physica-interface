@@ -1,31 +1,28 @@
-import { isAddress } from "@ethersproject/address";
+import { isAddress } from '@ethersproject/address'
 
-import { GenieCollection } from "../../types";
+import { GenieCollection } from '../../types'
 
-const MAX_SEARCH_RESULTS = 6;
+const MAX_SEARCH_RESULTS = 6
 
-const NFT_API_URL = process.env.REACT_APP_TEMP_API_URL;
-export const fetchSearchCollections = async (
-  addressOrName: string,
-  recursive = false
-): Promise<GenieCollection[]> => {
-  if (!NFT_API_URL) return Promise.resolve([]);
-  const url = `${NFT_API_URL}/nft/searchCollections`;
-  const isName = !isAddress(addressOrName.toLowerCase());
+const NFT_API_URL = process.env.REACT_APP_TEMP_API_URL
+export const fetchSearchCollections = async (addressOrName: string, recursive = false): Promise<GenieCollection[]> => {
+  if (!NFT_API_URL) return Promise.resolve([])
+  const url = `${NFT_API_URL}/nft/searchCollections`
+  const isName = !isAddress(addressOrName.toLowerCase())
 
   if (!isName && !recursive) {
     try {
-      return await fetchSearchCollections(addressOrName.toLowerCase(), true);
+      return await fetchSearchCollections(addressOrName.toLowerCase(), true)
     } catch {
-      return [];
+      return []
     }
   }
 
   const filters = isName
     ? {
-        $or: [{ name: { $regex: addressOrName, $options: "i" } }],
+        $or: [{ name: { $regex: addressOrName, $options: 'i' } }],
       }
-    : { address: addressOrName };
+    : { address: addressOrName }
 
   const payload = {
     filters,
@@ -37,35 +34,30 @@ export const fetchSearchCollections = async (
       floorPrice: 1,
     },
     offset: 0,
-  };
+  }
   const r = await fetch(url, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
-  });
+  })
   if (isName) {
-    const data = await r.json();
+    const data = await r.json()
     const formattedData = data?.data
-      ? data.data.map(
-          (collection: {
-            stats: Record<string, unknown>;
-            floorPrice: string;
-          }) => {
-            return {
-              ...collection,
-              stats: {
-                ...collection.stats,
-                floor_price: collection.floorPrice,
-              },
-            };
+      ? data.data.map((collection: { stats: Record<string, unknown>; floorPrice: string }) => {
+          return {
+            ...collection,
+            stats: {
+              ...collection.stats,
+              floor_price: collection.floorPrice,
+            },
           }
-        )
-      : [];
-    return formattedData.slice(0, MAX_SEARCH_RESULTS);
+        })
+      : []
+    return formattedData.slice(0, MAX_SEARCH_RESULTS)
   }
-  const data = await r.json();
+  const data = await r.json()
 
   return data.data
     ? [
@@ -77,5 +69,5 @@ export const fetchSearchCollections = async (
           },
         },
       ]
-    : [];
-};
+    : []
+}

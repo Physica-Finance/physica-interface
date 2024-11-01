@@ -1,64 +1,50 @@
-import { Trans } from "@lingui/macro";
-import { sendAnalyticsEvent, useTrace } from "@uniswap/analytics";
-import { NFTEventName } from "@uniswap/analytics-events";
-import Tooltip, { MouseoverTooltip } from "components/Tooltip";
-import { NftStandard } from "graphql/data/__generated__/types-and-hooks";
-import { Box } from "nft/components/Box";
-import * as Card from "nft/components/collection/Card";
-import { AssetMediaType } from "nft/components/collection/Card";
-import { bodySmall } from "nft/css/common.css";
-import { themeVars } from "nft/css/sprinkles.css";
-import { useBag, useIsMobile, useSellAsset } from "nft/hooks";
-import { WalletAsset } from "nft/types";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Trans } from '@lingui/macro'
+import { sendAnalyticsEvent, useTrace } from '@uniswap/analytics'
+import { NFTEventName } from '@uniswap/analytics-events'
+import Tooltip, { MouseoverTooltip } from 'components/Tooltip'
+import { NftStandard } from 'graphql/data/__generated__/types-and-hooks'
+import { Box } from 'nft/components/Box'
+import * as Card from 'nft/components/collection/Card'
+import { AssetMediaType } from 'nft/components/collection/Card'
+import { bodySmall } from 'nft/css/common.css'
+import { themeVars } from 'nft/css/sprinkles.css'
+import { useBag, useIsMobile, useSellAsset } from 'nft/hooks'
+import { WalletAsset } from 'nft/types'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
-const TOOLTIP_TIMEOUT = 2000;
+const TOOLTIP_TIMEOUT = 2000
 
 interface ViewMyNftsAssetProps {
-  asset: WalletAsset;
-  mediaShouldBePlaying: boolean;
-  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void;
-  hideDetails: boolean;
+  asset: WalletAsset
+  mediaShouldBePlaying: boolean
+  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void
+  hideDetails: boolean
 }
 
 const getNftDisplayComponent = (
   assetMediaType: AssetMediaType,
   mediaShouldBePlaying: boolean,
-  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void
+  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void,
 ) => {
   switch (assetMediaType) {
     case AssetMediaType.Image:
-      return <Card.Image />;
+      return <Card.Image />
     case AssetMediaType.Video:
-      return (
-        <Card.Video
-          shouldPlay={mediaShouldBePlaying}
-          setCurrentTokenPlayingMedia={setCurrentTokenPlayingMedia}
-        />
-      );
+      return <Card.Video shouldPlay={mediaShouldBePlaying} setCurrentTokenPlayingMedia={setCurrentTokenPlayingMedia} />
     case AssetMediaType.Audio:
-      return (
-        <Card.Audio
-          shouldPlay={mediaShouldBePlaying}
-          setCurrentTokenPlayingMedia={setCurrentTokenPlayingMedia}
-        />
-      );
+      return <Card.Audio shouldPlay={mediaShouldBePlaying} setCurrentTokenPlayingMedia={setCurrentTokenPlayingMedia} />
   }
-};
+}
 
 const getUnsupportedNftTextComponent = (asset: WalletAsset) => (
-  <Box
-    as="span"
-    className={bodySmall}
-    style={{ color: themeVars.colors.textPrimary }}
-  >
+  <Box as="span" className={bodySmall} style={{ color: themeVars.colors.textPrimary }}>
     {asset.asset_contract.tokenType === NftStandard.Erc1155 ? (
       <Trans>Selling ERC-1155s coming soon</Trans>
     ) : (
       <Trans>Blocked from trading</Trans>
     )}
   </Box>
-);
+)
 
 export const ViewMyNftsAsset = ({
   asset,
@@ -66,68 +52,61 @@ export const ViewMyNftsAsset = ({
   setCurrentTokenPlayingMedia,
   hideDetails,
 }: ViewMyNftsAssetProps) => {
-  const sellAssets = useSellAsset((state) => state.sellAssets);
-  const selectSellAsset = useSellAsset((state) => state.selectSellAsset);
-  const removeSellAsset = useSellAsset((state) => state.removeSellAsset);
-  const cartExpanded = useBag((state) => state.bagExpanded);
-  const toggleCart = useBag((state) => state.toggleBag);
-  const isMobile = useIsMobile();
+  const sellAssets = useSellAsset((state) => state.sellAssets)
+  const selectSellAsset = useSellAsset((state) => state.selectSellAsset)
+  const removeSellAsset = useSellAsset((state) => state.removeSellAsset)
+  const cartExpanded = useBag((state) => state.bagExpanded)
+  const toggleCart = useBag((state) => state.toggleBag)
+  const isMobile = useIsMobile()
 
   const isSelected = useMemo(() => {
     return sellAssets.some(
-      (item) =>
-        item.tokenId === asset.tokenId &&
-        item.asset_contract.address === asset.asset_contract.address
-    );
-  }, [asset, sellAssets]);
+      (item) => item.tokenId === asset.tokenId && item.asset_contract.address === asset.asset_contract.address,
+    )
+  }, [asset, sellAssets])
 
-  const [showTooltip, setShowTooltip] = useState(false);
-  const isSelectedRef = useRef(isSelected);
-  const trace = useTrace();
-  const onCardClick = () => handleSelect(isSelected);
+  const [showTooltip, setShowTooltip] = useState(false)
+  const isSelectedRef = useRef(isSelected)
+  const trace = useTrace()
+  const onCardClick = () => handleSelect(isSelected)
 
   const handleSelect = (removeAsset: boolean) => {
     if (removeAsset) {
-      removeSellAsset(asset);
+      removeSellAsset(asset)
     } else {
-      selectSellAsset(asset);
+      selectSellAsset(asset)
       sendAnalyticsEvent(NFTEventName.NFT_SELL_ITEM_ADDED, {
         collection_address: asset.asset_contract.address,
         token_id: asset.tokenId,
         ...trace,
-      });
+      })
     }
     if (
       !cartExpanded &&
-      !sellAssets.find(
-        (x) =>
-          x.tokenId === asset.tokenId &&
-          x.asset_contract.address === asset.asset_contract.address
-      ) &&
+      !sellAssets.find((x) => x.tokenId === asset.tokenId && x.asset_contract.address === asset.asset_contract.address) &&
       !isMobile
     )
-      toggleCart();
-  };
+      toggleCart()
+  }
 
   useEffect(() => {
     if (isSelected !== isSelectedRef.current) {
-      setShowTooltip(true);
-      isSelectedRef.current = isSelected;
+      setShowTooltip(true)
+      isSelectedRef.current = isSelected
       const tooltipTimer = setTimeout(() => {
-        setShowTooltip(false);
-      }, TOOLTIP_TIMEOUT);
+        setShowTooltip(false)
+      }, TOOLTIP_TIMEOUT)
 
       return () => {
-        clearTimeout(tooltipTimer);
-      };
+        clearTimeout(tooltipTimer)
+      }
     }
-    isSelectedRef.current = isSelected;
-    return undefined;
-  }, [isSelected, isSelectedRef]);
+    isSelectedRef.current = isSelected
+    return undefined
+  }, [isSelected, isSelectedRef])
 
-  const assetMediaType = Card.useAssetMediaType(asset);
-  const isDisabled =
-    asset.asset_contract.tokenType === NftStandard.Erc1155 || asset.susFlag;
+  const assetMediaType = Card.useAssetMediaType(asset)
+  const isDisabled = asset.asset_contract.tokenType === NftStandard.Erc1155 || asset.susFlag
 
   return (
     <Card.Container
@@ -142,15 +121,11 @@ export const ViewMyNftsAsset = ({
         <Tooltip
           text={
             <Box as="span" className={bodySmall} color="textPrimary">
-              {isSelected ? (
-                <Trans>Added to bag</Trans>
-              ) : (
-                <Trans>Removed from bag</Trans>
-              )}
+              {isSelected ? <Trans>Added to bag</Trans> : <Trans>Removed from bag</Trans>}
             </Box>
           }
           show={showTooltip}
-          style={{ display: "block" }}
+          style={{ display: 'block' }}
           offsetX={0}
           offsetY={-68}
           hideArrow={true}
@@ -162,15 +137,11 @@ export const ViewMyNftsAsset = ({
             offsetX={0}
             offsetY={-60}
             hideArrow={true}
-            style={{ display: "block" }}
+            style={{ display: 'block' }}
             disableHover={!isDisabled}
             timeout={isMobile ? TOOLTIP_TIMEOUT : undefined}
           >
-            {getNftDisplayComponent(
-              assetMediaType,
-              mediaShouldBePlaying,
-              setCurrentTokenPlayingMedia
-            )}
+            {getNftDisplayComponent(assetMediaType, mediaShouldBePlaying, setCurrentTokenPlayingMedia)}
           </MouseoverTooltip>
         </Tooltip>
       </Card.ImageContainer>
@@ -178,5 +149,5 @@ export const ViewMyNftsAsset = ({
         <Card.ProfileNftDetails asset={asset} hideDetails={hideDetails} />
       </Card.DetailsContainer>
     </Card.Container>
-  );
-};
+  )
+}

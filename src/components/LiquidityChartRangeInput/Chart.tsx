@@ -1,19 +1,19 @@
-import { max, scaleLinear, ZoomTransform } from "d3";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Bound } from "state/mint/v3/actions";
+import { max, scaleLinear, ZoomTransform } from 'd3'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Bound } from 'state/mint/v3/actions'
 
-import { Area } from "./Area";
-import { AxisBottom } from "./AxisBottom";
-import { Brush } from "./Brush";
-import { Line } from "./Line";
-import { ChartEntry, LiquidityChartRangeInputProps } from "./types";
-import Zoom, { ZoomOverlay } from "./Zoom";
+import { Area } from './Area'
+import { AxisBottom } from './AxisBottom'
+import { Brush } from './Brush'
+import { Line } from './Line'
+import { ChartEntry, LiquidityChartRangeInputProps } from './types'
+import Zoom, { ZoomOverlay } from './Zoom'
 
-const xAccessor = (d: ChartEntry) => d.price0;
-const yAccessor = (d: ChartEntry) => d.activeLiquidity;
+const xAccessor = (d: ChartEntry) => d.price0
+const yAccessor = (d: ChartEntry) => d.activeLiquidity
 
 export function Chart({
-  id = "liquidityChartRangeInput",
+  id = 'liquidityChartRangeInput',
   data: { series, current },
   ticksAtLimit,
   styles,
@@ -25,57 +25,43 @@ export function Chart({
   onBrushDomainChange,
   zoomLevels,
 }: LiquidityChartRangeInputProps) {
-  const zoomRef = useRef<SVGRectElement | null>(null);
+  const zoomRef = useRef<SVGRectElement | null>(null)
 
-  const [zoom, setZoom] = useState<ZoomTransform | null>(null);
+  const [zoom, setZoom] = useState<ZoomTransform | null>(null)
 
   const [innerHeight, innerWidth] = useMemo(
-    () => [
-      height - margins.top - margins.bottom,
-      width - margins.left - margins.right,
-    ],
-    [width, height, margins]
-  );
+    () => [height - margins.top - margins.bottom, width - margins.left - margins.right],
+    [width, height, margins],
+  )
 
   const { xScale, yScale } = useMemo(() => {
     const scales = {
       xScale: scaleLinear()
-        .domain([
-          current * zoomLevels.initialMin,
-          current * zoomLevels.initialMax,
-        ] as number[])
+        .domain([current * zoomLevels.initialMin, current * zoomLevels.initialMax] as number[])
         .range([0, innerWidth]),
       yScale: scaleLinear()
         .domain([0, max(series, yAccessor)] as number[])
         .range([innerHeight, 0]),
-    };
-
-    if (zoom) {
-      const newXscale = zoom.rescaleX(scales.xScale);
-      scales.xScale.domain(newXscale.domain());
     }
 
-    return scales;
-  }, [
-    current,
-    zoomLevels.initialMin,
-    zoomLevels.initialMax,
-    innerWidth,
-    series,
-    innerHeight,
-    zoom,
-  ]);
+    if (zoom) {
+      const newXscale = zoom.rescaleX(scales.xScale)
+      scales.xScale.domain(newXscale.domain())
+    }
+
+    return scales
+  }, [current, zoomLevels.initialMin, zoomLevels.initialMax, innerWidth, series, innerHeight, zoom])
 
   useEffect(() => {
     // reset zoom as necessary
-    setZoom(null);
-  }, [zoomLevels]);
+    setZoom(null)
+  }, [zoomLevels])
 
   useEffect(() => {
     if (!brushDomain) {
-      onBrushDomainChange(xScale.domain() as [number, number], undefined);
+      onBrushDomainChange(xScale.domain() as [number, number], undefined)
     }
-  }, [brushDomain, onBrushDomainChange, xScale]);
+  }, [brushDomain, onBrushDomainChange, xScale])
 
   return (
     <>
@@ -90,24 +76,14 @@ export function Chart({
         }
         resetBrush={() => {
           onBrushDomainChange(
-            [
-              current * zoomLevels.initialMin,
-              current * zoomLevels.initialMax,
-            ] as [number, number],
-            "reset"
-          );
+            [current * zoomLevels.initialMin, current * zoomLevels.initialMax] as [number, number],
+            'reset',
+          )
         }}
-        showResetButton={Boolean(
-          ticksAtLimit[Bound.LOWER] || ticksAtLimit[Bound.UPPER]
-        )}
+        showResetButton={Boolean(ticksAtLimit[Bound.LOWER] || ticksAtLimit[Bound.UPPER])}
         zoomLevels={zoomLevels}
       />
-      <svg
-        width="100%"
-        height="100%"
-        viewBox={`0 0 ${width} ${height}`}
-        style={{ overflow: "visible" }}
-      >
+      <svg width="100%" height="100%" viewBox={`0 0 ${width} ${height}`} style={{ overflow: 'visible' }}>
         <defs>
           <clipPath id={`${id}-chart-clip`}>
             <rect x="0" y="0" width={innerWidth} height={height} />
@@ -129,13 +105,7 @@ export function Chart({
 
         <g transform={`translate(${margins.left},${margins.top})`}>
           <g clipPath={`url(#${id}-chart-clip)`}>
-            <Area
-              series={series}
-              xScale={xScale}
-              yScale={yScale}
-              xValue={xAccessor}
-              yValue={yAccessor}
-            />
+            <Area series={series} xScale={xScale} yScale={yScale} xValue={xAccessor} yValue={yAccessor} />
 
             {brushDomain && (
               // duplicate area chart with mask for selected area
@@ -173,5 +143,5 @@ export function Chart({
         </g>
       </svg>
     </>
-  );
+  )
 }

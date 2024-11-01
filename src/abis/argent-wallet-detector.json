@@ -71,36 +71,28 @@
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "bytes32", "name": "_code", "type": "bytes32" }
-    ],
+    "inputs": [{ "internalType": "bytes32", "name": "_code", "type": "bytes32" }],
     "name": "addCode",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "_argentWallet", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "_argentWallet", "type": "address" }],
     "name": "addCodeAndImplementationFromWallet",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "_impl", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "_impl", "type": "address" }],
     "name": "addImplementation",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "_newOwner", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "_newOwner", "type": "address" }],
     "name": "changeOwner",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -109,25 +101,19 @@
   {
     "inputs": [],
     "name": "getCodes",
-    "outputs": [
-      { "internalType": "bytes32[]", "name": "", "type": "bytes32[]" }
-    ],
+    "outputs": [{ "internalType": "bytes32[]", "name": "", "type": "bytes32[]" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "getImplementations",
-    "outputs": [
-      { "internalType": "address[]", "name": "", "type": "address[]" }
-    ],
+    "outputs": [{ "internalType": "address[]", "name": "", "type": "address[]" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "_wallet", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "_wallet", "type": "address" }],
     "name": "isArgentWallet",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",

@@ -1,50 +1,42 @@
-import { Trans } from "@lingui/macro";
-import { Token } from "@uniswap/sdk-core";
-import Badge, { BadgeVariant } from "components/Badge";
-import { transparentize } from "polished";
-import { Link } from "react-router-dom";
-import { Text } from "rebass";
-import styled from "styled-components/macro";
+import { Trans } from '@lingui/macro'
+import { Token } from '@uniswap/sdk-core'
+import Badge, { BadgeVariant } from 'components/Badge'
+import { transparentize } from 'polished'
+import { Link } from 'react-router-dom'
+import { Text } from 'rebass'
+import styled from 'styled-components/macro'
 
-import { useColor } from "../../hooks/useColor";
-import { unwrappedToken } from "../../utils/unwrappedToken";
-import { ButtonEmpty } from "../Button";
-import { LightCard } from "../Card";
-import { AutoColumn } from "../Column";
-import DoubleCurrencyLogo from "../DoubleLogo";
-import { CardNoise } from "../earn/styled";
-import { AutoRow, RowFixed } from "../Row";
-import { Dots } from "../swap/styleds";
-import { FixedHeightRow } from ".";
+import { useColor } from '../../hooks/useColor'
+import { unwrappedToken } from '../../utils/unwrappedToken'
+import { ButtonEmpty } from '../Button'
+import { LightCard } from '../Card'
+import { AutoColumn } from '../Column'
+import DoubleCurrencyLogo from '../DoubleLogo'
+import { CardNoise } from '../earn/styled'
+import { AutoRow, RowFixed } from '../Row'
+import { Dots } from '../swap/styleds'
+import { FixedHeightRow } from '.'
 
 const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   border: none;
   background: ${({ theme, bgColor }) =>
-    `radial-gradient(91.85% 100% at 1.84% 0%, ${transparentize(
-      0.8,
-      bgColor
-    )} 0%, ${theme.deprecated_bg3} 100%) `};
+    `radial-gradient(91.85% 100% at 1.84% 0%, ${transparentize(0.8, bgColor)} 0%, ${theme.deprecated_bg3} 100%) `};
   position: relative;
   overflow: hidden;
-`;
+`
 
 interface PositionCardProps {
-  tokenA: Token;
-  tokenB: Token;
-  liquidityToken: Token;
-  border?: string;
+  tokenA: Token
+  tokenB: Token
+  liquidityToken: Token
+  border?: string
 }
 
-export default function SushiPositionCard({
-  tokenA,
-  tokenB,
-  liquidityToken,
-  border,
-}: PositionCardProps) {
-  const currency0 = unwrappedToken(tokenA);
-  const currency1 = unwrappedToken(tokenB);
+export default function SushiPositionCard({ tokenA, tokenB, liquidityToken, border }: PositionCardProps) {
+  const currency0 = unwrappedToken(tokenA)
+  const currency1 = unwrappedToken(tokenB)
 
-  const backgroundColor = useColor(tokenA);
+  const backgroundColor = useColor(tokenA)
 
   return (
     <StyledPositionCard border={border} bgColor={backgroundColor}>
@@ -52,11 +44,7 @@ export default function SushiPositionCard({
       <AutoColumn gap="md">
         <FixedHeightRow>
           <AutoRow gap="8px">
-            <DoubleCurrencyLogo
-              currency0={currency0}
-              currency1={currency1}
-              size={20}
-            />
+            <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={20} />
             <Text fontWeight={500} fontSize={20}>
               {!currency0 || !currency1 ? (
                 <Dots>
@@ -83,5 +71,5 @@ export default function SushiPositionCard({
         </FixedHeightRow>
       </AutoColumn>
     </StyledPositionCard>
-  );
+  )
 }

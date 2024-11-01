@@ -1,12 +1,12 @@
-import { namehash } from "@ethersproject/hash";
+import { namehash } from '@ethersproject/hash'
 
 export function safeNamehash(name?: string): string | undefined {
-  if (name === undefined) return undefined;
+  if (name === undefined) return undefined
 
   try {
-    return namehash(name);
+    return namehash(name)
   } catch (error) {
-    console.debug(error);
-    return undefined;
+    console.debug(error)
+    return undefined
   }
 }

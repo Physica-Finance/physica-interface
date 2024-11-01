@@ -1,13 +1,13 @@
-import { TxResponse } from "nft/types";
-import create from "zustand";
-import { devtools } from "zustand/middleware";
+import { TxResponse } from 'nft/types'
+import create from 'zustand'
+import { devtools } from 'zustand/middleware'
 
-type TransactionResponseValue = TxResponse | undefined;
+type TransactionResponseValue = TxResponse | undefined
 
 type TransactionResponseState = {
-  transactionResponse: TransactionResponseValue;
-  setTransactionResponse: (txResponse: TransactionResponseValue) => void;
-};
+  transactionResponse: TransactionResponseValue
+  setTransactionResponse: (txResponse: TransactionResponseValue) => void
+}
 
 export const useTransactionResponse = create<TransactionResponseState>()(
   devtools(
@@ -18,6 +18,6 @@ export const useTransactionResponse = create<TransactionResponseState>()(
           transactionResponse: txResponse,
         })),
     }),
-    { name: "useTransactionResponse" }
-  )
-);
+    { name: 'useTransactionResponse' },
+  ),
+)

@@ -1,97 +1,96 @@
-import "focus-visible";
+import 'focus-visible'
 
-import { style } from "@vanilla-extract/css";
+import { style } from '@vanilla-extract/css'
 
-const hideFocusRingsDataAttribute =
-  "[data-js-focus-visible] &:focus:not([data-focus-visible-added])";
+const hideFocusRingsDataAttribute = '[data-js-focus-visible] &:focus:not([data-focus-visible-added])'
 
 export const base = style({
-  boxSizing: "border-box",
+  boxSizing: 'border-box',
   selectors: {
     [`${hideFocusRingsDataAttribute}`]: {
-      outline: "none",
+      outline: 'none',
     },
   },
-  verticalAlign: "baseline",
-  WebkitTapHighlightColor: "transparent",
-});
+  verticalAlign: 'baseline',
+  WebkitTapHighlightColor: 'transparent',
+})
 
 const list = style({
-  listStyle: "none",
-});
+  listStyle: 'none',
+})
 
 const quote = style({
-  quotes: "none",
+  quotes: 'none',
   selectors: {
-    "&:before, &:after": {
+    '&:before, &:after': {
       content: "''",
     },
   },
-});
+})
 
 const table = style({
-  borderCollapse: "collapse",
+  borderCollapse: 'collapse',
   borderSpacing: 0,
-});
+})
 
 const appearance = style({
-  appearance: "none",
-});
+  appearance: 'none',
+})
 
 const field = style([
   appearance,
   {
-    "::placeholder": {
+    '::placeholder': {
       opacity: 1,
     },
-    outline: "none",
+    outline: 'none',
   },
-]);
+])
 
 const mark = style({
-  backgroundColor: "transparent",
-  color: "inherit",
-});
+  backgroundColor: 'transparent',
+  color: 'inherit',
+})
 
 const select = style([
   field,
   {
-    ":disabled": {
+    ':disabled': {
       opacity: 1,
     },
     selectors: {
-      "&::-ms-expand": {
-        display: "none",
+      '&::-ms-expand': {
+        display: 'none',
       },
     },
   },
-]);
+])
 
 const input = style([
   field,
   {
     selectors: {
-      "&::-ms-clear": {
-        display: "none",
+      '&::-ms-clear': {
+        display: 'none',
       },
-      "&::-webkit-search-cancel-button": {
-        WebkitAppearance: "none",
+      '&::-webkit-search-cancel-button': {
+        WebkitAppearance: 'none',
       },
-      "&::-webkit-inner-spin-button, &::-webkit-inner-spin-button ": {
-        WebkitAppearance: "none",
+      '&::-webkit-inner-spin-button, &::-webkit-inner-spin-button ': {
+        WebkitAppearance: 'none',
       },
     },
-    WebkitAppearance: "none",
-    MozAppearance: "textfield",
-    ":focus": {
-      outline: "none",
+    WebkitAppearance: 'none',
+    MozAppearance: 'textfield',
+    ':focus': {
+      outline: 'none',
     },
   },
-]);
+])
 
 const a = style({
-  textDecoration: "none",
-});
+  textDecoration: 'none',
+})
 
 export const element = {
   a,
@@ -104,4 +103,4 @@ export const element = {
   table,
   textarea: field,
   ul: list,
-};
+}

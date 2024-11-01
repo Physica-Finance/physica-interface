@@ -1,14 +1,14 @@
-import { Currency } from "@uniswap/sdk-core";
-import { TokenTradeInput } from "graphql/data/__generated__/types-and-hooks";
-import create from "zustand";
-import { devtools } from "zustand/middleware";
+import { Currency } from '@uniswap/sdk-core'
+import { TokenTradeInput } from 'graphql/data/__generated__/types-and-hooks'
+import create from 'zustand'
+import { devtools } from 'zustand/middleware'
 
 interface TokenInputState {
-  inputCurrency: Currency | undefined;
-  setInputCurrency: (currency: Currency | undefined) => void;
-  clearInputCurrency: () => void;
-  tokenTradeInput: TokenTradeInput | undefined;
-  setTokenTradeInput: (tokenTradeInput: TokenTradeInput | undefined) => void;
+  inputCurrency: Currency | undefined
+  setInputCurrency: (currency: Currency | undefined) => void
+  clearInputCurrency: () => void
+  tokenTradeInput: TokenTradeInput | undefined
+  setTokenTradeInput: (tokenTradeInput: TokenTradeInput | undefined) => void
 }
 
 export const useTokenInput = create<TokenInputState>()(
@@ -20,6 +20,6 @@ export const useTokenInput = create<TokenInputState>()(
       clearInputCurrency: () => set(() => ({ inputCurrency: undefined })),
       setTokenTradeInput: (tokenTradeInput) => set(() => ({ tokenTradeInput })),
     }),
-    { name: "useTokenInput" }
-  )
-);
+    { name: 'useTokenInput' },
+  ),
+)

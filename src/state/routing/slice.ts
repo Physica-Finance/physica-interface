@@ -1,49 +1,42 @@
-import {
-  createApi,
-  fetchBaseQuery,
-  FetchBaseQueryError,
-} from "@reduxjs/toolkit/query/react";
-import { Protocol } from "@uniswap/router-sdk";
-import { AlphaRouter, ChainId } from "@uniswap/smart-order-router";
-import { RPC_PROVIDERS } from "constants/providers";
-import {
-  getClientSideQuote,
-  toSupportedChainId,
-} from "lib/hooks/routing/clientSideSmartOrderRouter";
-import ms from "ms.macro";
-import qs from "qs";
+import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
+import { Protocol } from '@uniswap/router-sdk'
+import { AlphaRouter, ChainId } from '@uniswap/smart-order-router'
+import { RPC_PROVIDERS } from 'constants/providers'
+import { getClientSideQuote, toSupportedChainId } from 'lib/hooks/routing/clientSideSmartOrderRouter'
+import ms from 'ms.macro'
+import qs from 'qs'
 
-import { GetQuoteResult } from "./types";
+import { GetQuoteResult } from './types'
 
 export enum RouterPreference {
-  API = "api",
-  CLIENT = "client",
-  PRICE = "price",
+  API = 'api',
+  CLIENT = 'client',
+  PRICE = 'price',
 }
 
-const routers = new Map<ChainId, AlphaRouter>();
+const routers = new Map<ChainId, AlphaRouter>()
 function getRouter(chainId: ChainId): AlphaRouter {
-  const router = routers.get(chainId);
-  if (router) return router;
+  const router = routers.get(chainId)
+  if (router) return router
 
-  const supportedChainId = toSupportedChainId(chainId);
+  const supportedChainId = toSupportedChainId(chainId)
   if (supportedChainId) {
-    const provider = RPC_PROVIDERS[supportedChainId];
-    const router = new AlphaRouter({ chainId, provider });
-    routers.set(chainId, router);
-    return router;
+    const provider = RPC_PROVIDERS[supportedChainId]
+    const router = new AlphaRouter({ chainId, provider })
+    routers.set(chainId, router)
+    return router
   }
 
-  throw new Error(`Router does not support this chain (chainId: ${chainId}).`);
+  throw new Error(`Router does not support this chain (chainId: ${chainId}).`)
 }
 
 // routing API quote params: https://github.com/Uniswap/routing-api/blob/main/lib/handlers/quote/schema/quote-schema.ts
 const API_QUERY_PARAMS = {
-  protocols: "v2,v3,mixed",
-};
+  protocols: 'v2,v3,mixed',
+}
 const CLIENT_PARAMS = {
   protocols: [Protocol.V2, Protocol.V3, Protocol.MIXED],
-};
+}
 
 // Price queries are tuned down to minimize the required RPCs to respond to them.
 // TODO(zzmp): This will be used after testing router caching.
@@ -70,60 +63,50 @@ const PRICE_PARAMS = {
   minSplits: 1,
   maxSplits: 1,
   distributionPercent: 100,
-};
+}
 
 export const routingApi = createApi({
-  reducerPath: "routingApi",
+  reducerPath: 'routingApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.uniswap.org/v1/",
+    baseUrl: 'https://api.uniswap.org/v1/',
   }),
   endpoints: (build) => ({
     getQuote: build.query<
       GetQuoteResult,
       {
-        tokenInAddress: string;
-        tokenInChainId: ChainId;
-        tokenInDecimals: number;
-        tokenInSymbol?: string;
-        tokenOutAddress: string;
-        tokenOutChainId: ChainId;
-        tokenOutDecimals: number;
-        tokenOutSymbol?: string;
-        amount: string;
-        routerPreference: RouterPreference;
-        type: "exactIn" | "exactOut";
+        tokenInAddress: string
+        tokenInChainId: ChainId
+        tokenInDecimals: number
+        tokenInSymbol?: string
+        tokenOutAddress: string
+        tokenOutChainId: ChainId
+        tokenOutDecimals: number
+        tokenOutSymbol?: string
+        amount: string
+        routerPreference: RouterPreference
+        type: 'exactIn' | 'exactOut'
       }
     >({
       async queryFn(args, _api, _extraOptions, fetch) {
-        var {
-          tokenInAddress,
-          tokenInChainId,
-          tokenOutAddress,
-          tokenOutChainId,
-          amount,
-          routerPreference,
-          type,
-        } = args;
+        var { tokenInAddress, tokenInChainId, tokenOutAddress, tokenOutChainId, amount, routerPreference, type } = args
 
-        let result;
+        let result
 
         try {
-          const router = getRouter(args.tokenInChainId);
+          const router = getRouter(args.tokenInChainId)
           result = await getClientSideQuote(
             args,
             router,
             // TODO(zzmp): Use PRICE_PARAMS for RouterPreference.PRICE.
             // This change is intentionally being deferred to first see what effect router caching has.
-            routerPreference === RouterPreference.PRICE
-              ? PRICE_PARAMS
-              : CLIENT_PARAMS
-          );
+            routerPreference === RouterPreference.PRICE ? PRICE_PARAMS : CLIENT_PARAMS,
+          )
 
-          return { data: result.data as GetQuoteResult };
+          return { data: result.data as GetQuoteResult }
         } catch (e) {
           // TODO: fall back to client-side quoter when auto router fails.
           // deprecate 'legacy' v2/v3 routers first.
-          return { error: e as FetchBaseQueryError };
+          return { error: e as FetchBaseQueryError }
         }
       },
       keepUnusedDataFor: ms`10s`,
@@ -132,6 +115,6 @@ export const routingApi = createApi({
       },
     }),
   }),
-});
+})
 
-export const { useGetQuoteQuery } = routingApi;
+export const { useGetQuoteQuery } = routingApi

@@ -1,17 +1,13 @@
-import { SupportedChainId } from "./chains";
+import { SupportedChainId } from './chains'
 
-const INFURA_KEY = process.env.REACT_APP_INFURA_KEY;
-if (typeof INFURA_KEY === "undefined") {
-  throw new Error(
-    `REACT_APP_INFURA_KEY must be a defined environment variable`
-  );
+const INFURA_KEY = process.env.REACT_APP_INFURA_KEY
+if (typeof INFURA_KEY === 'undefined') {
+  throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`)
 }
 
-const NODIES_KEY = process.env.REACT_APP_NODIES_KEY;
-if (typeof NODIES_KEY === "undefined") {
-  throw new Error(
-    `REACT_APP_NODIES_KEY must be a defined environment variable`
-  );
+const NODIES_KEY = process.env.REACT_APP_NODIES_KEY
+if (typeof NODIES_KEY === 'undefined') {
+  throw new Error(`REACT_APP_NODIES_KEY must be a defined environment variable`)
 }
 
 /**
@@ -27,72 +23,72 @@ if (typeof NODIES_KEY === "undefined") {
 export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
   [SupportedChainId.PLANQ]: [
     // "Safe" URLs
-    "https://planq-rpc.nodies.app",
+    'https://planq-rpc.nodies.app',
     // "Fallback" URLs
-    "https://evm-rpc.planq.network",
+    'https://evm-rpc.planq.network',
   ],
   [SupportedChainId.MAINNET]: [
     // "Safe" URLs
-    "https://api.mycryptoapi.com/eth",
-    "https://cloudflare-eth.com",
+    'https://api.mycryptoapi.com/eth',
+    'https://cloudflare-eth.com',
     // "Fallback" URLs
-    "https://rpc.ankr.com/eth",
-    "https://eth-mainnet.public.blastapi.io",
+    'https://rpc.ankr.com/eth',
+    'https://eth-mainnet.public.blastapi.io',
   ],
   [SupportedChainId.ROPSTEN]: [
     // "Fallback" URLs
-    "https://rpc.ankr.com/eth_ropsten",
+    'https://rpc.ankr.com/eth_ropsten',
   ],
   [SupportedChainId.RINKEBY]: [
     // "Fallback" URLs
-    "https://rinkeby-light.eth.linkpool.io/",
+    'https://rinkeby-light.eth.linkpool.io/',
   ],
   [SupportedChainId.GOERLI]: [
     // "Safe" URLs
-    "https://rpc.goerli.mudit.blog/",
+    'https://rpc.goerli.mudit.blog/',
     // "Fallback" URLs
-    "https://rpc.ankr.com/eth_goerli",
+    'https://rpc.ankr.com/eth_goerli',
   ],
   [SupportedChainId.KOVAN]: [
     // "Safe" URLs
-    "https://kovan.poa.network",
+    'https://kovan.poa.network',
     // "Fallback" URLs
-    "https://eth-kovan.public.blastapi.io",
+    'https://eth-kovan.public.blastapi.io',
   ],
   [SupportedChainId.POLYGON]: [
     // "Safe" URLs
-    "https://polygon-rpc.com/",
-    "https://rpc-mainnet.matic.network",
-    "https://matic-mainnet.chainstacklabs.com",
-    "https://rpc-mainnet.maticvigil.com",
-    "https://rpc-mainnet.matic.quiknode.pro",
-    "https://matic-mainnet-full-rpc.bwarelabs.com",
+    'https://polygon-rpc.com/',
+    'https://rpc-mainnet.matic.network',
+    'https://matic-mainnet.chainstacklabs.com',
+    'https://rpc-mainnet.maticvigil.com',
+    'https://rpc-mainnet.matic.quiknode.pro',
+    'https://matic-mainnet-full-rpc.bwarelabs.com',
   ],
   [SupportedChainId.POLYGON_MUMBAI]: [
     // "Safe" URLs
-    "https://matic-mumbai.chainstacklabs.com",
-    "https://rpc-mumbai.maticvigil.com",
-    "https://matic-testnet-archive-rpc.bwarelabs.com",
+    'https://matic-mumbai.chainstacklabs.com',
+    'https://rpc-mumbai.maticvigil.com',
+    'https://matic-testnet-archive-rpc.bwarelabs.com',
   ],
   [SupportedChainId.ARBITRUM_ONE]: [
     // "Safe" URLs
-    "https://arb1.arbitrum.io/rpc",
+    'https://arb1.arbitrum.io/rpc',
     // "Fallback" URLs
-    "https://arbitrum.public-rpc.com",
+    'https://arbitrum.public-rpc.com',
   ],
   [SupportedChainId.ARBITRUM_RINKEBY]: [
     // "Safe" URLs
-    "https://rinkeby.arbitrum.io/rpc",
+    'https://rinkeby.arbitrum.io/rpc',
   ],
   [SupportedChainId.OPTIMISM]: [
     // "Safe" URLs
-    "https://mainnet.optimism.io/",
+    'https://mainnet.optimism.io/',
     // "Fallback" URLs
-    "https://rpc.ankr.com/optimism",
+    'https://rpc.ankr.com/optimism',
   ],
   [SupportedChainId.OPTIMISM_GOERLI]: [
     // "Safe" URLs
-    "https://goerli.optimism.io",
+    'https://goerli.optimism.io',
   ],
   [SupportedChainId.CELO]: [
     // "Safe" URLs
@@ -102,7 +98,7 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
     // "Safe" URLs
     `https://alfajores-forno.celo-testnet.org`,
   ],
-};
+}
 
 /**
  * Known JSON-RPC endpoints.
@@ -113,26 +109,11 @@ export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
     `https://lb.nodies.app/v1/d7f35384b3fc49c68edebaf888b8edb0`,
     ...FALLBACK_URLS[SupportedChainId.PLANQ],
   ],
-  [SupportedChainId.MAINNET]: [
-    `https://mainnet.infura.io/v3/${INFURA_KEY}`,
-    ...FALLBACK_URLS[SupportedChainId.MAINNET],
-  ],
-  [SupportedChainId.RINKEBY]: [
-    `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
-    ...FALLBACK_URLS[SupportedChainId.RINKEBY],
-  ],
-  [SupportedChainId.ROPSTEN]: [
-    `https://ropsten.infura.io/v3/${INFURA_KEY}`,
-    ...FALLBACK_URLS[SupportedChainId.ROPSTEN],
-  ],
-  [SupportedChainId.GOERLI]: [
-    `https://goerli.infura.io/v3/${INFURA_KEY}`,
-    ...FALLBACK_URLS[SupportedChainId.GOERLI],
-  ],
-  [SupportedChainId.KOVAN]: [
-    `https://kovan.infura.io/v3/${INFURA_KEY}`,
-    ...FALLBACK_URLS[SupportedChainId.KOVAN],
-  ],
+  [SupportedChainId.MAINNET]: [`https://mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.MAINNET]],
+  [SupportedChainId.RINKEBY]: [`https://rinkeby.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.RINKEBY]],
+  [SupportedChainId.ROPSTEN]: [`https://ropsten.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.ROPSTEN]],
+  [SupportedChainId.GOERLI]: [`https://goerli.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.GOERLI]],
+  [SupportedChainId.KOVAN]: [`https://kovan.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.KOVAN]],
   [SupportedChainId.OPTIMISM]: [
     `https://optimism-mainnet.infura.io/v3/${INFURA_KEY}`,
     ...FALLBACK_URLS[SupportedChainId.OPTIMISM],
@@ -158,6 +139,5 @@ export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
     ...FALLBACK_URLS[SupportedChainId.POLYGON_MUMBAI],
   ],
   [SupportedChainId.CELO]: FALLBACK_URLS[SupportedChainId.CELO],
-  [SupportedChainId.CELO_ALFAJORES]:
-    FALLBACK_URLS[SupportedChainId.CELO_ALFAJORES],
-};
+  [SupportedChainId.CELO_ALFAJORES]: FALLBACK_URLS[SupportedChainId.CELO_ALFAJORES],
+}

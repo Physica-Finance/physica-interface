@@ -1,15 +1,15 @@
-import Column from "components/Column";
-import Loader from "components/Loader";
-import { LoadingBubble } from "components/Tokens/loading";
-import { ScreenBreakpointsPaddings } from "nft/pages/collection/index.css";
-import styled, { useTheme } from "styled-components/macro";
+import Column from 'components/Column'
+import Loader from 'components/Loader'
+import { LoadingBubble } from 'components/Tokens/loading'
+import { ScreenBreakpointsPaddings } from 'nft/pages/collection/index.css'
+import styled, { useTheme } from 'styled-components/macro'
 
-const BREAKPOINT = "960px";
+const BREAKPOINT = '960px'
 
 const Title = styled(LoadingBubble)`
   height: 16px;
   width: 136px;
-`;
+`
 
 const SubTitle = styled(LoadingBubble)`
   height: 40px;
@@ -19,28 +19,28 @@ const SubTitle = styled(LoadingBubble)`
   @media (max-width: ${BREAKPOINT}) {
     width: 100%;
   }
-`;
+`
 
 const Seller = styled(LoadingBubble)`
   height: 16px;
   width: 40px;
-`;
+`
 
 const SellerAddress = styled(LoadingBubble)`
   margin-top: 4px;
   height: 24px;
   width: 95px;
-`;
+`
 
 const PrimaryBody = styled(LoadingBubble)`
   width: 100%;
   height: 260px;
-`;
+`
 
 const ActivityLoader = styled(LoadingBubble)`
   width: 100%;
   height: 428px;
-`;
+`
 
 const PrimaryContent = styled(Column)`
   max-width: 780px;
@@ -51,7 +51,7 @@ const PrimaryContent = styled(Column)`
   @media (max-width: ${BREAKPOINT}) {
     max-width: 100%;
   }
-`;
+`
 
 const LoaderContainer = styled.div`
   width: 100%;
@@ -61,7 +61,7 @@ const LoaderContainer = styled.div`
   justify-content: center;
   align-items: center;
   color: pink;
-`;
+`
 
 const BuyNowContainer = styled(LoadingBubble)`
   height: 180px;
@@ -70,7 +70,7 @@ const BuyNowContainer = styled(LoadingBubble)`
   @media (max-width: ${BREAKPOINT}) {
     width: 100%;
   }
-`;
+`
 
 const LoadingContainer = styled.div`
   display: flex;
@@ -86,7 +86,7 @@ const LoadingContainer = styled.div`
     max-width: 100%;
     margin-top: 0;
   }
-`;
+`
 
 const StyledColumn = styled(Column)`
   max-width: 780px;
@@ -95,7 +95,7 @@ const StyledColumn = styled(Column)`
   @media (max-width: ${BREAKPOINT}) {
     max-width: 100%;
   }
-`;
+`
 
 const BuyNowLoadingDesktop = styled(Column)`
   margin-top: 20px;
@@ -105,7 +105,7 @@ const BuyNowLoadingDesktop = styled(Column)`
   @media (max-width: ${BREAKPOINT}) {
     display: none;
   }
-`;
+`
 
 const BuyNowLoadingMobile = styled(Column)`
   display: none;
@@ -115,10 +115,10 @@ const BuyNowLoadingMobile = styled(Column)`
   @media (max-width: ${BREAKPOINT}) {
     display: flex;
   }
-`;
+`
 
 export const AssetDetailsLoading = () => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   return (
     <LoadingContainer>
@@ -156,5 +156,5 @@ export const AssetDetailsLoading = () => {
         </Column>
       </BuyNowLoadingDesktop>
     </LoadingContainer>
-  );
-};
+  )
+}

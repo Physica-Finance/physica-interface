@@ -1,28 +1,18 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import { sendAnalyticsEvent } from "@uniswap/analytics";
-import { NFTEventName } from "@uniswap/analytics-events";
-import { useWeb3React } from "@web3-react/core";
-import {
-  GqlRoutingVariant,
-  useGqlRoutingFlag,
-} from "featureFlags/flags/gqlRouting";
-import {
-  NftListV2Variant,
-  useNftListV2Flag,
-} from "featureFlags/flags/nftListV2";
-import { useNftRouteLazyQuery } from "graphql/data/__generated__/types-and-hooks";
-import {
-  useIsNftDetailsPage,
-  useIsNftPage,
-  useIsNftProfilePage,
-} from "hooks/useIsNftPage";
-import { BagFooter } from "nft/components/bag/BagFooter";
-import ListingModal from "nft/components/bag/profile/ListingModal";
-import { Box } from "nft/components/Box";
-import { Portal } from "nft/components/common/Portal";
-import { Column } from "nft/components/Flex";
-import { Overlay } from "nft/components/modals/Overlay";
-import { buttonTextMedium, commonButtonStyles } from "nft/css/common.css";
+import { BigNumber } from '@ethersproject/bignumber'
+import { sendAnalyticsEvent } from '@uniswap/analytics'
+import { NFTEventName } from '@uniswap/analytics-events'
+import { useWeb3React } from '@web3-react/core'
+import { GqlRoutingVariant, useGqlRoutingFlag } from 'featureFlags/flags/gqlRouting'
+import { NftListV2Variant, useNftListV2Flag } from 'featureFlags/flags/nftListV2'
+import { useNftRouteLazyQuery } from 'graphql/data/__generated__/types-and-hooks'
+import { useIsNftDetailsPage, useIsNftPage, useIsNftProfilePage } from 'hooks/useIsNftPage'
+import { BagFooter } from 'nft/components/bag/BagFooter'
+import ListingModal from 'nft/components/bag/profile/ListingModal'
+import { Box } from 'nft/components/Box'
+import { Portal } from 'nft/components/common/Portal'
+import { Column } from 'nft/components/Flex'
+import { Overlay } from 'nft/components/modals/Overlay'
+import { buttonTextMedium, commonButtonStyles } from 'nft/css/common.css'
 import {
   useBag,
   useIsMobile,
@@ -30,48 +20,42 @@ import {
   useSellAsset,
   useSendTransaction,
   useTransactionResponse,
-} from "nft/hooks";
-import { useTokenInput } from "nft/hooks/useTokenInput";
-import { fetchRoute } from "nft/queries";
-import {
-  BagItemStatus,
-  BagStatus,
-  ProfilePageStateType,
-  RouteResponse,
-  TxStateType,
-} from "nft/types";
+} from 'nft/hooks'
+import { useTokenInput } from 'nft/hooks/useTokenInput'
+import { fetchRoute } from 'nft/queries'
+import { BagItemStatus, BagStatus, ProfilePageStateType, RouteResponse, TxStateType } from 'nft/types'
 import {
   buildNftTradeInputFromBagItems,
   buildSellObject,
   formatAssetEventProperties,
   recalculateBagUsingPooledAssets,
   sortUpdatedAssets,
-} from "nft/utils";
-import { buildRouteResponse } from "nft/utils/nftRoute";
-import { combineBuyItemsWithTxRoute } from "nft/utils/txRoute/combineItemsWithTxRoute";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useQueryClient } from "react-query";
-import styled from "styled-components/macro";
-import { Z_INDEX } from "theme/zIndex";
-import shallow from "zustand/shallow";
+} from 'nft/utils'
+import { buildRouteResponse } from 'nft/utils/nftRoute'
+import { combineBuyItemsWithTxRoute } from 'nft/utils/txRoute/combineItemsWithTxRoute'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useQueryClient } from 'react-query'
+import styled from 'styled-components/macro'
+import { Z_INDEX } from 'theme/zIndex'
+import shallow from 'zustand/shallow'
 
-import * as styles from "./Bag.css";
-import { BagContent } from "./BagContent";
-import { BagHeader } from "./BagHeader";
-import EmptyState from "./EmptyContent";
-import { ProfileBagContent } from "./profile/ProfileBagContent";
+import * as styles from './Bag.css'
+import { BagContent } from './BagContent'
+import { BagHeader } from './BagHeader'
+import EmptyState from './EmptyContent'
+import { ProfileBagContent } from './profile/ProfileBagContent'
 
-export const BAG_WIDTH = 320;
-export const XXXL_BAG_WIDTH = 360;
+export const BAG_WIDTH = 320
+export const XXXL_BAG_WIDTH = 360
 
 interface SeparatorProps {
-  top?: boolean;
-  show?: boolean;
+  top?: boolean
+  show?: boolean
 }
 
 const BagContainer = styled.div<{
-  raiseZIndex: boolean;
-  isProfilePage: boolean;
+  raiseZIndex: boolean
+  isProfilePage: boolean
 }>`
   position: fixed;
   display: flex;
@@ -85,14 +69,9 @@ const BagContainer = styled.div<{
   border-radius: 16px;
   box-shadow: ${({ theme }) => theme.shallowShadow};
   z-index: ${({ raiseZIndex, isProfilePage }) =>
-    raiseZIndex
-      ? isProfilePage
-        ? Z_INDEX.modalOverTooltip
-        : Z_INDEX.modalBackdrop
-      : 3};
+    raiseZIndex ? (isProfilePage ? Z_INDEX.modalOverTooltip : Z_INDEX.modalBackdrop) : 3};
 
-  @media only screen and (max-width: ${({ theme }) =>
-      `${theme.breakpoint.sm}px`}) {
+  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
     right: 0px;
     top: 0px;
     width: 100%;
@@ -101,11 +80,10 @@ const BagContainer = styled.div<{
     border: none;
   }
 
-  @media only screen and (min-width: ${({ theme }) =>
-      `${theme.breakpoint.xxxl}px`}) {
+  @media only screen and (min-width: ${({ theme }) => `${theme.breakpoint.xxxl}px`}) {
     width: ${XXXL_BAG_WIDTH}px;
   }
-`;
+`
 
 const DetailsPageBackground = styled.div`
   position: fixed;
@@ -113,7 +91,7 @@ const DetailsPageBackground = styled.div`
   top: 0px;
   width: 100%;
   height: 100%;
-`;
+`
 
 const ScrollingIndicator = ({ top, show }: SeparatorProps) => (
   <Box
@@ -121,31 +99,31 @@ const ScrollingIndicator = ({ top, show }: SeparatorProps) => (
     borderWidth="1px"
     borderStyle="solid"
     borderColor="transparent"
-    borderTopColor={top ? "transparent" : "backgroundOutline"}
-    borderBottomColor={top ? "backgroundOutline" : "transparent"}
-    opacity={show ? "1" : "0"}
+    borderTopColor={top ? 'transparent' : 'backgroundOutline'}
+    borderBottomColor={top ? 'backgroundOutline' : 'transparent'}
+    opacity={show ? '1' : '0'}
     transition="250"
   />
-);
+)
 
 const Bag = () => {
-  const { account, provider } = useWeb3React();
+  const { account, provider } = useWeb3React()
 
   const { resetSellAssets, sellAssets } = useSellAsset(
     ({ reset, sellAssets }) => ({
       resetSellAssets: reset,
       sellAssets,
     }),
-    shallow
-  );
+    shallow,
+  )
 
   const { profilePageState, setProfilePageState } = useProfilePageState(
     ({ setProfilePageState, state }) => ({
       profilePageState: state,
       setProfilePageState,
     }),
-    shallow
-  );
+    shallow,
+  )
 
   const {
     bagStatus,
@@ -166,44 +144,39 @@ const Bag = () => {
       bagIsLocked: state.isLocked,
       uncheckedItemsInBag: state.itemsInBag,
     }),
-    shallow
-  );
+    shallow,
+  )
   const { uncheckedItemsInBag } = useBag(({ itemsInBag }) => ({
     uncheckedItemsInBag: itemsInBag,
-  }));
+  }))
 
-  const isProfilePage = useIsNftProfilePage();
-  const isDetailsPage = useIsNftDetailsPage();
-  const isNFTPage = useIsNftPage();
-  const isMobile = useIsMobile();
-  const isNftListV2 = useNftListV2Flag() === NftListV2Variant.Enabled;
-  const usingGqlRouting = useGqlRoutingFlag() === GqlRoutingVariant.Enabled;
+  const isProfilePage = useIsNftProfilePage()
+  const isDetailsPage = useIsNftDetailsPage()
+  const isNFTPage = useIsNftPage()
+  const isMobile = useIsMobile()
+  const isNftListV2 = useNftListV2Flag() === NftListV2Variant.Enabled
+  const usingGqlRouting = useGqlRoutingFlag() === GqlRoutingVariant.Enabled
 
-  const sendTransaction = useSendTransaction((state) => state.sendTransaction);
-  const transactionState = useSendTransaction((state) => state.state);
-  const setTransactionState = useSendTransaction((state) => state.setState);
-  const transactionStateRef = useRef(transactionState);
-  const [setTransactionResponse] = useTransactionResponse((state) => [
-    state.setTransactionResponse,
-  ]);
-  const tokenTradeInput = useTokenInput((state) => state.tokenTradeInput);
+  const sendTransaction = useSendTransaction((state) => state.sendTransaction)
+  const transactionState = useSendTransaction((state) => state.state)
+  const setTransactionState = useSendTransaction((state) => state.setState)
+  const transactionStateRef = useRef(transactionState)
+  const [setTransactionResponse] = useTransactionResponse((state) => [state.setTransactionResponse])
+  const tokenTradeInput = useTokenInput((state) => state.tokenTradeInput)
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
-  const itemsInBag = useMemo(
-    () => recalculateBagUsingPooledAssets(uncheckedItemsInBag),
-    [uncheckedItemsInBag]
-  );
+  const itemsInBag = useMemo(() => recalculateBagUsingPooledAssets(uncheckedItemsInBag), [uncheckedItemsInBag])
 
-  const [isModalOpen, setModalIsOpen] = useState(false);
-  const [userCanScroll, setUserCanScroll] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isModalOpen, setModalIsOpen] = useState(false)
+  const [userCanScroll, setUserCanScroll] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const scrollRef = (node: HTMLDivElement) => {
     if (node !== null) {
-      const canScroll = node.scrollHeight > node.clientHeight;
-      canScroll !== userCanScroll && setUserCanScroll(canScroll);
+      const canScroll = node.scrollHeight > node.clientHeight
+      canScroll !== userCanScroll && setUserCanScroll(canScroll)
     }
-  };
+  }
 
   const { totalEthPrice } = useMemo(() => {
     const totalEthPrice = itemsInBag.reduce(
@@ -211,102 +184,79 @@ const Bag = () => {
         item.status !== BagItemStatus.UNAVAILABLE
           ? total.add(
               BigNumber.from(
-                item.asset.updatedPriceInfo
-                  ? item.asset.updatedPriceInfo.ETHPrice
-                  : item.asset.priceInfo.ETHPrice
-              )
+                item.asset.updatedPriceInfo ? item.asset.updatedPriceInfo.ETHPrice : item.asset.priceInfo.ETHPrice,
+              ),
             )
           : total,
-      BigNumber.from(0)
-    );
+      BigNumber.from(0),
+    )
 
-    return { totalEthPrice };
-  }, [itemsInBag]);
+    return { totalEthPrice }
+  }, [itemsInBag])
 
   const purchaseAssets = async (routingData: RouteResponse) => {
-    if (!provider || !routingData) return;
+    if (!provider || !routingData) return
     const purchaseResponse = await sendTransaction(
       provider?.getSigner(),
-      itemsInBag
-        .filter((item) => item.status !== BagItemStatus.UNAVAILABLE)
-        .map((item) => item.asset),
-      routingData
-    );
+      itemsInBag.filter((item) => item.status !== BagItemStatus.UNAVAILABLE).map((item) => item.asset),
+      routingData,
+    )
     if (
       purchaseResponse &&
-      (transactionStateRef.current === TxStateType.Success ||
-        transactionStateRef.current === TxStateType.Failed)
+      (transactionStateRef.current === TxStateType.Success || transactionStateRef.current === TxStateType.Failed)
     ) {
-      setLocked(false);
-      setModalIsOpen(false);
-      setTransactionResponse(purchaseResponse);
-      setBagExpanded({ bagExpanded: false });
-      reset();
+      setLocked(false)
+      setModalIsOpen(false)
+      setTransactionResponse(purchaseResponse)
+      setBagExpanded({ bagExpanded: false })
+      reset()
     }
-  };
+  }
 
   const handleCloseBag = useCallback(() => {
-    setBagExpanded({ bagExpanded: false, manualClose: true });
-  }, [setBagExpanded]);
+    setBagExpanded({ bagExpanded: false, manualClose: true })
+  }, [setBagExpanded])
 
-  const [fetchGqlRoute] = useNftRouteLazyQuery();
+  const [fetchGqlRoute] = useNftRouteLazyQuery()
 
   const fetchAssets = async () => {
-    const itemsToBuy = itemsInBag
-      .filter((item) => item.status !== BagItemStatus.UNAVAILABLE)
-      .map((item) => item.asset);
+    const itemsToBuy = itemsInBag.filter((item) => item.status !== BagItemStatus.UNAVAILABLE).map((item) => item.asset)
     const ethSellObject = buildSellObject(
       itemsToBuy
-        .reduce(
-          (ethTotal, asset) =>
-            ethTotal.add(BigNumber.from(asset.priceInfo.ETHPrice)),
-          BigNumber.from(0)
-        )
-        .toString()
-    );
+        .reduce((ethTotal, asset) => ethTotal.add(BigNumber.from(asset.priceInfo.ETHPrice)), BigNumber.from(0))
+        .toString(),
+    )
 
-    didOpenUnavailableAssets && setDidOpenUnavailableAssets(false);
-    !bagIsLocked && setLocked(true);
-    setBagStatus(BagStatus.FETCHING_ROUTE);
+    didOpenUnavailableAssets && setDidOpenUnavailableAssets(false)
+    !bagIsLocked && setLocked(true)
+    setBagStatus(BagStatus.FETCHING_ROUTE)
     try {
       if (usingGqlRouting) {
         fetchGqlRoute({
           variables: {
-            senderAddress: usingGqlRouting && account ? account : "",
-            nftTrades: usingGqlRouting
-              ? buildNftTradeInputFromBagItems(itemsInBag)
-              : [],
+            senderAddress: usingGqlRouting && account ? account : '',
+            nftTrades: usingGqlRouting ? buildNftTradeInputFromBagItems(itemsInBag) : [],
             tokenTrades: tokenTradeInput ? tokenTradeInput : undefined,
           },
           onCompleted: (data) => {
             if (!data.nftRoute || !data.nftRoute.route) {
-              setBagStatus(BagStatus.ADDING_TO_BAG);
-              setLocked(false);
-              return;
+              setBagStatus(BagStatus.ADDING_TO_BAG)
+              setLocked(false)
+              return
             }
 
-            const { route, routeResponse } = buildRouteResponse(
-              data.nftRoute,
-              !!tokenTradeInput
-            );
+            const { route, routeResponse } = buildRouteResponse(data.nftRoute, !!tokenTradeInput)
 
-            const updatedAssets = combineBuyItemsWithTxRoute(itemsToBuy, route);
+            const updatedAssets = combineBuyItemsWithTxRoute(itemsToBuy, route)
 
-            const fetchedPriceChangedAssets = updatedAssets
-              .filter((asset) => asset.updatedPriceInfo)
-              .sort(sortUpdatedAssets);
-            const fetchedUnavailableAssets = updatedAssets.filter(
-              (asset) => asset.isUnavailable
-            );
-            const fetchedUnchangedAssets = updatedAssets.filter(
-              (asset) => !asset.updatedPriceInfo && !asset.isUnavailable
-            );
-            const hasReviewedAssets = fetchedUnchangedAssets.length > 0;
-            const hasAssetsInReview = fetchedPriceChangedAssets.length > 0;
-            const hasUnavailableAssets = fetchedUnavailableAssets.length > 0;
-            const hasAssets =
-              hasReviewedAssets || hasAssetsInReview || hasUnavailableAssets;
-            const shouldReview = hasAssetsInReview || hasUnavailableAssets;
+            const fetchedPriceChangedAssets = updatedAssets.filter((asset) => asset.updatedPriceInfo).sort(sortUpdatedAssets)
+            const fetchedUnavailableAssets = updatedAssets.filter((asset) => asset.isUnavailable)
+            const fetchedUnchangedAssets = updatedAssets.filter((asset) => !asset.updatedPriceInfo && !asset.isUnavailable)
+            const hasReviewedAssets = fetchedUnchangedAssets.length > 0
+            const hasAssetsInReview = fetchedPriceChangedAssets.length > 0
+            const hasUnavailableAssets = fetchedUnavailableAssets.length > 0
+            const hasAssets = hasReviewedAssets || hasAssetsInReview || hasUnavailableAssets
+            const shouldReview = hasAssetsInReview || hasUnavailableAssets
 
             setItemsInBag([
               ...fetchedUnavailableAssets.map((unavailableAsset) => ({
@@ -321,58 +271,45 @@ const Bag = () => {
                 asset: unchangedAsset,
                 status: BagItemStatus.REVIEWED,
               })),
-            ]);
+            ])
 
-            let shouldLock = false;
+            let shouldLock = false
 
             if (hasAssets) {
               if (!shouldReview) {
-                purchaseAssets(routeResponse);
-                setBagStatus(BagStatus.CONFIRMING_IN_WALLET);
-                shouldLock = true;
-              } else if (!hasAssetsInReview)
-                setBagStatus(BagStatus.CONFIRM_REVIEW);
+                purchaseAssets(routeResponse)
+                setBagStatus(BagStatus.CONFIRMING_IN_WALLET)
+                shouldLock = true
+              } else if (!hasAssetsInReview) setBagStatus(BagStatus.CONFIRM_REVIEW)
               else {
-                setBagStatus(BagStatus.IN_REVIEW);
+                setBagStatus(BagStatus.IN_REVIEW)
               }
             } else {
-              setBagStatus(BagStatus.ADDING_TO_BAG);
+              setBagStatus(BagStatus.ADDING_TO_BAG)
             }
 
-            setLocked(shouldLock);
+            setLocked(shouldLock)
           },
-        });
+        })
       } else {
-        const routeData = await queryClient.fetchQuery(
-          ["assetsRoute", ethSellObject, itemsToBuy, account],
-          () =>
-            fetchRoute({
-              toSell: [ethSellObject],
-              toBuy: itemsToBuy,
-              senderAddress: account ?? "",
-            })
-        );
+        const routeData = await queryClient.fetchQuery(['assetsRoute', ethSellObject, itemsToBuy, account], () =>
+          fetchRoute({
+            toSell: [ethSellObject],
+            toBuy: itemsToBuy,
+            senderAddress: account ?? '',
+          }),
+        )
 
-        const updatedAssets = combineBuyItemsWithTxRoute(
-          itemsToBuy,
-          routeData.route
-        );
+        const updatedAssets = combineBuyItemsWithTxRoute(itemsToBuy, routeData.route)
 
-        const fetchedPriceChangedAssets = updatedAssets
-          .filter((asset) => asset.updatedPriceInfo)
-          .sort(sortUpdatedAssets);
-        const fetchedUnavailableAssets = updatedAssets.filter(
-          (asset) => asset.isUnavailable
-        );
-        const fetchedUnchangedAssets = updatedAssets.filter(
-          (asset) => !asset.updatedPriceInfo && !asset.isUnavailable
-        );
-        const hasReviewedAssets = fetchedUnchangedAssets.length > 0;
-        const hasAssetsInReview = fetchedPriceChangedAssets.length > 0;
-        const hasUnavailableAssets = fetchedUnavailableAssets.length > 0;
-        const hasAssets =
-          hasReviewedAssets || hasAssetsInReview || hasUnavailableAssets;
-        const shouldReview = hasAssetsInReview || hasUnavailableAssets;
+        const fetchedPriceChangedAssets = updatedAssets.filter((asset) => asset.updatedPriceInfo).sort(sortUpdatedAssets)
+        const fetchedUnavailableAssets = updatedAssets.filter((asset) => asset.isUnavailable)
+        const fetchedUnchangedAssets = updatedAssets.filter((asset) => !asset.updatedPriceInfo && !asset.isUnavailable)
+        const hasReviewedAssets = fetchedUnchangedAssets.length > 0
+        const hasAssetsInReview = fetchedPriceChangedAssets.length > 0
+        const hasUnavailableAssets = fetchedUnavailableAssets.length > 0
+        const hasAssets = hasReviewedAssets || hasAssetsInReview || hasUnavailableAssets
+        const shouldReview = hasAssetsInReview || hasUnavailableAssets
 
         setItemsInBag([
           ...fetchedUnavailableAssets.map((unavailableAsset) => ({
@@ -387,121 +324,93 @@ const Bag = () => {
             asset: unchangedAsset,
             status: BagItemStatus.REVIEWED,
           })),
-        ]);
-        setLocked(false);
+        ])
+        setLocked(false)
 
         if (hasAssets) {
           if (!shouldReview) {
-            purchaseAssets(routeData);
-            setBagStatus(BagStatus.CONFIRMING_IN_WALLET);
-          } else if (!hasAssetsInReview) setBagStatus(BagStatus.CONFIRM_REVIEW);
+            purchaseAssets(routeData)
+            setBagStatus(BagStatus.CONFIRMING_IN_WALLET)
+          } else if (!hasAssetsInReview) setBagStatus(BagStatus.CONFIRM_REVIEW)
           else {
-            setBagStatus(BagStatus.IN_REVIEW);
+            setBagStatus(BagStatus.IN_REVIEW)
           }
         } else {
-          setBagStatus(BagStatus.ADDING_TO_BAG);
+          setBagStatus(BagStatus.ADDING_TO_BAG)
         }
       }
     } catch (error) {
-      setBagStatus(BagStatus.ADDING_TO_BAG);
+      setBagStatus(BagStatus.ADDING_TO_BAG)
     }
-  };
+  }
 
   useEffect(() => {
-    useSendTransaction.subscribe(
-      (state) => (transactionStateRef.current = state.state)
-    );
-  }, []);
+    useSendTransaction.subscribe((state) => (transactionStateRef.current = state.state))
+  }, [])
 
   useEffect(() => {
-    if (bagIsLocked && !isModalOpen) setModalIsOpen(true);
-  }, [bagIsLocked, isModalOpen]);
+    if (bagIsLocked && !isModalOpen) setModalIsOpen(true)
+  }, [bagIsLocked, isModalOpen])
 
   useEffect(() => {
-    if (transactionStateRef.current === TxStateType.Confirming)
-      setBagStatus(BagStatus.PROCESSING_TRANSACTION);
-    if (
-      transactionStateRef.current === TxStateType.Denied ||
-      transactionStateRef.current === TxStateType.Invalid
-    ) {
-      if (transactionStateRef.current === TxStateType.Invalid)
-        setBagStatus(BagStatus.WARNING);
-      else setBagStatus(BagStatus.CONFIRM_REVIEW);
-      setTransactionState(TxStateType.New);
+    if (transactionStateRef.current === TxStateType.Confirming) setBagStatus(BagStatus.PROCESSING_TRANSACTION)
+    if (transactionStateRef.current === TxStateType.Denied || transactionStateRef.current === TxStateType.Invalid) {
+      if (transactionStateRef.current === TxStateType.Invalid) setBagStatus(BagStatus.WARNING)
+      else setBagStatus(BagStatus.CONFIRM_REVIEW)
+      setTransactionState(TxStateType.New)
 
-      setLocked(false);
-      setModalIsOpen(false);
+      setLocked(false)
+      setModalIsOpen(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transactionStateRef.current]);
+  }, [transactionStateRef.current])
 
   useEffect(() => {
-    setTotalEthPrice(totalEthPrice);
-  }, [totalEthPrice, setTotalEthPrice]);
+    setTotalEthPrice(totalEthPrice)
+  }, [totalEthPrice, setTotalEthPrice])
 
-  const hasAssetsToShow = itemsInBag.length > 0;
+  const hasAssetsToShow = itemsInBag.length > 0
 
   const scrollHandler = (event: React.UIEvent<HTMLDivElement>) => {
-    const scrollTop = event.currentTarget.scrollTop;
-    const containerHeight = event.currentTarget.clientHeight;
-    const scrollHeight = event.currentTarget.scrollHeight;
+    const scrollTop = event.currentTarget.scrollTop
+    const containerHeight = event.currentTarget.clientHeight
+    const scrollHeight = event.currentTarget.scrollHeight
 
-    setScrollProgress(
-      scrollTop ? ((scrollTop + containerHeight) / scrollHeight) * 100 : 0
-    );
-  };
+    setScrollProgress(scrollTop ? ((scrollTop + containerHeight) / scrollHeight) * 100 : 0)
+  }
 
-  const isBuyingAssets = itemsInBag.length > 0;
-  const isSellingAssets = sellAssets.length > 0;
+  const isBuyingAssets = itemsInBag.length > 0
+  const isSellingAssets = sellAssets.length > 0
 
   const shouldRenderEmptyState = Boolean(
-    (!isProfilePage &&
-      !isBuyingAssets &&
-      bagStatus === BagStatus.ADDING_TO_BAG) ||
-      (isProfilePage && !isSellingAssets)
-  );
+    (!isProfilePage && !isBuyingAssets && bagStatus === BagStatus.ADDING_TO_BAG) || (isProfilePage && !isSellingAssets),
+  )
 
   const eventProperties = useMemo(
     () => ({
       ...formatAssetEventProperties(itemsInBag.map((item) => item.asset)),
     }),
-    [itemsInBag]
-  );
+    [itemsInBag],
+  )
 
   if (!bagExpanded || !isNFTPage) {
-    return null;
+    return null
   }
 
   return (
     <Portal>
-      <BagContainer
-        data-testid="nft-bag"
-        raiseZIndex={isMobile || isModalOpen}
-        isProfilePage={isProfilePage}
-      >
-        {!(
-          isProfilePage && profilePageState === ProfilePageStateType.LISTING
-        ) ? (
+      <BagContainer data-testid="nft-bag" raiseZIndex={isMobile || isModalOpen} isProfilePage={isProfilePage}>
+        {!(isProfilePage && profilePageState === ProfilePageStateType.LISTING) ? (
           <>
             <BagHeader
-              numberOfAssets={
-                isProfilePage ? sellAssets.length : itemsInBag.length
-              }
+              numberOfAssets={isProfilePage ? sellAssets.length : itemsInBag.length}
               closeBag={handleCloseBag}
               resetFlow={isProfilePage ? resetSellAssets : reset}
               isProfilePage={isProfilePage}
             />
             {shouldRenderEmptyState && <EmptyState />}
-            <ScrollingIndicator
-              top
-              show={userCanScroll && scrollProgress > 0}
-            />
-            <Column
-              ref={scrollRef}
-              className={styles.assetsContainer}
-              onScroll={scrollHandler}
-              gap="12"
-            >
+            <ScrollingIndicator top show={userCanScroll && scrollProgress > 0} />
+            <Column ref={scrollRef} className={styles.assetsContainer} onScroll={scrollHandler} gap="12">
               {isProfilePage ? <ProfileBagContent /> : <BagContent />}
             </Column>
             {hasAssetsToShow && !isProfilePage && (
@@ -523,15 +432,13 @@ const Bag = () => {
                 color="white"
                 textAlign="center"
                 onClick={() => {
-                  (isMobile || isNftListV2) && toggleBag();
-                  setProfilePageState(ProfilePageStateType.LISTING);
+                  ;(isMobile || isNftListV2) && toggleBag()
+                  setProfilePageState(ProfilePageStateType.LISTING)
                   sendAnalyticsEvent(NFTEventName.NFT_PROFILE_PAGE_START_SELL, {
                     list_quantity: sellAssets.length,
-                    collection_addresses: sellAssets.map(
-                      (asset) => asset.asset_contract.address
-                    ),
+                    collection_addresses: sellAssets.map((asset) => asset.asset_contract.address),
                     token_ids: sellAssets.map((asset) => asset.tokenId),
-                  });
+                  })
                 }}
               >
                 Continue
@@ -546,14 +453,10 @@ const Bag = () => {
       {isDetailsPage ? (
         <DetailsPageBackground onClick={toggleBag} />
       ) : (
-        isModalOpen && (
-          <Overlay
-            onClick={() => (!bagIsLocked ? setModalIsOpen(false) : undefined)}
-          />
-        )
+        isModalOpen && <Overlay onClick={() => (!bagIsLocked ? setModalIsOpen(false) : undefined)} />
       )}
     </Portal>
-  );
-};
+  )
+}
 
-export default Bag;
+export default Bag

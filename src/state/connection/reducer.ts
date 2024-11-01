@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ConnectionType } from "connection";
+import { createSlice } from '@reduxjs/toolkit'
+import { ConnectionType } from 'connection'
 
 interface ConnectionState {
-  errorByConnectionType: Record<ConnectionType, string | undefined>;
+  errorByConnectionType: Record<ConnectionType, string | undefined>
 }
 
 const initialState: ConnectionState = {
@@ -13,10 +13,10 @@ const initialState: ConnectionState = {
     [ConnectionType.NETWORK]: undefined,
     [ConnectionType.GNOSIS_SAFE]: undefined,
   },
-};
+}
 
 const connectionSlice = createSlice({
-  name: "connection",
+  name: 'connection',
   initialState,
   reducers: {
     updateConnectionError(
@@ -24,13 +24,13 @@ const connectionSlice = createSlice({
       {
         payload: { connectionType, error },
       }: {
-        payload: { connectionType: ConnectionType; error: string | undefined };
-      }
+        payload: { connectionType: ConnectionType; error: string | undefined }
+      },
     ) {
-      state.errorByConnectionType[connectionType] = error;
+      state.errorByConnectionType[connectionType] = error
     },
   },
-});
+})
 
-export const { updateConnectionError } = connectionSlice.actions;
-export default connectionSlice.reducer;
+export const { updateConnectionError } = connectionSlice.actions
+export default connectionSlice.reducer

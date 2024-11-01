@@ -1,53 +1,39 @@
-import { Trans } from "@lingui/macro";
-import { useWeb3React } from "@web3-react/core";
-import Web3Status from "components/Web3Status";
-import {
-  NftListV2Variant,
-  useNftListV2Flag,
-} from "featureFlags/flags/nftListV2";
-import { chainIdToBackendName } from "graphql/data/util";
-import { useIsNftPage } from "hooks/useIsNftPage";
-import { Box } from "nft/components/Box";
-import { Row } from "nft/components/Flex";
-import { UniIcon } from "nft/components/icons";
-import { useProfilePageState } from "nft/hooks";
-import { ProfilePageStateType } from "nft/types";
-import { ReactNode } from "react";
-import {
-  NavLink,
-  NavLinkProps,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import styled from "styled-components/macro";
+import { Trans } from '@lingui/macro'
+import { useWeb3React } from '@web3-react/core'
+import Web3Status from 'components/Web3Status'
+import { NftListV2Variant, useNftListV2Flag } from 'featureFlags/flags/nftListV2'
+import { chainIdToBackendName } from 'graphql/data/util'
+import { useIsNftPage } from 'hooks/useIsNftPage'
+import { Box } from 'nft/components/Box'
+import { Row } from 'nft/components/Flex'
+import { UniIcon } from 'nft/components/icons'
+import { useProfilePageState } from 'nft/hooks'
+import { ProfilePageStateType } from 'nft/types'
+import { ReactNode } from 'react'
+import { NavLink, NavLinkProps, useLocation, useNavigate } from 'react-router-dom'
+import styled from 'styled-components/macro'
 
-import { Bag } from "./Bag";
-import { ChainSelector } from "./ChainSelector";
-import { MenuDropdown } from "./MenuDropdown";
-import { SearchBar } from "./SearchBar";
-import * as styles from "./style.css";
+import { Bag } from './Bag'
+import { ChainSelector } from './ChainSelector'
+import { MenuDropdown } from './MenuDropdown'
+import { SearchBar } from './SearchBar'
+import * as styles from './style.css'
 
 const Nav = styled.nav`
   padding: 20px 12px;
   width: 100%;
   height: ${({ theme }) => theme.navHeight}px;
   z-index: 2;
-`;
+`
 
 interface MenuItemProps {
-  href: string;
-  id?: NavLinkProps["id"];
-  isActive?: boolean;
-  children: ReactNode;
-  dataTestId?: string;
+  href: string
+  id?: NavLinkProps['id']
+  isActive?: boolean
+  children: ReactNode
+  dataTestId?: string
 }
-export const ExternalMenuItem: React.FC<MenuItemProps> = ({
-  href,
-  dataTestId,
-  id,
-  isActive,
-  children,
-}) => {
+export const ExternalMenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children }) => {
   // const isExternalLink = href.startsWith('https') || href.startsWith('//')
 
   // const linkProps = isExternalLink
@@ -63,54 +49,48 @@ export const ExternalMenuItem: React.FC<MenuItemProps> = ({
   return (
     <a
       href={href}
-      target={"_blank"}
+      target={'_blank'}
       className={isActive ? styles.activeMenuItem : styles.menuItem}
       id={id}
-      style={{ textDecoration: "none" }}
+      style={{ textDecoration: 'none' }}
       data-testid={dataTestId}
       rel="noreferrer"
     >
       {children}
     </a>
-  );
-};
+  )
+}
 
-const MenuItem = ({
-  href,
-  dataTestId,
-  id,
-  isActive,
-  children,
-}: MenuItemProps) => {
+const MenuItem = ({ href, dataTestId, id, isActive, children }: MenuItemProps) => {
   return (
     <NavLink
       to={href}
       className={isActive ? styles.activeMenuItem : styles.menuItem}
       id={id}
-      style={{ textDecoration: "none" }}
+      style={{ textDecoration: 'none' }}
       data-testid={dataTestId}
     >
       {children}
     </NavLink>
-  );
-};
+  )
+}
 
 export const PageTabs = () => {
-  const { pathname } = useLocation();
-  const { chainId: connectedChainId } = useWeb3React();
-  const chainName = chainIdToBackendName(connectedChainId);
+  const { pathname } = useLocation()
+  const { chainId: connectedChainId } = useWeb3React()
+  const chainName = chainIdToBackendName(connectedChainId)
 
   const isPoolActive =
-    pathname.startsWith("/pool") ||
-    pathname.startsWith("/add") ||
-    pathname.startsWith("/remove") ||
-    pathname.startsWith("/increase");
+    pathname.startsWith('/pool') ||
+    pathname.startsWith('/add') ||
+    pathname.startsWith('/remove') ||
+    pathname.startsWith('/increase')
 
-  const isNftPage = useIsNftPage();
+  const isNftPage = useIsNftPage()
 
   return (
     <>
-      <MenuItem href="/swap" isActive={pathname.startsWith("/swap")}>
+      <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
         <Trans>Swap</Trans>
       </MenuItem>
       {/*<MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
@@ -129,14 +109,14 @@ export const PageTabs = () => {
         <Trans>Pool</Trans>
       </MenuItem>
     </>
-  );
-};
+  )
+}
 
 const Navbar = () => {
-  const isNftPage = useIsNftPage();
-  const sellPageState = useProfilePageState((state) => state.state);
-  const isNftListV2 = useNftListV2Flag() === NftListV2Variant.Enabled;
-  const navigate = useNavigate();
+  const isNftPage = useIsNftPage()
+  const sellPageState = useProfilePageState((state) => state.state)
+  const isNftListV2 = useNftListV2Flag() === NftListV2Variant.Enabled
+  const navigate = useNavigate()
 
   return (
     <>
@@ -151,38 +131,33 @@ const Navbar = () => {
                 className={styles.logo}
                 onClick={() => {
                   navigate({
-                    pathname: "/swap",
-                    search: "",
-                  });
+                    pathname: '/swap',
+                    search: '',
+                  })
                 }}
               />
             </Box>
             {!isNftPage && (
-              <Box display={{ sm: "flex", lg: "none" }}>
+              <Box display={{ sm: 'flex', lg: 'none' }}>
                 <ChainSelector leftAlign={true} />
               </Box>
             )}
-            <Row
-              gap={{ xl: "0", xxl: "8" }}
-              display={{ sm: "none", lg: "flex" }}
-            >
+            <Row gap={{ xl: '0', xxl: '8' }} display={{ sm: 'none', lg: 'flex' }}>
               <PageTabs />
             </Row>
           </Box>
           <Box className={styles.searchContainer}>{/*<SearchBar />*/}</Box>
           <Box className={styles.rightSideContainer}>
             <Row gap="12">
-              <Box position="relative" display={{ sm: "flex", xl: "none" }}>
+              <Box position="relative" display={{ sm: 'flex', xl: 'none' }}>
                 <SearchBar />
               </Box>
-              <Box display={{ sm: "none", lg: "flex" }}>
+              <Box display={{ sm: 'none', lg: 'flex' }}>
                 <MenuDropdown />
               </Box>
-              {isNftPage &&
-                (!isNftListV2 ||
-                  sellPageState !== ProfilePageStateType.LISTING) && <Bag />}
+              {isNftPage && (!isNftListV2 || sellPageState !== ProfilePageStateType.LISTING) && <Bag />}
               {!isNftPage && (
-                <Box display={{ sm: "none", lg: "flex" }}>
+                <Box display={{ sm: 'none', lg: 'flex' }}>
                   <ChainSelector />
                 </Box>
               )}
@@ -193,7 +168,7 @@ const Navbar = () => {
         </Box>
       </Nav>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

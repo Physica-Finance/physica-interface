@@ -1,17 +1,17 @@
-import { Box } from "nft/components/Box";
-import { Column, Row } from "nft/components/Flex";
+import { Box } from 'nft/components/Box'
+import { Column, Row } from 'nft/components/Flex'
 
-import { HeaderRow } from "./Activity";
-import { eventRow } from "./Activity.css";
-import * as styles from "./ActivityLoader.css";
+import { HeaderRow } from './Activity'
+import { eventRow } from './Activity.css'
+import * as styles from './ActivityLoader.css'
 
 const LoadingSquare = () => {
-  return <Box className={styles.loadingSquare} />;
-};
+  return <Box className={styles.loadingSquare} />
+}
 
 const LoadingSliver = () => {
-  return <Box className={styles.loadingSliver} />;
-};
+  return <Box className={styles.loadingSliver} />
+}
 
 const ActivityLoadingRow = () => {
   return (
@@ -23,18 +23,18 @@ const ActivityLoadingRow = () => {
       <Row>
         <LoadingSliver />
       </Row>
-      <Row display={{ sm: "none", md: "flex" }}>
+      <Row display={{ sm: 'none', md: 'flex' }}>
         <LoadingSliver />
       </Row>
-      <Row display={{ sm: "none", lg: "flex" }}>
+      <Row display={{ sm: 'none', lg: 'flex' }}>
         <LoadingSliver />
       </Row>
-      <Row display={{ sm: "none", xl: "flex" }}>
+      <Row display={{ sm: 'none', xl: 'flex' }}>
         <LoadingSliver />
       </Row>
     </Box>
-  );
-};
+  )
+}
 
 export const ActivityPageLoader = ({ rowCount }: { rowCount: number }) => {
   return (
@@ -43,8 +43,8 @@ export const ActivityPageLoader = ({ rowCount }: { rowCount: number }) => {
         <ActivityLoadingRow key={index} />
       ))}
     </>
-  );
-};
+  )
+}
 
 export const ActivityLoader = () => {
   return (
@@ -52,5 +52,5 @@ export const ActivityLoader = () => {
       <HeaderRow />
       <ActivityPageLoader rowCount={10} />
     </Column>
-  );
-};
+  )
+}

@@ -1,37 +1,37 @@
-import create from "zustand";
-import { devtools } from "zustand/middleware";
+import create from 'zustand'
+import { devtools } from 'zustand/middleware'
 
 interface PriceRangeProps {
-  priceRangeLow: string;
-  setPriceRangeLow: (priceRangeLow: string) => void;
-  priceRangeHigh: string;
-  setPriceRangeHigh: (priceRangeHigh: string) => void;
-  prevMinMax: Array<number>;
-  setPrevMinMax: (prevMinMax: Array<number>) => void;
+  priceRangeLow: string
+  setPriceRangeLow: (priceRangeLow: string) => void
+  priceRangeHigh: string
+  setPriceRangeHigh: (priceRangeHigh: string) => void
+  prevMinMax: Array<number>
+  setPrevMinMax: (prevMinMax: Array<number>) => void
 }
 
 export const usePriceRange = create<PriceRangeProps>()(
   devtools(
     (set) => ({
-      priceRangeLow: "",
+      priceRangeLow: '',
       setPriceRangeLow: (priceRangeLow: string) => {
         set(() => {
-          return { priceRangeLow };
-        });
+          return { priceRangeLow }
+        })
       },
-      priceRangeHigh: "",
+      priceRangeHigh: '',
       setPriceRangeHigh: (priceRangeHigh: string) => {
         set(() => {
-          return { priceRangeHigh };
-        });
+          return { priceRangeHigh }
+        })
       },
       prevMinMax: [0, 100],
       setPrevMinMax: (prevMinMax: Array<number>) => {
         set(() => {
-          return { prevMinMax };
-        });
+          return { prevMinMax }
+        })
       },
     }),
-    { name: "usePriceRange" }
-  )
-);
+    { name: 'usePriceRange' },
+  ),
+)

@@ -1,9 +1,9 @@
-import create from "zustand";
-import { devtools } from "zustand/middleware";
+import create from 'zustand'
+import { devtools } from 'zustand/middleware'
 
 interface NFTClaim {
-  isClaimAvailable: boolean;
-  setIsClaimAvailable: (isClaimAvailable: boolean) => void;
+  isClaimAvailable: boolean
+  setIsClaimAvailable: (isClaimAvailable: boolean) => void
 }
 
 export const useIsNftClaimAvailable = create<NFTClaim>()(
@@ -11,9 +11,9 @@ export const useIsNftClaimAvailable = create<NFTClaim>()(
     (set) => ({
       isClaimAvailable: false,
       setIsClaimAvailable: (isClaimAvailable: boolean) => {
-        set(() => ({ isClaimAvailable }));
+        set(() => ({ isClaimAvailable }))
       },
     }),
-    { name: "useIsNftClaimAvailable" }
-  )
-);
+    { name: 'useIsNftClaimAvailable' },
+  ),
+)

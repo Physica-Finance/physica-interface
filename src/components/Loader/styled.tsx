@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components/macro";
+import styled, { css, keyframes } from 'styled-components/macro'
 
 export const loadingAnimation = keyframes`
   0% {
@@ -7,7 +7,7 @@ export const loadingAnimation = keyframes`
   100% {
     background-position: 0% 50%;
   }
-`;
+`
 
 export const LoadingRows = styled.div`
   display: grid;
@@ -26,14 +26,14 @@ export const LoadingRows = styled.div`
     height: 2.4em;
     will-change: background-position;
   }
-`;
+`
 
 export const loadingOpacityMixin = css<{ $loading: boolean }>`
-  filter: ${({ $loading }) => ($loading ? "grayscale(1)" : "none")};
-  opacity: ${({ $loading }) => ($loading ? "0.4" : "1")};
+  filter: ${({ $loading }) => ($loading ? 'grayscale(1)' : 'none')};
+  opacity: ${({ $loading }) => ($loading ? '0.4' : '1')};
   transition: opacity 0.2s ease-in-out;
-`;
+`
 
 export const LoadingOpacityContainer = styled.div<{ $loading: boolean }>`
   ${loadingOpacityMixin}
-`;
+`

@@ -1,4 +1,4 @@
 export interface Wallet {
-  walletType: string;
-  account: string;
+  walletType: string
+  account: string
 }

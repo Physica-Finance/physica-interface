@@ -1,15 +1,11 @@
-import { Trans } from "@lingui/macro";
-import { useLocationLinkProps } from "hooks/useLocationLinkProps";
-import { useMemo } from "react";
-import styled from "styled-components/macro";
+import { Trans } from '@lingui/macro'
+import { useLocationLinkProps } from 'hooks/useLocationLinkProps'
+import { useMemo } from 'react'
+import styled from 'styled-components/macro'
 
-import {
-  DEFAULT_LOCALE,
-  LOCALE_LABEL,
-  SupportedLocale,
-} from "../../constants/locales";
-import { navigatorLocale, useActiveLocale } from "../../hooks/useActiveLocale";
-import { StyledInternalLink, ThemedText } from "../../theme";
+import { DEFAULT_LOCALE, LOCALE_LABEL, SupportedLocale } from '../../constants/locales'
+import { navigatorLocale, useActiveLocale } from '../../hooks/useActiveLocale'
+import { StyledInternalLink, ThemedText } from '../../theme'
 
 const Container = styled(ThemedText.DeprecatedSmall)`
   opacity: ${({ theme }) => theme.opacity.hover};
@@ -17,40 +13,37 @@ const Container = styled(ThemedText.DeprecatedSmall)`
     opacity: 1;
   }
   margin-top: 1rem !important;
-`;
+`
 
 const useTargetLocale = (activeLocale: SupportedLocale) => {
-  const browserLocale = useMemo(() => navigatorLocale(), []);
+  const browserLocale = useMemo(() => navigatorLocale(), [])
 
-  if (
-    browserLocale &&
-    (browserLocale !== DEFAULT_LOCALE || activeLocale !== DEFAULT_LOCALE)
-  ) {
+  if (browserLocale && (browserLocale !== DEFAULT_LOCALE || activeLocale !== DEFAULT_LOCALE)) {
     if (activeLocale === browserLocale) {
-      return DEFAULT_LOCALE;
+      return DEFAULT_LOCALE
     } else {
-      return browserLocale;
+      return browserLocale
     }
   }
-  return null;
-};
+  return null
+}
 
 export function SwitchLocaleLink() {
-  const activeLocale = useActiveLocale();
-  const targetLocale = useTargetLocale(activeLocale);
+  const activeLocale = useActiveLocale()
+  const targetLocale = useTargetLocale(activeLocale)
 
-  const { to, onClick } = useLocationLinkProps(targetLocale);
+  const { to, onClick } = useLocationLinkProps(targetLocale)
 
-  if (!targetLocale || !to) return null;
+  if (!targetLocale || !to) return null
 
   return (
     <Container>
       <Trans>
-        Physica available in:{" "}
+        Physica available in:{' '}
         <StyledInternalLink onClick={onClick} to={to}>
           {LOCALE_LABEL[targetLocale]}
         </StyledInternalLink>
       </Trans>
     </Container>
-  );
+  )
 }

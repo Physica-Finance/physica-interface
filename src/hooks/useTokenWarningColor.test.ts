@@ -1,56 +1,41 @@
-import { WARNING_LEVEL } from "constants/tokenSafety";
-import { renderHook } from "test-utils";
-import { lightTheme } from "theme/colors";
+import { WARNING_LEVEL } from 'constants/tokenSafety'
+import { renderHook } from 'test-utils'
+import { lightTheme } from 'theme/colors'
 
-import {
-  useTokenWarningColor,
-  useTokenWarningTextColor,
-} from "./useTokenWarningColor";
+import { useTokenWarningColor, useTokenWarningTextColor } from './useTokenWarningColor'
 
-describe("Token Warning Colors", () => {
-  describe("useTokenWarningColor", () => {
-    it("medium", () => {
-      const { result } = renderHook(() =>
-        useTokenWarningColor(WARNING_LEVEL.MEDIUM)
-      );
-      expect(result.current).toEqual(lightTheme.accentWarningSoft);
-    });
+describe('Token Warning Colors', () => {
+  describe('useTokenWarningColor', () => {
+    it('medium', () => {
+      const { result } = renderHook(() => useTokenWarningColor(WARNING_LEVEL.MEDIUM))
+      expect(result.current).toEqual(lightTheme.accentWarningSoft)
+    })
 
-    it("strong", () => {
-      const { result } = renderHook(() =>
-        useTokenWarningColor(WARNING_LEVEL.UNKNOWN)
-      );
-      expect(result.current).toEqual(lightTheme.accentFailureSoft);
-    });
+    it('strong', () => {
+      const { result } = renderHook(() => useTokenWarningColor(WARNING_LEVEL.UNKNOWN))
+      expect(result.current).toEqual(lightTheme.accentFailureSoft)
+    })
 
-    it("blocked", () => {
-      const { result } = renderHook(() =>
-        useTokenWarningColor(WARNING_LEVEL.BLOCKED)
-      );
-      expect(result.current).toEqual(lightTheme.backgroundFloating);
-    });
-  });
+    it('blocked', () => {
+      const { result } = renderHook(() => useTokenWarningColor(WARNING_LEVEL.BLOCKED))
+      expect(result.current).toEqual(lightTheme.backgroundFloating)
+    })
+  })
 
-  describe("useTokenWarningTextColor", () => {
-    it("medium", () => {
-      const { result } = renderHook(() =>
-        useTokenWarningTextColor(WARNING_LEVEL.MEDIUM)
-      );
-      expect(result.current).toEqual(lightTheme.accentWarning);
-    });
+  describe('useTokenWarningTextColor', () => {
+    it('medium', () => {
+      const { result } = renderHook(() => useTokenWarningTextColor(WARNING_LEVEL.MEDIUM))
+      expect(result.current).toEqual(lightTheme.accentWarning)
+    })
 
-    it("strong", () => {
-      const { result } = renderHook(() =>
-        useTokenWarningTextColor(WARNING_LEVEL.UNKNOWN)
-      );
-      expect(result.current).toEqual(lightTheme.accentFailure);
-    });
+    it('strong', () => {
+      const { result } = renderHook(() => useTokenWarningTextColor(WARNING_LEVEL.UNKNOWN))
+      expect(result.current).toEqual(lightTheme.accentFailure)
+    })
 
-    it("blocked", () => {
-      const { result } = renderHook(() =>
-        useTokenWarningTextColor(WARNING_LEVEL.BLOCKED)
-      );
-      expect(result.current).toEqual(lightTheme.textSecondary);
-    });
-  });
-});
+    it('blocked', () => {
+      const { result } = renderHook(() => useTokenWarningTextColor(WARNING_LEVEL.BLOCKED))
+      expect(result.current).toEqual(lightTheme.textSecondary)
+    })
+  })
+})

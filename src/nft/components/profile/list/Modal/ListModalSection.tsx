@@ -1,40 +1,32 @@
-import { Plural, Trans } from "@lingui/macro";
-import Column from "components/Column";
-import { ScrollBarStyles } from "components/Common";
-import Row from "components/Row";
-import { MouseoverTooltip } from "components/Tooltip";
-import {
-  ChevronUpIcon,
-  ListingModalWindowActive,
-  ListingModalWindowClosed,
-} from "nft/components/icons";
-import { useSellAsset } from "nft/hooks";
-import { AssetRow, CollectionRow, ListingRow, ListingStatus } from "nft/types";
-import { useMemo } from "react";
-import { Info } from "react-feather";
-import styled, { useTheme } from "styled-components/macro";
-import { ThemedText } from "theme";
-import { colors } from "theme/colors";
-import { TRANSITION_DURATIONS } from "theme/styles";
+import { Plural, Trans } from '@lingui/macro'
+import Column from 'components/Column'
+import { ScrollBarStyles } from 'components/Common'
+import Row from 'components/Row'
+import { MouseoverTooltip } from 'components/Tooltip'
+import { ChevronUpIcon, ListingModalWindowActive, ListingModalWindowClosed } from 'nft/components/icons'
+import { useSellAsset } from 'nft/hooks'
+import { AssetRow, CollectionRow, ListingRow, ListingStatus } from 'nft/types'
+import { useMemo } from 'react'
+import { Info } from 'react-feather'
+import styled, { useTheme } from 'styled-components/macro'
+import { ThemedText } from 'theme'
+import { colors } from 'theme/colors'
+import { TRANSITION_DURATIONS } from 'theme/styles'
 
-import { ContentRow } from "./ContentRow";
+import { ContentRow } from './ContentRow'
 
 const SectionHeader = styled(Row)`
   justify-content: space-between;
-`;
+`
 
 const SectionTitle = styled(ThemedText.SubHeader)<{
-  active: boolean;
-  approved: boolean;
+  active: boolean
+  approved: boolean
 }>`
   line-height: 24px;
   color: ${({ theme, active, approved }) =>
-    approved
-      ? theme.accentSuccess
-      : active
-      ? theme.textPrimary
-      : theme.textSecondary};
-`;
+    approved ? theme.accentSuccess : active ? theme.textPrimary : theme.textSecondary};
+`
 
 const SectionArrow = styled(ChevronUpIcon)<{ active: boolean }>`
   height: 24px;
@@ -42,7 +34,7 @@ const SectionArrow = styled(ChevronUpIcon)<{ active: boolean }>`
   cursor: pointer;
   transition: ${TRANSITION_DURATIONS.medium}ms;
   transform: rotate(${({ active }) => (active ? 0 : 180)}deg);
-`;
+`
 
 const SectionBody = styled(Column)`
   border-left: 1.5px solid ${colors.gray650};
@@ -53,19 +45,19 @@ const SectionBody = styled(Column)`
   max-height: 394px;
   overflow-y: auto;
   ${ScrollBarStyles}
-`;
+`
 
 const StyledInfoIcon = styled(Info)`
   height: 16px;
   width: 16px;
   margin-left: 4px;
   color: ${({ theme }) => theme.textSecondary};
-`;
+`
 
 const ContentRowContainer = styled(Column)`
   gap: 8px;
   scroll-behavior: smooth;
-`;
+`
 
 export const enum Section {
   APPROVE,
@@ -73,72 +65,50 @@ export const enum Section {
 }
 
 interface ListModalSectionProps {
-  sectionType: Section;
-  active: boolean;
-  content: AssetRow[];
-  toggleSection: React.DispatchWithoutAction;
+  sectionType: Section
+  active: boolean
+  content: AssetRow[]
+  toggleSection: React.DispatchWithoutAction
 }
 
-export const ListModalSection = ({
-  sectionType,
-  active,
-  content,
-  toggleSection,
-}: ListModalSectionProps) => {
-  const theme = useTheme();
-  const sellAssets = useSellAsset((state) => state.sellAssets);
-  const removeAssetMarketplace = useSellAsset(
-    (state) => state.removeAssetMarketplace
-  );
-  const allContentApproved = useMemo(
-    () => !content.some((row) => row.status !== ListingStatus.APPROVED),
-    [content]
-  );
-  const isCollectionApprovalSection = sectionType === Section.APPROVE;
+export const ListModalSection = ({ sectionType, active, content, toggleSection }: ListModalSectionProps) => {
+  const theme = useTheme()
+  const sellAssets = useSellAsset((state) => state.sellAssets)
+  const removeAssetMarketplace = useSellAsset((state) => state.removeAssetMarketplace)
+  const allContentApproved = useMemo(() => !content.some((row) => row.status !== ListingStatus.APPROVED), [content])
+  const isCollectionApprovalSection = sectionType === Section.APPROVE
   const removeRow = (row: AssetRow) => {
     // collections
     if (isCollectionApprovalSection) {
-      const collectionRow = row as CollectionRow;
+      const collectionRow = row as CollectionRow
       for (const asset of sellAssets)
         if (asset.asset_contract.address === collectionRow.collectionAddress)
-          removeAssetMarketplace(asset, collectionRow.marketplace);
+          removeAssetMarketplace(asset, collectionRow.marketplace)
     }
     // listings
     else {
-      const listingRow = row as ListingRow;
-      removeAssetMarketplace(listingRow.asset, listingRow.marketplace);
+      const listingRow = row as ListingRow
+      removeAssetMarketplace(listingRow.asset, listingRow.marketplace)
     }
-  };
+  }
   return (
     <Column>
       <SectionHeader>
         <Row>
           {active || allContentApproved ? (
-            <ListingModalWindowActive
-              fill={
-                allContentApproved ? theme.accentSuccess : theme.accentAction
-              }
-            />
+            <ListingModalWindowActive fill={allContentApproved ? theme.accentSuccess : theme.accentAction} />
           ) : (
             <ListingModalWindowClosed />
           )}
-          <SectionTitle
-            active={active}
-            marginLeft="12px"
-            approved={allContentApproved}
-          >
+          <SectionTitle active={active} marginLeft="12px" approved={allContentApproved}>
             {isCollectionApprovalSection ? (
               <>
                 <Trans>Approve</Trans>&nbsp;{content.length}&nbsp;
-                <Plural
-                  value={content.length}
-                  _1="Collection"
-                  other="Collections"
-                />
+                <Plural value={content.length} _1="Collection" other="Collections" />
               </>
             ) : (
               <>
-                <Trans>Sign</Trans> &nbsp;{content.length}&nbsp;{" "}
+                <Trans>Sign</Trans> &nbsp;{content.length}&nbsp;{' '}
                 <Plural value={content.length} _1="Listing" other="Listings" />
               </>
             )}
@@ -158,12 +128,7 @@ export const ListModalSection = ({
                 <Trans>Why is a transaction required?</Trans>
               </ThemedText.Caption>
               <MouseoverTooltip
-                text={
-                  <Trans>
-                    Listing an NFT requires a one-time marketplace approval for
-                    each NFT collection.
-                  </Trans>
-                }
+                text={<Trans>Listing an NFT requires a one-time marketplace approval for each NFT collection.</Trans>}
               >
                 <StyledInfoIcon />
               </MouseoverTooltip>
@@ -173,7 +138,7 @@ export const ListModalSection = ({
             {content.map((row: AssetRow) => (
               <ContentRow
                 row={row}
-                key={(row?.name ?? "") + row?.images[1]}
+                key={(row?.name ?? '') + row?.images[1]}
                 removeRow={removeRow}
                 isCollectionApprovalSection={isCollectionApprovalSection}
               />
@@ -182,5 +147,5 @@ export const ListModalSection = ({
         </SectionBody>
       )}
     </Column>
-  );
-};
+  )
+}

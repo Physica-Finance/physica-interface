@@ -1,10 +1,10 @@
-import { parseEther } from "ethers/lib/utils";
-import gql from "graphql-tag";
-import { GenieCollection, WalletAsset } from "nft/types";
-import { wrapScientificNotation } from "nft/utils";
-import { useCallback, useMemo } from "react";
+import { parseEther } from 'ethers/lib/utils'
+import gql from 'graphql-tag'
+import { GenieCollection, WalletAsset } from 'nft/types'
+import { wrapScientificNotation } from 'nft/utils'
+import { useCallback, useMemo } from 'react'
 
-import { NftAsset, useNftBalanceQuery } from "../__generated__/types-and-hooks";
+import { NftAsset, useNftBalanceQuery } from '../__generated__/types-and-hooks'
 
 gql`
   query NftBalance(
@@ -15,14 +15,7 @@ gql`
     $last: Int
     $before: String
   ) {
-    nftBalances(
-      ownerAddress: $ownerAddress
-      filter: $filter
-      first: $first
-      after: $after
-      last: $last
-      before: $before
-    ) {
+    nftBalances(ownerAddress: $ownerAddress, filter: $filter, first: $first, after: $after, last: $last, before: $before) {
       edges {
         node {
           ownedAsset {
@@ -101,7 +94,7 @@ gql`
       }
     }
   }
-`;
+`
 
 export function useNftBalance(
   ownerAddress: string,
@@ -110,7 +103,7 @@ export function useNftBalance(
   first?: number,
   after?: string,
   last?: number,
-  before?: string
+  before?: string,
 ) {
   const { data, loading, fetchMore } = useNftBalanceQuery({
     variables: {
@@ -128,9 +121,9 @@ export function useNftBalance(
       last,
       before,
     },
-  });
+  })
 
-  const hasNext = data?.nftBalances?.pageInfo?.hasNextPage;
+  const hasNext = data?.nftBalances?.pageInfo?.hasNextPage
   const loadMore = useCallback(
     () =>
       fetchMore({
@@ -138,60 +131,50 @@ export function useNftBalance(
           after: data?.nftBalances?.pageInfo?.endCursor,
         },
       }),
-    [data?.nftBalances?.pageInfo?.endCursor, fetchMore]
-  );
+    [data?.nftBalances?.pageInfo?.endCursor, fetchMore],
+  )
 
-  const walletAssets: WalletAsset[] | undefined = data?.nftBalances?.edges?.map(
-    (queryAsset) => {
-      const asset = queryAsset?.node.ownedAsset as NonNullable<NftAsset>;
-      const ethPrice = parseEther(
-        wrapScientificNotation(asset?.listings?.edges[0]?.node.price.value ?? 0)
-      ).toString();
-      return {
-        id: asset?.id,
-        imageUrl: asset?.image?.url,
-        smallImageUrl: asset?.smallImage?.url,
-        notForSale: asset?.listings?.edges?.length === 0,
-        animationUrl: asset?.animationUrl,
-        susFlag: asset?.suspiciousFlag,
-        priceInfo: {
-          ETHPrice: ethPrice,
-          baseAsset: "ETH",
-          baseDecimals: "18",
-          basePrice: ethPrice,
-        },
-        name: asset?.name,
-        tokenId: asset?.tokenId,
-        asset_contract: {
-          address: asset?.collection?.nftContracts?.[0]?.address,
-          tokenType: asset?.collection?.nftContracts?.[0]?.standard,
-          name: asset?.collection?.name,
-          description: asset?.description,
-          image_url: asset?.collection?.image?.url,
-          payout_address: queryAsset?.node?.listingFees?.[0]?.payoutAddress,
-        },
-        collection: {
-          name: asset.collection?.name,
-          isVerified: asset.collection?.isVerified,
-          imageUrl: asset.collection?.image?.url,
-          twitterUrl: asset.collection?.twitterName
-            ? `@${asset.collection?.twitterName}`
-            : undefined,
-        } as GenieCollection,
-        collectionIsVerified: asset?.collection?.isVerified,
-        lastPrice: queryAsset.node.lastPrice?.value,
-        floorPrice: asset?.collection?.markets?.[0]?.floorPrice?.value,
-        basisPoints:
-          queryAsset?.node?.listingFees?.[0]?.basisPoints ?? 0 / 10000,
-        listing_date: asset?.listings?.edges?.[0]?.node?.createdAt?.toString(),
-        date_acquired: queryAsset.node.lastPrice?.timestamp?.toString(),
-        sellOrders: asset?.listings?.edges.map((edge: any) => edge.node),
-        floor_sell_order_price: asset?.listings?.edges?.[0]?.node?.price?.value,
-      };
+  const walletAssets: WalletAsset[] | undefined = data?.nftBalances?.edges?.map((queryAsset) => {
+    const asset = queryAsset?.node.ownedAsset as NonNullable<NftAsset>
+    const ethPrice = parseEther(wrapScientificNotation(asset?.listings?.edges[0]?.node.price.value ?? 0)).toString()
+    return {
+      id: asset?.id,
+      imageUrl: asset?.image?.url,
+      smallImageUrl: asset?.smallImage?.url,
+      notForSale: asset?.listings?.edges?.length === 0,
+      animationUrl: asset?.animationUrl,
+      susFlag: asset?.suspiciousFlag,
+      priceInfo: {
+        ETHPrice: ethPrice,
+        baseAsset: 'ETH',
+        baseDecimals: '18',
+        basePrice: ethPrice,
+      },
+      name: asset?.name,
+      tokenId: asset?.tokenId,
+      asset_contract: {
+        address: asset?.collection?.nftContracts?.[0]?.address,
+        tokenType: asset?.collection?.nftContracts?.[0]?.standard,
+        name: asset?.collection?.name,
+        description: asset?.description,
+        image_url: asset?.collection?.image?.url,
+        payout_address: queryAsset?.node?.listingFees?.[0]?.payoutAddress,
+      },
+      collection: {
+        name: asset.collection?.name,
+        isVerified: asset.collection?.isVerified,
+        imageUrl: asset.collection?.image?.url,
+        twitterUrl: asset.collection?.twitterName ? `@${asset.collection?.twitterName}` : undefined,
+      } as GenieCollection,
+      collectionIsVerified: asset?.collection?.isVerified,
+      lastPrice: queryAsset.node.lastPrice?.value,
+      floorPrice: asset?.collection?.markets?.[0]?.floorPrice?.value,
+      basisPoints: queryAsset?.node?.listingFees?.[0]?.basisPoints ?? 0 / 10000,
+      listing_date: asset?.listings?.edges?.[0]?.node?.createdAt?.toString(),
+      date_acquired: queryAsset.node.lastPrice?.timestamp?.toString(),
+      sellOrders: asset?.listings?.edges.map((edge: any) => edge.node),
+      floor_sell_order_price: asset?.listings?.edges?.[0]?.node?.price?.value,
     }
-  );
-  return useMemo(
-    () => ({ walletAssets, hasNext, loadMore, loading }),
-    [hasNext, loadMore, loading, walletAssets]
-  );
+  })
+  return useMemo(() => ({ walletAssets, hasNext, loadMore, loading }), [hasNext, loadMore, loading, walletAssets])
 }

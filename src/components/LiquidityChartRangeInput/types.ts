@@ -1,64 +1,61 @@
-import { Bound } from "state/mint/v3/actions";
+import { Bound } from 'state/mint/v3/actions'
 
 export interface ChartEntry {
-  activeLiquidity: number;
-  price0: number;
+  activeLiquidity: number
+  price0: number
 }
 
 interface Dimensions {
-  width: number;
-  height: number;
+  width: number
+  height: number
 }
 
 interface Margins {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
+  top: number
+  right: number
+  bottom: number
+  left: number
 }
 
 export interface ZoomLevels {
-  initialMin: number;
-  initialMax: number;
-  min: number;
-  max: number;
+  initialMin: number
+  initialMax: number
+  min: number
+  max: number
 }
 
 export interface LiquidityChartRangeInputProps {
   // to distringuish between multiple charts in the DOM
-  id?: string;
+  id?: string
 
   data: {
-    series: ChartEntry[];
-    current: number;
-  };
-  ticksAtLimit: { [bound in Bound]?: boolean | undefined };
+    series: ChartEntry[]
+    current: number
+  }
+  ticksAtLimit: { [bound in Bound]?: boolean | undefined }
 
   styles: {
     area: {
       // color of the ticks in range
-      selection: string;
-    };
+      selection: string
+    }
 
     brush: {
       handle: {
-        west: string;
-        east: string;
-      };
-    };
-  };
+        west: string
+        east: string
+      }
+    }
+  }
 
-  dimensions: Dimensions;
-  margins: Margins;
+  dimensions: Dimensions
+  margins: Margins
 
-  interactive?: boolean;
+  interactive?: boolean
 
-  brushLabels: (d: "w" | "e", x: number) => string;
-  brushDomain: [number, number] | undefined;
-  onBrushDomainChange: (
-    domain: [number, number],
-    mode: string | undefined
-  ) => void;
+  brushLabels: (d: 'w' | 'e', x: number) => string
+  brushDomain: [number, number] | undefined
+  onBrushDomainChange: (domain: [number, number], mode: string | undefined) => void
 
-  zoomLevels: ZoomLevels;
+  zoomLevels: ZoomLevels
 }

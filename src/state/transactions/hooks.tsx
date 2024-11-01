@@ -1,70 +1,65 @@
-import type { TransactionResponse } from "@ethersproject/providers";
-import { Token } from "@uniswap/sdk-core";
-import { useWeb3React } from "@web3-react/core";
-import { useCallback, useMemo } from "react";
-import { useAppDispatch, useAppSelector } from "state/hooks";
+import type { TransactionResponse } from '@ethersproject/providers'
+import { Token } from '@uniswap/sdk-core'
+import { useWeb3React } from '@web3-react/core'
+import { useCallback, useMemo } from 'react'
+import { useAppDispatch, useAppSelector } from 'state/hooks'
 
-import { addTransaction } from "./reducer";
-import { TransactionDetails, TransactionInfo, TransactionType } from "./types";
+import { addTransaction } from './reducer'
+import { TransactionDetails, TransactionInfo, TransactionType } from './types'
 
 // helper that can take a ethers library transaction response and add it to the list of transactions
-export function useTransactionAdder(): (
-  response: TransactionResponse,
-  info: TransactionInfo
-) => void {
-  const { chainId, account } = useWeb3React();
-  const dispatch = useAppDispatch();
+export function useTransactionAdder(): (response: TransactionResponse, info: TransactionInfo) => void {
+  const { chainId, account } = useWeb3React()
+  const dispatch = useAppDispatch()
 
   return useCallback(
     (response: TransactionResponse, info: TransactionInfo) => {
-      if (!account) return;
-      if (!chainId) return;
+      if (!account) return
+      if (!chainId) return
 
-      const { hash } = response;
+      const { hash } = response
       if (!hash) {
-        throw Error("No transaction hash found.");
+        throw Error('No transaction hash found.')
       }
-      dispatch(addTransaction({ hash, from: account, info, chainId }));
+      dispatch(addTransaction({ hash, from: account, info, chainId }))
     },
-    [account, chainId, dispatch]
-  );
+    [account, chainId, dispatch],
+  )
 }
 
 // returns all the transactions for the current chain
 export function useAllTransactions(): { [txHash: string]: TransactionDetails } {
-  const { chainId } = useWeb3React();
+  const { chainId } = useWeb3React()
 
-  const state = useAppSelector((state) => state.transactions);
+  const state = useAppSelector((state) => state.transactions)
 
-  return chainId ? state[chainId] ?? {} : {};
+  return chainId ? state[chainId] ?? {} : {}
 }
 
-export function useTransaction(
-  transactionHash?: string
-): TransactionDetails | undefined {
-  const allTransactions = useAllTransactions();
+export function useTransaction(transactionHash?: string): TransactionDetails | undefined {
+  const allTransactions = useAllTransactions()
 
   if (!transactionHash) {
-    return undefined;
+    return undefined
   }
 
-  return allTransactions[transactionHash];
+  return allTransactions[transactionHash]
 }
 
 export function useIsTransactionPending(transactionHash?: string): boolean {
-  const transactions = useAllTransactions();
+  const transactions = useAllTransactions()
 
-  if (!transactionHash || !transactions[transactionHash]) return false;
+  if (!transactionHash || !transactions[transactionHash]) return false
 
-  return !transactions[transactionHash].receipt;
+  return !transactions[transactionHash].receipt
 }
 
 export function useIsTransactionConfirmed(transactionHash?: string): boolean {
-  const transactions = useAllTransactions();
+  const transactions = useAllTransactions()
 
-  if (!transactionHash || !transactions[transactionHash]) return false;
+  if (!transactionHash || !transactions[transactionHash]) return false
 
-  return Boolean(transactions[transactionHash].receipt);
+  return Boolean(transactions[transactionHash].receipt)
 }
 
 /**
@@ -72,33 +67,26 @@ export function useIsTransactionConfirmed(transactionHash?: string): boolean {
  * @param tx to check for recency
  */
 export function isTransactionRecent(tx: TransactionDetails): boolean {
-  return new Date().getTime() - tx.addedTime < 86_400_000;
+  return new Date().getTime() - tx.addedTime < 86_400_000
 }
 
 // returns whether a token has a pending approval transaction
-export function useHasPendingApproval(
-  token?: Token,
-  spender?: string
-): boolean {
-  const allTransactions = useAllTransactions();
+export function useHasPendingApproval(token?: Token, spender?: string): boolean {
+  const allTransactions = useAllTransactions()
   return useMemo(
     () =>
-      typeof token?.address === "string" &&
-      typeof spender === "string" &&
+      typeof token?.address === 'string' &&
+      typeof spender === 'string' &&
       Object.keys(allTransactions).some((hash) => {
-        const tx = allTransactions[hash];
-        if (!tx) return false;
+        const tx = allTransactions[hash]
+        if (!tx) return false
         if (tx.receipt) {
-          return false;
+          return false
         } else {
-          if (tx.info.type !== TransactionType.APPROVAL) return false;
-          return (
-            tx.info.spender === spender &&
-            tx.info.tokenAddress === token.address &&
-            isTransactionRecent(tx)
-          );
+          if (tx.info.type !== TransactionType.APPROVAL) return false
+          return tx.info.spender === spender && tx.info.tokenAddress === token.address && isTransactionRecent(tx)
         }
       }),
-    [allTransactions, spender, token?.address]
-  );
+    [allTransactions, spender, token?.address],
+  )
 }

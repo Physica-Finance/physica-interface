@@ -1,11 +1,11 @@
-import { useCallback, useEffect } from "react";
-import { X } from "react-feather";
-import { animated, useSpring } from "react-spring";
-import styled, { useTheme } from "styled-components/macro";
+import { useCallback, useEffect } from 'react'
+import { X } from 'react-feather'
+import { animated, useSpring } from 'react-spring'
+import styled, { useTheme } from 'styled-components/macro'
 
-import { useRemovePopup } from "../../state/application/hooks";
-import { PopupContent } from "../../state/application/reducer";
-import FailedNetworkSwitchPopup from "./FailedNetworkSwitchPopup";
+import { useRemovePopup } from '../../state/application/hooks'
+import { PopupContent } from '../../state/application/reducer'
+import FailedNetworkSwitchPopup from './FailedNetworkSwitchPopup'
 
 const StyledClose = styled(X)`
   position: absolute;
@@ -15,7 +15,7 @@ const StyledClose = styled(X)`
   :hover {
     cursor: pointer;
   }
-`;
+`
 const Popup = styled.div`
   display: inline-block;
   width: 100%;
@@ -33,7 +33,7 @@ const Popup = styled.div`
       margin-right: 20px;
     }
   `}
-`;
+`
 const Fader = styled.div`
   position: absolute;
   bottom: 0px;
@@ -41,48 +41,43 @@ const Fader = styled.div`
   width: 100%;
   height: 2px;
   background-color: ${({ theme }) => theme.deprecated_bg3};
-`;
+`
 
-const AnimatedFader = animated(Fader);
+const AnimatedFader = animated(Fader)
 
 export default function PopupItem({
   removeAfterMs,
   content,
   popKey,
 }: {
-  removeAfterMs: number | null;
-  content: PopupContent;
-  popKey: string;
+  removeAfterMs: number | null
+  content: PopupContent
+  popKey: string
 }) {
-  const removePopup = useRemovePopup();
-  const removeThisPopup = useCallback(
-    () => removePopup(popKey),
-    [popKey, removePopup]
-  );
+  const removePopup = useRemovePopup()
+  const removeThisPopup = useCallback(() => removePopup(popKey), [popKey, removePopup])
   useEffect(() => {
-    if (removeAfterMs === null) return undefined;
+    if (removeAfterMs === null) return undefined
 
     const timeout = setTimeout(() => {
-      removeThisPopup();
-    }, removeAfterMs);
+      removeThisPopup()
+    }, removeAfterMs)
 
     return () => {
-      clearTimeout(timeout);
-    };
-  }, [removeAfterMs, removeThisPopup]);
+      clearTimeout(timeout)
+    }
+  }, [removeAfterMs, removeThisPopup])
 
-  const theme = useTheme();
+  const theme = useTheme()
   const faderStyle = useSpring({
-    from: { width: "100%" },
-    to: { width: "0%" },
+    from: { width: '100%' },
+    to: { width: '0%' },
     config: { duration: removeAfterMs ?? undefined },
-  });
+  })
 
-  let popupContent;
-  if ("failedSwitchNetwork" in content) {
-    popupContent = (
-      <FailedNetworkSwitchPopup chainId={content.failedSwitchNetwork} />
-    );
+  let popupContent
+  if ('failedSwitchNetwork' in content) {
+    popupContent = <FailedNetworkSwitchPopup chainId={content.failedSwitchNetwork} />
   }
 
   return popupContent ? (
@@ -91,5 +86,5 @@ export default function PopupItem({
       {popupContent}
       {removeAfterMs !== null ? <AnimatedFader style={faderStyle} /> : null}
     </Popup>
-  ) : null;
+  ) : null
 }

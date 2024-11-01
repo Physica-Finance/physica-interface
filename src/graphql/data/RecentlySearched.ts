@@ -1,10 +1,7 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag'
 
 gql`
-  query RecentlySearchedAssets(
-    $collectionAddresses: [String!]!
-    $contracts: [ContractInput!]!
-  ) {
+  query RecentlySearchedAssets($collectionAddresses: [String!]!, $contracts: [ContractInput!]!) {
     nftCollections(filter: { addresses: $collectionAddresses }) {
       edges {
         node {
@@ -59,4 +56,4 @@ gql`
       }
     }
   }
-`;
+`

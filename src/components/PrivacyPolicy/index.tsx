@@ -1,26 +1,23 @@
-import { Trans } from "@lingui/macro";
-import { sendEvent } from "components/analytics";
-import Card, { DarkGrayCard } from "components/Card";
-import Row, { AutoRow, RowBetween } from "components/Row";
-import { useEffect, useRef } from "react";
-import { ArrowDown, Info, X } from "react-feather";
-import styled from "styled-components/macro";
-import { ExternalLink, ThemedText } from "theme";
-import { isMobile } from "utils/userAgent";
+import { Trans } from '@lingui/macro'
+import { sendEvent } from 'components/analytics'
+import Card, { DarkGrayCard } from 'components/Card'
+import Row, { AutoRow, RowBetween } from 'components/Row'
+import { useEffect, useRef } from 'react'
+import { ArrowDown, Info, X } from 'react-feather'
+import styled from 'styled-components/macro'
+import { ExternalLink, ThemedText } from 'theme'
+import { isMobile } from 'utils/userAgent'
 
-import {
-  useModalIsOpen,
-  useTogglePrivacyPolicy,
-} from "../../state/application/hooks";
-import { ApplicationModal } from "../../state/application/reducer";
-import { AutoColumn } from "../Column";
-import Modal from "../Modal";
+import { useModalIsOpen, useTogglePrivacyPolicy } from '../../state/application/hooks'
+import { ApplicationModal } from '../../state/application/reducer'
+import { AutoColumn } from '../Column'
+import Modal from '../Modal'
 
 const Wrapper = styled.div`
   max-height: 70vh;
   overflow: auto;
   padding: 0 1rem;
-`;
+`
 
 const StyledExternalCard = styled(Card)`
   background-color: ${({ theme }) => theme.deprecated_primary5};
@@ -32,7 +29,7 @@ const StyledExternalCard = styled(Card)`
   :active {
     background-color: ${({ theme }) => theme.deprecated_primary4};
   }
-`;
+`
 
 const HoverText = styled.div`
   text-decoration: none;
@@ -43,38 +40,28 @@ const HoverText = styled.div`
   :hover {
     cursor: pointer;
   }
-`;
+`
 
 const StyledLinkOut = styled(ArrowDown)`
   transform: rotate(230deg);
-`;
+`
 
 const EXTERNAL_APIS = [
   {
-    name: "Auto Router",
-    description: (
-      <Trans>
-        The app fetches the optimal trade route from a Physica Labs server.
-      </Trans>
-    ),
+    name: 'Auto Router',
+    description: <Trans>The app fetches the optimal trade route from a Physica Labs server.</Trans>,
   },
   {
-    name: "Infura",
-    description: (
-      <Trans>
-        The app fetches on-chain data and constructs contract calls with an
-        Infura API.
-      </Trans>
-    ),
+    name: 'Infura',
+    description: <Trans>The app fetches on-chain data and constructs contract calls with an Infura API.</Trans>,
   },
   {
-    name: "TRM Labs",
+    name: 'TRM Labs',
     description: (
       <>
         <Trans>
-          The app securely collects your wallet address and shares it with TRM
-          Labs Inc. for risk and compliance reasons.
-        </Trans>{" "}
+          The app securely collects your wallet address and shares it with TRM Labs Inc. for risk and compliance reasons.
+        </Trans>{' '}
         <ExternalLink href="https://help.uniswap.org/en/articles/5675203-terms-of-service-faq">
           <Trans>Learn more</Trans>
         </ExternalLink>
@@ -82,36 +69,28 @@ const EXTERNAL_APIS = [
     ),
   },
   {
-    name: "Google Analytics & Amplitude",
-    description: (
-      <Trans>
-        The app logs anonymized usage statistics in order to improve over time.
-      </Trans>
-    ),
+    name: 'Google Analytics & Amplitude',
+    description: <Trans>The app logs anonymized usage statistics in order to improve over time.</Trans>,
   },
   {
-    name: "The Graph",
-    description: (
-      <Trans>
-        The app fetches blockchain data from The Graph’s hosted service.
-      </Trans>
-    ),
+    name: 'The Graph',
+    description: <Trans>The app fetches blockchain data from The Graph’s hosted service.</Trans>,
   },
-];
+]
 
 export function PrivacyPolicyModal() {
-  const node = useRef<HTMLDivElement>();
-  const open = useModalIsOpen(ApplicationModal.PRIVACY_POLICY);
-  const toggle = useTogglePrivacyPolicy();
+  const node = useRef<HTMLDivElement>()
+  const open = useModalIsOpen(ApplicationModal.PRIVACY_POLICY)
+  const toggle = useTogglePrivacyPolicy()
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) return
 
     sendEvent({
-      category: "Modal",
-      action: "Show Legal",
-    });
-  }, [open]);
+      category: 'Modal',
+      action: 'Show Legal',
+    })
+  }, [open])
 
   return (
     <Modal isOpen={open} onDismiss={() => toggle()}>
@@ -127,7 +106,7 @@ export function PrivacyPolicyModal() {
         <PrivacyPolicy />
       </AutoColumn>
     </Modal>
-  );
+  )
 }
 
 function PrivacyPolicy() {
@@ -137,12 +116,12 @@ function PrivacyPolicy() {
       onTouchMove={(e) => {
         // prevent modal gesture handler from dismissing modal when content is scrolling
         if (isMobile) {
-          e.stopPropagation();
+          e.stopPropagation()
         }
       }}
     >
       <AutoColumn gap="16px">
-        <AutoColumn gap="sm" style={{ width: "100%" }}>
+        <AutoColumn gap="sm" style={{ width: '100%' }}>
           <StyledExternalCard>
             <ExternalLink href="https://physica.finance/terms-of-service">
               <RowBetween>
@@ -183,9 +162,7 @@ function PrivacyPolicy() {
                     {name}
                   </ThemedText.DeprecatedMain>
                 </AutoRow>
-                <ThemedText.DeprecatedMain fontSize={14}>
-                  {description}
-                </ThemedText.DeprecatedMain>
+                <ThemedText.DeprecatedMain fontSize={14}>{description}</ThemedText.DeprecatedMain>
               </AutoColumn>
             </DarkGrayCard>
           ))}
@@ -199,5 +176,5 @@ function PrivacyPolicy() {
         </AutoColumn>
       </AutoColumn>
     </Wrapper>
-  );
+  )
 }

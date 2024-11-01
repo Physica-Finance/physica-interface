@@ -1,26 +1,22 @@
-import { Trans } from "@lingui/macro";
-import { TraceEvent } from "@uniswap/analytics";
-import {
-  BrowserEvent,
-  InterfaceElementName,
-  InterfaceEventName,
-} from "@uniswap/analytics-events";
-import searchIcon from "assets/svg/search.svg";
-import xIcon from "assets/svg/x.svg";
-import useDebounce from "hooks/useDebounce";
-import { useAtomValue, useUpdateAtom } from "jotai/utils";
-import { useEffect, useState } from "react";
-import styled from "styled-components/macro";
+import { Trans } from '@lingui/macro'
+import { TraceEvent } from '@uniswap/analytics'
+import { BrowserEvent, InterfaceElementName, InterfaceEventName } from '@uniswap/analytics-events'
+import searchIcon from 'assets/svg/search.svg'
+import xIcon from 'assets/svg/x.svg'
+import useDebounce from 'hooks/useDebounce'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components/macro'
 
-import { MEDIUM_MEDIA_BREAKPOINT } from "../constants";
-import { filterStringAtom } from "../state";
+import { MEDIUM_MEDIA_BREAKPOINT } from '../constants'
+import { filterStringAtom } from '../state'
 
-const ICON_SIZE = "20px";
+const ICON_SIZE = '20px'
 
 const SearchBarContainer = styled.div`
   display: flex;
   flex: 1;
-`;
+`
 const SearchInput = styled.input`
   background: no-repeat scroll 7px 7px;
   background-image: url(${searchIcon});
@@ -63,21 +59,21 @@ const SearchInput = styled.input`
   @media only screen and (max-width: ${MEDIUM_MEDIA_BREAKPOINT}) {
     width: 100%;
   }
-`;
+`
 
 export default function SearchBar() {
-  const currentString = useAtomValue(filterStringAtom);
-  const [localFilterString, setLocalFilterString] = useState(currentString);
-  const setFilterString = useUpdateAtom(filterStringAtom);
-  const debouncedLocalFilterString = useDebounce(localFilterString, 300);
+  const currentString = useAtomValue(filterStringAtom)
+  const [localFilterString, setLocalFilterString] = useState(currentString)
+  const setFilterString = useUpdateAtom(filterStringAtom)
+  const debouncedLocalFilterString = useDebounce(localFilterString, 300)
 
   useEffect(() => {
-    setLocalFilterString(currentString);
-  }, [currentString]);
+    setLocalFilterString(currentString)
+  }, [currentString])
 
   useEffect(() => {
-    setFilterString(debouncedLocalFilterString);
-  }, [debouncedLocalFilterString, setFilterString]);
+    setFilterString(debouncedLocalFilterString)
+  }, [debouncedLocalFilterString, setFilterString])
 
   return (
     <SearchBarContainer>
@@ -103,5 +99,5 @@ export default function SearchBar() {
         Filter tokens
       </Trans>
     </SearchBarContainer>
-  );
+  )
 }

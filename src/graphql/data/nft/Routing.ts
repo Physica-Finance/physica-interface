@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag'
 
 gql`
   query NftRoute(
@@ -7,12 +7,7 @@ gql`
     $nftTrades: [NftTradeInput!]!
     $tokenTrades: [TokenTradeInput!]
   ) {
-    nftRoute(
-      chain: $chain
-      senderAddress: $senderAddress
-      nftTrades: $nftTrades
-      tokenTrades: $tokenTrades
-    ) {
+    nftRoute(chain: $chain, senderAddress: $senderAddress, nftTrades: $nftTrades, tokenTrades: $tokenTrades) {
       id
       calldata
       route {
@@ -41,4 +36,4 @@ gql`
       toAddress
     }
   }
-`;
+`

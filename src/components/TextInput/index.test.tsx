@@ -1,9 +1,9 @@
-import { fireEvent, render, screen } from "test-utils";
+import { fireEvent, render, screen } from 'test-utils'
 
-import { ResizingTextArea, TextInput } from "./";
+import { ResizingTextArea, TextInput } from './'
 
-describe("TextInput", () => {
-  it("renders correctly", () => {
+describe('TextInput', () => {
+  it('renders correctly', () => {
     const { asFragment } = render(
       <TextInput
         className="testing"
@@ -11,34 +11,28 @@ describe("TextInput", () => {
         onUserInput={() => null}
         placeholder="Test Placeholder"
         fontSize="12"
-      />
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
+      />,
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
 
-  it("calls the handler on user input", () => {
-    const onUserInputSpy = jest.fn();
+  it('calls the handler on user input', () => {
+    const onUserInputSpy = jest.fn()
     render(
-      <TextInput
-        className="testing"
-        value=""
-        onUserInput={onUserInputSpy}
-        placeholder="Test Placeholder"
-        fontSize="12"
-      />
-    );
+      <TextInput className="testing" value="" onUserInput={onUserInputSpy} placeholder="Test Placeholder" fontSize="12" />,
+    )
 
-    fireEvent.change(screen.getByPlaceholderText("Test Placeholder"), {
-      target: { value: "New value" },
-    });
+    fireEvent.change(screen.getByPlaceholderText('Test Placeholder'), {
+      target: { value: 'New value' },
+    })
 
-    expect(onUserInputSpy).toHaveBeenCalledWith("New value");
-    expect(onUserInputSpy).toHaveBeenCalledTimes(1);
-  });
-});
+    expect(onUserInputSpy).toHaveBeenCalledWith('New value')
+    expect(onUserInputSpy).toHaveBeenCalledTimes(1)
+  })
+})
 
-describe("ResizableTextArea", () => {
-  it("renders correctly", () => {
+describe('ResizableTextArea', () => {
+  it('renders correctly', () => {
     const { asFragment } = render(
       <ResizingTextArea
         className="testing"
@@ -46,13 +40,13 @@ describe("ResizableTextArea", () => {
         onUserInput={() => null}
         placeholder="Test Placeholder"
         fontSize="12"
-      />
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
+      />,
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
 
-  it("calls the handler on user input", () => {
-    const onUserInputSpy = jest.fn();
+  it('calls the handler on user input', () => {
+    const onUserInputSpy = jest.fn()
     render(
       <ResizingTextArea
         className="testing"
@@ -60,14 +54,14 @@ describe("ResizableTextArea", () => {
         onUserInput={onUserInputSpy}
         placeholder="Test Placeholder"
         fontSize="12"
-      />
-    );
+      />,
+    )
 
-    fireEvent.change(screen.getByPlaceholderText("Test Placeholder"), {
-      target: { value: "New value" },
-    });
+    fireEvent.change(screen.getByPlaceholderText('Test Placeholder'), {
+      target: { value: 'New value' },
+    })
 
-    expect(onUserInputSpy).toHaveBeenCalledWith("New value");
-    expect(onUserInputSpy).toHaveBeenCalledTimes(1);
-  });
-});
+    expect(onUserInputSpy).toHaveBeenCalledWith('New value')
+    expect(onUserInputSpy).toHaveBeenCalledTimes(1)
+  })
+})

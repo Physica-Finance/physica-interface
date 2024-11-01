@@ -1,12 +1,12 @@
-import { Trans } from "@lingui/macro";
-import { Currency, CurrencyAmount, Fraction, Percent } from "@uniswap/sdk-core";
-import { Text } from "rebass";
+import { Trans } from '@lingui/macro'
+import { Currency, CurrencyAmount, Fraction, Percent } from '@uniswap/sdk-core'
+import { Text } from 'rebass'
 
-import { ButtonPrimary } from "../../components/Button";
-import CurrencyLogo from "../../components/Logo/CurrencyLogo";
-import { RowBetween, RowFixed } from "../../components/Row";
-import { Field } from "../../state/mint/actions";
-import { ThemedText } from "../../theme";
+import { ButtonPrimary } from '../../components/Button'
+import CurrencyLogo from '../../components/Logo/CurrencyLogo'
+import { RowBetween, RowFixed } from '../../components/Row'
+import { Field } from '../../state/mint/actions'
+import { ThemedText } from '../../theme'
 
 export function ConfirmAddModalBottom({
   noLiquidity,
@@ -16,12 +16,12 @@ export function ConfirmAddModalBottom({
   poolTokenPercentage,
   onAdd,
 }: {
-  noLiquidity?: boolean;
-  price?: Fraction;
-  currencies: { [field in Field]?: Currency };
-  parsedAmounts: { [field in Field]?: CurrencyAmount<Currency> };
-  poolTokenPercentage?: Percent;
-  onAdd: () => void;
+  noLiquidity?: boolean
+  price?: Fraction
+  currencies: { [field in Field]?: Currency }
+  parsedAmounts: { [field in Field]?: CurrencyAmount<Currency> }
+  poolTokenPercentage?: Percent
+  onAdd: () => void
 }) {
   return (
     <>
@@ -30,13 +30,8 @@ export function ConfirmAddModalBottom({
           <Trans>{currencies[Field.CURRENCY_A]?.symbol} Deposited</Trans>
         </ThemedText.DeprecatedBody>
         <RowFixed>
-          <CurrencyLogo
-            currency={currencies[Field.CURRENCY_A]}
-            style={{ marginRight: "8px" }}
-          />
-          <ThemedText.DeprecatedBody>
-            {parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)}
-          </ThemedText.DeprecatedBody>
+          <CurrencyLogo currency={currencies[Field.CURRENCY_A]} style={{ marginRight: '8px' }} />
+          <ThemedText.DeprecatedBody>{parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)}</ThemedText.DeprecatedBody>
         </RowFixed>
       </RowBetween>
       <RowBetween>
@@ -44,13 +39,8 @@ export function ConfirmAddModalBottom({
           <Trans>{currencies[Field.CURRENCY_B]?.symbol} Deposited</Trans>
         </ThemedText.DeprecatedBody>
         <RowFixed>
-          <CurrencyLogo
-            currency={currencies[Field.CURRENCY_B]}
-            style={{ marginRight: "8px" }}
-          />
-          <ThemedText.DeprecatedBody>
-            {parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)}
-          </ThemedText.DeprecatedBody>
+          <CurrencyLogo currency={currencies[Field.CURRENCY_B]} style={{ marginRight: '8px' }} />
+          <ThemedText.DeprecatedBody>{parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)}</ThemedText.DeprecatedBody>
         </RowFixed>
       </RowBetween>
       <RowBetween>
@@ -58,16 +48,14 @@ export function ConfirmAddModalBottom({
           <Trans>Rates</Trans>
         </ThemedText.DeprecatedBody>
         <ThemedText.DeprecatedBody>
-          {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSignificant(
-            4
-          )} ${currencies[Field.CURRENCY_B]?.symbol}`}
+          {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSignificant(4)} ${currencies[Field.CURRENCY_B]?.symbol}`}
         </ThemedText.DeprecatedBody>
       </RowBetween>
-      <RowBetween style={{ justifyContent: "flex-end" }}>
+      <RowBetween style={{ justifyContent: 'flex-end' }}>
         <ThemedText.DeprecatedBody>
-          {`1 ${currencies[Field.CURRENCY_B]?.symbol} = ${price
-            ?.invert()
-            .toSignificant(4)} ${currencies[Field.CURRENCY_A]?.symbol}`}
+          {`1 ${currencies[Field.CURRENCY_B]?.symbol} = ${price?.invert().toSignificant(4)} ${
+            currencies[Field.CURRENCY_A]?.symbol
+          }`}
         </ThemedText.DeprecatedBody>
       </RowBetween>
       <RowBetween>
@@ -75,20 +63,14 @@ export function ConfirmAddModalBottom({
           <Trans>Share of Pool:</Trans>
         </ThemedText.DeprecatedBody>
         <ThemedText.DeprecatedBody>
-          <Trans>
-            {noLiquidity ? "100" : poolTokenPercentage?.toSignificant(4)}%
-          </Trans>
+          <Trans>{noLiquidity ? '100' : poolTokenPercentage?.toSignificant(4)}%</Trans>
         </ThemedText.DeprecatedBody>
       </RowBetween>
-      <ButtonPrimary style={{ margin: "20px 0 0 0" }} onClick={onAdd}>
+      <ButtonPrimary style={{ margin: '20px 0 0 0' }} onClick={onAdd}>
         <Text fontWeight={500} fontSize={20}>
-          {noLiquidity ? (
-            <Trans>Create Pool & Supply</Trans>
-          ) : (
-            <Trans>Confirm Supply</Trans>
-          )}
+          {noLiquidity ? <Trans>Create Pool & Supply</Trans> : <Trans>Confirm Supply</Trans>}
         </Text>
       </ButtonPrimary>
     </>
-  );
+  )
 }

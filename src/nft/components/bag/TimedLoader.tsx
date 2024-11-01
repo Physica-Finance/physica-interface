@@ -1,5 +1,5 @@
-import { Box } from "nft/components/Box";
-import styled, { keyframes } from "styled-components/macro";
+import { Box } from 'nft/components/Box'
+import styled, { keyframes } from 'styled-components/macro'
 
 const dash = keyframes`
   0% {
@@ -8,7 +8,7 @@ const dash = keyframes`
   100% {
     stroke-dashoffset: 0;
   }
-`;
+`
 const Circle = styled.circle`
   stroke-dasharray: 1000;
   stroke-dashoffset: 0;
@@ -16,9 +16,9 @@ const Circle = styled.circle`
   animation: ${dash} linear;
   animation-duration: 160s;
   stroke: ${({ theme }) => theme.accentAction};
-`;
+`
 export const TimedLoader = () => {
-  const stroke = 1.5;
+  const stroke = 1.5
 
   return (
     <Box display="flex" position="absolute">
@@ -27,8 +27,8 @@ export const TimedLoader = () => {
           strokeWidth={`${stroke}`}
           strokeLinecap="round"
           style={{
-            transform: "rotate(90deg)",
-            transformOrigin: "50% 50%",
+            transform: 'rotate(90deg)',
+            transformOrigin: '50% 50%',
           }}
           fill="transparent"
           r="8px"
@@ -37,5 +37,5 @@ export const TimedLoader = () => {
         />
       </svg>
     </Box>
-  );
-};
+  )
+}

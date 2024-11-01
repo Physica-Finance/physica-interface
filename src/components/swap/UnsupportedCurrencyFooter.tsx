@@ -1,19 +1,19 @@
-import { Trans } from "@lingui/macro";
-import { Currency } from "@uniswap/sdk-core";
-import { useWeb3React } from "@web3-react/core";
-import { ButtonEmpty } from "components/Button";
-import Card, { OutlineCard } from "components/Card";
-import { AutoColumn } from "components/Column";
-import CurrencyLogo from "components/Logo/CurrencyLogo";
-import Modal from "components/Modal";
-import { AutoRow, RowBetween } from "components/Row";
-import { useState } from "react";
-import styled from "styled-components/macro";
-import { CloseIcon, ExternalLink, ThemedText } from "theme";
-import { Z_INDEX } from "theme/zIndex";
+import { Trans } from '@lingui/macro'
+import { Currency } from '@uniswap/sdk-core'
+import { useWeb3React } from '@web3-react/core'
+import { ButtonEmpty } from 'components/Button'
+import Card, { OutlineCard } from 'components/Card'
+import { AutoColumn } from 'components/Column'
+import CurrencyLogo from 'components/Logo/CurrencyLogo'
+import Modal from 'components/Modal'
+import { AutoRow, RowBetween } from 'components/Row'
+import { useState } from 'react'
+import styled from 'styled-components/macro'
+import { CloseIcon, ExternalLink, ThemedText } from 'theme'
+import { Z_INDEX } from 'theme/zIndex'
 
-import { useUnsupportedTokens } from "../../hooks/Tokens";
-import { ExplorerDataType, getExplorerLink } from "../../utils/getExplorerLink";
+import { useUnsupportedTokens } from '../../hooks/Tokens'
+import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
 
 const DetailsFooter = styled.div<{ show: boolean }>`
   padding-top: calc(16px + 2rem);
@@ -29,14 +29,14 @@ const DetailsFooter = styled.div<{ show: boolean }>`
   background-color: ${({ theme }) => theme.deprecated_advancedBG};
   z-index: ${Z_INDEX.deprecated_zero};
 
-  transform: ${({ show }) => (show ? "translateY(0%)" : "translateY(-100%)")};
+  transform: ${({ show }) => (show ? 'translateY(0%)' : 'translateY(-100%)')};
   transition: transform 300ms ease-in-out;
   text-align: center;
-`;
+`
 
 const StyledButtonEmpty = styled(ButtonEmpty)`
   text-decoration: none;
-`;
+`
 
 const AddressText = styled(ThemedText.DeprecatedBlue)`
   font-size: 12px;
@@ -44,26 +44,26 @@ const AddressText = styled(ThemedText.DeprecatedBlue)`
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     font-size: 10px;
 `}
-`;
+`
 
 export default function UnsupportedCurrencyFooter({
   show,
   currencies,
 }: {
-  show: boolean;
-  currencies: (Currency | undefined | null)[];
+  show: boolean
+  currencies: (Currency | undefined | null)[]
 }) {
-  const { chainId } = useWeb3React();
-  const [showDetails, setShowDetails] = useState(false);
+  const { chainId } = useWeb3React()
+  const [showDetails, setShowDetails] = useState(false)
 
   const tokens =
     chainId && currencies
       ? currencies.map((currency) => {
-          return currency?.wrapped;
+          return currency?.wrapped
         })
-      : [];
+      : []
 
-  const unsupportedTokens = useUnsupportedTokens();
+  const unsupportedTokens = useUnsupportedTokens()
 
   return (
     <DetailsFooter show={show}>
@@ -81,36 +81,27 @@ export default function UnsupportedCurrencyFooter({
                 token &&
                 unsupportedTokens &&
                 Object.keys(unsupportedTokens).includes(token.address) && (
-                  <OutlineCard key={token.address?.concat("not-supported")}>
+                  <OutlineCard key={token.address?.concat('not-supported')}>
                     <AutoColumn gap="10px">
                       <AutoRow gap="5px" align="center">
                         <CurrencyLogo currency={token} size="24px" />
-                        <ThemedText.DeprecatedBody fontWeight={500}>
-                          {token.symbol}
-                        </ThemedText.DeprecatedBody>
+                        <ThemedText.DeprecatedBody fontWeight={500}>{token.symbol}</ThemedText.DeprecatedBody>
                       </AutoRow>
                       {chainId && (
-                        <ExternalLink
-                          href={getExplorerLink(
-                            chainId,
-                            token.address,
-                            ExplorerDataType.ADDRESS
-                          )}
-                        >
+                        <ExternalLink href={getExplorerLink(chainId, token.address, ExplorerDataType.ADDRESS)}>
                           <AddressText>{token.address}</AddressText>
                         </ExternalLink>
                       )}
                     </AutoColumn>
                   </OutlineCard>
                 )
-              );
+              )
             })}
             <AutoColumn gap="lg">
               <ThemedText.DeprecatedBody fontWeight={500}>
                 <Trans>
-                  Some assets are not available through this interface because
-                  they may not work well with the smart contracts or we are
-                  unable to allow trading for legal reasons.
+                  Some assets are not available through this interface because they may not work well with the smart
+                  contracts or we are unable to allow trading for legal reasons.
                 </Trans>
               </ThemedText.DeprecatedBody>
             </AutoColumn>
@@ -123,5 +114,5 @@ export default function UnsupportedCurrencyFooter({
         </ThemedText.DeprecatedBlue>
       </StyledButtonEmpty>
     </DetailsFooter>
-  );
+  )
 }

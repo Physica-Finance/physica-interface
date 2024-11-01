@@ -1,11 +1,11 @@
-import { Trans } from "@lingui/macro";
-import { useWeb3React } from "@web3-react/core";
-import { AutoColumn } from "components/Column";
-import { getChainInfoOrDefault } from "constants/chainInfo";
-import styled from "styled-components/macro";
-import { ThemedText } from "theme";
+import { Trans } from '@lingui/macro'
+import { useWeb3React } from '@web3-react/core'
+import { AutoColumn } from 'components/Column'
+import { getChainInfoOrDefault } from 'constants/chainInfo'
+import styled from 'styled-components/macro'
+import { ThemedText } from 'theme'
 
-import { ExternalLink } from "../../theme";
+import { ExternalLink } from '../../theme'
 
 const CTASection = styled.section`
   display: grid;
@@ -17,7 +17,7 @@ const CTASection = styled.section`
     grid-template-columns: auto;
     grid-template-rows: auto;
   `};
-`;
+`
 
 const CTA1 = styled(ExternalLink)`
   padding: 16px;
@@ -43,7 +43,7 @@ const CTA1 = styled(ExternalLink)`
       text-decoration: none !important;
     }
   }
-`;
+`
 
 const CTA2 = styled(ExternalLink)`
   position: relative;
@@ -67,7 +67,7 @@ const CTA2 = styled(ExternalLink)`
       text-decoration: none !important;
     }
   }
-`;
+`
 
 const HeaderText = styled(ThemedText.DeprecatedLabel)`
   align-items: center;
@@ -78,7 +78,7 @@ const HeaderText = styled(ThemedText.DeprecatedLabel)`
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
     font-size: 16px;
   `};
-`;
+`
 
 const ResponsiveColumn = styled(AutoColumn)`
   grid-template-columns: 1fr;
@@ -89,11 +89,11 @@ const ResponsiveColumn = styled(AutoColumn)`
     gap: 8px;
   `};
   justify-content: space-between;
-`;
+`
 
 export default function CTACards() {
-  const { chainId } = useWeb3React();
-  const { infoLink } = getChainInfoOrDefault(chainId);
+  const { chainId } = useWeb3React()
+  const { infoLink } = getChainInfoOrDefault(chainId)
 
   return (
     <CTASection>
@@ -102,27 +102,21 @@ export default function CTACards() {
           <HeaderText>
             <Trans>Learn about providing liquidity</Trans> ↗
           </HeaderText>
-          <ThemedText.DeprecatedBody
-            fontWeight={400}
-            style={{ alignItems: "center", display: "flex" }}
-          >
+          <ThemedText.DeprecatedBody fontWeight={400} style={{ alignItems: 'center', display: 'flex' }}>
             <Trans>Check out our v3 LP walkthrough and migration guides.</Trans>
           </ThemedText.DeprecatedBody>
         </ResponsiveColumn>
       </CTA1>
-      <CTA2 data-testid="cta-infolink" href={infoLink + "pools"}>
+      <CTA2 data-testid="cta-infolink" href={infoLink + 'pools'}>
         <ResponsiveColumn>
-          <HeaderText style={{ alignSelf: "flex-start" }}>
+          <HeaderText style={{ alignSelf: 'flex-start' }}>
             <Trans>Top pools</Trans> ↗
           </HeaderText>
-          <ThemedText.DeprecatedBody
-            fontWeight={400}
-            style={{ alignSelf: "flex-start" }}
-          >
+          <ThemedText.DeprecatedBody fontWeight={400} style={{ alignSelf: 'flex-start' }}>
             <Trans>Explore Physica Analytics.</Trans>
           </ThemedText.DeprecatedBody>
         </ResponsiveColumn>
       </CTA2>
     </CTASection>
-  );
+  )
 }

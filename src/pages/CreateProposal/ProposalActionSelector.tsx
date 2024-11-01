@@ -1,39 +1,35 @@
-import { Trans } from "@lingui/macro";
-import { ButtonDropdown } from "components/Button";
-import Column from "components/Column";
-import Modal from "components/Modal";
-import { RowBetween } from "components/Row";
-import {
-  MenuItem,
-  PaddedColumn,
-  Separator,
-} from "components/SearchModal/styleds";
-import React, { useCallback } from "react";
-import { Text } from "rebass";
-import styled from "styled-components/macro";
-import { CloseIcon } from "theme";
+import { Trans } from '@lingui/macro'
+import { ButtonDropdown } from 'components/Button'
+import Column from 'components/Column'
+import Modal from 'components/Modal'
+import { RowBetween } from 'components/Row'
+import { MenuItem, PaddedColumn, Separator } from 'components/SearchModal/styleds'
+import React, { useCallback } from 'react'
+import { Text } from 'rebass'
+import styled from 'styled-components/macro'
+import { CloseIcon } from 'theme'
 
 export enum ProposalAction {
-  TRANSFER_TOKEN = "Transfer Token",
-  APPROVE_TOKEN = "Approve Token",
+  TRANSFER_TOKEN = 'Transfer Token',
+  APPROVE_TOKEN = 'Approve Token',
 }
 
 interface ProposalActionSelectorModalProps {
-  isOpen: boolean;
-  onDismiss: () => void;
-  onProposalActionSelect: (proposalAction: ProposalAction) => void;
+  isOpen: boolean
+  onDismiss: () => void
+  onProposalActionSelect: (proposalAction: ProposalAction) => void
 }
 
 const ContentWrapper = styled(Column)`
   width: 100%;
   flex: 1 1;
   position: relative;
-`;
+`
 const ActionSelectorHeader = styled.div`
   font-size: 14px;
   font-weight: 500;
   color: ${({ theme }) => theme.textSecondary};
-`;
+`
 
 const ActionDropdown = styled(ButtonDropdown)`
   padding: 0px;
@@ -48,7 +44,7 @@ const ActionDropdown = styled(ButtonDropdown)`
     box-shadow: none;
     background-color: transparent;
   }
-`;
+`
 
 const ProposalActionSelectorFlex = styled.div`
   margin-top: 10px;
@@ -57,7 +53,7 @@ const ProposalActionSelectorFlex = styled.div`
   border-radius: 20px;
   border: 1px solid ${({ theme }) => theme.backgroundInteractive};
   background-color: ${({ theme }) => theme.deprecated_bg1};
-`;
+`
 
 const ProposalActionSelectorContainer = styled.div`
   flex: 1;
@@ -65,16 +61,16 @@ const ProposalActionSelectorContainer = styled.div`
   display: grid;
   grid-auto-rows: auto;
   grid-row-gap: 10px;
-`;
+`
 
 export const ProposalActionSelector = ({
   className,
   onClick,
   proposalAction,
 }: {
-  className?: string;
-  onClick: () => void;
-  proposalAction: ProposalAction;
+  className?: string
+  onClick: () => void
+  proposalAction: ProposalAction
 }) => {
   return (
     <ProposalActionSelectorFlex>
@@ -85,8 +81,8 @@ export const ProposalActionSelector = ({
         <ActionDropdown onClick={onClick}>{proposalAction}</ActionDropdown>
       </ProposalActionSelectorContainer>
     </ProposalActionSelectorFlex>
-  );
-};
+  )
+}
 
 export function ProposalActionSelectorModal({
   isOpen,
@@ -95,11 +91,11 @@ export function ProposalActionSelectorModal({
 }: ProposalActionSelectorModalProps) {
   const handleProposalActionSelect = useCallback(
     (proposalAction: ProposalAction) => {
-      onProposalActionSelect(proposalAction);
-      onDismiss();
+      onProposalActionSelect(proposalAction)
+      onDismiss()
     },
-    [onDismiss, onProposalActionSelect]
-  );
+    [onDismiss, onProposalActionSelect],
+  )
 
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
@@ -113,22 +109,14 @@ export function ProposalActionSelectorModal({
           </RowBetween>
         </PaddedColumn>
         <Separator />
-        <MenuItem
-          onClick={() =>
-            handleProposalActionSelect(ProposalAction.TRANSFER_TOKEN)
-          }
-        >
+        <MenuItem onClick={() => handleProposalActionSelect(ProposalAction.TRANSFER_TOKEN)}>
           <Column>
             <Text fontWeight={500}>
               <Trans>Transfer Token</Trans>
             </Text>
           </Column>
         </MenuItem>
-        <MenuItem
-          onClick={() =>
-            handleProposalActionSelect(ProposalAction.APPROVE_TOKEN)
-          }
-        >
+        <MenuItem onClick={() => handleProposalActionSelect(ProposalAction.APPROVE_TOKEN)}>
           <Column>
             <Text fontWeight={500}>
               <Trans>Approve Token</Trans>
@@ -137,5 +125,5 @@ export function ProposalActionSelectorModal({
         </MenuItem>
       </ContentWrapper>
     </Modal>
-  );
+  )
 }

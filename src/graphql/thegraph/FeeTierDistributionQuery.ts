@@ -1,9 +1,9 @@
-import { ApolloError, useQuery } from "@apollo/client";
-import gql from "graphql-tag";
-import { useMemo } from "react";
+import { ApolloError, useQuery } from '@apollo/client'
+import gql from 'graphql-tag'
+import { useMemo } from 'react'
 
-import { FeeTierDistributionQuery } from "./__generated__/types-and-hooks";
-import { apolloClient } from "./apollo";
+import { FeeTierDistributionQuery } from './__generated__/types-and-hooks'
+import { apolloClient } from './apollo'
 
 const query = gql`
   query FeeTierDistribution($token0: String!, $token1: String!) {
@@ -12,35 +12,27 @@ const query = gql`
         number
       }
     }
-    asToken0: pools(
-      orderBy: totalValueLockedToken0
-      orderDirection: desc
-      where: { token0: $token0, token1: $token1 }
-    ) {
+    asToken0: pools(orderBy: totalValueLockedToken0, orderDirection: desc, where: { token0: $token0, token1: $token1 }) {
       feeTier
       totalValueLockedToken0
       totalValueLockedToken1
     }
-    asToken1: pools(
-      orderBy: totalValueLockedToken0
-      orderDirection: desc
-      where: { token0: $token1, token1: $token0 }
-    ) {
+    asToken1: pools(orderBy: totalValueLockedToken0, orderDirection: desc, where: { token0: $token1, token1: $token0 }) {
       feeTier
       totalValueLockedToken0
       totalValueLockedToken1
     }
   }
-`;
+`
 
 export default function useFeeTierDistributionQuery(
   token0: string | undefined,
   token1: string | undefined,
-  interval: number
+  interval: number,
 ): {
-  error: ApolloError | undefined;
-  isLoading: boolean;
-  data: FeeTierDistributionQuery;
+  error: ApolloError | undefined
+  isLoading: boolean
+  data: FeeTierDistributionQuery
 } {
   const {
     data,
@@ -53,7 +45,7 @@ export default function useFeeTierDistributionQuery(
     },
     pollInterval: interval,
     client: apolloClient,
-  });
+  })
 
   return useMemo(
     () => ({
@@ -61,6 +53,6 @@ export default function useFeeTierDistributionQuery(
       isLoading,
       data,
     }),
-    [data, error, isLoading]
-  );
+    [data, error, isLoading],
+  )
 }

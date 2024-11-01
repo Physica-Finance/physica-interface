@@ -1,33 +1,33 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import { Trans } from "@lingui/macro";
-import { sendAnalyticsEvent, useTrace } from "@uniswap/analytics";
-import { InterfacePageName, NFTEventName } from "@uniswap/analytics-events";
-import Tooltip, { MouseoverTooltip } from "components/Tooltip";
-import { NftStandard } from "graphql/data/__generated__/types-and-hooks";
-import { Box } from "nft/components/Box";
-import { bodySmall } from "nft/css/common.css";
-import { useBag } from "nft/hooks";
-import { GenieAsset, isPooledMarket, UniformAspectRatio } from "nft/types";
-import { formatWeiToDecimal, rarityProviderLogo } from "nft/utils";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import styled from "styled-components/macro";
+import { BigNumber } from '@ethersproject/bignumber'
+import { Trans } from '@lingui/macro'
+import { sendAnalyticsEvent, useTrace } from '@uniswap/analytics'
+import { InterfacePageName, NFTEventName } from '@uniswap/analytics-events'
+import Tooltip, { MouseoverTooltip } from 'components/Tooltip'
+import { NftStandard } from 'graphql/data/__generated__/types-and-hooks'
+import { Box } from 'nft/components/Box'
+import { bodySmall } from 'nft/css/common.css'
+import { useBag } from 'nft/hooks'
+import { GenieAsset, isPooledMarket, UniformAspectRatio } from 'nft/types'
+import { formatWeiToDecimal, rarityProviderLogo } from 'nft/utils'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import styled from 'styled-components/macro'
 
-import * as Card from "./Card";
-import { AssetMediaType, useAssetMediaType, useNotForSale } from "./Card";
+import * as Card from './Card'
+import { AssetMediaType, useAssetMediaType, useNotForSale } from './Card'
 
 interface CollectionAssetProps {
-  asset: GenieAsset;
-  isMobile: boolean;
-  mediaShouldBePlaying: boolean;
-  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void;
-  rarityVerified?: boolean;
-  uniformAspectRatio: UniformAspectRatio;
-  setUniformAspectRatio: (uniformAspectRatio: UniformAspectRatio) => void;
-  renderedHeight?: number;
-  setRenderedHeight: (renderedHeight: number | undefined) => void;
+  asset: GenieAsset
+  isMobile: boolean
+  mediaShouldBePlaying: boolean
+  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void
+  rarityVerified?: boolean
+  uniformAspectRatio: UniformAspectRatio
+  setUniformAspectRatio: (uniformAspectRatio: UniformAspectRatio) => void
+  renderedHeight?: number
+  setRenderedHeight: (renderedHeight: number | undefined) => void
 }
 
-const TOOLTIP_TIMEOUT = 2000;
+const TOOLTIP_TIMEOUT = 2000
 
 const StyledContainer = styled.div`
   position: absolute;
@@ -38,7 +38,7 @@ const StyledContainer = styled.div`
   width: 100%;
   z-index: 2;
   pointer-events: none;
-`;
+`
 
 export const CollectionAsset = ({
   asset,
@@ -51,85 +51,73 @@ export const CollectionAsset = ({
   renderedHeight,
   setRenderedHeight,
 }: CollectionAssetProps) => {
-  const bagManuallyClosed = useBag((state) => state.bagManuallyClosed);
-  const addAssetsToBag = useBag((state) => state.addAssetsToBag);
-  const removeAssetsFromBag = useBag((state) => state.removeAssetsFromBag);
-  const usedSweep = useBag((state) => state.usedSweep);
-  const itemsInBag = useBag((state) => state.itemsInBag);
-  const bagExpanded = useBag((state) => state.bagExpanded);
-  const setBagExpanded = useBag((state) => state.setBagExpanded);
-  const trace = useTrace({ page: InterfacePageName.NFT_COLLECTION_PAGE });
+  const bagManuallyClosed = useBag((state) => state.bagManuallyClosed)
+  const addAssetsToBag = useBag((state) => state.addAssetsToBag)
+  const removeAssetsFromBag = useBag((state) => state.removeAssetsFromBag)
+  const usedSweep = useBag((state) => state.usedSweep)
+  const itemsInBag = useBag((state) => state.itemsInBag)
+  const bagExpanded = useBag((state) => state.bagExpanded)
+  const setBagExpanded = useBag((state) => state.setBagExpanded)
+  const trace = useTrace({ page: InterfacePageName.NFT_COLLECTION_PAGE })
 
   const { isSelected } = useMemo(() => {
     const matchingItems = itemsInBag.filter(
-      (item) =>
-        asset.tokenId === item.asset.tokenId &&
-        asset.address === item.asset.address
-    );
+      (item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address,
+    )
 
-    const isSelected = matchingItems.length > 0;
+    const isSelected = matchingItems.length > 0
     return {
       isSelected,
-    };
-  }, [asset, itemsInBag]);
+    }
+  }, [asset, itemsInBag])
 
-  const [showTooltip, setShowTooltip] = useState(false);
-  const isSelectedRef = useRef(isSelected);
+  const [showTooltip, setShowTooltip] = useState(false)
+  const isSelectedRef = useRef(isSelected)
 
-  const notForSale = useNotForSale(asset);
-  const assetMediaType = useAssetMediaType(asset);
+  const notForSale = useNotForSale(asset)
+  const assetMediaType = useAssetMediaType(asset)
 
   const { provider, rarityLogo } = useMemo(() => {
     return {
-      provider: asset?.rarity?.providers?.find(
-        ({ provider: _provider }) => _provider === asset.rarity?.primaryProvider
-      ),
-      rarityLogo: rarityProviderLogo[asset.rarity?.primaryProvider ?? 0] ?? "",
-    };
-  }, [asset]);
+      provider: asset?.rarity?.providers?.find(({ provider: _provider }) => _provider === asset.rarity?.primaryProvider),
+      rarityLogo: rarityProviderLogo[asset.rarity?.primaryProvider ?? 0] ?? '',
+    }
+  }, [asset])
 
   const handleAddAssetToBag = useCallback(() => {
     if (BigNumber.from(asset.priceInfo?.ETHPrice ?? 0).gt(0)) {
-      addAssetsToBag([asset]);
+      addAssetsToBag([asset])
       if (!bagExpanded && !isMobile && !bagManuallyClosed) {
-        setBagExpanded({ bagExpanded: true });
+        setBagExpanded({ bagExpanded: true })
       }
       sendAnalyticsEvent(NFTEventName.NFT_BUY_ADDED, {
         collection_address: asset.address,
         token_id: asset.tokenId,
         token_type: asset.tokenType,
         ...trace,
-      });
+      })
     }
-  }, [
-    addAssetsToBag,
-    asset,
-    bagExpanded,
-    bagManuallyClosed,
-    isMobile,
-    setBagExpanded,
-    trace,
-  ]);
+  }, [addAssetsToBag, asset, bagExpanded, bagManuallyClosed, isMobile, setBagExpanded, trace])
 
   useEffect(() => {
     if (isSelected !== isSelectedRef.current && !usedSweep) {
-      setShowTooltip(true);
-      isSelectedRef.current = isSelected;
+      setShowTooltip(true)
+      isSelectedRef.current = isSelected
       const tooltipTimer = setTimeout(() => {
-        setShowTooltip(false);
-      }, TOOLTIP_TIMEOUT);
+        setShowTooltip(false)
+      }, TOOLTIP_TIMEOUT)
 
       return () => {
-        clearTimeout(tooltipTimer);
-      };
+        clearTimeout(tooltipTimer)
+      }
     }
-    isSelectedRef.current = isSelected;
-    return undefined;
-  }, [isSelected, isSelectedRef, usedSweep]);
+    isSelectedRef.current = isSelected
+    return undefined
+  }, [isSelected, isSelectedRef, usedSweep])
 
   const handleRemoveAssetFromBag = useCallback(() => {
-    removeAssetsFromBag([asset]);
-  }, [asset, removeAssetsFromBag]);
+    removeAssetsFromBag([asset])
+  }, [asset, removeAssetsFromBag])
 
   return (
     <Card.Container
@@ -143,15 +131,11 @@ export const CollectionAsset = ({
           <Tooltip
             text={
               <Box as="span" className={bodySmall} color="textPrimary">
-                {isSelected ? (
-                  <Trans>Added to bag</Trans>
-                ) : (
-                  <Trans>Removed from bag</Trans>
-                )}
+                {isSelected ? <Trans>Added to bag</Trans> : <Trans>Removed from bag</Trans>}
               </Box>
             }
             show={showTooltip}
-            style={{ display: "block" }}
+            style={{ display: 'block' }}
             offsetX={0}
             offsetY={0}
             hideArrow={true}
@@ -176,7 +160,7 @@ export const CollectionAsset = ({
           placement="bottom"
           offsetX={0}
           offsetY={-50}
-          style={{ display: "block" }}
+          style={{ display: 'block' }}
           hideArrow={true}
           disableHover={!asset.notForSale}
           timeout={isMobile ? TOOLTIP_TIMEOUT : undefined}
@@ -213,9 +197,7 @@ export const CollectionAsset = ({
         <Card.InfoContainer>
           <Card.PrimaryRow>
             <Card.PrimaryDetails>
-              <Card.PrimaryInfo>
-                {asset.name ? asset.name : `#${asset.tokenId}`}
-              </Card.PrimaryInfo>
+              <Card.PrimaryInfo>{asset.name ? asset.name : `#${asset.tokenId}`}</Card.PrimaryInfo>
               {asset.susFlag && <Card.Suspicious />}
             </Card.PrimaryDetails>
             <Card.DetailsLink />
@@ -223,9 +205,7 @@ export const CollectionAsset = ({
           <Card.SecondaryRow>
             <Card.SecondaryDetails>
               <Card.SecondaryInfo>
-                {notForSale
-                  ? ""
-                  : `${formatWeiToDecimal(asset.priceInfo.ETHPrice, true)} ETH`}
+                {notForSale ? '' : `${formatWeiToDecimal(asset.priceInfo.ETHPrice, true)} ETH`}
               </Card.SecondaryInfo>
               {isPooledMarket(asset.marketplace) && <Card.Pool />}
             </Card.SecondaryDetails>
@@ -236,5 +216,5 @@ export const CollectionAsset = ({
         </Card.InfoContainer>
       </Card.DetailsContainer>
     </Card.Container>
-  );
-};
+  )
+}

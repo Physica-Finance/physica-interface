@@ -1,5 +1,5 @@
-import { loadingAnimation } from "components/Loader/styled";
-import styled from "styled-components/macro";
+import { loadingAnimation } from 'components/Loader/styled'
+import styled from 'styled-components/macro'
 
 /* Loading state bubbles (animation style from: src/components/Loader/styled.tsx) */
 export const LoadingBubble = styled.div`
@@ -16,4 +16,4 @@ export const LoadingBubble = styled.div`
   );
   will-change: background-position;
   background-size: 400%;
-`;
+`

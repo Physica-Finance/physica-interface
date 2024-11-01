@@ -1,36 +1,16 @@
-import { useRef } from "react";
+import { useRef } from 'react'
 
-let uniqueId = 0;
-const getUniqueId = () => uniqueId++;
+let uniqueId = 0
+const getUniqueId = () => uniqueId++
 
-export default function AutoRouterIcon({
-  className,
-  id,
-}: {
-  className?: string;
-  id?: string;
-}) {
-  const componentIdRef = useRef(id ?? getUniqueId());
-  const componentId = `AutoRouterIconGradient${componentIdRef.current}`;
+export default function AutoRouterIcon({ className, id }: { className?: string; id?: string }) {
+  const componentIdRef = useRef(id ?? getUniqueId())
+  const componentId = `AutoRouterIconGradient${componentIdRef.current}`
 
   return (
-    <svg
-      width="23"
-      height="20"
-      viewBox="0 0 23 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-    >
+    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
       <defs>
-        <linearGradient
-          id={componentId}
-          x1="0"
-          y1="0"
-          x2="1"
-          y2="0"
-          gradientTransform="rotate(95)"
-        >
+        <linearGradient id={componentId} x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(95)">
           <stop id="stop1" offset="0" stopColor="#2274E2" />
           <stop id="stop1" offset="0.5" stopColor="#2274E2" />
           <stop id="stop2" offset="1" stopColor="#3FB672" />
@@ -44,5 +24,5 @@ export default function AutoRouterIcon({
         stroke={`url(#${componentId})`}
       />
     </svg>
-  );
+  )
 }

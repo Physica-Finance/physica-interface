@@ -1,10 +1,10 @@
-import { Trace } from "@uniswap/analytics";
-import { InterfacePageName } from "@uniswap/analytics-events";
-import Banner from "nft/components/explore/Banner";
-import TrendingCollections from "nft/components/explore/TrendingCollections";
-import { useBag } from "nft/hooks";
-import { useEffect } from "react";
-import styled from "styled-components/macro";
+import { Trace } from '@uniswap/analytics'
+import { InterfacePageName } from '@uniswap/analytics-events'
+import Banner from 'nft/components/explore/Banner'
+import TrendingCollections from 'nft/components/explore/TrendingCollections'
+import { useBag } from 'nft/hooks'
+import { useEffect } from 'react'
+import styled from 'styled-components/macro'
 
 const ExploreContainer = styled.div`
   display: flex;
@@ -12,23 +12,21 @@ const ExploreContainer = styled.div`
   align-items: center;
   width: 100%;
 
-  @media only screen and (max-width: ${({ theme }) =>
-      `${theme.breakpoint.md}px`}) {
+  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.md}px`}) {
     gap: 16px;
   }
 
-  @media only screen and (max-width: ${({ theme }) =>
-      `${theme.breakpoint.sm}px`}) {
+  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
     gap: 0px;
   }
-`;
+`
 
 const NftExplore = () => {
-  const setBagExpanded = useBag((state) => state.setBagExpanded);
+  const setBagExpanded = useBag((state) => state.setBagExpanded)
 
   useEffect(() => {
-    setBagExpanded({ bagExpanded: false, manualClose: false });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    setBagExpanded({ bagExpanded: false, manualClose: false })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -39,7 +37,7 @@ const NftExplore = () => {
         </ExploreContainer>
       </Trace>
     </>
-  );
-};
+  )
+}
 
-export default NftExplore;
+export default NftExplore

@@ -19,40 +19,36 @@ import useIsWindowVisible from './useIsWindowVisible'
 export function useBestTrade(
   tradeType: TradeType,
   amountSpecified?: CurrencyAmount<Currency>,
-  otherCurrency?: Currency
+  otherCurrency?: Currency,
 ): {
-  state: TradeState;
-  trade: InterfaceTrade<Currency, Currency, TradeType> | undefined;
+  state: TradeState
+  trade: InterfaceTrade<Currency, Currency, TradeType> | undefined
 } {
-  const autoRouterSupported = useAutoRouterSupported();
-  const isWindowVisible = useIsWindowVisible();
+  const autoRouterSupported = useAutoRouterSupported()
+  const isWindowVisible = useIsWindowVisible()
 
   const [debouncedAmount, debouncedOtherCurrency] = useDebounce(
-    useMemo(
-      () => [amountSpecified, otherCurrency],
-      [amountSpecified, otherCurrency]
-    ),
-    200
-  );
+    useMemo(() => [amountSpecified, otherCurrency], [amountSpecified, otherCurrency]),
+    200,
+  )
 
-  const [clientSideRouter] = useClientSideRouter();
+  const [clientSideRouter] = useClientSideRouter()
   const routingAPITrade = useRoutingAPITrade(
     tradeType,
     autoRouterSupported && isWindowVisible ? debouncedAmount : undefined,
     debouncedOtherCurrency,
-    RouterPreference.CLIENT
-  );
+    RouterPreference.CLIENT,
+  )
 
-  const isLoading = routingAPITrade.state === TradeState.LOADING;
-  const useFallback =
-    !autoRouterSupported || routingAPITrade.state === TradeState.NO_ROUTE_FOUND;
+  const isLoading = routingAPITrade.state === TradeState.LOADING
+  const useFallback = !autoRouterSupported || routingAPITrade.state === TradeState.NO_ROUTE_FOUND
 
   // only use client side router if routing api trade failed or is not supported
   const bestV3Trade = useClientSideV3Trade(
     tradeType,
     useFallback ? debouncedAmount : undefined,
-    useFallback ? debouncedOtherCurrency : undefined
-  );
+    useFallback ? debouncedOtherCurrency : undefined,
+  )
 
   // only return gas estimate from api if routing api trade is used
   return useMemo(
@@ -60,6 +56,6 @@ export function useBestTrade(
       ...(useFallback ? bestV3Trade : routingAPITrade),
       ...(isLoading ? { state: TradeState.LOADING } : {}),
     }),
-    [bestV3Trade, isLoading, routingAPITrade, useFallback]
-  );
+    [bestV3Trade, isLoading, routingAPITrade, useFallback],
+  )
 }
