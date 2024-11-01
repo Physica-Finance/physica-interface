@@ -90,6 +90,7 @@ export const colors = {
   networkOptimism: '#FF0420',
   networkOptimismSoft: 'rgba(255, 4, 32, 0.16)',
   networkPolygon: '#A457FF',
+  networkPlanq: '#2850f0',
   networkArbitrum: '#28A0F0',
   networkPolygonSoft: 'rgba(164, 87, 255, 0.16)',
   networkEthereumSoft: 'rgba(98, 126, 234, 0.16)',
@@ -115,6 +116,8 @@ const commonTheme = {
   chain_137_background: colors.purple900,
   chain_10_background: colors.red900,
   chain_42161_background: colors.blue900,
+  chain_7070: colors.networkPlanq,
+  chain_7070_background: colors.blue900,
 
   hoverState: opacify(24, colors.blue200),
   hoverDefault: opacify(8, colors.gray200),

@@ -302,21 +302,21 @@ const AuthenticatedHeader = () => {
       </HeaderWrapper>
       <Column>
         <BalanceWrapper>
-          <ThemedText.SubHeaderSmall>ETH Balance</ThemedText.SubHeaderSmall>
+          <ThemedText.SubHeaderSmall>Balance</ThemedText.SubHeaderSmall>
           <ThemedText.HeadlineLarge fontSize={36} fontWeight={400}>
             {balanceString} {nativeCurrencySymbol}
           </ThemedText.HeadlineLarge>
           {amountUSD !== undefined && <USDText>{formatUSDPrice(amountUSD)} USD</USDText>}
         </BalanceWrapper>
-        <ProfileButton
+        {/*<ProfileButton
           data-testid="nft-view-self-nfts"
           onClick={navigateToProfile}
           size={ButtonSize.medium}
           emphasis={ButtonEmphasis.medium}
         >
           <Trans>View and sell NFTs</Trans>
-        </ProfileButton>
-        {fiatOnrampFlag === BaseVariant.Enabled && (
+        </ProfileButton>*/}
+        {/*fiatOnrampFlag === BaseVariant.Enabled && (
           <>
             <BuyCryptoButton
               $animateBorder={animateBuyCryptoButtonBorder}
@@ -357,17 +357,17 @@ const AuthenticatedHeader = () => {
               </FiatOnrampNotAvailableText>
             )}
           </>
-        )}
-        {isUnclaimed && (
+        )*/}
+        {/*isUnclaimed && (
           <UNIButton onClick={openClaimModal} size={ButtonSize.medium} emphasis={ButtonEmphasis.medium}>
             <Trans>Claim</Trans> {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} <Trans>reward</Trans>
           </UNIButton>
-        )}
-        {isClaimAvailable && (
+        )*/}
+        {/*isClaimAvailable && (
           <UNIButton size={ButtonSize.medium} emphasis={ButtonEmphasis.medium} onClick={openNftModal}>
             <Trans>Claim Uniswap NFT Airdrop</Trans>
           </UNIButton>
-        )}
+        )*/}
       </Column>
     </>
   )

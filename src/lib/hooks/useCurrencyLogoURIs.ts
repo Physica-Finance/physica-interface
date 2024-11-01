@@ -1,14 +1,15 @@
-import { SupportedChainId } from 'constants/chains'
+import {SupportedChainId} from 'constants/chains'
 import useHttpLocations from 'hooks/useHttpLocations'
-import { useMemo } from 'react'
-import { isAddress } from 'utils'
+import {useMemo} from 'react'
+import {isAddress} from 'utils'
 
 import EthereumLogo from '../../assets/images/ethereum-logo.png'
+import PlanqLogo from '../../assets/images/planq-logo.png'
 import CeloLogo from '../../assets/svg/celo_logo.svg'
 import MaticLogo from '../../assets/svg/matic-token-icon.svg'
-import { isCelo, NATIVE_CHAIN_ID, nativeOnChain } from '../../constants/tokens'
+import {isCelo, NATIVE_CHAIN_ID, nativeOnChain} from '../../constants/tokens'
 
-type Network = 'ethereum' | 'arbitrum' | 'optimism' | 'polygon'
+type Network = 'ethereum' | 'arbitrum' | 'optimism' | 'polygon' | 'planq'
 
 export function chainIdToNetworkName(networkId: SupportedChainId): Network {
   switch (networkId) {
@@ -18,6 +19,8 @@ export function chainIdToNetworkName(networkId: SupportedChainId): Network {
       return 'arbitrum'
     case SupportedChainId.OPTIMISM:
       return 'optimism'
+    case SupportedChainId.PLANQ:
+      return 'planq'
     case SupportedChainId.POLYGON:
       return 'polygon'
     default:
@@ -30,6 +33,8 @@ export function getNativeLogoURI(chainId: SupportedChainId = SupportedChainId.MA
     case SupportedChainId.POLYGON:
     case SupportedChainId.POLYGON_MUMBAI:
       return MaticLogo
+    case SupportedChainId.PLANQ:
+      return PlanqLogo
     case SupportedChainId.CELO:
     case SupportedChainId.CELO_ALFAJORES:
       return CeloLogo
@@ -42,7 +47,7 @@ function getTokenLogoURI(address: string, chainId: SupportedChainId = SupportedC
   const networkName = chainIdToNetworkName(chainId)
   const networksWithUrls = [SupportedChainId.ARBITRUM_ONE, SupportedChainId.MAINNET, SupportedChainId.OPTIMISM]
   if (networksWithUrls.includes(chainId)) {
-    return `https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/${networkName}/assets/${address}/logo.png`
+    return `https://raw.githubusercontent.com/SynergyNodes/assets-all/master/blockchains/${networkName}/assets/${address}/logo.png`
   }
 
   // Celo logo logo is hosted elsewhere.

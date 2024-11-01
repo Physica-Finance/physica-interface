@@ -106,7 +106,7 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
  * These are the URLs used by the interface when there is not another available source of chain data.
  */
 export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
-  [SupportedChainId.PLANQ]: [`https://lb.nodies.app/v1/${NODIES_KEY}`, ...FALLBACK_URLS[SupportedChainId.PLANQ]],
+  [SupportedChainId.PLANQ]: [`https://evm-rpc.planq.network`, ...FALLBACK_URLS[SupportedChainId.PLANQ]],
   [SupportedChainId.MAINNET]: [
     `https://mainnet.infura.io/v3/${INFURA_KEY}`,
     ...FALLBACK_URLS[SupportedChainId.MAINNET],

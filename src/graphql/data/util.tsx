@@ -91,9 +91,10 @@ export const CHAIN_NAME_TO_CHAIN_ID: { [key: string]: SupportedChainId } = {
   CELO: SupportedChainId.CELO,
   ARBITRUM: SupportedChainId.ARBITRUM_ONE,
   OPTIMISM: SupportedChainId.OPTIMISM,
+  PLANQ: SupportedChainId.PLANQ,
 }
 
-export const BACKEND_CHAIN_NAMES: Chain[] = [Chain.Ethereum, Chain.Polygon, Chain.Optimism, Chain.Arbitrum, Chain.Celo]
+export const BACKEND_CHAIN_NAMES: Chain[] = []
 
 export function getTokenDetailsURL({ address, chain }: { address?: string | null; chain: Chain }) {
   return `/tokens/${chain.toLowerCase()}/${address ?? NATIVE_CHAIN_ID}`

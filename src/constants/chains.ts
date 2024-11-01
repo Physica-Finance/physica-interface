@@ -66,7 +66,6 @@ export const UNSUPPORTED_V2POOL_CHAIN_IDS = [
   SupportedChainId.POLYGON,
   SupportedChainId.OPTIMISM,
   SupportedChainId.ARBITRUM_ONE,
-  SupportedChainId.PLANQ,
 ]
 
 export const TESTNET_CHAIN_IDS = [

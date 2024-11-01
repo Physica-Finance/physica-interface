@@ -33,6 +33,33 @@ interface MenuItemProps {
   children: ReactNode
   dataTestId?: string
 }
+export const ExternalMenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children }) => {
+  // const isExternalLink = href.startsWith('https') || href.startsWith('//')
+
+  // const linkProps = isExternalLink
+  //   ? {
+  //       href,
+  //       target: '_blank',
+  //       rel: 'noopener noreferrer',
+  //     }
+  //   : {
+  //       to: href,
+  //     }
+
+  return (
+      <a
+          href={href}
+          target={'_blank'}
+          className={isActive ? styles.activeMenuItem : styles.menuItem}
+          id={id}
+          style={{ textDecoration: 'none' }}
+          data-testid={dataTestId}
+          rel="noreferrer"
+      >
+        {children}
+      </a>
+  )
+}
 
 const MenuItem = ({ href, dataTestId, id, isActive, children }: MenuItemProps) => {
   return (
@@ -66,12 +93,18 @@ export const PageTabs = () => {
       <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
         <Trans>Swap</Trans>
       </MenuItem>
-      <MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
+      {/*<MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
         <Trans>Tokens</Trans>
       </MenuItem>
       <MenuItem dataTestId="nft-nav" href="/nfts" isActive={isNftPage}>
         <Trans>NFTs</Trans>
-      </MenuItem>
+      </MenuItem>*/}
+      <ExternalMenuItem href="https://swap.deltaswap.io/#/transfer">
+        <Trans>Bridge</Trans>
+      </ExternalMenuItem>
+      <ExternalMenuItem href="https://restake.app/">
+        <Trans>Stake</Trans>
+      </ExternalMenuItem>
       <MenuItem href="/pool" id="pool-nav-link" isActive={isPoolActive}>
         <Trans>Pool</Trans>
       </MenuItem>
@@ -98,8 +131,8 @@ const Navbar = () => {
                 className={styles.logo}
                 onClick={() => {
                   navigate({
-                    pathname: '/',
-                    search: '?intro=true',
+                    pathname: '/swap',
+                    search: '',
                   })
                 }}
               />
@@ -114,7 +147,7 @@ const Navbar = () => {
             </Row>
           </Box>
           <Box className={styles.searchContainer}>
-            <SearchBar />
+            {/*<SearchBar />*/}
           </Box>
           <Box className={styles.rightSideContainer}>
             <Row gap="12">

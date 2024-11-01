@@ -39,6 +39,15 @@ export const USDC_PLANQ = new Token(
     'USDC',
     'USD//C',
 )
+
+export const USDCBSC_PLANQ = new Token(
+    SupportedChainId.PLANQ,
+    '0x75E20C5d4aade76143b8b74d1C5E2865347f9d3B',
+    18,
+    'USDC',
+    'USDC bridged BSC',
+);
+
 const USDC_RINKEBY = new Token(
   SupportedChainId.RINKEBY,
   '0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b',

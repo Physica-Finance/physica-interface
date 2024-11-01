@@ -73,7 +73,8 @@ const CHAIN_INFO: ChainInfoMap = {
     label: 'Planq',
     logoUrl: planqLogoUrl,
     nativeCurrency: { name: 'Planq', symbol: 'PLQ', decimals: 18 },
-    color: darkTheme.chain_1,
+    color: darkTheme.chain_7070,
+    backgroundColor: darkTheme.chain_7070_background,
   },
   [SupportedChainId.RINKEBY]: {
     networkType: NetworkType.L1,
@@ -252,7 +253,7 @@ export function getChainInfo(chainId: any): any {
   return undefined
 }
 
-const MAINNET_INFO = CHAIN_INFO[SupportedChainId.MAINNET]
+const MAINNET_INFO = CHAIN_INFO[SupportedChainId.PLANQ]
 export function getChainInfoOrDefault(chainId: number | undefined) {
   return getChainInfo(chainId) ?? MAINNET_INFO
 }

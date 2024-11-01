@@ -37,7 +37,7 @@ export function useSyncWidgetSettings() {
     [setAppSlippage]
   )
 
-  const [routerPreference, onRouterPreferenceChange] = useState(RouterPreference.API)
+  const [routerPreference, onRouterPreferenceChange] = useState(RouterPreference.CLIENT)
 
   const onSettingsReset = useCallback(() => {
     setWidgetTtl(undefined)
