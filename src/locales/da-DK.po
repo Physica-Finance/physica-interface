@@ -116,9 +116,6 @@ msgstr "<0>Tip:</0> Når du tilføjer likviditet, vil du modtage puljetokens, so
 msgid "<0>Unlock voting</0> to prepare for the next proposal."
 msgstr "<0>Lås op for at stemme</0>for at forberede det næste forslag."
 
-#: src/components/MetaMaskConnectionErrorModal/index.tsx
-msgid "A MetaMask error caused your wallet to disconnect. Reload the page to reconnect."
-msgstr ""
 
 #: src/pages/Vote/Landing.tsx
 msgid "A minimum threshold of 0.25% of the total UNI supply is required to submit proposals"

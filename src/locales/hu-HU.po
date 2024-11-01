@@ -116,9 +116,6 @@ msgstr "<0> Tipp:</0> Amikor likviditást ad hozzá, a pozícióját képviselő
 msgid "<0>Unlock voting</0> to prepare for the next proposal."
 msgstr "<0> Szavazás feloldása</0> a következő javaslatra való felkészüléshez."
 
-#: src/components/MetaMaskConnectionErrorModal/index.tsx
-msgid "A MetaMask error caused your wallet to disconnect. Reload the page to reconnect."
-msgstr ""
 
 #: src/pages/Vote/Landing.tsx
 msgid "A minimum threshold of 0.25% of the total UNI supply is required to submit proposals"

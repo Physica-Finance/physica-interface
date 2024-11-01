@@ -116,9 +116,6 @@ msgstr "<0>Consejo:</0> Cuando agregue liquidez, recibirá tokens de fondo comú
 msgid "<0>Unlock voting</0> to prepare for the next proposal."
 msgstr "<0>Desbloquee la votación</0> para prepararse para la siguiente propuesta."
 
-#: src/components/MetaMaskConnectionErrorModal/index.tsx
-msgid "A MetaMask error caused your wallet to disconnect. Reload the page to reconnect."
-msgstr ""
 
 #: src/pages/Vote/Landing.tsx
 msgid "A minimum threshold of 0.25% of the total UNI supply is required to submit proposals"

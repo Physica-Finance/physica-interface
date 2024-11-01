@@ -116,9 +116,6 @@ msgstr "<0>Tip:</0> Wanneer u liquiditeit toevoegt, ontvangt u pool tokens die u
 msgid "<0>Unlock voting</0> to prepare for the next proposal."
 msgstr "<0>Ontgrendel het stemmen </0> om het volgende voorstel voor te bereiden."
 
-#: src/components/MetaMaskConnectionErrorModal/index.tsx
-msgid "A MetaMask error caused your wallet to disconnect. Reload the page to reconnect."
-msgstr ""
 
 #: src/pages/Vote/Landing.tsx
 msgid "A minimum threshold of 0.25% of the total UNI supply is required to submit proposals"
