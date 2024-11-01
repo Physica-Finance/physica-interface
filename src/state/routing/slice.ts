@@ -4,8 +4,6 @@ import { AlphaRouter, ChainId } from '@uniswap/smart-order-router'
 import { RPC_PROVIDERS } from 'constants/providers'
 import { getClientSideQuote, toSupportedChainId } from 'lib/hooks/routing/clientSideSmartOrderRouter'
 import ms from 'ms.macro'
-import qs from 'qs'
-
 import { GetQuoteResult } from './types'
 
 export enum RouterPreference {
@@ -88,7 +86,8 @@ export const routingApi = createApi({
       }
     >({
       async queryFn(args, _api, _extraOptions, fetch) {
-        var { tokenInAddress, tokenInChainId, tokenOutAddress, tokenOutChainId, amount, routerPreference, type } = args
+        const { tokenInAddress, tokenInChainId, tokenOutAddress, tokenOutChainId, amount, routerPreference, type } =
+          args
 
         let result
 

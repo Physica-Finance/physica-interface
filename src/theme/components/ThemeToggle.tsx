@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 const DARKMODE_MEDIA_QUERY = window.matchMedia('(prefers-color-scheme: dark)')
 
-export enum ThemeMode {
+enum ThemeMode {
   LIGHT,
   DARK,
   AUTO,
@@ -17,7 +17,7 @@ const systemThemeAtom = atom<ThemeMode.LIGHT | ThemeMode.DARK>(
 
 // Tracks the user's selected theme mode
 const themeModeAtom = atomWithStorage<ThemeMode>('interface_color_theme', ThemeMode.AUTO)
-export function useIsDarkMode(): boolean {
+function useIsDarkMode(): boolean {
   const mode = useAtomValue(themeModeAtom)
   const systemTheme = useAtomValue(systemThemeAtom)
 

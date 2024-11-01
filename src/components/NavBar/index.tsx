@@ -33,7 +33,8 @@ interface MenuItemProps {
   children: ReactNode
   dataTestId?: string
 }
-export const ExternalMenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children }) => {
+
+const ExternalMenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children }) => {
   // const isExternalLink = href.startsWith('https') || href.startsWith('//')
 
   // const linkProps = isExternalLink

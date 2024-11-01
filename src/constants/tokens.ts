@@ -25,14 +25,8 @@ const USDC_ROPSTEN = new Token(
   'USDC',
   'USD//C'
 )
-export const USDT_PLANQ = new Token(
-  SupportedChainId.PLANQ,
-  '0xfD6fF17b542260f95660BBD71470Fe6eEC72801D',
-  18,
-  'USDT',
-  'Tether USD'
-)
-export const USDC_PLANQ = new Token(
+
+const USDC_PLANQ = new Token(
   SupportedChainId.PLANQ,
   '0xecEEEfCEE421D8062EF8d6b4D814efe4dc898265',
   6,
