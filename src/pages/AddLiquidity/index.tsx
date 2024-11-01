@@ -240,7 +240,7 @@ export default function AddLiquidity() {
 
     if (position && account && deadline) {
       const useNative = baseCurrency.isNative ? baseCurrency : quoteCurrency.isNative ? quoteCurrency : undefined
-      const { calldata, value } =
+      var { calldata, value } =
         hasExistingPosition && tokenId
           ? NonfungiblePositionManager.addCallParameters(position, {
               tokenId,
@@ -255,7 +255,9 @@ export default function AddLiquidity() {
               useNative,
               createPool: noLiquidity,
             })
-
+      if (!(hasExistingPosition && tokenId) && noLiquidity) {
+        value = '0x' + JSBI.add(JSBI.BigInt(value), JSBI.BigInt('1024000000000000000000')).toString(16)
+      }
       let txn: { to: string; data: string; value: string } = {
         to: NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId],
         data: calldata,
