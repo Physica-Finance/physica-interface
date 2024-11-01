@@ -1,14 +1,14 @@
-import { fetchTrendingCollections } from 'nft/queries'
-import { TimePeriod } from 'nft/types'
-import { calculateCardIndex } from 'nft/utils'
-import { useCallback, useMemo, useState } from 'react'
-import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components/macro'
-import { opacify } from 'theme/utils'
+import { fetchTrendingCollections } from "nft/queries";
+import { TimePeriod } from "nft/types";
+import { calculateCardIndex } from "nft/utils";
+import { useCallback, useMemo, useState } from "react";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components/macro";
+import { opacify } from "theme/utils";
 
-import { Carousel, LoadingCarousel } from './Carousel'
-import { CarouselCard, LoadingCarouselCard } from './CarouselCard'
+import { Carousel, LoadingCarousel } from "./Carousel";
+import { CarouselCard, LoadingCarouselCard } from "./CarouselCard";
 
 const BannerContainer = styled.div`
   display: flex;
@@ -17,10 +17,11 @@ const BannerContainer = styled.div`
   padding-top: 22px;
   position: relative;
 
-  @media only screen and (min-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
+  @media only screen and (min-width: ${({ theme }) =>
+      `${theme.breakpoint.sm}px`}) {
     padding: 32px 16px;
   }
-`
+`;
 
 const AbsoluteFill = styled.div`
   position: absolute;
@@ -28,7 +29,7 @@ const AbsoluteFill = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-`
+`;
 
 // Safari has issues with blur / overflow, forcing GPU rendering with `translate3d` fixes it
 // https://stackoverflow.com/a/71353198
@@ -39,11 +40,12 @@ const BannerBackground = styled(AbsoluteFill)<{ backgroundImage: string }>`
   filter: blur(62px);
 
   opacity: ${({ theme }) => (theme.darkMode ? 0.3 : 0.2)};
-`
+`;
 
 const PlainBackground = styled(AbsoluteFill)`
-  background: ${({ theme }) => `linear-gradient(${opacify(10, theme.userThemeColor)}, transparent)`};
-`
+  background: ${({ theme }) =>
+    `linear-gradient(${opacify(10, theme.userThemeColor)}, transparent)`};
+`;
 
 const BannerMainArea = styled.div`
   display: flex;
@@ -55,14 +57,15 @@ const BannerMainArea = styled.div`
   justify-content: space-between;
   z-index: 2;
 
-  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
+  @media only screen and (max-width: ${({ theme }) =>
+      `${theme.breakpoint.sm}px`}) {
     flex-direction: column;
     height: 100%;
     gap: 14px;
     margin-top: 4px;
     margin-bottom: 6px;
   }
-`
+`;
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -76,17 +79,20 @@ const HeaderContainer = styled.div`
 
   color: ${({ theme }) => theme.textPrimary};
 
-  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.lg}px`}) {
+  @media only screen and (max-width: ${({ theme }) =>
+      `${theme.breakpoint.lg}px`}) {
     font-size: 48px;
     line-height: 67px;
   }
 
-  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.md}px`}) {
+  @media only screen and (max-width: ${({ theme }) =>
+      `${theme.breakpoint.md}px`}) {
     font-size: 36px;
     line-height: 50px;
   }
 
-  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
+  @media only screen and (max-width: ${({ theme }) =>
+      `${theme.breakpoint.sm}px`}) {
     line-height: 43px;
     text-align: center;
     padding-bottom: 16px;
@@ -106,46 +112,53 @@ const HeaderContainer = styled.div`
       display: unset;
     }
   }
-`
+`;
 
 // Exclude collections that are not available in any of the following - OpenSea, X2Y2 and LooksRare:
-const EXCLUDED_COLLECTIONS = ['0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb']
-const TRENDING_COLLECTION_SIZE = 5
+const EXCLUDED_COLLECTIONS = ["0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb"];
+const TRENDING_COLLECTION_SIZE = 5;
 
 const Banner = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { data } = useQuery(
-    ['trendingCollections'],
+    ["trendingCollections"],
     () => {
       return fetchTrendingCollections({
-        volumeType: 'eth',
+        volumeType: "eth",
         timePeriod: TimePeriod.OneDay,
         size: TRENDING_COLLECTION_SIZE + EXCLUDED_COLLECTIONS.length,
-      })
+      });
     },
     {
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
     }
-  )
+  );
 
   const collections = useMemo(
-    () => data?.filter((collection) => !EXCLUDED_COLLECTIONS.includes(collection.address)).slice(0, 5),
+    () =>
+      data
+        ?.filter(
+          (collection) => !EXCLUDED_COLLECTIONS.includes(collection.address)
+        )
+        .slice(0, 5),
     [data]
-  )
+  );
 
-  const [activeCollectionIdx, setActiveCollectionIdx] = useState(0)
+  const [activeCollectionIdx, setActiveCollectionIdx] = useState(0);
   const onToggleNextSlide = useCallback(
     (direction: number) => {
-      if (!collections) return
-      setActiveCollectionIdx((idx) => calculateCardIndex(idx + direction, collections.length))
+      if (!collections) return;
+      setActiveCollectionIdx((idx) =>
+        calculateCardIndex(idx + direction, collections.length)
+      );
     },
     [collections]
-  )
+  );
 
-  const activeCollection = collections?.[activeCollectionIdx]
+  const activeCollection = collections?.[activeCollectionIdx];
 
   return (
     <BannerContainer>
@@ -162,12 +175,17 @@ const Banner = () => {
           More listings.
         </HeaderContainer>
         {collections ? (
-          <Carousel activeIndex={activeCollectionIdx} toggleNextSlide={onToggleNextSlide}>
+          <Carousel
+            activeIndex={activeCollectionIdx}
+            toggleNextSlide={onToggleNextSlide}
+          >
             {collections.map((collection) => (
               <CarouselCard
                 key={collection.address}
                 collection={collection}
-                onClick={() => navigate(`/nfts/collection/${collection.address}`)}
+                onClick={() =>
+                  navigate(`/nfts/collection/${collection.address}`)
+                }
               />
             ))}
           </Carousel>
@@ -178,7 +196,7 @@ const Banner = () => {
         )}
       </BannerMainArea>
     </BannerContainer>
-  )
-}
+  );
+};
 
-export default Banner
+export default Banner;

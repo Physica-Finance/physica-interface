@@ -1,22 +1,22 @@
-import { Plural } from '@lingui/macro'
-import { useOnClickOutside } from 'hooks/useOnClickOutside'
-import ms from 'ms.macro'
-import { Column, Row } from 'nft/components/Flex'
-import { NumericInput } from 'nft/components/layout/Input'
-import { bodySmall, caption } from 'nft/css/common.css'
-import { useSellAsset } from 'nft/hooks'
-import { DropDownOption } from 'nft/types'
-import { useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { AlertTriangle, ChevronDown } from 'react-feather'
-import styled from 'styled-components/macro'
-import { Z_INDEX } from 'theme/zIndex'
+import { Plural } from "@lingui/macro";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
+import ms from "ms.macro";
+import { Column, Row } from "nft/components/Flex";
+import { NumericInput } from "nft/components/layout/Input";
+import { bodySmall, caption } from "nft/css/common.css";
+import { useSellAsset } from "nft/hooks";
+import { DropDownOption } from "nft/types";
+import { useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { AlertTriangle, ChevronDown } from "react-feather";
+import styled from "styled-components/macro";
+import { Z_INDEX } from "theme/zIndex";
 
-import { Dropdown } from './Dropdown'
+import { Dropdown } from "./Dropdown";
 
 const ModalWrapper = styled(Column)`
   gap: 4px;
   position: relative;
-`
+`;
 
 const InputWrapper = styled(Row)<{ isInvalid: boolean }>`
   padding: 12px 8px 12px 12px;
@@ -24,8 +24,9 @@ const InputWrapper = styled(Row)<{ isInvalid: boolean }>`
   position: relative;
   height: 44px;
   border-radius: 8px;
-  border-color: ${({ isInvalid, theme }) => (isInvalid ? theme.accentCritical : theme.backgroundOutline)};
-`
+  border-color: ${({ isInvalid, theme }) =>
+    isInvalid ? theme.accentCritical : theme.backgroundOutline};
+`;
 
 const DropdownPrompt = styled(Row)`
   gap: 4px;
@@ -43,26 +44,26 @@ const DropdownPrompt = styled(Row)`
   &:hover {
     opacity: ${({ theme }) => theme.opacity.hover};
   }
-`
+`;
 
 const DropdownChevron = styled(ChevronDown)<{ isOpen: boolean }>`
   height: 16px;
   width: 16px;
   color: ${({ theme }) => theme.textSecondary};
-  transform: ${({ isOpen }) => isOpen && 'rotate(180deg)'};
+  transform: ${({ isOpen }) => isOpen && "rotate(180deg)"};
   transition: ${({
     theme: {
       transition: { duration, timing },
     },
   }) => `transform ${duration.fast} ${timing.ease}`};
-`
+`;
 
 const DropdownContainer = styled.div`
   position: absolute;
   top: 48px;
   right: 0px;
   z-index: ${Z_INDEX.dropdown};
-`
+`;
 
 const ErrorMessage = styled(Row)`
   color: ${({ theme }) => theme.accentCritical};
@@ -70,18 +71,18 @@ const ErrorMessage = styled(Row)`
   position: absolute;
   top: 44px;
   white-space: nowrap;
-`
+`;
 
 const WarningIcon = styled(AlertTriangle)`
   width: 16px;
   color: ${({ theme }) => theme.accentCritical};
-`
+`;
 
 enum Duration {
-  hour = 'hour',
-  day = 'day',
-  week = 'week',
-  month = 'month',
+  hour = "hour",
+  day = "day",
+  week = "week",
+  month = "month",
 }
 
 enum ErrorState {
@@ -91,82 +92,92 @@ enum ErrorState {
 }
 
 export const SetDurationModal = () => {
-  const [duration, setDuration] = useState(Duration.day)
-  const [amount, setAmount] = useState('7')
-  const [errorState, setErrorState] = useState(ErrorState.valid)
-  const setGlobalExpiration = useSellAsset((state) => state.setGlobalExpiration)
-  const [showDropdown, toggleShowDropdown] = useReducer((s) => !s, false)
-  const durationDropdownRef = useRef<HTMLDivElement>(null)
-  useOnClickOutside(durationDropdownRef, showDropdown ? toggleShowDropdown : undefined)
+  const [duration, setDuration] = useState(Duration.day);
+  const [amount, setAmount] = useState("7");
+  const [errorState, setErrorState] = useState(ErrorState.valid);
+  const setGlobalExpiration = useSellAsset(
+    (state) => state.setGlobalExpiration
+  );
+  const [showDropdown, toggleShowDropdown] = useReducer((s) => !s, false);
+  const durationDropdownRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(
+    durationDropdownRef,
+    showDropdown ? toggleShowDropdown : undefined
+  );
 
   const setCustomExpiration = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(event.target.value.length ? event.target.value : '')
-  }
+    setAmount(event.target.value.length ? event.target.value : "");
+  };
 
   const durationOptions: DropDownOption[] = useMemo(
     () => [
       {
-        displayText: 'hours',
+        displayText: "hours",
         isSelected: duration === Duration.hour,
         onClick: () => {
-          setDuration(Duration.hour)
-          toggleShowDropdown()
+          setDuration(Duration.hour);
+          toggleShowDropdown();
         },
       },
       {
-        displayText: 'days',
+        displayText: "days",
         isSelected: duration === Duration.day,
         onClick: () => {
-          setDuration(Duration.day)
-          toggleShowDropdown()
+          setDuration(Duration.day);
+          toggleShowDropdown();
         },
       },
       {
-        displayText: 'weeks',
+        displayText: "weeks",
         isSelected: duration === Duration.week,
         onClick: () => {
-          setDuration(Duration.week)
-          toggleShowDropdown()
+          setDuration(Duration.week);
+          toggleShowDropdown();
         },
       },
       {
-        displayText: 'months',
+        displayText: "months",
         isSelected: duration === Duration.month,
         onClick: () => {
-          setDuration(Duration.month)
-          toggleShowDropdown()
+          setDuration(Duration.month);
+          toggleShowDropdown();
         },
       },
     ],
     [duration]
-  )
+  );
 
-  let prompt
+  let prompt;
   switch (duration) {
     case Duration.hour:
-      prompt = <Plural value={amount} _1="hour" other="hours" />
-      break
+      prompt = <Plural value={amount} _1="hour" other="hours" />;
+      break;
     case Duration.day:
-      prompt = <Plural value={amount} _1="day" other="days" />
-      break
+      prompt = <Plural value={amount} _1="day" other="days" />;
+      break;
     case Duration.week:
-      prompt = <Plural value={amount} _1="week" other="weeks" />
-      break
+      prompt = <Plural value={amount} _1="week" other="weeks" />;
+      break;
     case Duration.month:
-      prompt = <Plural value={amount} _1="month" other="months" />
-      break
+      prompt = <Plural value={amount} _1="month" other="months" />;
+      break;
     default:
-      break
+      break;
   }
 
   useEffect(() => {
-    const expiration = convertDurationToExpiration(parseFloat(amount), duration)
+    const expiration = convertDurationToExpiration(
+      parseFloat(amount),
+      duration
+    );
 
-    if (expiration * 1000 - Date.now() < ms`60 seconds` || isNaN(expiration)) setErrorState(ErrorState.empty)
-    else if (expiration * 1000 - Date.now() > ms`180 days`) setErrorState(ErrorState.overMax)
-    else setErrorState(ErrorState.valid)
-    setGlobalExpiration(expiration)
-  }, [amount, duration, setGlobalExpiration])
+    if (expiration * 1000 - Date.now() < ms`60 seconds` || isNaN(expiration))
+      setErrorState(ErrorState.empty);
+    else if (expiration * 1000 - Date.now() > ms`180 days`)
+      setErrorState(ErrorState.overMax);
+    else setErrorState(ErrorState.valid);
+    setGlobalExpiration(expiration);
+  }, [amount, duration, setGlobalExpiration]);
 
   return (
     <ModalWrapper ref={durationDropdownRef}>
@@ -177,7 +188,7 @@ export const SetDurationModal = () => {
           pattern="[0-9]"
           borderStyle="none"
           className={bodySmall}
-          color={{ placeholder: 'textSecondary', default: 'textPrimary' }}
+          color={{ placeholder: "textSecondary", default: "textPrimary" }}
           value={amount}
           width="32"
           marginRight="4"
@@ -196,26 +207,31 @@ export const SetDurationModal = () => {
       </InputWrapper>
       {errorState !== ErrorState.valid && (
         <ErrorMessage className={caption}>
-          {' '}
-          <WarningIcon /> {errorState === ErrorState.overMax ? 'Maximum 6 months' : 'Set duration'}
+          {" "}
+          <WarningIcon />{" "}
+          {errorState === ErrorState.overMax
+            ? "Maximum 6 months"
+            : "Set duration"}
         </ErrorMessage>
       )}
     </ModalWrapper>
-  )
-}
+  );
+};
 
 const convertDurationToExpiration = (amount: number, duration: Duration) => {
   const durationFactor = () => {
     switch (duration) {
       case Duration.hour:
-        return 1
+        return 1;
       case Duration.day:
-        return 24
+        return 24;
       case Duration.week:
-        return 24 * 7
+        return 24 * 7;
       default: // month
-        return 24 * 30
+        return 24 * 30;
     }
-  }
-  return Math.round((Date.now() + ms`1 hour` * durationFactor() * amount) / 1000)
-}
+  };
+  return Math.round(
+    (Date.now() + ms`1 hour` * durationFactor() * amount) / 1000
+  );
+};

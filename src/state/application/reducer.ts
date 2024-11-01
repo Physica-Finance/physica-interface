@@ -1,17 +1,17 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit'
-import { DEFAULT_TXN_DISMISS_MS } from 'constants/misc'
+import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { DEFAULT_TXN_DISMISS_MS } from "constants/misc";
 
-import { SupportedChainId } from '../../constants/chains'
+import { SupportedChainId } from "../../constants/chains";
 
 export type PopupContent =
   | {
       txn: {
-        hash: string
-      }
+        hash: string;
+      };
     }
   | {
-      failedSwitchNetwork: SupportedChainId
-    }
+      failedSwitchNetwork: SupportedChainId;
+    };
 
 export enum ApplicationModal {
   ADDRESS_CLAIM,
@@ -38,13 +38,18 @@ export enum ApplicationModal {
   UNISWAP_NFT_AIRDROP_CLAIM,
 }
 
-type PopupList = Array<{ key: string; show: boolean; content: PopupContent; removeAfterMs: number | null }>
+type PopupList = Array<{
+  key: string;
+  show: boolean;
+  content: PopupContent;
+  removeAfterMs: number | null;
+}>;
 
 export interface ApplicationState {
-  readonly chainId: number | null
-  readonly fiatOnramp: { available: boolean; availabilityChecked: boolean }
-  readonly openModal: ApplicationModal | null
-  readonly popupList: PopupList
+  readonly chainId: number | null;
+  readonly fiatOnramp: { available: boolean; availabilityChecked: boolean };
+  readonly openModal: ApplicationModal | null;
+  readonly popupList: PopupList;
 }
 
 const initialState: ApplicationState = {
@@ -52,42 +57,54 @@ const initialState: ApplicationState = {
   chainId: null,
   openModal: null,
   popupList: [],
-}
+};
 
 const applicationSlice = createSlice({
-  name: 'application',
+  name: "application",
   initialState,
   reducers: {
     setFiatOnrampAvailability(state, { payload: available }) {
-      state.fiatOnramp = { available, availabilityChecked: true }
+      state.fiatOnramp = { available, availabilityChecked: true };
     },
     updateChainId(state, action) {
-      const { chainId } = action.payload
-      state.chainId = chainId
+      const { chainId } = action.payload;
+      state.chainId = chainId;
     },
     setOpenModal(state, action) {
-      state.openModal = action.payload
+      state.openModal = action.payload;
     },
-    addPopup(state, { payload: { content, key, removeAfterMs = DEFAULT_TXN_DISMISS_MS } }) {
-      state.popupList = (key ? state.popupList.filter((popup) => popup.key !== key) : state.popupList).concat([
+    addPopup(
+      state,
+      { payload: { content, key, removeAfterMs = DEFAULT_TXN_DISMISS_MS } }
+    ) {
+      state.popupList = (
+        key
+          ? state.popupList.filter((popup) => popup.key !== key)
+          : state.popupList
+      ).concat([
         {
           key: key || nanoid(),
           show: true,
           content,
           removeAfterMs,
         },
-      ])
+      ]);
     },
     removePopup(state, { payload: { key } }) {
       state.popupList.forEach((p) => {
         if (p.key === key) {
-          p.show = false
+          p.show = false;
         }
-      })
+      });
     },
   },
-})
+});
 
-export const { updateChainId, setFiatOnrampAvailability, setOpenModal, addPopup, removePopup } =
-  applicationSlice.actions
-export default applicationSlice.reducer
+export const {
+  updateChainId,
+  setFiatOnrampAvailability,
+  setOpenModal,
+  addPopup,
+  removePopup,
+} = applicationSlice.actions;
+export default applicationSlice.reducer;

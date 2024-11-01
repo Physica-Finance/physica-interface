@@ -1,7 +1,7 @@
-import { BaseVariant, FeatureFlag, useBaseFlag } from '../index'
+import { BaseVariant, FeatureFlag, useBaseFlag } from "../index";
 
 export function useGqlRoutingFlag(): BaseVariant {
-  return useBaseFlag(FeatureFlag.gqlRouting)
+  return useBaseFlag(FeatureFlag.gqlRouting);
 }
 
-export { BaseVariant as GqlRoutingVariant }
+export { BaseVariant as GqlRoutingVariant };

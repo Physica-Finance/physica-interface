@@ -1,11 +1,15 @@
-import { TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, InterfaceElementName, InterfaceEventName } from '@uniswap/analytics-events'
-import React from 'react'
-import { Check } from 'react-feather'
-import styled from 'styled-components/macro'
-import { flexColumnNoWrap, flexRowNoWrap } from 'theme/styles'
+import { TraceEvent } from "@uniswap/analytics";
+import {
+  BrowserEvent,
+  InterfaceElementName,
+  InterfaceEventName,
+} from "@uniswap/analytics-events";
+import React from "react";
+import { Check } from "react-feather";
+import styled from "styled-components/macro";
+import { flexColumnNoWrap, flexRowNoWrap } from "theme/styles";
 
-import { ExternalLink } from '../../theme'
+import { ExternalLink } from "../../theme";
 
 const InfoCard = styled.button<{ isActive?: boolean }>`
   background-color: ${({ theme }) => theme.backgroundInteractive};
@@ -17,8 +21,9 @@ const InfoCard = styled.button<{ isActive?: boolean }>`
   &:focus {
     background-color: ${({ theme }) => theme.hoverState};
   }
-  border-color: ${({ theme, isActive }) => (isActive ? theme.accentActive : 'transparent')};
-`
+  border-color: ${({ theme, isActive }) =>
+    isActive ? theme.accentActive : "transparent"};
+`;
 
 const CheckIcon = styled(Check)`
   ${flexColumnNoWrap};
@@ -30,7 +35,7 @@ const CheckIcon = styled(Check)`
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
     align-items: flex-end;
   `};
-`
+`;
 
 const OptionCard = styled(InfoCard as any)`
   display: flex;
@@ -39,41 +44,44 @@ const OptionCard = styled(InfoCard as any)`
   justify-content: space-between;
   margin-top: 2rem;
   padding: 1rem;
-`
+`;
 
 const OptionCardLeft = styled.div`
   ${flexColumnNoWrap};
   justify-content: center;
   height: 100%;
-`
+`;
 
 const OptionCardClickable = styled(OptionCard as any)<{
-  active?: boolean
-  clickable?: boolean
+  active?: boolean;
+  clickable?: boolean;
 }>`
   margin-top: 0;
   border: ${({ active, theme }) => active && `1px solid ${theme.accentActive}`};
   &:hover {
-    cursor: ${({ clickable }) => clickable && 'pointer'};
+    cursor: ${({ clickable }) => clickable && "pointer"};
     background-color: ${({ theme }) => theme.hoverState};
   }
-  opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
-`
+  opacity: ${({ disabled }) => (disabled ? "0.5" : "1")};
+`;
 
 const HeaderText = styled.div`
   ${flexRowNoWrap};
   align-items: center;
   justify-content: center;
-  color: ${(props) => (props.color === 'blue' ? ({ theme }) => theme.accentAction : ({ theme }) => theme.textPrimary)};
+  color: ${(props) =>
+    props.color === "blue"
+      ? ({ theme }) => theme.accentAction
+      : ({ theme }) => theme.textPrimary};
   font-size: 16px;
   font-weight: 600;
-`
+`;
 
 const SubHeader = styled.div`
   color: ${({ theme }) => theme.textPrimary};
   margin-top: 10px;
   font-size: 12px;
-`
+`;
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   ${flexColumnNoWrap};
@@ -82,13 +90,13 @@ const IconWrapper = styled.div<{ size?: number | null }>`
   padding-right: 12px;
   & > img,
   span {
-    height: ${({ size }) => (size ? size + 'px' : '28px')};
-    width: ${({ size }) => (size ? size + 'px' : '28px')};
+    height: ${({ size }) => (size ? size + "px" : "28px")};
+    width: ${({ size }) => (size ? size + "px" : "28px")};
   }
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
     align-items: flex-end;
   `};
-`
+`;
 
 export default function Option({
   link = null,
@@ -102,16 +110,16 @@ export default function Option({
   isActive = false,
   id,
 }: {
-  link?: string | null
-  clickable?: boolean
-  size?: number | null
-  onClick?: null | (() => void)
-  color: string
-  header: React.ReactNode
-  subheader?: React.ReactNode
-  icon: string
-  isActive?: boolean
-  id: string
+  link?: string | null;
+  clickable?: boolean;
+  size?: number | null;
+  onClick?: null | (() => void);
+  color: string;
+  header: React.ReactNode;
+  subheader?: React.ReactNode;
+  icon: string;
+  isActive?: boolean;
+  id: string;
 }) {
   const content = (
     <TraceEvent
@@ -139,10 +147,10 @@ export default function Option({
         {isActive && <CheckIcon />}
       </OptionCardClickable>
     </TraceEvent>
-  )
+  );
   if (link) {
-    return <ExternalLink href={link}>{content}</ExternalLink>
+    return <ExternalLink href={link}>{content}</ExternalLink>;
   }
 
-  return content
+  return content;
 }

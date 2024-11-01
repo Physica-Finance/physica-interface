@@ -1,20 +1,20 @@
-import create from 'zustand'
-import { devtools } from 'zustand/middleware'
+import create from "zustand";
+import { devtools } from "zustand/middleware";
 
-import { OpenSeaAsset } from '../types'
+import { OpenSeaAsset } from "../types";
 
 interface SelectNFTState {
   /**
    * NFTs selected by a user
    */
-  selectedNFTs: (OpenSeaAsset & { price?: number })[]
+  selectedNFTs: (OpenSeaAsset & { price?: number })[];
 
-  selectNFT: (nft: OpenSeaAsset & { price?: number }) => void
-  reset: () => void
-  setUniversalPrice: (price: number) => void
-  toggleUniversalPrice: (v: boolean) => void
-  setSingleNFTPrice: (id: number, price: number) => void
-  isUniversalPrice: boolean
+  selectNFT: (nft: OpenSeaAsset & { price?: number }) => void;
+  reset: () => void;
+  setUniversalPrice: (price: number) => void;
+  toggleUniversalPrice: (v: boolean) => void;
+  setSingleNFTPrice: (id: number, price: number) => void;
+  isUniversalPrice: boolean;
 }
 
 export const useNFTSelect = create<SelectNFTState>()(
@@ -24,10 +24,12 @@ export const useNFTSelect = create<SelectNFTState>()(
       isUniversalPrice: false,
       selectNFT: (nft) =>
         set(({ selectedNFTs }) => {
-          if (selectedNFTs.length === 0) return { selectedNFTs: [nft] }
+          if (selectedNFTs.length === 0) return { selectedNFTs: [nft] };
           else if (selectedNFTs.some((x) => x.id === nft.id))
-            return { selectedNFTs: selectedNFTs.filter((n) => n.id !== nft.id) }
-          else return { selectedNFTs: [...selectedNFTs, nft] }
+            return {
+              selectedNFTs: selectedNFTs.filter((n) => n.id !== nft.id),
+            };
+          else return { selectedNFTs: [...selectedNFTs, nft] };
         }),
       reset: () => set(() => ({ selectedNFTs: [] })),
       toggleUniversalPrice: (v) => set(() => ({ isUniversalPrice: v })),
@@ -36,17 +38,20 @@ export const useNFTSelect = create<SelectNFTState>()(
           return {
             selectedNFTs: selectedNFTs.map((n) => ({ ...n, price })),
             isUniversalPrice: true,
-          }
+          };
         }),
       setSingleNFTPrice: (id, price) =>
         set(({ selectedNFTs }) => {
-          const found = selectedNFTs.find((i) => i.id === id)
+          const found = selectedNFTs.find((i) => i.id === id);
 
           return {
-            selectedNFTs: [...selectedNFTs.filter((n) => n.id !== id), { ...found, price }],
-          }
+            selectedNFTs: [
+              ...selectedNFTs.filter((n) => n.id !== id),
+              { ...found, price },
+            ],
+          };
         }),
     }),
-    { name: 'useNFTSelect' }
+    { name: "useNFTSelect" }
   )
-)
+);

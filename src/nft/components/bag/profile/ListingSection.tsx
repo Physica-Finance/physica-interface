@@ -1,14 +1,19 @@
-import clsx from 'clsx'
-import { Box } from 'nft/components/Box'
-import { Column, Row } from 'nft/components/Flex'
-import { ApprovedCheckmarkIcon, ChevronUpIcon, FailedListingIcon, LoadingIcon } from 'nft/components/icons'
-import { badge, bodySmall, buttonTextSmall, subhead } from 'nft/css/common.css'
-import { useSellAsset } from 'nft/hooks'
-import { AssetRow, CollectionRow, ListingRow, ListingStatus } from 'nft/types'
-import { formatEthPrice, numberToWei } from 'nft/utils/currency'
-import { useEffect, useState } from 'react'
+import clsx from "clsx";
+import { Box } from "nft/components/Box";
+import { Column, Row } from "nft/components/Flex";
+import {
+  ApprovedCheckmarkIcon,
+  ChevronUpIcon,
+  FailedListingIcon,
+  LoadingIcon,
+} from "nft/components/icons";
+import { badge, bodySmall, buttonTextSmall, subhead } from "nft/css/common.css";
+import { useSellAsset } from "nft/hooks";
+import { AssetRow, CollectionRow, ListingRow, ListingStatus } from "nft/types";
+import { formatEthPrice, numberToWei } from "nft/utils/currency";
+import { useEffect, useState } from "react";
 
-import * as styles from './ListingModal.css'
+import * as styles from "./ListingModal.css";
 
 export const ListingSection = ({
   sectionTitle,
@@ -19,40 +24,49 @@ export const ListingSection = ({
   openIndex,
   isSuccessScreen = false,
 }: {
-  sectionTitle: string
-  caption?: string
-  title?: string
-  rows: AssetRow[]
-  index: number
-  openIndex: number
-  isSuccessScreen?: boolean
+  sectionTitle: string;
+  caption?: string;
+  title?: string;
+  rows: AssetRow[];
+  index: number;
+  openIndex: number;
+  isSuccessScreen?: boolean;
 }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const notAllApproved = rows.some((row: AssetRow) => row.status !== ListingStatus.APPROVED)
-  const sellAssets = useSellAsset((state) => state.sellAssets)
-  const removeAssetMarketplace = useSellAsset((state) => state.removeAssetMarketplace)
+  const [isOpen, setIsOpen] = useState(false);
+  const notAllApproved = rows.some(
+    (row: AssetRow) => row.status !== ListingStatus.APPROVED
+  );
+  const sellAssets = useSellAsset((state) => state.sellAssets);
+  const removeAssetMarketplace = useSellAsset(
+    (state) => state.removeAssetMarketplace
+  );
 
   const removeRow = (row: any) => {
     // collections
     if (index === 1) {
       for (const asset of sellAssets)
-        if (asset.asset_contract.address === row.collectionAddress) removeAssetMarketplace(asset, row.marketplace)
+        if (asset.asset_contract.address === row.collectionAddress)
+          removeAssetMarketplace(asset, row.marketplace);
     }
     // listings
-    else removeAssetMarketplace(row.asset, row.marketplace)
-  }
+    else removeAssetMarketplace(row.asset, row.marketplace);
+  };
 
   useEffect(() => {
-    setIsOpen(index === openIndex)
-  }, [index, openIndex])
+    setIsOpen(index === openIndex);
+  }, [index, openIndex]);
 
   function getListingRowPrice(row: AssetRow): number | undefined {
-    const listingRow = row as ListingRow
-    const newListings = listingRow.asset.newListings
-    return newListings?.find((listing) => listing.marketplace.name === listingRow.marketplace.name)?.price ?? 0
+    const listingRow = row as ListingRow;
+    const newListings = listingRow.asset.newListings;
+    return (
+      newListings?.find(
+        (listing) => listing.marketplace.name === listingRow.marketplace.name
+      )?.price ?? 0
+    );
   }
 
-  const allApproved = !notAllApproved && rows.length > 0 && !isSuccessScreen
+  const allApproved = !notAllApproved && rows.length > 0 && !isSuccessScreen;
 
   return (
     <Row
@@ -61,16 +75,22 @@ export const ListingSection = ({
       marginTop="10"
       marginBottom="10"
       onClick={() => rows.length > 0 && setIsOpen(!isOpen)}
-      color={allApproved ? 'accentSuccess' : 'textPrimary'}
+      color={allApproved ? "accentSuccess" : "textPrimary"}
     >
-      {allApproved && <ApprovedCheckmarkIcon style={{ marginRight: '8px' }} />}
+      {allApproved && <ApprovedCheckmarkIcon style={{ marginRight: "8px" }} />}
       {sectionTitle}
-      {!isSuccessScreen && <ChevronUpIcon className={clsx(`${isOpen ? '' : styles.chevronDown} ${styles.chevron}`)} />}
+      {!isSuccessScreen && (
+        <ChevronUpIcon
+          className={clsx(
+            `${isOpen ? "" : styles.chevronDown} ${styles.chevron}`
+          )}
+        />
+      )}
       {(isOpen || isSuccessScreen) && (
         <Column
           gap="12"
           width="full"
-          paddingTop={isSuccessScreen ? '28' : 'auto'}
+          paddingTop={isSuccessScreen ? "28" : "auto"}
           className={clsx(!isSuccessScreen && styles.listingSectionBorder)}
         >
           {caption && (
@@ -94,14 +114,19 @@ export const ListingSection = ({
                           as="img"
                           height="20"
                           width="20"
-                          borderRadius={index === 0 && (row as CollectionRow).collectionAddress ? 'round' : '4'}
+                          borderRadius={
+                            index === 0 &&
+                            (row as CollectionRow).collectionAddress
+                              ? "round"
+                              : "4"
+                          }
                           style={{ zIndex: 2 - index }}
                           className={styles.listingModalIcon}
                           src={image}
                           alt={row.name}
                           key={index}
                         />
-                      )
+                      );
                     })}
                     <Box
                       marginLeft="8"
@@ -112,9 +137,12 @@ export const ListingSection = ({
                       overflow="hidden"
                       whiteSpace="nowrap"
                       maxWidth={{
-                        sm: 'max',
+                        sm: "max",
                         md:
-                          row.status === ListingStatus.REJECTED || row.status === ListingStatus.FAILED ? '120' : 'full',
+                          row.status === ListingStatus.REJECTED ||
+                          row.status === ListingStatus.FAILED
+                            ? "120"
+                            : "full",
                       }}
                       className={bodySmall}
                     >
@@ -122,21 +150,31 @@ export const ListingSection = ({
                     </Box>
                     {isSuccessScreen ? (
                       getListingRowPrice(row) &&
-                      `${formatEthPrice(numberToWei(getListingRowPrice(row) ?? 0).toString())} ETH`
+                      `${formatEthPrice(
+                        numberToWei(getListingRowPrice(row) ?? 0).toString()
+                      )} ETH`
                     ) : row.status === ListingStatus.APPROVED ? (
                       <ApprovedCheckmarkIcon height="20" width="20" />
-                    ) : row.status === ListingStatus.FAILED || row.status === ListingStatus.REJECTED ? (
+                    ) : row.status === ListingStatus.FAILED ||
+                      row.status === ListingStatus.REJECTED ? (
                       <Row gap="4">
-                        <Box fontWeight="normal" fontSize="14" color="textSecondary">
+                        <Box
+                          fontWeight="normal"
+                          fontSize="14"
+                          color="textSecondary"
+                        >
                           {row.status}
                         </Box>
                         <FailedListingIcon />
                       </Row>
                     ) : (
-                      row.status === ListingStatus.SIGNING && <LoadingIcon height="20" width="20" stroke="#4673FA" />
+                      row.status === ListingStatus.SIGNING && (
+                        <LoadingIcon height="20" width="20" stroke="#4673FA" />
+                      )
                     )}
                   </Row>
-                  {(row.status === ListingStatus.FAILED || row.status === ListingStatus.REJECTED) && (
+                  {(row.status === ListingStatus.FAILED ||
+                    row.status === ListingStatus.REJECTED) && (
                     <Row gap="8" justifyContent="center">
                       <Box
                         width="120"
@@ -147,10 +185,10 @@ export const ListingSection = ({
                         color="red400"
                         height="32"
                         cursor="pointer"
-                        style={{ backgroundColor: '#FA2B391A' }}
+                        style={{ backgroundColor: "#FA2B391A" }}
                         onClick={async (e) => {
-                          e.stopPropagation()
-                          removeRow(row)
+                          e.stopPropagation();
+                          removeRow(row);
                         }}
                       >
                         Remove
@@ -164,11 +202,11 @@ export const ListingSection = ({
                         color="accentAction"
                         height="32"
                         cursor="pointer"
-                        style={{ backgroundColor: '#4C82FB29' }}
+                        style={{ backgroundColor: "#4C82FB29" }}
                         onClick={async (e) => {
-                          e.stopPropagation()
+                          e.stopPropagation();
                           if (row.callback) {
-                            await row.callback()
+                            await row.callback();
                           }
                         }}
                       >
@@ -177,11 +215,11 @@ export const ListingSection = ({
                     </Row>
                   )}
                 </Column>
-              )
+              );
             })}
           </Column>
         </Column>
       )}
     </Row>
-  )
-}
+  );
+};

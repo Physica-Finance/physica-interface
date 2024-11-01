@@ -1,13 +1,13 @@
-import { Trans } from '@lingui/macro'
-import { useWeb3React } from '@web3-react/core'
-import { useCallback, useEffect, useState } from 'react'
-import { useCloseModal, useModalIsOpen } from 'state/application/hooks'
-import { ApplicationModal } from 'state/application/reducer'
-import styled, { useTheme } from 'styled-components/macro'
-import { CustomLightSpinner, ThemedText } from 'theme'
+import { Trans } from "@lingui/macro";
+import { useWeb3React } from "@web3-react/core";
+import { useCallback, useEffect, useState } from "react";
+import { useCloseModal, useModalIsOpen } from "state/application/hooks";
+import { ApplicationModal } from "state/application/reducer";
+import styled, { useTheme } from "styled-components/macro";
+import { CustomLightSpinner, ThemedText } from "theme";
 
-import Circle from '../../assets/images/blue-loader.svg'
-import Modal from '../Modal'
+import Circle from "../../assets/images/blue-loader.svg";
+import Modal from "../Modal";
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.white};
@@ -20,14 +20,14 @@ const Wrapper = styled.div`
   min-width: 375px;
   position: relative;
   width: 100%;
-`
+`;
 
 const ErrorText = styled(ThemedText.BodyPrimary)`
   color: ${({ theme }) => theme.accentFailure};
   margin: auto !important;
   text-align: center;
   width: 90%;
-`
+`;
 const StyledIframe = styled.iframe`
   background-color: ${({ theme }) => theme.white};
   border-radius: 12px;
@@ -40,7 +40,7 @@ const StyledIframe = styled.iframe`
   right: 0;
   top: 0;
   width: calc(100% - 16px);
-`
+`;
 const StyledSpinner = styled(CustomLightSpinner)`
   bottom: 0;
   left: 0;
@@ -48,51 +48,52 @@ const StyledSpinner = styled(CustomLightSpinner)`
   position: absolute;
   right: 0;
   top: 0;
-`
+`;
 
 const MOONPAY_SUPPORTED_CURRENCY_CODES = [
-  'eth',
-  'eth_arbitrum',
-  'eth_optimism',
-  'eth_polygon',
-  'weth',
-  'wbtc',
-  'matic_polygon',
-  'polygon',
-  'usdc_arbitrum',
-  'usdc_optimism',
-  'usdc_polygon',
-]
+  "eth",
+  "eth_arbitrum",
+  "eth_optimism",
+  "eth_polygon",
+  "weth",
+  "wbtc",
+  "matic_polygon",
+  "polygon",
+  "usdc_arbitrum",
+  "usdc_optimism",
+  "usdc_polygon",
+];
 
 export default function FiatOnrampModal() {
-  const { account } = useWeb3React()
-  const theme = useTheme()
-  const closeModal = useCloseModal()
-  const fiatOnrampModalOpen = useModalIsOpen(ApplicationModal.FIAT_ONRAMP)
+  const { account } = useWeb3React();
+  const theme = useTheme();
+  const closeModal = useCloseModal();
+  const fiatOnrampModalOpen = useModalIsOpen(ApplicationModal.FIAT_ONRAMP);
 
-  const [signedIframeUrl, setSignedIframeUrl] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [signedIframeUrl, setSignedIframeUrl] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchSignedIframeUrl = useCallback(async () => {
     if (!account) {
-      setError('Please connect an account before making a purchase.')
-      return
+      setError("Please connect an account before making a purchase.");
+      return;
     }
-    setLoading(true)
-    setError(null)
+    setLoading(true);
+    setError(null);
     try {
-      const signedIframeUrlFetchEndpoint = process.env.REACT_APP_MOONPAY_LINK as string
+      const signedIframeUrlFetchEndpoint = process.env
+        .REACT_APP_MOONPAY_LINK as string;
       const res = await fetch(signedIframeUrlFetchEndpoint, {
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           colorCode: theme.accentAction,
-          defaultCurrencyCode: 'eth',
-          redirectUrl: 'https://app.physica.finance/#/swap',
+          defaultCurrencyCode: "eth",
+          redirectUrl: "https://app.physica.finance/#/swap",
           walletAddresses: JSON.stringify(
             MOONPAY_SUPPORTED_CURRENCY_CODES.reduce(
               (acc, currencyCode) => ({
@@ -103,20 +104,20 @@ export default function FiatOnrampModal() {
             )
           ),
         }),
-      })
-      const { url } = await res.json()
-      setSignedIframeUrl(url)
+      });
+      const { url } = await res.json();
+      setSignedIframeUrl(url);
     } catch (e) {
-      console.log('there was an error fetching the link', e)
-      setError(e.toString())
+      console.log("there was an error fetching the link", e);
+      setError(e.toString());
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [account, theme.accentAction])
+  }, [account, theme.accentAction]);
 
   useEffect(() => {
-    fetchSignedIframeUrl()
-  }, [fetchSignedIframeUrl])
+    fetchSignedIframeUrl();
+  }, [fetchSignedIframeUrl]);
 
   return (
     <Modal isOpen={fiatOnrampModalOpen} onDismiss={closeModal} maxHeight={720}>
@@ -135,9 +136,13 @@ export default function FiatOnrampModal() {
         ) : loading ? (
           <StyledSpinner src={Circle} alt="loading spinner" size="90px" />
         ) : (
-          <StyledIframe src={signedIframeUrl ?? ''} frameBorder="0" title="fiat-onramp-iframe" />
+          <StyledIframe
+            src={signedIframeUrl ?? ""}
+            frameBorder="0"
+            title="fiat-onramp-iframe"
+          />
         )}
       </Wrapper>
     </Modal>
-  )
+  );
 }

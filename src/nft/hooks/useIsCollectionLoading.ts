@@ -1,11 +1,11 @@
-import create from 'zustand'
-import { devtools } from 'zustand/middleware'
+import create from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface State {
-  isCollectionNftsLoading: boolean
-  setIsCollectionNftsLoading: (isCollectionNftsLoading: boolean) => void
-  isCollectionStatsLoading: boolean
-  setIsCollectionStatsLoading: (isCollectionStatsLoading: boolean) => void
+  isCollectionNftsLoading: boolean;
+  setIsCollectionNftsLoading: (isCollectionNftsLoading: boolean) => void;
+  isCollectionStatsLoading: boolean;
+  setIsCollectionStatsLoading: (isCollectionStatsLoading: boolean) => void;
 }
 
 export const useIsCollectionLoading = create<State>()(
@@ -14,14 +14,14 @@ export const useIsCollectionLoading = create<State>()(
       isCollectionNftsLoading: false,
       setIsCollectionNftsLoading: (isCollectionNftsLoading) =>
         set(() => {
-          return { isCollectionNftsLoading }
+          return { isCollectionNftsLoading };
         }),
       isCollectionStatsLoading: false,
       setIsCollectionStatsLoading: (isCollectionStatsLoading) =>
         set(() => {
-          return { isCollectionStatsLoading }
+          return { isCollectionStatsLoading };
         }),
     }),
-    { name: 'useIsCollectionLoading' }
+    { name: "useIsCollectionLoading" }
   )
-)
+);

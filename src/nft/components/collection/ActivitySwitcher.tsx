@@ -1,30 +1,41 @@
-import { TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, InterfaceElementName, NFTEventName } from '@uniswap/analytics-events'
-import { Box } from 'nft/components/Box'
-import { Row } from 'nft/components/Flex'
-import { useIsCollectionLoading } from 'nft/hooks'
-import styled from 'styled-components/macro'
+import { TraceEvent } from "@uniswap/analytics";
+import {
+  BrowserEvent,
+  InterfaceElementName,
+  NFTEventName,
+} from "@uniswap/analytics-events";
+import { Box } from "nft/components/Box";
+import { Row } from "nft/components/Flex";
+import { useIsCollectionLoading } from "nft/hooks";
+import styled from "styled-components/macro";
 
-import * as styles from './ActivitySwitcher.css'
+import * as styles from "./ActivitySwitcher.css";
 
 const BaseActivityContainer = styled(Row)`
   border-bottom: 1px solid;
   border-color: ${({ theme }) => theme.backgroundInteractive};
   margin-right: 12px;
-`
+`;
 
 export const ActivitySwitcherLoading = new Array(2)
   .fill(null)
-  .map((_, index) => <div className={styles.styledLoading} key={`ActivitySwitcherLoading-key-${index}`} />)
+  .map((_, index) => (
+    <div
+      className={styles.styledLoading}
+      key={`ActivitySwitcherLoading-key-${index}`}
+    />
+  ));
 
 export const ActivitySwitcher = ({
   showActivity,
   toggleActivity,
 }: {
-  showActivity: boolean
-  toggleActivity: () => void
+  showActivity: boolean;
+  toggleActivity: () => void;
 }) => {
-  const isLoading = useIsCollectionLoading((state) => state.isCollectionStatsLoading)
+  const isLoading = useIsCollectionLoading(
+    (state) => state.isCollectionStatsLoading
+  );
 
   return (
     <BaseActivityContainer gap="24" marginBottom="16">
@@ -34,7 +45,11 @@ export const ActivitySwitcher = ({
         <>
           <Box
             as="button"
-            className={showActivity ? styles.activitySwitcherToggle : styles.selectedActivitySwitcherToggle}
+            className={
+              showActivity
+                ? styles.activitySwitcherToggle
+                : styles.selectedActivitySwitcherToggle
+            }
             onClick={() => showActivity && toggleActivity()}
           >
             Items
@@ -46,7 +61,11 @@ export const ActivitySwitcher = ({
           >
             <Box
               as="button"
-              className={!showActivity ? styles.activitySwitcherToggle : styles.selectedActivitySwitcherToggle}
+              className={
+                !showActivity
+                  ? styles.activitySwitcherToggle
+                  : styles.selectedActivitySwitcherToggle
+              }
               onClick={() => !showActivity && toggleActivity()}
               data-testid="nft-activity"
             >
@@ -56,5 +75,5 @@ export const ActivitySwitcher = ({
         </>
       )}
     </BaseActivityContainer>
-  )
-}
+  );
+};

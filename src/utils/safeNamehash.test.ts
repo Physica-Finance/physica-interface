@@ -1,21 +1,21 @@
-import { namehash } from '@ethersproject/hash'
+import { namehash } from "@ethersproject/hash";
 
-import { safeNamehash } from './safeNamehash'
+import { safeNamehash } from "./safeNamehash";
 
-describe('#safeNamehash', () => {
-  const emoji = '🤔'
+describe("#safeNamehash", () => {
+  const emoji = "🤔";
 
-  it('#namehash fails', () => {
-    expect(() => namehash(emoji)).toThrow('STRINGPREP_CONTAINS_UNASSIGNED')
-  })
+  it("#namehash fails", () => {
+    expect(() => namehash(emoji)).toThrow("STRINGPREP_CONTAINS_UNASSIGNED");
+  });
 
   // suppress console.debug for the next test
   beforeEach(() => {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    jest.spyOn(console, 'debug').mockImplementation(() => {})
-  })
+    jest.spyOn(console, "debug").mockImplementation(() => {});
+  });
 
-  it('works', () => {
-    expect(safeNamehash(emoji)).toEqual(undefined)
-  })
-})
+  it("works", () => {
+    expect(safeNamehash(emoji)).toEqual(undefined);
+  });
+});

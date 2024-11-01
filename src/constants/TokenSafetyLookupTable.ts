@@ -1,9 +1,9 @@
-import { TokenInfo } from '@uniswap/token-lists'
+import { TokenInfo } from "@uniswap/token-lists";
 
-import store from '../state'
-import {PLANQ_LIST, UNI_EXTENDED_LIST, UNI_LIST, UNSUPPORTED_LIST_URLS} from './lists'
-import brokenTokenList from './tokenLists/broken.tokenlist.json'
-import { NATIVE_CHAIN_ID } from './tokens'
+import store from "../state";
+import { PLANQ_LIST, UNSUPPORTED_LIST_URLS } from "./lists";
+import brokenTokenList from "./tokenLists/broken.tokenlist.json";
+import { NATIVE_CHAIN_ID } from "./tokens";
 
 export enum TOKEN_LIST_TYPES {
   UNI_DEFAULT = 1,
@@ -14,10 +14,10 @@ export enum TOKEN_LIST_TYPES {
 }
 
 class TokenSafetyLookupTable {
-  dict: { [key: string]: TOKEN_LIST_TYPES } | null = null
+  dict: { [key: string]: TOKEN_LIST_TYPES } | null = null;
 
   createMap() {
-    const dict: { [key: string]: TOKEN_LIST_TYPES } = {}
+    const dict: { [key: string]: TOKEN_LIST_TYPES } = {};
 
     // Initialize extended tokens first
     /*store.getState().lists.byUrl[UNI_EXTENDED_LIST].current?.tokens.forEach((token) => {
@@ -25,34 +25,38 @@ class TokenSafetyLookupTable {
     })*/
 
     // Initialize default tokens second, so that any tokens on both default and extended will display as default (no warning)
-    store.getState().lists.byUrl[PLANQ_LIST].current?.tokens.forEach((token) => {
-      dict[token.address.toLowerCase()] = TOKEN_LIST_TYPES.UNI_DEFAULT
-    })
+    store
+      .getState()
+      .lists.byUrl[PLANQ_LIST].current?.tokens.forEach((token) => {
+        dict[token.address.toLowerCase()] = TOKEN_LIST_TYPES.UNI_DEFAULT;
+      });
 
     // TODO: Figure out if this list is still relevant
     brokenTokenList.tokens.forEach((token) => {
-      dict[token.address.toLowerCase()] = TOKEN_LIST_TYPES.BROKEN
-    })
+      dict[token.address.toLowerCase()] = TOKEN_LIST_TYPES.BROKEN;
+    });
 
     // Initialize blocked tokens from all urls included
-    UNSUPPORTED_LIST_URLS.map((url) => store.getState().lists.byUrl[url].current?.tokens)
+    UNSUPPORTED_LIST_URLS.map(
+      (url) => store.getState().lists.byUrl[url].current?.tokens
+    )
       .filter((x): x is TokenInfo[] => !!x)
       .flat(1)
       .forEach((token) => {
-        dict[token.address.toLowerCase()] = TOKEN_LIST_TYPES.BLOCKED
-      })
-    return dict
+        dict[token.address.toLowerCase()] = TOKEN_LIST_TYPES.BLOCKED;
+      });
+    return dict;
   }
 
   checkToken(address: string) {
     if (!this.dict) {
-      this.dict = this.createMap()
+      this.dict = this.createMap();
     }
     if (address === NATIVE_CHAIN_ID.toLowerCase()) {
-      return TOKEN_LIST_TYPES.UNI_DEFAULT
+      return TOKEN_LIST_TYPES.UNI_DEFAULT;
     }
-    return this.dict[address] ?? TOKEN_LIST_TYPES.UNKNOWN
+    return this.dict[address] ?? TOKEN_LIST_TYPES.UNKNOWN;
   }
 }
 
-export default new TokenSafetyLookupTable()
+export default new TokenSafetyLookupTable();

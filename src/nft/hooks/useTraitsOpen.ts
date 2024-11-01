@@ -1,13 +1,13 @@
-import create from 'zustand'
-import { devtools } from 'zustand/middleware'
+import create from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface traitOpen {
-  [key: number]: boolean
+  [key: number]: boolean;
 }
 
 interface TraitsOpenState {
-  traitsOpen: traitOpen
-  setTraitsOpen: (index: number, isOpen: boolean) => void
+  traitsOpen: traitOpen;
+  setTraitsOpen: (index: number, isOpen: boolean) => void;
 }
 
 export enum TraitPosition {
@@ -21,9 +21,11 @@ export const useTraitsOpen = create<TraitsOpenState>()(
     (set) => ({
       traitsOpen: {},
       setTraitsOpen: (index, isOpen) => {
-        set(({ traitsOpen }) => ({ traitsOpen: { ...traitsOpen, [index]: isOpen } }))
+        set(({ traitsOpen }) => ({
+          traitsOpen: { ...traitsOpen, [index]: isOpen },
+        }));
       },
     }),
-    { name: 'useTraitsOpen' }
+    { name: "useTraitsOpen" }
   )
-)
+);

@@ -7,21 +7,21 @@
 
 // Import commands.ts using ES2015 syntax:
 import { injected } from './ethereum'
-import assert = require('assert')
 
-import { FeatureFlag } from '../../src/featureFlags/flags/featureFlags'
+import { FeatureFlag } from "../../src/featureFlags/flags/featureFlags";
+import assert = require("assert");
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface ApplicationWindow {
-      ethereum: typeof injected
+      ethereum: typeof injected;
     }
     interface VisitOptions {
-      serviceWorker?: true
-      featureFlags?: Array<FeatureFlag>
-      selectedWallet?: string
-      noWallet?: boolean
+      serviceWorker?: true;
+      featureFlags?: Array<FeatureFlag>;
+      selectedWallet?: string;
+      noWallet?: boolean;
     }
   }
 }

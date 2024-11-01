@@ -1,23 +1,31 @@
-import { TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, SharedEventName } from '@uniswap/analytics-events'
-import { Link } from 'react-router-dom'
-import { useIsDarkMode } from 'state/user/hooks'
-import styled, { DefaultTheme } from 'styled-components/macro'
-import { BREAKPOINTS } from 'theme'
+import { TraceEvent } from "@uniswap/analytics";
+import { BrowserEvent, SharedEventName } from "@uniswap/analytics-events";
+import { Link } from "react-router-dom";
+import { useIsDarkMode } from "state/user/hooks";
+import styled, { DefaultTheme } from "styled-components/macro";
+import { BREAKPOINTS } from "theme";
 
 export enum CardType {
-  Primary = 'Primary',
-  Secondary = 'Secondary',
+  Primary = "Primary",
+  Secondary = "Secondary",
 }
 
-const StyledCard = styled.div<{ isDarkMode: boolean; backgroundImgSrc?: string; type: CardType }>`
+const StyledCard = styled.div<{
+  isDarkMode: boolean;
+  backgroundImgSrc?: string;
+  type: CardType;
+}>`
   display: flex;
   background: ${({ isDarkMode, backgroundImgSrc, type, theme }) =>
     isDarkMode
-      ? `${type === CardType.Primary ? theme.backgroundModule : theme.backgroundSurface} ${
-          backgroundImgSrc ? ` url(${backgroundImgSrc})` : ''
-        }`
-      : `${type === CardType.Primary ? 'white' : theme.backgroundModule} url(${backgroundImgSrc})`};
+      ? `${
+          type === CardType.Primary
+            ? theme.backgroundModule
+            : theme.backgroundSurface
+        } ${backgroundImgSrc ? ` url(${backgroundImgSrc})` : ""}`
+      : `${
+          type === CardType.Primary ? "white" : theme.backgroundModule
+        } url(${backgroundImgSrc})`};
   background-size: auto 100%;
   background-position: right;
   background-repeat: no-repeat;
@@ -30,12 +38,17 @@ const StyledCard = styled.div<{ isDarkMode: boolean; backgroundImgSrc?: string; 
   padding: 24px;
   height: 212px;
   border-radius: 24px;
-  border: 1px solid ${({ theme, type }) => (type === CardType.Primary ? 'transparent' : theme.backgroundOutline)};
+  border: 1px solid
+    ${({ theme, type }) =>
+      type === CardType.Primary ? "transparent" : theme.backgroundOutline};
   box-shadow: 0px 10px 24px 0px rgba(51, 53, 72, 0.04);
-  transition: ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.ease} border`};
+  transition: ${({ theme }) =>
+    `${theme.transition.duration.medium} ${theme.transition.timing.ease} border`};
 
   &:hover {
-    border: 1px solid ${({ theme, isDarkMode }) => (isDarkMode ? theme.backgroundInteractive : theme.textTertiary)};
+    border: 1px solid
+      ${({ theme, isDarkMode }) =>
+        isDarkMode ? theme.backgroundInteractive : theme.textTertiary};
   }
   @media screen and (min-width: ${BREAKPOINTS.sm}px) {
     height: ${({ backgroundImgSrc }) => (backgroundImgSrc ? 360 : 260)}px;
@@ -43,13 +56,13 @@ const StyledCard = styled.div<{ isDarkMode: boolean; backgroundImgSrc?: string; 
   @media screen and (min-width: ${BREAKPOINTS.xl}px) {
     padding: 32px;
   }
-`
+`;
 
 const TitleRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const CardTitle = styled.div`
   font-size: 20px;
@@ -60,16 +73,16 @@ const CardTitle = styled.div`
     font-size: 28px;
     line-height: 36px;
   }
-`
+`;
 
 const getCardDescriptionColor = (type: CardType, theme: DefaultTheme) => {
   switch (type) {
     case CardType.Secondary:
-      return theme.textSecondary
+      return theme.textSecondary;
     default:
-      return theme.textPrimary
+      return theme.textPrimary;
   }
-}
+};
 
 const CardDescription = styled.div<{ type: CardType }>`
   display: flex;
@@ -85,7 +98,7 @@ const CardDescription = styled.div<{ type: CardType }>`
     line-height: 28px;
     max-width: 480px;
   }
-`
+`;
 
 const CardCTA = styled(CardDescription)`
   color: ${({ theme }) => theme.accentAction};
@@ -93,12 +106,13 @@ const CardCTA = styled(CardDescription)`
   margin: 24px 0 0;
   cursor: pointer;
 
-  transition: ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.ease} opacity`};
+  transition: ${({ theme }) =>
+    `${theme.transition.duration.medium} ${theme.transition.timing.ease} opacity`};
 
   &:hover {
     opacity: 0.6;
   }
-`
+`;
 
 const Card = ({
   type = CardType.Primary,
@@ -111,26 +125,30 @@ const Card = ({
   icon,
   elementName,
 }: {
-  type?: CardType
-  title: string
-  description: string
-  cta?: string
-  to: string
-  external?: boolean
-  backgroundImgSrc?: string
-  icon?: React.ReactNode
-  elementName?: string
+  type?: CardType;
+  title: string;
+  description: string;
+  cta?: string;
+  to: string;
+  external?: boolean;
+  backgroundImgSrc?: string;
+  icon?: React.ReactNode;
+  elementName?: string;
 }) => {
-  const isDarkMode = useIsDarkMode()
+  const isDarkMode = useIsDarkMode();
   return (
-    <TraceEvent events={[BrowserEvent.onClick]} name={SharedEventName.ELEMENT_CLICKED} element={elementName}>
+    <TraceEvent
+      events={[BrowserEvent.onClick]}
+      name={SharedEventName.ELEMENT_CLICKED}
+      element={elementName}
+    >
       <StyledCard
         type={type}
-        as={external ? 'a' : Link}
+        as={external ? "a" : Link}
         to={external ? undefined : to}
         href={external ? to : undefined}
-        target={external ? '_blank' : undefined}
-        rel={external ? 'noopenener noreferrer' : undefined}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopenener noreferrer" : undefined}
         isDarkMode={isDarkMode}
         backgroundImgSrc={backgroundImgSrc}
       >
@@ -144,7 +162,7 @@ const Card = ({
         </CardDescription>
       </StyledCard>
     </TraceEvent>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

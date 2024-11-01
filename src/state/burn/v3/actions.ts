@@ -1,3 +1,5 @@
-import { createAction } from '@reduxjs/toolkit'
+import { createAction } from "@reduxjs/toolkit";
 
-export const selectPercent = createAction<{ percent: number }>('burnV3/selectBurnPercent')
+export const selectPercent = createAction<{ percent: number }>(
+  "burnV3/selectBurnPercent"
+);

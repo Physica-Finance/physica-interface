@@ -9,20 +9,31 @@ import useENSName from './useENSName'
  * @param nameOrAddress ENS name or address
  */
 export default function useENS(nameOrAddress?: string | null): {
-  loading: boolean
-  address: string | null
-  name: string | null
+  loading: boolean;
+  address: string | null;
+  name: string | null;
 } {
-  const validated = isAddress(nameOrAddress)
-  const reverseLookup = useENSName(validated ? validated : undefined)
-  const lookup = useENSAddress(nameOrAddress)
+  const validated = isAddress(nameOrAddress);
+  const reverseLookup = useENSName(validated ? validated : undefined);
+  const lookup = useENSAddress(nameOrAddress);
 
   return useMemo(
     () => ({
       loading: reverseLookup.loading || lookup.loading,
       address: validated ? validated : lookup.address,
-      name: reverseLookup.ENSName ? reverseLookup.ENSName : !validated && lookup.address ? nameOrAddress || null : null,
+      name: reverseLookup.ENSName
+        ? reverseLookup.ENSName
+        : !validated && lookup.address
+        ? nameOrAddress || null
+        : null,
     }),
-    [lookup.address, lookup.loading, nameOrAddress, reverseLookup.ENSName, reverseLookup.loading, validated]
-  )
+    [
+      lookup.address,
+      lookup.loading,
+      nameOrAddress,
+      reverseLookup.ENSName,
+      reverseLookup.loading,
+      validated,
+    ]
+  );
 }

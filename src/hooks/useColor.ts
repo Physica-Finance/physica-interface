@@ -1,94 +1,94 @@
-import * as Sentry from '@sentry/react'
-import { Token } from '@uniswap/sdk-core'
-import { SupportedChainId } from 'constants/chains'
-import uriToHttp from 'lib/utils/uriToHttp'
-import Vibrant from 'node-vibrant/lib/bundle.js'
-import { shade } from 'polished'
-import { useEffect, useState } from 'react'
-import { WrappedTokenInfo } from 'state/lists/wrappedTokenInfo'
-import { hex } from 'wcag-contrast'
+import * as Sentry from "@sentry/react";
+import { Token } from "@uniswap/sdk-core";
+import { SupportedChainId } from "constants/chains";
+import uriToHttp from "lib/utils/uriToHttp";
+import Vibrant from "node-vibrant/lib/bundle.js";
+import { shade } from "polished";
+import { useEffect, useState } from "react";
+import { WrappedTokenInfo } from "state/lists/wrappedTokenInfo";
+import { hex } from "wcag-contrast";
 
 function URIForEthToken(address: string) {
-  return `https://raw.githubusercontent.com/uniswap/assets/master/blockchains/ethereum/assets/${address}/logo.png`
+  return `https://raw.githubusercontent.com/uniswap/assets/master/blockchains/ethereum/assets/${address}/logo.png`;
 }
 
 async function getColorFromToken(token: Token): Promise<string | null> {
   if (!(token instanceof WrappedTokenInfo)) {
-    return null
+    return null;
   }
 
-  const wrappedToken = token as WrappedTokenInfo
-  const { address } = wrappedToken
-  let { logoURI } = wrappedToken
+  const wrappedToken = token as WrappedTokenInfo;
+  const { address } = wrappedToken;
+  let { logoURI } = wrappedToken;
   if (!logoURI) {
     if (token.chainId !== SupportedChainId.MAINNET) {
-      return null
+      return null;
     } else {
-      logoURI = URIForEthToken(address)
+      logoURI = URIForEthToken(address);
     }
   }
 
   try {
-    return await getColorFromUriPath(logoURI)
+    return await getColorFromUriPath(logoURI);
   } catch (e) {
     if (logoURI === URIForEthToken(address)) {
-      return null
+      return null;
     }
 
     try {
-      logoURI = URIForEthToken(address)
-      return await getColorFromUriPath(logoURI)
+      logoURI = URIForEthToken(address);
+      return await getColorFromUriPath(logoURI);
     } catch (error) {
-      Sentry.captureMessage(error.toString())
+      Sentry.captureMessage(error.toString());
     }
   }
 
-  return null
+  return null;
 }
 
 async function getColorFromUriPath(uri: string): Promise<string | null> {
-  const formattedPath = uriToHttp(uri)[0]
+  const formattedPath = uriToHttp(uri)[0];
 
-  let palette
+  let palette;
 
   try {
-    palette = await Vibrant.from(formattedPath).getPalette()
+    palette = await Vibrant.from(formattedPath).getPalette();
   } catch (err) {
-    return null
+    return null;
   }
   if (!palette?.Vibrant) {
-    return null
+    return null;
   }
 
-  let detectedHex = palette.Vibrant.hex
-  let AAscore = hex(detectedHex, '#FFF')
+  let detectedHex = palette.Vibrant.hex;
+  let AAscore = hex(detectedHex, "#FFF");
   while (AAscore < 3) {
-    detectedHex = shade(0.005, detectedHex)
-    AAscore = hex(detectedHex, '#FFF')
+    detectedHex = shade(0.005, detectedHex);
+    AAscore = hex(detectedHex, "#FFF");
   }
 
-  return detectedHex
+  return detectedHex;
 }
 
 export function useColor(token?: Token) {
-  const [color, setColor] = useState('#2172E5')
+  const [color, setColor] = useState("#2172E5");
 
   useEffect(() => {
-    let stale = false
+    let stale = false;
 
     if (token) {
       getColorFromToken(token).then((tokenColor) => {
         if (!stale && tokenColor !== null) {
-          setColor(tokenColor)
+          setColor(tokenColor);
         }
-      })
+      });
     }
 
     return () => {
-      stale = true
-      setColor('#2172E5')
-    }
-  }, [token])
+      stale = true;
+      setColor("#2172E5");
+    };
+  }, [token]);
 
-  return color
+  return color;
 }

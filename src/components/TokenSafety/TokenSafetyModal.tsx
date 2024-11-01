@@ -1,8 +1,8 @@
-import Modal from '../Modal'
-import TokenSafety, { TokenSafetyProps } from '.'
+import Modal from "../Modal";
+import TokenSafety, { TokenSafetyProps } from ".";
 
 interface TokenSafetyModalProps extends TokenSafetyProps {
-  isOpen: boolean
+  isOpen: boolean;
 }
 
 export default function TokenSafetyModal({
@@ -25,5 +25,5 @@ export default function TokenSafetyModal({
         showCancel={showCancel}
       />
     </Modal>
-  )
+  );
 }

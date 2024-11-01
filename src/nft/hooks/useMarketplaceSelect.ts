@@ -1,11 +1,11 @@
-import create from 'zustand'
-import { devtools } from 'zustand/middleware'
+import create from "zustand";
+import { devtools } from "zustand/middleware";
 
-export type MarketplaceOption = { name: string; icon: string }
+export type MarketplaceOption = { name: string; icon: string };
 
 interface State {
-  options: MarketplaceOption[]
-  select: (o: MarketplaceOption) => void
+  options: MarketplaceOption[];
+  select: (o: MarketplaceOption) => void;
 }
 
 export const useMarketplaceSelect = create<State>()(
@@ -15,10 +15,10 @@ export const useMarketplaceSelect = create<State>()(
       select: (option) =>
         set(({ options }) => {
           if (options.find((o) => option.name === o.name))
-            return { options: options.filter((x) => x.name !== option.name) }
-          else return { options: [...options, option] }
+            return { options: options.filter((x) => x.name !== option.name) };
+          else return { options: [...options, option] };
         }),
     }),
-    { name: 'useMarketplaceSelect' }
+    { name: "useMarketplaceSelect" }
   )
-)
+);

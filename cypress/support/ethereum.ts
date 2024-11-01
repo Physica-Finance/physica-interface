@@ -2,10 +2,10 @@
  * Updates cy.visit() to include an injected window.ethereum provider.
  */
 
-import { Eip1193Bridge } from '@ethersproject/experimental/lib/eip1193-bridge'
+import { Eip1193Bridge } from "@ethersproject/experimental/lib/eip1193-bridge";
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
-import { JsonRpcProvider } from '@ethersproject/providers'
-import { Wallet } from '@ethersproject/wallet'
+import { JsonRpcProvider } from "@ethersproject/providers";
+import { Wallet } from "@ethersproject/wallet";
 
 // todo: figure out how env vars actually work in CI
 // const TEST_PRIVATE_KEY = Cypress.env('INTEGRATION_TEST_PRIVATE_KEY')

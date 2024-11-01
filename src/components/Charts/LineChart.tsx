@@ -1,21 +1,20 @@
-import { Group } from '@visx/group'
-import { LinePath } from '@visx/shape'
-import { CurveFactory } from 'd3'
-import React from 'react'
-import { ReactNode } from 'react'
-import { useTheme } from 'styled-components/macro'
+import { Group } from "@visx/group";
+import { LinePath } from "@visx/shape";
+import { CurveFactory } from "d3";
+import React, { ReactNode } from "react";
+import { useTheme } from "styled-components/macro";
 
 export interface LineChartProps<T> {
-  data: T[]
-  getX: (t: T) => number
-  getY: (t: T) => number
-  marginTop?: number
-  curve: CurveFactory
-  color?: string
-  strokeWidth: number
-  children?: ReactNode
-  width: number
-  height: number
+  data: T[];
+  getX: (t: T) => number;
+  getY: (t: T) => number;
+  marginTop?: number;
+  curve: CurveFactory;
+  color?: string;
+  strokeWidth: number;
+  children?: ReactNode;
+  width: number;
+  height: number;
 }
 
 function LineChart<T>({
@@ -30,7 +29,7 @@ function LineChart<T>({
   height,
   children,
 }: LineChartProps<T>) {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <svg width={width} height={height}>
       <Group top={marginTop}>
@@ -45,7 +44,7 @@ function LineChart<T>({
       </Group>
       {children}
     </svg>
-  )
+  );
 }
 
-export default React.memo(LineChart) as typeof LineChart
+export default React.memo(LineChart) as typeof LineChart;

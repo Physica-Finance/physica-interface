@@ -1,8 +1,11 @@
-import gql from 'graphql-tag'
-import { GenieCollection, Trait } from 'nft/types'
-import { useMemo } from 'react'
+import gql from "graphql-tag";
+import { GenieCollection, Trait } from "nft/types";
+import { useMemo } from "react";
 
-import { NftCollection, useCollectionQuery } from '../__generated__/types-and-hooks'
+import {
+  NftCollection,
+  useCollectionQuery,
+} from "../__generated__/types-and-hooks";
 
 gql`
   query Collection($addresses: [String!]!) {
@@ -84,11 +87,11 @@ gql`
       }
     }
   }
-`
+`;
 
 interface useCollectionReturnProps {
-  data: GenieCollection
-  loading: boolean
+  data: GenieCollection;
+  loading: boolean;
 }
 
 export function useCollection(address: string): useCollectionReturnProps {
@@ -96,13 +99,14 @@ export function useCollection(address: string): useCollectionReturnProps {
     variables: {
       addresses: address,
     },
-  })
+  });
 
-  const queryCollection = queryData?.nftCollections?.edges?.[0]?.node as NonNullable<NftCollection>
-  const market = queryCollection?.markets?.[0]
+  const queryCollection = queryData?.nftCollections?.edges?.[0]
+    ?.node as NonNullable<NftCollection>;
+  const market = queryCollection?.markets?.[0];
   const traits = useMemo(() => {
-    return {} as Record<string, Trait[]>
-  }, [])
+    return {} as Record<string, Trait[]>;
+  }, []);
   if (queryCollection?.traits) {
     queryCollection?.traits.forEach((trait) => {
       if (trait.name && trait.stats) {
@@ -111,10 +115,10 @@ export function useCollection(address: string): useCollectionReturnProps {
             trait_type: stats.name,
             trait_value: stats.value,
             trait_count: stats.assets,
-          } as Trait
-        })
+          } as Trait;
+        });
       }
-    })
+    });
   }
   return useMemo(() => {
     return {
@@ -139,12 +143,12 @@ export function useCollection(address: string): useCollectionReturnProps {
         traits,
         marketplaceCount: market?.marketplaces?.map((market) => {
           return {
-            marketplace: market.marketplace?.toLowerCase() ?? '',
+            marketplace: market.marketplace?.toLowerCase() ?? "",
             count: market.listings ?? 0,
             floorPrice: market.floorPrice ?? 0,
-          }
+          };
         }),
-        imageUrl: queryCollection?.image?.url ?? '',
+        imageUrl: queryCollection?.image?.url ?? "",
         twitterUrl: queryCollection?.twitterName,
         instagram: queryCollection?.instagramName,
         discordUrl: queryCollection?.discordUrl,
@@ -153,6 +157,6 @@ export function useCollection(address: string): useCollectionReturnProps {
         // isFoundation: boolean, // TODO ask backend to add
       },
       loading,
-    }
-  }, [address, loading, market, queryCollection, traits])
+    };
+  }, [address, loading, market, queryCollection, traits]);
 }

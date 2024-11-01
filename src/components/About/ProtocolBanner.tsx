@@ -1,11 +1,12 @@
-import { ButtonEmpty } from 'components/Button'
-import { useIsDarkMode } from 'state/user/hooks'
-import styled from 'styled-components/macro'
-import { BREAKPOINTS } from 'theme'
+import { ButtonEmpty } from "components/Button";
+import { useIsDarkMode } from "state/user/hooks";
+import styled from "styled-components/macro";
+import { BREAKPOINTS } from "theme";
 
-import meshSrc from './images/Mesh.png'
+import meshSrc from "./images/Mesh.png";
 
-const DARK_MODE_GRADIENT = 'radial-gradient(101.8% 4091.31% at 0% 0%, #4673FA 0%, #9646FA 100%)'
+const DARK_MODE_GRADIENT =
+  "radial-gradient(101.8% 4091.31% at 0% 0%, #4673FA 0%, #9646FA 100%)";
 
 const Banner = styled.div<{ isDarkMode: boolean }>`
   height: 340px;
@@ -31,14 +32,14 @@ const Banner = styled.div<{ isDarkMode: boolean }>`
     height: 140px;
     flex-direction: row;
   }
-`
+`;
 
 const TextContainer = styled.div`
   color: white;
   display: flex;
   flex: 1;
   flex-direction: column;
-`
+`;
 
 const HeaderText = styled.div`
   font-weight: 700;
@@ -49,7 +50,7 @@ const HeaderText = styled.div`
     font-size: 28px;
     line-height: 36px;
   }
-`
+`;
 
 const DescriptionText = styled.div`
   margin: 10px 10px 0 0;
@@ -61,14 +62,15 @@ const DescriptionText = styled.div`
     font-size: 20px;
     line-height: 28px;
   }
-`
+`;
 
 const BannerButtonContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
 
-  transition: ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.ease} opacity`};
+  transition: ${({ theme }) =>
+    `${theme.transition.duration.medium} ${theme.transition.timing.ease} opacity`};
 
   &:hover {
     opacity: 0.6;
@@ -77,30 +79,37 @@ const BannerButtonContainer = styled.div`
   @media screen and (min-width: ${BREAKPOINTS.lg}px) {
     width: auto;
   }
-`
+`;
 
 const BannerButton = styled(ButtonEmpty)`
   color: white;
   border: 1px solid white;
-`
+`;
 
 const ProtocolBanner = () => {
-  const isDarkMode = useIsDarkMode()
+  const isDarkMode = useIsDarkMode();
   return (
     <Banner isDarkMode={isDarkMode}>
       <TextContainer>
         <HeaderText>Powered by the Physica Protocol</HeaderText>
         <DescriptionText>
-          The leading decentralized crypto trading protocol, governed by a global community.
+          The leading decentralized crypto trading protocol, governed by a
+          global community.
         </DescriptionText>
       </TextContainer>
       <BannerButtonContainer>
-        <BannerButton width="200px" as="a" href="https://physica.finance" rel="noopener noreferrer" target="_blank">
+        <BannerButton
+          width="200px"
+          as="a"
+          href="https://physica.finance"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           Learn more
         </BannerButton>
       </BannerButtonContainer>
     </Banner>
-  )
-}
+  );
+};
 
-export default ProtocolBanner
+export default ProtocolBanner;

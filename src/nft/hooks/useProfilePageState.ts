@@ -1,14 +1,14 @@
-import create from 'zustand'
-import { devtools } from 'zustand/middleware'
+import create from "zustand";
+import { devtools } from "zustand/middleware";
 
-import { ProfilePageStateType } from '../types'
+import { ProfilePageStateType } from "../types";
 
 interface profilePageState {
   /**
    * State of user settings
    */
-  state: ProfilePageStateType
-  setProfilePageState: (state: ProfilePageStateType) => void
+  state: ProfilePageStateType;
+  setProfilePageState: (state: ProfilePageStateType) => void;
 }
 
 export const useProfilePageState = create<profilePageState>()(
@@ -20,6 +20,6 @@ export const useProfilePageState = create<profilePageState>()(
           state: newState,
         })),
     }),
-    { name: 'useProfilePageState' }
+    { name: "useProfilePageState" }
   )
-)
+);

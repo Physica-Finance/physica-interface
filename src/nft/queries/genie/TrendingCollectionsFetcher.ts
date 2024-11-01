@@ -1,22 +1,22 @@
-import { TimePeriod, TrendingCollection } from '../../types'
+import { TimePeriod, TrendingCollection } from "../../types";
 
-const NFT_API_URL = process.env.REACT_APP_TEMP_API_URL
+const NFT_API_URL = process.env.REACT_APP_TEMP_API_URL;
 export const fetchTrendingCollections = async (payload: {
-  volumeType: 'eth' | 'nft'
-  timePeriod: TimePeriod
-  size: number
+  volumeType: "eth" | "nft";
+  timePeriod: TimePeriod;
+  size: number;
 }): Promise<TrendingCollection[]> => {
-  if (!NFT_API_URL) return Promise.resolve([])
-  const url = `${NFT_API_URL}/nft/collections/trending`
+  if (!NFT_API_URL) return Promise.resolve([]);
+  const url = `${NFT_API_URL}/nft/collections/trending`;
   const r = await fetch(url, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
-  })
+  });
 
-  const data = await r.json()
+  const data = await r.json();
 
-  return data ?? []
-}
+  return data ?? [];
+};

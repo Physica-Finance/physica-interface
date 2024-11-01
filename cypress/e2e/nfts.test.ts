@@ -1,6 +1,6 @@
-import { getTestSelector } from '../utils'
+import { getTestSelector } from "../utils";
 
-const PUDGY_COLLECTION_ADDRESS = '0xbd3531da5cf5857e7cfaa92426877b022e612cf8'
+const PUDGY_COLLECTION_ADDRESS = "0xbd3531da5cf5857e7cfaa92426877b022e612cf8";
 const BONSAI_COLLECTION_ADDRESS = '0xec9c519d49856fd2f8133a0741b4dbe002ce211b'
 
 describe('Testing nfts', () => {

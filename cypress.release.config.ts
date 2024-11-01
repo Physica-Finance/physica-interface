@@ -1,8 +1,8 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from "cypress";
 
 export default defineConfig({
-  projectId: 'yp82ef',
+  projectId: "yp82ef",
   e2e: {
-    specPattern: 'cypress/release.ts',
+    specPattern: "cypress/release.ts",
   },
-})
+});

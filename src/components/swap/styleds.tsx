@@ -1,26 +1,28 @@
-import { TooltipContainer } from 'components/Tooltip'
-import { transparentize } from 'polished'
-import { ReactNode } from 'react'
-import { AlertTriangle } from 'react-feather'
-import { Text } from 'rebass'
-import styled, { css } from 'styled-components/macro'
-import { Z_INDEX } from 'theme/zIndex'
+import { TooltipContainer } from "components/Tooltip";
+import { transparentize } from "polished";
+import { ReactNode } from "react";
+import { AlertTriangle } from "react-feather";
+import { Text } from "rebass";
+import styled, { css } from "styled-components/macro";
+import { Z_INDEX } from "theme/zIndex";
 
-import { AutoColumn } from '../Column'
+import { AutoColumn } from "../Column";
 
 export const PageWrapper = styled.div`
   padding: 68px 8px 0px;
   max-width: 480px;
   width: 100%;
 
-  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.md}px`}) {
+  @media only screen and (max-width: ${({ theme }) =>
+      `${theme.breakpoint.md}px`}) {
     padding-top: 48px;
   }
 
-  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
+  @media only screen and (max-width: ${({ theme }) =>
+      `${theme.breakpoint.sm}px`}) {
     padding-top: 20px;
   }
-`
+`;
 
 // Mostly copied from `AppBody` but it was getting too hard to maintain backwards compatibility.
 export const SwapWrapper = styled.main`
@@ -35,7 +37,7 @@ export const SwapWrapper = styled.main`
   &:hover {
     border: 1px solid ${({ theme }) => theme.backgroundOutline};
   }
-`
+`;
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
   border-radius: 12px;
@@ -60,7 +62,7 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
           }
         `
       : null}
-`
+`;
 
 export const ErrorText = styled(Text)<{ severity?: 0 | 1 | 2 | 3 | 4 }>`
   color: ${({ theme, severity }) =>
@@ -71,36 +73,36 @@ export const ErrorText = styled(Text)<{ severity?: 0 | 1 | 2 | 3 | 4 }>`
       : severity === 1
       ? theme.textPrimary
       : theme.textSecondary};
-`
+`;
 
 export const TruncatedText = styled(Text)`
   text-overflow: ellipsis;
   max-width: 220px;
   overflow: hidden;
   text-align: right;
-`
+`;
 
 // styles
 export const Dots = styled.span`
   &::after {
     display: inline-block;
     animation: ellipsis 1.25s infinite;
-    content: '.';
+    content: ".";
     width: 1em;
     text-align: left;
   }
   @keyframes ellipsis {
     0% {
-      content: '.';
+      content: ".";
     }
     33% {
-      content: '..';
+      content: "..";
     }
     66% {
-      content: '...';
+      content: "...";
     }
   }
-`
+`;
 
 const SwapCallbackErrorInner = styled.div`
   background-color: ${({ theme }) => transparentize(0.9, theme.accentFailure)};
@@ -118,7 +120,7 @@ const SwapCallbackErrorInner = styled.div`
     margin: 0;
     font-weight: 500;
   }
-`
+`;
 
 const SwapCallbackErrorInnerAlertTriangle = styled.div`
   background-color: ${({ theme }) => transparentize(0.9, theme.accentFailure)};
@@ -129,7 +131,7 @@ const SwapCallbackErrorInnerAlertTriangle = styled.div`
   border-radius: 12px;
   min-width: 48px;
   height: 48px;
-`
+`;
 
 export function SwapCallbackError({ error }: { error: ReactNode }) {
   return (
@@ -137,27 +139,32 @@ export function SwapCallbackError({ error }: { error: ReactNode }) {
       <SwapCallbackErrorInnerAlertTriangle>
         <AlertTriangle size={24} />
       </SwapCallbackErrorInnerAlertTriangle>
-      <p style={{ wordBreak: 'break-word' }}>{error}</p>
+      <p style={{ wordBreak: "break-word" }}>{error}</p>
     </SwapCallbackErrorInner>
-  )
+  );
 }
 
 export const SwapShowAcceptChanges = styled(AutoColumn)`
-  background-color: ${({ theme }) => transparentize(0.95, theme.deprecated_primary3)};
+  background-color: ${({ theme }) =>
+    transparentize(0.95, theme.deprecated_primary3)};
   color: ${({ theme }) => theme.accentAction};
   padding: 0.5rem;
   border-radius: 12px;
   margin-top: 8px;
-`
+`;
 
-export const ResponsiveTooltipContainer = styled(TooltipContainer)<{ origin?: string; width?: string }>`
+export const ResponsiveTooltipContainer = styled(TooltipContainer)<{
+  origin?: string;
+  width?: string;
+}>`
   background-color: ${({ theme }) => theme.backgroundSurface};
   border: 1px solid ${({ theme }) => theme.backgroundInteractive};
   padding: 1rem;
-  width: ${({ width }) => width ?? 'auto'};
+  width: ${({ width }) => width ?? "auto"};
 
-  ${({ theme, origin }) => theme.deprecated_mediaWidth.deprecated_upToExtraSmall`
+  ${({ theme, origin }) => theme.deprecated_mediaWidth
+    .deprecated_upToExtraSmall`
     transform: scale(0.8);
-    transform-origin: ${origin ?? 'top left'};
+    transform-origin: ${origin ?? "top left"};
   `}
-`
+`;

@@ -1,24 +1,33 @@
-import { GenieAsset } from 'nft/types'
+import { GenieAsset } from "nft/types";
 
-export const isInSameSudoSwapPool = (assetA: GenieAsset, assetB: GenieAsset): boolean => {
-  if (!assetA.sellorders || !assetB.sellorders) return false
+export const isInSameSudoSwapPool = (
+  assetA: GenieAsset,
+  assetB: GenieAsset
+): boolean => {
+  if (!assetA.sellorders || !assetB.sellorders) return false;
 
-  const assetASudoSwapPoolParameters = assetA.sellorders[0].protocolParameters
-  const assetBSudoSwapPoolParameters = assetB.sellorders[0].protocolParameters
+  const assetASudoSwapPoolParameters = assetA.sellorders[0].protocolParameters;
+  const assetBSudoSwapPoolParameters = assetB.sellorders[0].protocolParameters;
 
   const assetAPoolAddress = assetASudoSwapPoolParameters?.poolAddress
     ? (assetASudoSwapPoolParameters.poolAddress as string)
-    : undefined
+    : undefined;
   const assetBPoolAddress = assetBSudoSwapPoolParameters?.poolAddress
     ? (assetBSudoSwapPoolParameters.poolAddress as string)
-    : undefined
+    : undefined;
 
-  if (!assetAPoolAddress || !assetBPoolAddress) return false
-  if (assetAPoolAddress !== assetBPoolAddress) return false
+  if (!assetAPoolAddress || !assetBPoolAddress) return false;
+  if (assetAPoolAddress !== assetBPoolAddress) return false;
 
-  return true
-}
+  return true;
+};
 
-export const isInSameMarketplaceCollection = (assetA: GenieAsset, assetB: GenieAsset): boolean => {
-  return assetA.address === assetB.address && assetA.marketplace === assetB.marketplace
-}
+export const isInSameMarketplaceCollection = (
+  assetA: GenieAsset,
+  assetB: GenieAsset
+): boolean => {
+  return (
+    assetA.address === assetB.address &&
+    assetA.marketplace === assetB.marketplace
+  );
+};

@@ -1,86 +1,114 @@
-import { Signer } from '@ethersproject/abstract-signer'
-import { BigNumber } from '@ethersproject/bignumber'
-import { Contract } from '@ethersproject/contracts'
-import type { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
-import { parseEther } from '@ethersproject/units'
-import { addressesByNetwork, MakerOrder, signMakerOrder, SupportedChainId } from '@looksrare/sdk'
-import { Seaport } from '@opensea/seaport-js'
-import { ItemType } from '@opensea/seaport-js/lib/constants'
-import { ConsiderationInputItem } from '@opensea/seaport-js/lib/types'
+import { Signer } from "@ethersproject/abstract-signer";
+import { BigNumber } from "@ethersproject/bignumber";
+import { Contract } from "@ethersproject/contracts";
+import type { JsonRpcSigner, Web3Provider } from "@ethersproject/providers";
+import { parseEther } from "@ethersproject/units";
+import {
+  addressesByNetwork,
+  MakerOrder,
+  signMakerOrder,
+  SupportedChainId,
+} from "@looksrare/sdk";
+import { Seaport } from "@opensea/seaport-js";
+import { ItemType } from "@opensea/seaport-js/lib/constants";
+import { ConsiderationInputItem } from "@opensea/seaport-js/lib/types";
 import {
   OPENSEA_DEFAULT_CROSS_CHAIN_CONDUIT_KEY,
   OPENSEA_DEFAULT_ZONE,
   OPENSEA_KEY_TO_CONDUIT,
-} from 'nft/queries/openSea'
+} from "nft/queries/openSea";
 
-import ERC721 from '../../abis/erc721.json'
+import ERC721 from "../../abis/erc721.json";
 import {
   createLooksRareOrder,
   getOrderId,
   LOOKSRARE_MARKETPLACE_CONTRACT,
   newX2Y2Order,
   PostOpenSeaSellOrder,
-} from '../queries'
-import { INVERSE_BASIS_POINTS, OPENSEA_DEFAULT_FEE, OPENSEA_FEE_ADDRESS } from '../queries/openSea'
-import { ListingMarket, ListingStatus, WalletAsset } from '../types'
-import { createSellOrder, encodeOrder, OfferItem, OrderPayload, signOrderData } from './x2y2'
+} from "../queries";
+import {
+  INVERSE_BASIS_POINTS,
+  OPENSEA_DEFAULT_FEE,
+  OPENSEA_FEE_ADDRESS,
+} from "../queries/openSea";
+import { ListingMarket, ListingStatus, WalletAsset } from "../types";
+import {
+  createSellOrder,
+  encodeOrder,
+  OfferItem,
+  OrderPayload,
+  signOrderData,
+} from "./x2y2";
 
-export const LOOKS_RARE_CREATOR_BASIS_POINTS = 50
+export const LOOKS_RARE_CREATOR_BASIS_POINTS = 50;
 
 export const ListingMarkets: ListingMarket[] = [
   {
-    name: 'X2Y2',
+    name: "X2Y2",
     fee: 0.5,
-    icon: '/nft/svgs/marketplaces/x2y2.svg',
+    icon: "/nft/svgs/marketplaces/x2y2.svg",
   },
   {
-    name: 'LooksRare',
+    name: "LooksRare",
     fee: 1.5,
-    icon: '/nft/svgs/marketplaces/looksrare.svg',
+    icon: "/nft/svgs/marketplaces/looksrare.svg",
   },
   {
-    name: 'OpenSea',
+    name: "OpenSea",
     fee: 2.5,
-    icon: '/nft/svgs/marketplaces/opensea.svg',
+    icon: "/nft/svgs/marketplaces/opensea.svg",
   },
-]
+];
 
-const createConsiderationItem = (basisPoints: string, recipient: string): ConsiderationInputItem => {
+const createConsiderationItem = (
+  basisPoints: string,
+  recipient: string
+): ConsiderationInputItem => {
   return {
     amount: basisPoints,
     recipient,
-  }
-}
+  };
+};
 
 const getConsiderationItems = (
   asset: WalletAsset,
   price: BigNumber,
   signerAddress: string
 ): {
-  sellerFee: ConsiderationInputItem
-  openseaFee: ConsiderationInputItem
-  creatorFee?: ConsiderationInputItem
+  sellerFee: ConsiderationInputItem;
+  openseaFee: ConsiderationInputItem;
+  creatorFee?: ConsiderationInputItem;
 } => {
-  const openSeaBasisPoints = OPENSEA_DEFAULT_FEE * INVERSE_BASIS_POINTS
-  const creatorFeeBasisPoints = asset?.basisPoints ?? 0
-  const sellerBasisPoints = INVERSE_BASIS_POINTS - openSeaBasisPoints - creatorFeeBasisPoints
+  const openSeaBasisPoints = OPENSEA_DEFAULT_FEE * INVERSE_BASIS_POINTS;
+  const creatorFeeBasisPoints = asset?.basisPoints ?? 0;
+  const sellerBasisPoints =
+    INVERSE_BASIS_POINTS - openSeaBasisPoints - creatorFeeBasisPoints;
 
-  const openseaFee = price.mul(BigNumber.from(openSeaBasisPoints)).div(BigNumber.from(INVERSE_BASIS_POINTS)).toString()
+  const openseaFee = price
+    .mul(BigNumber.from(openSeaBasisPoints))
+    .div(BigNumber.from(INVERSE_BASIS_POINTS))
+    .toString();
   const creatorFee = price
     .mul(BigNumber.from(creatorFeeBasisPoints))
     .div(BigNumber.from(INVERSE_BASIS_POINTS))
-    .toString()
-  const sellerFee = price.mul(BigNumber.from(sellerBasisPoints)).div(BigNumber.from(INVERSE_BASIS_POINTS)).toString()
+    .toString();
+  const sellerFee = price
+    .mul(BigNumber.from(sellerBasisPoints))
+    .div(BigNumber.from(INVERSE_BASIS_POINTS))
+    .toString();
 
   return {
     sellerFee: createConsiderationItem(sellerFee, signerAddress),
     openseaFee: createConsiderationItem(openseaFee, OPENSEA_FEE_ADDRESS),
     creatorFee:
       creatorFeeBasisPoints > 0
-        ? createConsiderationItem(creatorFee, asset?.asset_contract?.payout_address ?? '')
+        ? createConsiderationItem(
+            creatorFee,
+            asset?.asset_contract?.payout_address ?? ""
+          )
         : undefined,
-  }
-}
+  };
+};
 
 export async function approveCollection(
   operator: string,
@@ -90,26 +118,34 @@ export async function approveCollection(
 ): Promise<void> {
   // This will work for both 721s & 1155s because they both have the
   // setApprovalForAll() method
-  const ERC721Contract = new Contract(collectionAddress, ERC721, signer)
-  const signerAddress = await signer.getAddress()
+  const ERC721Contract = new Contract(collectionAddress, ERC721, signer);
+  const signerAddress = await signer.getAddress();
 
   try {
-    const approved = await ERC721Contract.isApprovedForAll(signerAddress, operator)
+    const approved = await ERC721Contract.isApprovedForAll(
+      signerAddress,
+      operator
+    );
     if (approved) {
-      setStatus(ListingStatus.APPROVED)
-      return
+      setStatus(ListingStatus.APPROVED);
+      return;
     }
 
-    setStatus(ListingStatus.SIGNING)
-    const approvalTransaction = await ERC721Contract.setApprovalForAll(operator, true)
+    setStatus(ListingStatus.SIGNING);
+    const approvalTransaction = await ERC721Contract.setApprovalForAll(
+      operator,
+      true
+    );
 
-    setStatus(ListingStatus.PENDING)
-    const tx = await approvalTransaction.wait()
+    setStatus(ListingStatus.PENDING);
+    const tx = await approvalTransaction.wait();
 
-    tx.status === 1 ? setStatus(ListingStatus.APPROVED) : setStatus(ListingStatus.FAILED)
+    tx.status === 1
+      ? setStatus(ListingStatus.APPROVED)
+      : setStatus(ListingStatus.FAILED);
   } catch (error) {
-    if (error.code === 4001) setStatus(ListingStatus.REJECTED)
-    else setStatus(ListingStatus.FAILED)
+    if (error.code === 4001) setStatus(ListingStatus.REJECTED);
+    else setStatus(ListingStatus.FAILED);
   }
 }
 
@@ -126,19 +162,31 @@ export async function signListing(
     overrides: {
       defaultConduitKey: OPENSEA_DEFAULT_CROSS_CHAIN_CONDUIT_KEY,
     },
-  })
+  });
 
-  const signerAddress = await signer.getAddress()
-  const listingPrice = asset.newListings?.find((listing) => listing.marketplace.name === marketplace.name)?.price
-  if (!listingPrice || !asset.expirationTime || !asset.asset_contract.address || !asset.tokenId) return false
+  const signerAddress = await signer.getAddress();
+  const listingPrice = asset.newListings?.find(
+    (listing) => listing.marketplace.name === marketplace.name
+  )?.price;
+  if (
+    !listingPrice ||
+    !asset.expirationTime ||
+    !asset.asset_contract.address ||
+    !asset.tokenId
+  )
+    return false;
   switch (marketplace.name) {
-    case 'OpenSea':
+    case "OpenSea":
       try {
-        const listingInWei = parseEther(`${listingPrice}`)
-        const { sellerFee, openseaFee, creatorFee } = getConsiderationItems(asset, listingInWei, signerAddress)
+        const listingInWei = parseEther(`${listingPrice}`);
+        const { sellerFee, openseaFee, creatorFee } = getConsiderationItems(
+          asset,
+          listingInWei,
+          signerAddress
+        );
         const considerationItems = [sellerFee, openseaFee, creatorFee].filter(
           (item): item is ConsiderationInputItem => item !== undefined
-        )
+        );
 
         const { executeAllActions } = await seaport.createOrder(
           {
@@ -147,7 +195,7 @@ export async function signListing(
                 itemType: ItemType.ERC721,
                 token: asset.asset_contract.address,
                 identifier: asset.tokenId,
-                amount: '1',
+                amount: "1",
               },
             ],
             consideration: considerationItems,
@@ -157,21 +205,23 @@ export async function signListing(
             allowPartialFills: true,
           },
           signerAddress
-        )
+        );
 
-        const order = await executeAllActions()
-        setStatus(ListingStatus.PENDING)
-        const res = await PostOpenSeaSellOrder(order)
-        res ? setStatus(ListingStatus.APPROVED) : setStatus(ListingStatus.FAILED)
-        return res
+        const order = await executeAllActions();
+        setStatus(ListingStatus.PENDING);
+        const res = await PostOpenSeaSellOrder(order);
+        res
+          ? setStatus(ListingStatus.APPROVED)
+          : setStatus(ListingStatus.FAILED);
+        return res;
       } catch (error) {
-        if (error.code === 4001) setStatus(ListingStatus.REJECTED)
-        else setStatus(ListingStatus.FAILED)
-        return false
+        if (error.code === 4001) setStatus(ListingStatus.REJECTED);
+        else setStatus(ListingStatus.FAILED);
+        return false;
       }
-    case 'LooksRare': {
-      const addresses = addressesByNetwork[SupportedChainId.MAINNET]
-      const currentTime = Math.round(Date.now() / 1000)
+    case "LooksRare": {
+      const addresses = addressesByNetwork[SupportedChainId.MAINNET];
+      const currentTime = Math.round(Date.now() / 1000);
       const makerOrder: MakerOrder = {
         // true --> ask / false --> bid
         isOrderAsk: true,
@@ -202,7 +252,7 @@ export async function signListing(
           .toNumber(),
         // params (e.g., price, target account for private sale)
         params: [],
-      }
+      };
 
       try {
         const signatureHash = await signMakerOrder(
@@ -210,8 +260,8 @@ export async function signListing(
           SupportedChainId.MAINNET,
           makerOrder,
           LOOKSRARE_MARKETPLACE_CONTRACT
-        )
-        setStatus(ListingStatus.PENDING)
+        );
+        setStatus(ListingStatus.PENDING);
         const payload = {
           signature: signatureHash,
           tokenId: asset.tokenId,
@@ -227,17 +277,19 @@ export async function signListing(
           endTime: asset.expirationTime,
           minPercentageToAsk: 10000 - (150 + (asset.basisPoints ? 50 : 0)),
           params: [],
-        }
-        const res = await createLooksRareOrder(payload)
-        res ? setStatus(ListingStatus.APPROVED) : setStatus(ListingStatus.FAILED)
-        return res
+        };
+        const res = await createLooksRareOrder(payload);
+        res
+          ? setStatus(ListingStatus.APPROVED)
+          : setStatus(ListingStatus.FAILED);
+        return res;
       } catch (error) {
-        if (error.code === 4001) setStatus(ListingStatus.REJECTED)
-        else setStatus(ListingStatus.FAILED)
-        return false
+        if (error.code === 4001) setStatus(ListingStatus.REJECTED);
+        else setStatus(ListingStatus.FAILED);
+        return false;
       }
     }
-    case 'X2Y2': {
+    case "X2Y2": {
       const orderItem: OfferItem = {
         price: parseEther(listingPrice.toString()),
         tokens: [
@@ -246,32 +298,39 @@ export async function signListing(
             tokenId: BigNumber.from(asset.tokenId),
           },
         ],
-      }
-      const order = createSellOrder(signerAddress, asset.expirationTime, [orderItem])
+      };
+      const order = createSellOrder(signerAddress, asset.expirationTime, [
+        orderItem,
+      ]);
       try {
-        const prevOrderId = await getOrderId(asset.asset_contract.address, asset.tokenId)
-        await signOrderData(provider, order)
+        const prevOrderId = await getOrderId(
+          asset.asset_contract.address,
+          asset.tokenId
+        );
+        await signOrderData(provider, order);
         const payload: OrderPayload = {
           order: encodeOrder(order),
           isBundle: false,
-          bundleName: '',
-          bundleDesc: '',
+          bundleName: "",
+          bundleDesc: "",
           orderIds: prevOrderId ? [prevOrderId] : [],
           changePrice: Boolean(prevOrderId),
           isCollection: false,
-        }
-        setStatus(ListingStatus.PENDING)
+        };
+        setStatus(ListingStatus.PENDING);
         // call server api
-        const resp = await newX2Y2Order(payload)
-        resp ? setStatus(ListingStatus.APPROVED) : setStatus(ListingStatus.FAILED)
-        return resp
+        const resp = await newX2Y2Order(payload);
+        resp
+          ? setStatus(ListingStatus.APPROVED)
+          : setStatus(ListingStatus.FAILED);
+        return resp;
       } catch (error) {
-        if (error.code === 4001) setStatus(ListingStatus.REJECTED)
-        else setStatus(ListingStatus.FAILED)
-        return false
+        if (error.code === 4001) setStatus(ListingStatus.REJECTED);
+        else setStatus(ListingStatus.FAILED);
+        return false;
       }
     }
     default:
-      return false
+      return false;
   }
 }

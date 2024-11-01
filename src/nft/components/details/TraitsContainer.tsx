@@ -1,9 +1,9 @@
-import { OpacityHoverState } from 'components/Common'
-import { GenieAsset, Trait } from 'nft/types'
-import qs from 'query-string'
-import { useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components/macro'
+import { OpacityHoverState } from "components/Common";
+import { GenieAsset, Trait } from "nft/types";
+import qs from "query-string";
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components/macro";
 
 const Grid = styled.div`
   display: grid;
@@ -18,7 +18,7 @@ const Grid = styled.div`
   @media (max-width: 420px) {
     grid-template-columns: 1fr 1fr;
   }
-`
+`;
 
 const GridItemContainer = styled(Link)`
   background-color: ${({ theme }) => theme.backgroundInteractive};
@@ -29,7 +29,7 @@ const GridItemContainer = styled(Link)`
 
   ${OpacityHoverState}
   min-width: 0;
-`
+`;
 
 const TraitType = styled.div`
   color: ${({ theme }) => theme.textSecondary};
@@ -38,7 +38,7 @@ const TraitType = styled.div`
   line-height: 12px;
   white-space: nowrap;
   width: 100%;
-`
+`;
 
 const TraitValue = styled.div`
   color: ${({ theme }) => theme.textPrimary};
@@ -52,35 +52,51 @@ const TraitValue = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
-`
+`;
 
-const GridItem = ({ trait, collectionAddress }: { trait: Trait; collectionAddress: string }) => {
-  const { trait_type, trait_value } = trait
+const GridItem = ({
+  trait,
+  collectionAddress,
+}: {
+  trait: Trait;
+  collectionAddress: string;
+}) => {
+  const { trait_type, trait_value } = trait;
   const params = qs.stringify(
     { traits: [`("${trait_type}","${trait_value}")`] },
     {
-      arrayFormat: 'comma',
+      arrayFormat: "comma",
     }
-  )
+  );
 
   return (
     <GridItemContainer to={`/nfts/collection/${collectionAddress}?${params}`}>
       <TraitType>{trait_type}</TraitType>
       <TraitValue>{trait_value}</TraitValue>
     </GridItemContainer>
-  )
-}
+  );
+};
 
 const TraitsContainer = ({ asset }: { asset: GenieAsset }) => {
-  const traits = useMemo(() => asset.traits?.sort((a, b) => a.trait_type.localeCompare(b.trait_type)), [asset])
+  const traits = useMemo(
+    () =>
+      asset.traits?.sort((a, b) => a.trait_type.localeCompare(b.trait_type)),
+    [asset]
+  );
 
   return (
     <Grid>
       {traits?.map((trait) => {
-        return <GridItem key={trait.trait_type} trait={trait} collectionAddress={asset.address} />
+        return (
+          <GridItem
+            key={trait.trait_type}
+            trait={trait}
+            collectionAddress={asset.address}
+          />
+        );
       })}
     </Grid>
-  )
-}
+  );
+};
 
-export default TraitsContainer
+export default TraitsContainer;

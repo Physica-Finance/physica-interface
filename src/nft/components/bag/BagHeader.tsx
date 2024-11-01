@@ -1,9 +1,9 @@
-import { Trans } from '@lingui/macro'
-import { OpacityHoverState } from 'components/Common'
-import { BagCloseIcon } from 'nft/components/icons'
-import { useMemo } from 'react'
-import styled from 'styled-components/macro'
-import { ButtonText, ThemedText } from 'theme'
+import { Trans } from "@lingui/macro";
+import { OpacityHoverState } from "components/Common";
+import { BagCloseIcon } from "nft/components/icons";
+import { useMemo } from "react";
+import styled from "styled-components/macro";
+import { ButtonText, ThemedText } from "theme";
 
 const ClearButton = styled(ButtonText)`
   color: ${({ theme }) => theme.textSecondary};
@@ -15,7 +15,7 @@ const ClearButton = styled(ButtonText)`
   :active {
     text-decoration: none;
   }
-`
+`;
 
 const IconWrapper = styled.button`
   align-items: center;
@@ -32,7 +32,7 @@ const IconWrapper = styled.button`
   opacity: 1;
 
   ${OpacityHoverState}
-`
+`;
 const CounterDot = styled.div<{ sizing: string }>`
   align-items: center;
   background-color: ${({ theme }) => theme.accentAction};
@@ -45,7 +45,7 @@ const CounterDot = styled.div<{ sizing: string }>`
   min-width: ${({ sizing }) => sizing};
   min-height: ${({ sizing }) => sizing};
   padding: 4px 6px;
-`
+`;
 const Wrapper = styled.div`
   align-items: center;
   display: flex;
@@ -54,31 +54,41 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   margin: 16px 28px;
   text-align: center;
-`
+`;
 interface BagHeaderProps {
-  numberOfAssets: number
-  closeBag: () => void
-  resetFlow: () => void
-  isProfilePage: boolean
+  numberOfAssets: number;
+  closeBag: () => void;
+  resetFlow: () => void;
+  isProfilePage: boolean;
 }
 
-const BASE_SIZING = 14
-const INCREMENTAL_SIZING = 6
+const BASE_SIZING = 14;
+const INCREMENTAL_SIZING = 6;
 
 const getCircleSizing = (numberOfAssets: number): string => {
-  const numberOfCharacters = numberOfAssets.toString().length
+  const numberOfCharacters = numberOfAssets.toString().length;
 
   // each digit adds 6px worth of width (approximately), so I set the height and width to be 6px larger for each digit added
   // 1 digit => 14 + 6, 2 digit 14 + 12, etc.
-  return `${BASE_SIZING + INCREMENTAL_SIZING * numberOfCharacters}px`
-}
+  return `${BASE_SIZING + INCREMENTAL_SIZING * numberOfCharacters}px`;
+};
 
-export const BagHeader = ({ numberOfAssets, closeBag, resetFlow, isProfilePage }: BagHeaderProps) => {
-  const sizing = useMemo(() => getCircleSizing(numberOfAssets), [numberOfAssets])
+export const BagHeader = ({
+  numberOfAssets,
+  closeBag,
+  resetFlow,
+  isProfilePage,
+}: BagHeaderProps) => {
+  const sizing = useMemo(
+    () => getCircleSizing(numberOfAssets),
+    [numberOfAssets]
+  );
 
   return (
     <Wrapper>
-      <ThemedText.HeadlineSmall>{isProfilePage ? <Trans>Sell</Trans> : <Trans>Bag</Trans>}</ThemedText.HeadlineSmall>
+      <ThemedText.HeadlineSmall>
+        {isProfilePage ? <Trans>Sell</Trans> : <Trans>Bag</Trans>}
+      </ThemedText.HeadlineSmall>
       {numberOfAssets > 0 && (
         <>
           <CounterDot sizing={sizing}>{numberOfAssets}</CounterDot>
@@ -91,5 +101,5 @@ export const BagHeader = ({ numberOfAssets, closeBag, resetFlow, isProfilePage }
         <BagCloseIcon data-testid="nft-bag-close-icon" />
       </IconWrapper>
     </Wrapper>
-  )
-}
+  );
+};

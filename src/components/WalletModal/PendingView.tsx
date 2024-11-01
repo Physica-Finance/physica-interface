@@ -1,12 +1,12 @@
-import { Trans } from '@lingui/macro'
-import { Connector } from '@web3-react/types'
-import { ButtonEmpty, ButtonPrimary } from 'components/Button'
-import { AlertTriangle } from 'react-feather'
-import styled from 'styled-components/macro'
-import { ThemedText } from 'theme'
-import { flexColumnNoWrap, flexRowNoWrap } from 'theme/styles'
+import { Trans } from "@lingui/macro";
+import { Connector } from "@web3-react/types";
+import { ButtonEmpty, ButtonPrimary } from "components/Button";
+import { AlertTriangle } from "react-feather";
+import styled from "styled-components/macro";
+import { ThemedText } from "theme";
+import { flexColumnNoWrap, flexRowNoWrap } from "theme/styles";
 
-import Loader from '../Loader'
+import Loader from "../Loader";
 
 const PendingSection = styled.div`
   ${flexColumnNoWrap};
@@ -16,14 +16,14 @@ const PendingSection = styled.div`
   & > * {
     width: 100%;
   }
-`
+`;
 
 const WaitingToConnectSection = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
-`
+`;
 
 const AlertTriangleIcon = styled(AlertTriangle)`
   width: 25%;
@@ -31,14 +31,14 @@ const AlertTriangleIcon = styled(AlertTriangle)`
   stroke-width: 1;
   padding-bottom: 2rem;
   color: ${({ theme }) => theme.accentCritical};
-`
+`;
 
 const LoaderContainer = styled.div`
   ${flexRowNoWrap};
   margin: 16px 0;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const LoadingMessage = styled.div`
   ${flexRowNoWrap};
@@ -49,19 +49,19 @@ const LoadingMessage = styled.div`
   & > * {
     padding: 1rem;
   }
-`
+`;
 
 const ErrorGroup = styled.div`
   ${flexColumnNoWrap};
   align-items: center;
   justify-content: flex-start;
-`
+`;
 
 const LoadingWrapper = styled.div`
   ${flexColumnNoWrap};
   align-items: center;
   justify-content: center;
-`
+`;
 
 export default function PendingView({
   connector,
@@ -69,10 +69,10 @@ export default function PendingView({
   tryActivation,
   openOptions,
 }: {
-  connector: Connector
-  error?: boolean
-  tryActivation: (connector: Connector) => void
-  openOptions: () => void
+  connector: Connector;
+  error?: boolean;
+  tryActivation: (connector: Connector) => void;
+  openOptions: () => void;
 }) {
   return (
     <PendingSection>
@@ -84,15 +84,20 @@ export default function PendingView({
               <ThemedText.MediumHeader marginBottom={12}>
                 <Trans>Error connecting</Trans>
               </ThemedText.MediumHeader>
-              <ThemedText.BodyPrimary fontSize={16} marginBottom={36} textAlign="center">
+              <ThemedText.BodyPrimary
+                fontSize={16}
+                marginBottom={36}
+                textAlign="center"
+              >
                 <Trans>
-                  The connection attempt failed. Please click try again and follow the steps to connect in your wallet.
+                  The connection attempt failed. Please click try again and
+                  follow the steps to connect in your wallet.
                 </Trans>
               </ThemedText.BodyPrimary>
               <ButtonPrimary
                 $borderRadius="12px"
                 onClick={() => {
-                  tryActivation(connector)
+                  tryActivation(connector);
                 }}
               >
                 <Trans>Try Again</Trans>
@@ -106,13 +111,13 @@ export default function PendingView({
           ) : (
             <>
               <WaitingToConnectSection>
-                <LoaderContainer style={{ padding: '16px 0px' }}>
+                <LoaderContainer style={{ padding: "16px 0px" }}>
                   <Loader strokeWidth={0.8} size="100px" />
                 </LoaderContainer>
                 <ThemedText.MediumHeader>
                   <Trans>Waiting to connect</Trans>
                 </ThemedText.MediumHeader>
-                <ThemedText.BodyPrimary style={{ paddingTop: '8px' }}>
+                <ThemedText.BodyPrimary style={{ paddingTop: "8px" }}>
                   <Trans>Confirm this connection in your wallet</Trans>
                 </ThemedText.BodyPrimary>
               </WaitingToConnectSection>
@@ -121,5 +126,5 @@ export default function PendingView({
         </LoadingWrapper>
       </LoadingMessage>
     </PendingSection>
-  )
+  );
 }

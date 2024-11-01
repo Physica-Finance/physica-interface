@@ -7,9 +7,15 @@ import { isAddress } from '@ethersproject/address'
  * @param charsEnd amount of characters to shorten in the end
  * @returns formatted string
  */
-export function shortenAddress(address: string, charsStart = 4, charsEnd?: number): string {
-  const parsed = isAddress(address)
-  if (!parsed) throw Error(`Invalid 'address' parameter '${address}'.`)
+export function shortenAddress(
+  address: string,
+  charsStart = 4,
+  charsEnd?: number
+): string {
+  const parsed = isAddress(address);
+  if (!parsed) throw Error(`Invalid 'address' parameter '${address}'.`);
 
-  return `${address.substring(0, charsStart + 2)}...${address.substring(42 - (charsEnd || charsStart))}`
+  return `${address.substring(0, charsStart + 2)}...${address.substring(
+    42 - (charsEnd || charsStart)
+  )}`;
 }

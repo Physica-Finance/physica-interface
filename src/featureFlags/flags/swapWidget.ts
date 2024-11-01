@@ -1,11 +1,11 @@
-import { BaseVariant, FeatureFlag, useBaseFlag } from '../index'
+import { BaseVariant, FeatureFlag, useBaseFlag } from "../index";
 
 export function useSwapWidgetFlag(): BaseVariant {
-  return useBaseFlag(FeatureFlag.swapWidget, BaseVariant.Control)
+  return useBaseFlag(FeatureFlag.swapWidget, BaseVariant.Control);
 }
 
 export function useSwapWidgetEnabled(): boolean {
-  return useSwapWidgetFlag() === BaseVariant.Enabled
+  return useSwapWidgetFlag() === BaseVariant.Enabled;
 }
 
-export { BaseVariant as SwapWidgetVariant }
+export { BaseVariant as SwapWidgetVariant };

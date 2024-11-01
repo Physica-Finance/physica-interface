@@ -1,18 +1,24 @@
-import { Trans } from '@lingui/macro'
-import { Trace } from '@uniswap/analytics'
-import { InterfaceModalName } from '@uniswap/analytics-events'
-import { Trade } from '@uniswap/router-sdk'
-import { Currency, CurrencyAmount, Percent, Token, TradeType } from '@uniswap/sdk-core'
-import { ReactNode, useCallback, useMemo, useState } from 'react'
-import { InterfaceTrade } from 'state/routing/types'
-import { tradeMeaningfullyDiffers } from 'utils/tradeMeaningFullyDiffer'
+import { Trans } from "@lingui/macro";
+import { Trace } from "@uniswap/analytics";
+import { InterfaceModalName } from "@uniswap/analytics-events";
+import { Trade } from "@uniswap/router-sdk";
+import {
+  Currency,
+  CurrencyAmount,
+  Percent,
+  Token,
+  TradeType,
+} from "@uniswap/sdk-core";
+import { ReactNode, useCallback, useMemo, useState } from "react";
+import { InterfaceTrade } from "state/routing/types";
+import { tradeMeaningfullyDiffers } from "utils/tradeMeaningFullyDiffer";
 
 import TransactionConfirmationModal, {
   ConfirmationModalContent,
   TransactionErrorContent,
-} from '../TransactionConfirmationModal'
-import SwapModalFooter from './SwapModalFooter'
-import SwapModalHeader from './SwapModalHeader'
+} from "../TransactionConfirmationModal";
+import SwapModalFooter from "./SwapModalFooter";
+import SwapModalHeader from "./SwapModalHeader";
 
 export default function ConfirmSwapModal({
   trade,
@@ -30,33 +36,37 @@ export default function ConfirmSwapModal({
   fiatValueInput,
   fiatValueOutput,
 }: {
-  isOpen: boolean
-  trade: InterfaceTrade<Currency, Currency, TradeType> | undefined
-  originalTrade: Trade<Currency, Currency, TradeType> | undefined
-  attemptingTxn: boolean
-  txHash: string | undefined
-  recipient: string | null
-  allowedSlippage: Percent
-  onAcceptChanges: () => void
-  onConfirm: () => void
-  swapErrorMessage: ReactNode | undefined
-  onDismiss: () => void
-  swapQuoteReceivedDate: Date | undefined
-  fiatValueInput?: CurrencyAmount<Token> | null
-  fiatValueOutput?: CurrencyAmount<Token> | null
+  isOpen: boolean;
+  trade: InterfaceTrade<Currency, Currency, TradeType> | undefined;
+  originalTrade: Trade<Currency, Currency, TradeType> | undefined;
+  attemptingTxn: boolean;
+  txHash: string | undefined;
+  recipient: string | null;
+  allowedSlippage: Percent;
+  onAcceptChanges: () => void;
+  onConfirm: () => void;
+  swapErrorMessage: ReactNode | undefined;
+  onDismiss: () => void;
+  swapQuoteReceivedDate: Date | undefined;
+  fiatValueInput?: CurrencyAmount<Token> | null;
+  fiatValueOutput?: CurrencyAmount<Token> | null;
 }) {
   // shouldLogModalCloseEvent lets the child SwapModalHeader component know when modal has been closed
   // and an event triggered by modal closing should be logged.
-  const [shouldLogModalCloseEvent, setShouldLogModalCloseEvent] = useState(false)
+  const [shouldLogModalCloseEvent, setShouldLogModalCloseEvent] =
+    useState(false);
   const showAcceptChanges = useMemo(
-    () => Boolean(trade && originalTrade && tradeMeaningfullyDiffers(trade, originalTrade)),
+    () =>
+      Boolean(
+        trade && originalTrade && tradeMeaningfullyDiffers(trade, originalTrade)
+      ),
     [originalTrade, trade]
-  )
+  );
 
   const onModalDismiss = useCallback(() => {
-    if (isOpen) setShouldLogModalCloseEvent(true)
-    onDismiss()
-  }, [isOpen, onDismiss])
+    if (isOpen) setShouldLogModalCloseEvent(true);
+    onDismiss();
+  }, [isOpen, onDismiss]);
 
   const modalHeader = useCallback(() => {
     return trade ? (
@@ -69,8 +79,15 @@ export default function ConfirmSwapModal({
         showAcceptChanges={showAcceptChanges}
         onAcceptChanges={onAcceptChanges}
       />
-    ) : null
-  }, [allowedSlippage, onAcceptChanges, recipient, showAcceptChanges, trade, shouldLogModalCloseEvent])
+    ) : null;
+  }, [
+    allowedSlippage,
+    onAcceptChanges,
+    recipient,
+    showAcceptChanges,
+    trade,
+    shouldLogModalCloseEvent,
+  ]);
 
   const modalBottom = useCallback(() => {
     return trade ? (
@@ -85,7 +102,7 @@ export default function ConfirmSwapModal({
         fiatValueInput={fiatValueInput}
         fiatValueOutput={fiatValueOutput}
       />
-    ) : null
+    ) : null;
   }, [
     onConfirm,
     showAcceptChanges,
@@ -96,20 +113,25 @@ export default function ConfirmSwapModal({
     swapQuoteReceivedDate,
     fiatValueInput,
     fiatValueOutput,
-  ])
+  ]);
 
   // text to show while loading
   const pendingText = (
     <Trans>
-      Swapping {trade?.inputAmount?.toSignificant(6)} {trade?.inputAmount?.currency?.symbol} for{' '}
-      {trade?.outputAmount?.toSignificant(6)} {trade?.outputAmount?.currency?.symbol}
+      Swapping {trade?.inputAmount?.toSignificant(6)}{" "}
+      {trade?.inputAmount?.currency?.symbol} for{" "}
+      {trade?.outputAmount?.toSignificant(6)}{" "}
+      {trade?.outputAmount?.currency?.symbol}
     </Trans>
-  )
+  );
 
   const confirmationContent = useCallback(
     () =>
       swapErrorMessage ? (
-        <TransactionErrorContent onDismiss={onModalDismiss} message={swapErrorMessage} />
+        <TransactionErrorContent
+          onDismiss={onModalDismiss}
+          message={swapErrorMessage}
+        />
       ) : (
         <ConfirmationModalContent
           title={<Trans>Confirm Swap</Trans>}
@@ -119,7 +141,7 @@ export default function ConfirmSwapModal({
         />
       ),
     [onModalDismiss, modalBottom, modalHeader, swapErrorMessage]
-  )
+  );
 
   return (
     <Trace modal={InterfaceModalName.CONFIRM_SWAP}>
@@ -133,5 +155,5 @@ export default function ConfirmSwapModal({
         currencyToAdd={trade?.outputAmount.currency}
       />
     </Trace>
-  )
+  );
 }

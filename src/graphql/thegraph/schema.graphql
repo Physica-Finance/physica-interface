@@ -4,7 +4,9 @@ is required to be annotated with this directive.
 """
 directive @entity on OBJECT
 
-"""Defined a Subgraph ID for an object type"""
+"""
+Defined a Subgraph ID for an object type
+"""
 directive @subgraphId(id: String!) on OBJECT
 
 """
@@ -13,36 +15,49 @@ creates a virtual field on the entity that may be queried but cannot be set manu
 directive @derivedFrom(field: String!) on FIELD_DEFINITION
 
 type _Block_ {
-  """The hash of the block"""
+  """
+  The hash of the block
+  """
   hash: Bytes
 
-  """The block number"""
+  """
+  The block number
+  """
   number: Int!
 
-  """Integer representation of the timestamp stored in blocks for the chain"""
+  """
+  Integer representation of the timestamp stored in blocks for the chain
+  """
   timestamp: Int
 }
 
-"""The type for the top-level _meta field"""
+"""
+The type for the top-level _meta field
+"""
 type _Meta_ {
   """
   Information about a specific subgraph block. The hash of the block
   will be null if the _meta field has a block constraint that asks for
   a block number. It will be filled if the _meta field has no block constraint
   and therefore asks for the latest  block
-  
   """
   block: _Block_!
 
-  """The deployment ID"""
+  """
+  The deployment ID
+  """
   deployment: String!
 
-  """If `true`, the subgraph encountered indexing errors at some past block"""
+  """
+  If `true`, the subgraph encountered indexing errors at some past block
+  """
   hasIndexingErrors: Boolean!
 }
 
 enum _SubgraphErrorPolicy_ {
-  """Data will be returned even if the subgraph has indexing errors"""
+  """
+  Data will be returned even if the subgraph has indexing errors
+  """
   allow
 
   """
@@ -88,7 +103,9 @@ input Bundle_filter {
   ethPriceUSD_in: [BigDecimal!]
   ethPriceUSD_not_in: [BigDecimal!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Bundle_filter]
   or: [Bundle_filter]
@@ -295,7 +312,9 @@ input Burn_filter {
   logIndex_in: [BigInt!]
   logIndex_not_in: [BigInt!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Burn_filter]
   or: [Burn_filter]
@@ -515,7 +534,9 @@ input Collect_filter {
   logIndex_in: [BigInt!]
   logIndex_not_in: [BigInt!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Collect_filter]
   or: [Collect_filter]
@@ -689,7 +710,9 @@ input Factory_filter {
   owner_in: [ID!]
   owner_not_in: [ID!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Factory_filter]
   or: [Factory_filter]
@@ -854,7 +877,9 @@ input Flash_filter {
   logIndex_in: [BigInt!]
   logIndex_not_in: [BigInt!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Flash_filter]
   or: [Flash_filter]
@@ -1114,7 +1139,9 @@ input Mint_filter {
   logIndex_in: [BigInt!]
   logIndex_not_in: [BigInt!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Mint_filter]
   or: [Mint_filter]
@@ -1201,7 +1228,9 @@ enum Mint_orderBy {
   logIndex
 }
 
-"""Defines the order direction, either ascending or descending"""
+"""
+Defines the order direction, either ascending or descending
+"""
 enum OrderDirection {
   asc
   desc
@@ -1237,13 +1266,55 @@ type Pool {
   totalValueLockedUSD: BigDecimal!
   totalValueLockedUSDUntracked: BigDecimal!
   liquidityProviderCount: BigInt!
-  poolHourData(skip: Int = 0, first: Int = 100, orderBy: PoolHourData_orderBy, orderDirection: OrderDirection, where: PoolHourData_filter): [PoolHourData!]!
-  poolDayData(skip: Int = 0, first: Int = 100, orderBy: PoolDayData_orderBy, orderDirection: OrderDirection, where: PoolDayData_filter): [PoolDayData!]!
-  mints(skip: Int = 0, first: Int = 100, orderBy: Mint_orderBy, orderDirection: OrderDirection, where: Mint_filter): [Mint!]!
-  burns(skip: Int = 0, first: Int = 100, orderBy: Burn_orderBy, orderDirection: OrderDirection, where: Burn_filter): [Burn!]!
-  swaps(skip: Int = 0, first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, where: Swap_filter): [Swap!]!
-  collects(skip: Int = 0, first: Int = 100, orderBy: Collect_orderBy, orderDirection: OrderDirection, where: Collect_filter): [Collect!]!
-  ticks(skip: Int = 0, first: Int = 100, orderBy: Tick_orderBy, orderDirection: OrderDirection, where: Tick_filter): [Tick!]!
+  poolHourData(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: PoolHourData_orderBy
+    orderDirection: OrderDirection
+    where: PoolHourData_filter
+  ): [PoolHourData!]!
+  poolDayData(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: PoolDayData_orderBy
+    orderDirection: OrderDirection
+    where: PoolDayData_filter
+  ): [PoolDayData!]!
+  mints(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Mint_orderBy
+    orderDirection: OrderDirection
+    where: Mint_filter
+  ): [Mint!]!
+  burns(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Burn_orderBy
+    orderDirection: OrderDirection
+    where: Burn_filter
+  ): [Burn!]!
+  swaps(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Swap_orderBy
+    orderDirection: OrderDirection
+    where: Swap_filter
+  ): [Swap!]!
+  collects(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Collect_orderBy
+    orderDirection: OrderDirection
+    where: Collect_filter
+  ): [Collect!]!
+  ticks(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Tick_orderBy
+    orderDirection: OrderDirection
+    where: Tick_filter
+  ): [Tick!]!
 }
 
 input Pool_filter {
@@ -1513,7 +1584,9 @@ input Pool_filter {
   collects_: Collect_filter
   ticks_: Tick_filter
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Pool_filter]
   or: [Pool_filter]
@@ -1786,7 +1859,9 @@ input PoolDayData_filter {
   close_in: [BigDecimal!]
   close_not_in: [BigDecimal!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [PoolDayData_filter]
   or: [PoolDayData_filter]
@@ -2040,7 +2115,9 @@ input PoolHourData_filter {
   close_in: [BigDecimal!]
   close_not_in: [BigDecimal!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [PoolHourData_filter]
   or: [PoolHourData_filter]
@@ -2334,7 +2411,9 @@ input Position_filter {
   feeGrowthInside1LastX128_in: [BigInt!]
   feeGrowthInside1LastX128_not_in: [BigInt!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Position_filter]
   or: [Position_filter]
@@ -2652,7 +2731,9 @@ input PositionSnapshot_filter {
   feeGrowthInside1LastX128_in: [BigInt!]
   feeGrowthInside1LastX128_not_in: [BigInt!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [PositionSnapshot_filter]
   or: [PositionSnapshot_filter]
@@ -3522,7 +3603,9 @@ type Query {
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TokenHourData!]!
 
-  """Access to subgraph metadata"""
+  """
+  Access to subgraph metadata
+  """
   _meta(block: Block_height): _Meta_
 }
 
@@ -4328,7 +4411,9 @@ type Subscription {
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TokenHourData!]!
 
-  """Access to subgraph metadata"""
+  """
+  Access to subgraph metadata
+  """
   _meta(block: Block_height): _Meta_
 }
 
@@ -4530,7 +4615,9 @@ input Swap_filter {
   logIndex_in: [BigInt!]
   logIndex_not_in: [BigInt!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Swap_filter]
   or: [Swap_filter]
@@ -4835,7 +4922,9 @@ input Tick_filter {
   feeGrowthOutside1X128_in: [BigInt!]
   feeGrowthOutside1X128_not_in: [BigInt!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Tick_filter]
   or: [Tick_filter]
@@ -5031,7 +5120,9 @@ input TickDayData_filter {
   feeGrowthOutside1X128_in: [BigInt!]
   feeGrowthOutside1X128_not_in: [BigInt!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [TickDayData_filter]
   or: [TickDayData_filter]
@@ -5220,7 +5311,9 @@ input TickHourData_filter {
   feesUSD_in: [BigDecimal!]
   feesUSD_not_in: [BigDecimal!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [TickHourData_filter]
   or: [TickHourData_filter]
@@ -5302,8 +5395,20 @@ type Token {
   totalValueLockedUSD: BigDecimal!
   totalValueLockedUSDUntracked: BigDecimal!
   derivedETH: BigDecimal!
-  whitelistPools(skip: Int = 0, first: Int = 100, orderBy: Pool_orderBy, orderDirection: OrderDirection, where: Pool_filter): [Pool!]!
-  tokenDayData(skip: Int = 0, first: Int = 100, orderBy: TokenDayData_orderBy, orderDirection: OrderDirection, where: TokenDayData_filter): [TokenDayData!]!
+  whitelistPools(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Pool_orderBy
+    orderDirection: OrderDirection
+    where: Pool_filter
+  ): [Pool!]!
+  tokenDayData(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TokenDayData_orderBy
+    orderDirection: OrderDirection
+    where: TokenDayData_filter
+  ): [TokenDayData!]!
 }
 
 input Token_filter {
@@ -5460,7 +5565,9 @@ input Token_filter {
   whitelistPools_: Pool_filter
   tokenDayData_: TokenDayData_filter
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Token_filter]
   or: [Token_filter]
@@ -5630,7 +5737,9 @@ input TokenDayData_filter {
   close_in: [BigDecimal!]
   close_not_in: [BigDecimal!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [TokenDayData_filter]
   or: [TokenDayData_filter]
@@ -5812,7 +5921,9 @@ input TokenHourData_filter {
   close_in: [BigDecimal!]
   close_not_in: [BigDecimal!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [TokenHourData_filter]
   or: [TokenHourData_filter]
@@ -5856,11 +5967,41 @@ type Transaction {
   timestamp: BigInt!
   gasUsed: BigInt!
   gasPrice: BigInt!
-  mints(skip: Int = 0, first: Int = 100, orderBy: Mint_orderBy, orderDirection: OrderDirection, where: Mint_filter): [Mint]!
-  burns(skip: Int = 0, first: Int = 100, orderBy: Burn_orderBy, orderDirection: OrderDirection, where: Burn_filter): [Burn]!
-  swaps(skip: Int = 0, first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, where: Swap_filter): [Swap]!
-  flashed(skip: Int = 0, first: Int = 100, orderBy: Flash_orderBy, orderDirection: OrderDirection, where: Flash_filter): [Flash]!
-  collects(skip: Int = 0, first: Int = 100, orderBy: Collect_orderBy, orderDirection: OrderDirection, where: Collect_filter): [Collect]!
+  mints(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Mint_orderBy
+    orderDirection: OrderDirection
+    where: Mint_filter
+  ): [Mint]!
+  burns(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Burn_orderBy
+    orderDirection: OrderDirection
+    where: Burn_filter
+  ): [Burn]!
+  swaps(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Swap_orderBy
+    orderDirection: OrderDirection
+    where: Swap_filter
+  ): [Swap]!
+  flashed(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Flash_orderBy
+    orderDirection: OrderDirection
+    where: Flash_filter
+  ): [Flash]!
+  collects(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Collect_orderBy
+    orderDirection: OrderDirection
+    where: Collect_filter
+  ): [Collect]!
 }
 
 input Transaction_filter {
@@ -5910,7 +6051,9 @@ input Transaction_filter {
   flashed_: Flash_filter
   collects_: Collect_filter
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [Transaction_filter]
   or: [Transaction_filter]
@@ -6006,7 +6149,9 @@ input UniswapDayData_filter {
   tvlUSD_in: [BigDecimal!]
   tvlUSD_not_in: [BigDecimal!]
 
-  """Filter for the block changed event."""
+  """
+  Filter for the block changed event.
+  """
   _change_block: BlockChangedFilter
   and: [UniswapDayData_filter]
   or: [UniswapDayData_filter]
@@ -6022,4 +6167,3 @@ enum UniswapDayData_orderBy {
   txCount
   tvlUSD
 }
-

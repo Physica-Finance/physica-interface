@@ -1,16 +1,16 @@
-import { useWeb3React } from '@web3-react/core'
-import { getChainInfoOrDefault } from 'constants/chainInfo'
-import { SupportedChainId } from 'constants/chains'
-import { useMemo } from 'react'
-import { AlertTriangle, CheckCircle } from 'react-feather'
-import styled from 'styled-components/macro'
-import { ExternalLink } from 'theme'
-import { colors } from 'theme/colors'
+import { useWeb3React } from "@web3-react/core";
+import { getChainInfoOrDefault } from "constants/chainInfo";
+import { SupportedChainId } from "constants/chains";
+import { useMemo } from "react";
+import { AlertTriangle, CheckCircle } from "react-feather";
+import styled from "styled-components/macro";
+import { ExternalLink } from "theme";
+import { colors } from "theme/colors";
 
-import { TransactionDetails } from '../../state/transactions/types'
-import Loader from '../Loader'
-import LogoView from './LogoView'
-import TransactionBody from './TransactionBody'
+import { TransactionDetails } from "../../state/transactions/types";
+import Loader from "../Loader";
+import LogoView from "./LogoView";
+import TransactionBody from "./TransactionBody";
 
 export enum TransactionState {
   Pending,
@@ -25,57 +25,66 @@ const Grid = styled(ExternalLink)<{ isLastTransactionInList?: boolean }>`
   width: 100%;
   text-decoration: none;
   border-bottom: ${({ theme, isLastTransactionInList }) =>
-    isLastTransactionInList ? 'none' : `1px solid ${theme.backgroundOutline}`};
+    isLastTransactionInList ? "none" : `1px solid ${theme.backgroundOutline}`};
   padding: 12px;
 
   &:hover {
     background-color: ${({ theme }) => theme.backgroundModule};
     transition: 250ms background-color ease;
   }
-`
+`;
 
 const TextContainer = styled.span`
   font-size: 14px;
   margin-top: auto;
   margin-bottom: auto;
   color: ${({ theme }) => theme.textTertiary};
-`
+`;
 
 const IconStyleWrap = styled.span`
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
   height: 16px;
-`
+`;
 
 export const TransactionSummary = ({
   transactionDetails,
   isLastTransactionInList = false,
 }: {
-  transactionDetails: TransactionDetails
-  isLastTransactionInList?: boolean
+  transactionDetails: TransactionDetails;
+  isLastTransactionInList?: boolean;
 }) => {
-  const { chainId = 1 } = useWeb3React()
-  const tx = transactionDetails
-  const { explorer } = getChainInfoOrDefault(chainId ? chainId : SupportedChainId.MAINNET)
-  const { info, receipt, hash } = tx
+  const { chainId = 1 } = useWeb3React();
+  const tx = transactionDetails;
+  const { explorer } = getChainInfoOrDefault(
+    chainId ? chainId : SupportedChainId.MAINNET
+  );
+  const { info, receipt, hash } = tx;
 
   const transactionState = useMemo(() => {
-    const pending = !receipt
-    const success = !pending && tx && (receipt?.status === 1 || typeof receipt?.status === 'undefined')
+    const pending = !receipt;
+    const success =
+      !pending &&
+      tx &&
+      (receipt?.status === 1 || typeof receipt?.status === "undefined");
     const transactionState = pending
       ? TransactionState.Pending
       : success
       ? TransactionState.Success
-      : TransactionState.Failed
+      : TransactionState.Failed;
 
-    return transactionState
-  }, [receipt, tx])
+    return transactionState;
+  }, [receipt, tx]);
 
-  const link = `${explorer}tx/${hash}`
+  const link = `${explorer}tx/${hash}`;
 
   return chainId ? (
-    <Grid href={link} target="_blank" isLastTransactionInList={isLastTransactionInList}>
+    <Grid
+      href={link}
+      target="_blank"
+      isLastTransactionInList={isLastTransactionInList}
+    >
       <LogoView info={info} />
       <TextContainer as="span">
         <TransactionBody info={info} transactionState={transactionState} />
@@ -94,5 +103,5 @@ export const TransactionSummary = ({
         </IconStyleWrap>
       )}
     </Grid>
-  ) : null
-}
+  ) : null;
+};

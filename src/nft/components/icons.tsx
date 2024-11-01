@@ -1,26 +1,36 @@
-import React from 'react'
-import styled, { useTheme } from 'styled-components/macro'
-import { LogoImage } from '../../components/Logo/AssetLogo'
+import React from "react";
+import styled, { useTheme } from "styled-components/macro";
+import { LogoImage } from "../../components/Logo/AssetLogo";
 
-import { themeVars, vars } from '../css/sprinkles.css'
-import logo from '../../assets/images/logo.png'
+import { themeVars, vars } from "../css/sprinkles.css";
+import logo from "../../assets/images/logo.png";
 
 // ESLint reports `fill` is missing, whereas it exists on an SVGProps type
-type SVGProps = React.SVGProps<SVGSVGElement> & { fill?: string }
+type SVGProps = React.SVGProps<SVGSVGElement> & { fill?: string };
 
 export const UniIcon = (props: SVGProps) => (
-    <LogoImage size="" radius="0%" width="100%" height="64px" src={logo}></LogoImage>
-)
+  <LogoImage
+    size=""
+    radius="0%"
+    width="100%"
+    height="64px"
+    src={logo}
+  ></LogoImage>
+);
 
 export const ChevronUpIcon = ({
   secondaryColor,
   secondaryWidth,
   secondaryHeight,
   ...props
-}: SVGProps & { secondaryWidth?: string; secondaryHeight?: string; secondaryColor?: string }) => (
+}: SVGProps & {
+  secondaryWidth?: string;
+  secondaryHeight?: string;
+  secondaryColor?: string;
+}) => (
   <svg
-    width={secondaryWidth || '29'}
-    height={secondaryHeight || '28'}
+    width={secondaryWidth || "29"}
+    height={secondaryHeight || "28"}
     viewBox="0 0 29 28"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -34,22 +44,40 @@ export const ChevronUpIcon = ({
     </g>
     <defs>
       <clipPath id="clip0_564_11230">
-        <rect width="28" height="28" fill="white" transform="translate(0.716797)" />
+        <rect
+          width="28"
+          height="28"
+          fill="white"
+          transform="translate(0.716797)"
+        />
       </clipPath>
     </defs>
   </svg>
-)
+);
 
 export const BackArrowIcon = (props: SVGProps) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="28"
+    height="28"
+    viewBox="0 0 28 28"
+    {...props}
+  >
     <path d="M5.676 13.645c0 .263.114.527.316.72l5.801 5.792c.21.202.44.3.694.3.554 0 .958-.396.958-.933a.934.934 0 00-.29-.694l-1.977-2.004-2.55-2.329 2.049.123h10.652c.58 0 .985-.404.985-.975 0-.58-.405-.985-.985-.985H10.677l-2.04.123 2.54-2.329 1.978-2.004a.934.934 0 00.29-.694c0-.536-.404-.932-.958-.932-.255 0-.492.097-.72.317l-5.775 5.774a1.012 1.012 0 00-.316.73z" />
   </svg>
-)
+);
 
 export const VerifiedIcon = (props: SVGProps) => {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
       <path
         d="M4.52795 13.8056C4.52719 14.4043 4.6712 14.8474 4.95997 15.135C5.24798 15.4233 5.68496 15.5651 6.27091 15.5605H7.57497C7.62945 15.5585 7.68379 15.5676 7.73463 15.5873C7.78547 15.607 7.83176 15.6369 7.87062 15.6752L8.79884 16.5928C9.22054 17.0142 9.63382 17.2237 10.0387 17.2214C10.4436 17.2191 10.8569 17.0096 11.2786 16.5928L12.1954 15.6752C12.2356 15.6365 12.2832 15.6063 12.3354 15.5866C12.3876 15.5669 12.4433 15.558 12.499 15.5605H13.7951C14.3871 15.5613 14.8283 15.4171 15.1186 15.1281C15.4089 14.839 15.5541 14.3959 15.5541 13.7987V12.5014C15.5511 12.389 15.5923 12.2799 15.6687 12.1974L16.5854 11.2798C17.0125 10.86 17.2245 10.4467 17.2214 10.0399C17.2184 9.63305 17.0064 9.21935 16.5854 8.79878L15.6687 7.88115C15.592 7.79886 15.5509 7.68965 15.5541 7.57719V6.2799C15.5533 5.68191 15.4093 5.23878 15.1221 4.95049C14.8348 4.66221 14.3925 4.51806 13.7951 4.51806H12.499C12.4433 4.52036 12.3877 4.51138 12.3355 4.49168C12.2834 4.47197 12.2357 4.44193 12.1954 4.40336L11.2786 3.48574C10.8569 3.06439 10.4436 2.85487 10.0387 2.85717C9.63382 2.85946 9.22054 3.06898 8.79884 3.48574L7.87062 4.40336C7.83164 4.44148 7.78536 4.4713 7.73454 4.49101C7.68373 4.51072 7.62943 4.51993 7.57497 4.51806H6.27091C5.67961 4.51883 5.23995 4.66182 4.95194 4.94705C4.66393 5.23228 4.51992 5.67656 4.51992 6.2799V7.58063C4.52314 7.69309 4.48197 7.80229 4.40533 7.88459L3.48859 8.80222C3.06765 9.22203 2.85718 9.63572 2.85718 10.0433C2.85718 10.4509 3.07033 10.8653 3.49662 11.2867L4.41336 12.2043C4.48979 12.2867 4.53092 12.3958 4.52795 12.5083V13.8056Z"
         fill={theme.accentAction}
@@ -59,8 +87,8 @@ export const VerifiedIcon = (props: SVGProps) => {
         fill="white"
       />
     </svg>
-  )
-}
+  );
+};
 
 export const PoolIcon = (props: SVGProps) => (
   <svg {...props} fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,25 +97,37 @@ export const PoolIcon = (props: SVGProps) => (
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const XMarkIcon = (props: SVGProps) => (
-  <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 40 40"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       fill={props.fill ?? themeVars.colors.textSecondary}
       d="M10.2706 27.2148C9.74321 27.7421 9.7181 28.6838 10.2831 29.2362C10.8356 29.7887 11.7773 29.7761 12.3046 29.2488L19.9887 21.5521L27.6855 29.2488C28.2254 29.7887 29.1545 29.7887 29.7069 29.2362C30.2468 28.6712 30.2594 27.7547 29.7069 27.2148L22.0228 19.518L29.7069 11.8339C30.2594 11.294 30.2594 10.3649 29.7069 9.81241C29.1419 9.27251 28.2254 9.25995 27.6855 9.79985L19.9887 17.4966L12.3046 9.79985C11.7773 9.27251 10.823 9.2474 10.2831 9.81241C9.73066 10.3649 9.74321 11.3065 10.2706 11.8339L17.9673 19.518L10.2706 27.2148Z"
     />
   </svg>
-)
+);
 
 export const ArrowRightIcon = (props: SVGProps) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" {...props} xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M12.7494 7.79771C12.7494 7.64202 12.6842 7.49135 12.5686 7.38086L9.26897 4.08119C9.13839 3.95564 9.00279 3.90039 8.86216 3.90039C8.54074 3.90039 8.30971 4.1264 8.30971 4.43276C8.30971 4.59347 8.375 4.72907 8.47545 4.82952L9.60547 5.97461L11.0619 7.30552L9.89676 7.23521H3.80971C3.47321 7.23521 3.24219 7.46624 3.24219 7.79771C3.24219 8.12416 3.47321 8.35519 3.80971 8.35519H9.89676L11.0619 8.28488L9.60547 9.61579L8.47545 10.7609C8.375 10.8613 8.30971 10.9969 8.30971 11.1576C8.30971 11.464 8.54074 11.69 8.86216 11.69C9.00279 11.69 9.13839 11.6348 9.25893 11.5193L12.5686 8.20954C12.6842 8.09905 12.7494 7.94838 12.7494 7.79771Z"
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const ExternalIcon = (props: SVGProps) => (
   <svg {...props} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
@@ -98,10 +138,16 @@ export const ExternalIcon = (props: SVGProps) => (
       fill={props.fill}
     />
   </svg>
-)
+);
 
 export const InstagramIcon = (props: SVGProps) => (
-  <svg role="img" viewBox="-3 -3 23 23" xmlns="http://www.w3.org/2000/svg" {...props} fill="none">
+  <svg
+    role="img"
+    viewBox="-3 -3 23 23"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+    fill="none"
+  >
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -109,7 +155,7 @@ export const InstagramIcon = (props: SVGProps) => (
       fill={props.fill}
     />
   </svg>
-)
+);
 
 export const EllipsisIcon = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -135,10 +181,17 @@ export const EllipsisIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const LightningBoltIcon = (props: SVGProps) => (
-  <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    {...props}
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M6.51562 12.6003C6.51562 12.9092 6.7567 13.1427 7.08817 13.1427H11.4576L9.15988 19.3126C8.851 20.1338 9.70229 20.5707 10.2447 19.9078L17.281 11.1991C17.4166 11.0258 17.4844 10.8676 17.4844 10.6943C17.4844 10.3779 17.2433 10.1519 16.9118 10.1519H12.5424L14.8401 3.97447C15.149 3.15332 14.2977 2.71638 13.7553 3.38686L6.72656 12.0956C6.59096 12.2613 6.51562 12.4195 6.51562 12.6003Z"
       fill="#FB118E"
@@ -157,7 +210,7 @@ export const LightningBoltIcon = (props: SVGProps) => (
       </linearGradient>
     </defs>
   </svg>
-)
+);
 
 export const SweepIcon = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -173,57 +226,96 @@ export const SweepIcon = (props: SVGProps) => (
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const CrossIcon = (props: SVGProps) => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 28 28"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M9.0304 17.9341C8.66126 18.3032 8.64369 18.9624 9.03919 19.3403C9.41712 19.7358 10.0851 19.7183 10.4542 19.3491L14.7169 15.0864L18.9796 19.3491C19.3576 19.7271 20.0079 19.7358 20.3859 19.3403C20.7814 18.9624 20.7726 18.3032 20.3947 17.9253L16.132 13.6626L20.3947 9.40869C20.7726 9.02197 20.7814 8.37158 20.3859 7.99365C20.0079 7.59814 19.3576 7.60693 18.9796 7.98486L14.7169 12.2476L10.4542 7.98486C10.0851 7.61572 9.41712 7.59814 9.03919 7.99365C8.64369 8.37158 8.66126 9.03076 9.0304 9.3999L13.2931 13.6626L9.0304 17.9341Z"
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const PlayButtonIcon = (props: SVGProps) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <circle opacity="0.4" cx="12" cy="12" r="12" fill="#70757A" />
     <path
       d="M8.67188 17.2653C8.93555 17.2653 9.16783 17.1712 9.45661 17.0017L16.8708 12.7139C17.4107 12.4 17.6367 12.1551 17.6367 11.7596C17.6367 11.3641 17.4107 11.1256 16.8708 10.8054L9.45661 6.51758C9.16783 6.34807 8.93555 6.25391 8.67188 6.25391C8.15709 6.25391 7.79297 6.64941 7.79297 7.27093V16.2483C7.79297 16.8761 8.15709 17.2653 8.67188 17.2653Z"
       fill="white"
     />
   </svg>
-)
+);
 
 export const PauseButtonIcon = (props: SVGProps) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <circle opacity="0.4" cx="12" cy="12" r="12" fill="#70757A" />
     <path
       d="M8.88067 16.9757H10.356C10.9524 16.9757 11.26 16.6681 11.26 16.0717V7.43331C11.26 6.82436 10.9524 6.53557 10.356 6.5293H8.88067C8.28427 6.5293 7.97666 6.83691 7.97666 7.43331V16.0717C7.97038 16.6681 8.278 16.9757 8.88067 16.9757ZM13.6519 16.9757H15.1209C15.7173 16.9757 16.0249 16.6681 16.0249 16.0717V7.43331C16.0249 6.82436 15.7173 6.5293 15.1209 6.5293H13.6519C13.0492 6.5293 12.7479 6.83691 12.7479 7.43331V16.0717C12.7479 16.6681 13.0492 16.9757 13.6519 16.9757Z"
       fill="white"
     />
   </svg>
-)
+);
 
 export const ArrowsIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M8.5166 5.71191C8.91211 5.29883 9.52734 5.30762 9.91406 5.71191L14.3438 10.2471C14.5195 10.4229 14.6338 10.6953 14.6338 10.9326C14.6338 11.4863 14.2471 11.8643 13.7021 11.8643C13.4385 11.8643 13.2275 11.7764 13.0518 11.5918L11.2412 9.71094L10.0811 8.375L10.1514 10.2383L10.1514 21.6465C10.1514 22.1914 9.75586 22.5869 9.21094 22.5869C8.66602 22.5869 8.2793 22.1914 8.2793 21.6465L8.2793 10.2383L8.34082 8.375L7.18945 9.71094L5.37891 11.5918C5.20313 11.7764 4.9834 11.8643 4.71973 11.8643C4.18359 11.8643 3.79688 11.4863 3.79688 10.9326C3.79688 10.6953 3.91113 10.4229 4.08691 10.2471L8.5166 5.71191ZM20.1533 22.2793C19.7578 22.6924 19.1426 22.6836 18.7559 22.2793L14.3262 17.7529C14.1504 17.5684 14.0361 17.2959 14.0361 17.0586C14.0361 16.5137 14.4229 16.1357 14.9678 16.1357C15.2227 16.1357 15.4424 16.2236 15.6182 16.3994L17.4287 18.2803L18.5801 19.6162L18.5186 17.7529L18.5186 6.34473C18.5186 5.80859 18.9141 5.4043 19.459 5.4043C19.9951 5.4043 20.3906 5.80859 20.3906 6.34473L20.3906 17.7529L20.3291 19.6162L21.4805 18.2803L23.291 16.3994C23.4668 16.2236 23.6865 16.1357 23.9414 16.1357C24.4863 16.1357 24.873 16.5137 24.873 17.0586C24.873 17.2959 24.7588 17.5684 24.583 17.7529L20.1533 22.2793Z"
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const ReversedArrowsIcon = () => (
-  <svg width="20" height="20" viewBox="0 3 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 3 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M19.4834 5.71191C19.0879 5.29883 18.4727 5.30762 18.0859 5.71191L13.6562 10.2471C13.4805 10.4229 13.3662 10.6953 13.3662 10.9326C13.3662 11.4863 13.7529 11.8643 14.2979 11.8643C14.5615 11.8643 14.7725 11.7764 14.9482 11.5918L16.7588 9.71094L17.9189 8.375L17.8486 10.2383L17.8486 21.6465C17.8486 22.1914 18.2441 22.5869 18.7891 22.5869C19.334 22.5869 19.7207 22.1914 19.7207 21.6465L19.7207 10.2383L19.6592 8.375L20.8105 9.71094L22.6211 11.5918C22.7969 11.7764 23.0166 11.8643 23.2803 11.8643C23.8164 11.8643 24.2031 11.4863 24.2031 10.9326C24.2031 10.6953 24.0889 10.4229 23.9131 10.2471L19.4834 5.71191ZM7.84668 22.2793C8.24218 22.6924 8.85742 22.6836 9.24414 22.2793L13.6738 17.7529C13.8496 17.5684 13.9639 17.2959 13.9639 17.0586C13.9639 16.5137 13.5771 16.1357 13.0322 16.1357C12.7773 16.1357 12.5576 16.2236 12.3818 16.3994L10.5713 18.2803L9.41992 19.6162L9.48144 17.7529L9.48144 6.34473C9.48144 5.80859 9.08594 5.4043 8.54101 5.4043C8.00488 5.4043 7.60937 5.80859 7.60937 6.34473L7.60937 17.7529L7.6709 19.6162L6.51953 18.2803L4.70898 16.3994C4.5332 16.2236 4.31347 16.1357 4.05859 16.1357C3.51367 16.1357 3.12695 16.5137 3.12695 17.0586C3.12695 17.2959 3.24121 17.5684 3.41699 17.7529L7.84668 22.2793Z"
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const RarityVerifiedIcon = () => (
-  <svg width="17" height="17" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="17"
+    height="17"
+    viewBox="0 0 15 15"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M4.5686 3.53439C4.74662 3.33093 5.0038 3.21423 5.27414 3.21423L10.1451 3.21423C10.4154 3.21423 10.6726 3.33093 10.8506 3.53438L13.0437 6.04077C13.3654 6.40839 13.3509 6.96139 13.0104 7.31163L8.38181 12.0724C8.01367 12.4511 7.40558 12.4511 7.03744 12.0724L2.40887 7.31163C2.06836 6.96139 2.05385 6.40839 2.37552 6.04077L4.5686 3.53439Z"
       fill="#4673FA"
@@ -233,37 +325,63 @@ export const RarityVerifiedIcon = () => (
       fill="white"
     />
   </svg>
-)
+);
 
 export const EditPriceIcon = (props: SVGProps) => (
-  <svg {...props} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    {...props}
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M12.4713 5.06496L13.2161 4.28041C13.5935 3.88317 13.6233 3.33696 13.2459 2.95958L12.9877 2.69144C12.65 2.35378 12.084 2.40344 11.7165 2.77089L10.9419 3.52565L12.4713 5.06496ZM3.10986 13.2347L5.14573 12.3806L11.7463 5.78L10.2169 4.26055L3.61635 10.8711L2.72255 12.8374C2.62324 13.0658 2.88145 13.324 3.10986 13.2347Z"
       fill="#70757A"
     />
   </svg>
-)
+);
 
 export const AttachPriceIcon = (props: SVGProps) => (
-  <svg {...props} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    {...props}
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M7.76353 9.88671L8.53195 9.10825C7.93931 9.05803 7.51242 8.86216 7.20605 8.5558C6.35728 7.70702 6.35728 6.50669 7.20103 5.66796L8.86844 3.99553C9.71722 3.15178 10.9125 3.14676 11.7613 3.99553C12.6151 4.84932 12.6051 6.04464 11.7663 6.88839L10.9125 7.73716C11.0732 8.10881 11.1285 8.56082 11.0381 8.95256L12.4745 7.5212C13.71 6.29073 13.715 4.53292 12.4694 3.28738C11.2189 2.03682 9.47112 2.04687 8.23563 3.28236L6.48786 5.03013C5.25237 6.26562 5.24735 8.01841 6.49289 9.26394C6.78418 9.56026 7.18597 9.78124 7.76353 9.88671ZM8.23061 5.64285L7.46219 6.42131C8.05483 6.47655 8.48172 6.6674 8.78809 6.97376C9.64188 7.82254 9.63686 9.02287 8.79311 9.86662L7.1257 11.534C6.27693 12.3828 5.08161 12.3828 4.23786 11.534C3.38407 10.6802 3.38909 9.48995 4.23284 8.6462L5.08161 7.7924C4.9209 7.42577 4.87068 6.97376 4.95605 6.577L3.51967 8.01339C2.28418 9.24385 2.27916 10.9966 3.52469 12.2422C4.77525 13.4927 6.52302 13.4827 7.75851 12.2522L9.50628 10.4994C10.7418 9.26394 10.7468 7.51115 9.50126 6.26562C9.20996 5.97432 8.8132 5.75334 8.23061 5.64285Z"
       fill="#4673FA"
     />
   </svg>
-)
+);
 
 export const RowsCollpsedIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 28 28"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M13.9912 5.42773C13.71 5.42773 13.4639 5.55957 13.1738 5.78809L7.24121 10.5869C7.03027 10.7627 6.89844 11.0264 6.89844 11.3516C6.89844 11.9492 7.38184 12.3887 7.93555 12.3887C8.19043 12.3887 8.44531 12.292 8.7002 12.0898L14 7.81836L19.291 12.0898C19.5371 12.292 19.8008 12.3887 20.0557 12.3887C20.6094 12.3887 21.0928 11.9492 21.0928 11.3516C21.0928 11.0264 20.9609 10.7627 20.75 10.5869L14.8086 5.78809C14.5273 5.55957 14.2812 5.42773 13.9912 5.42773ZM13.9912 21.7139C14.2812 21.7139 14.5273 21.5908 14.8086 21.3623L20.75 16.5635C20.9609 16.3789 21.0928 16.1152 21.0928 15.7988C21.0928 15.1924 20.6094 14.7529 20.0557 14.7529C19.8008 14.7529 19.5371 14.8584 19.291 15.0605L14 19.332L8.7002 15.0605C8.44531 14.8584 8.19043 14.7529 7.93555 14.7529C7.38184 14.7529 6.89844 15.1924 6.89844 15.7988C6.89844 16.1152 7.03027 16.3789 7.24121 16.5635L13.1738 21.3535C13.4639 21.5908 13.71 21.7139 13.9912 21.7139Z"
       fill="#70757A"
     />
   </svg>
-)
+);
 
 export const RowsExpandedIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 28 28"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M13.9912 11.9609C14.2812 11.9609 14.5273 11.8379 14.8086 11.6094L20.75 6.81055C20.9609 6.62598 21.0928 6.3623 21.0928 6.0459C21.0928 5.43945 20.6094 5 20.0557 5C19.8008 5 19.5371 5.10547 19.291 5.30762L14 9.5791L8.7002 5.30762C8.44531 5.10547 8.19043 5 7.93555 5C7.38184 5 6.89844 5.43945 6.89844 6.0459C6.89844 6.3623 7.03027 6.62598 7.24121 6.81055L13.1738 11.6006C13.4639 11.8379 13.71 11.9609 13.9912 11.9609Z"
       fill="#70757A"
@@ -273,16 +391,22 @@ export const RowsExpandedIcon = () => (
       fill="#70757A"
     />
   </svg>
-)
+);
 
 export const ClockIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M10.7474 4.99984C10.7474 4.58562 10.4116 4.24984 9.9974 4.24984C9.58318 4.24984 9.2474 4.58562 9.2474 4.99984H10.7474ZM9.9974 9.99984H9.2474C9.2474 10.2839 9.4079 10.5436 9.66199 10.6707L9.9974 9.99984ZM12.9953 12.3373C13.3658 12.5226 13.8163 12.3724 14.0015 12.0019C14.1868 11.6314 14.0366 11.1809 13.6661 10.9957L12.9953 12.3373ZM17.5807 9.99984C17.5807 14.188 14.1856 17.5832 9.9974 17.5832V19.0832C15.014 19.0832 19.0807 15.0164 19.0807 9.99984H17.5807ZM9.9974 17.5832C5.80924 17.5832 2.41406 14.188 2.41406 9.99984H0.914062C0.914062 15.0164 4.98081 19.0832 9.9974 19.0832V17.5832ZM2.41406 9.99984C2.41406 5.81168 5.80924 2.4165 9.9974 2.4165V0.916504C4.98081 0.916504 0.914062 4.98325 0.914062 9.99984H2.41406ZM9.9974 2.4165C14.1856 2.4165 17.5807 5.81168 17.5807 9.99984H19.0807C19.0807 4.98325 15.014 0.916504 9.9974 0.916504V2.4165ZM9.2474 4.99984V9.99984H10.7474V4.99984H9.2474ZM9.66199 10.6707L12.9953 12.3373L13.6661 10.9957L10.3328 9.32902L9.66199 10.6707Z"
       fill={vars.color.gray300}
     />
   </svg>
-)
+);
 
 export const LoadingIcon = (props: SVGProps) => (
   <svg
@@ -294,7 +418,14 @@ export const LoadingIcon = (props: SVGProps) => (
     preserveAspectRatio="xMidYMid"
     {...props}
   >
-    <circle cx="50" cy="50" fill="none" strokeWidth="10" r="35" strokeDasharray="164.93361431346415 56.97787143782138">
+    <circle
+      cx="50"
+      cy="50"
+      fill="none"
+      strokeWidth="10"
+      r="35"
+      strokeDasharray="164.93361431346415 56.97787143782138"
+    >
       <animateTransform
         attributeName="transform"
         type="rotate"
@@ -306,38 +437,71 @@ export const LoadingIcon = (props: SVGProps) => (
       ></animateTransform>
     </circle>
   </svg>
-)
+);
 
 export const ApprovedCheckmarkIcon = (props: SVGProps) => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 28 28"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M13.7464 21.1101C13.3792 21.6796 12.8372 22 12.2076 22C11.5607 22 11.0536 21.733 10.5814 21.1101L6.45464 15.9844C6.15738 15.6107 6 15.2191 6 14.792C6 13.9021 6.66448 13.208 7.52131 13.208C8.0459 13.208 8.46557 13.4038 8.88525 13.9555L12.1377 18.1735L19.0448 6.88988C19.412 6.28476 19.8842 6 20.4087 6C21.2306 6 22 6.58732 22 7.4594C22 7.86874 21.7902 8.29588 21.5628 8.66963L13.7464 21.1101Z"
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const HazardIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="8.57227" y="6.66669" width="2.85714" height="8.57143" fill="white" />
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="8.57227"
+      y="6.66669"
+      width="2.85714"
+      height="8.57143"
+      fill="white"
+    />
     <path
       d="M5.14158 15.7143H14.8489C15.8017 15.7143 16.4294 15.0318 16.4294 14.1977C16.4294 13.9377 16.3509 13.6885 16.2052 13.4502L11.3516 5.05483C11.0489 4.53486 10.5221 4.28571 9.99523 4.28571C9.46839 4.28571 8.93034 4.53486 8.6389 5.05483L3.78524 13.4502C3.63952 13.6885 3.57227 13.9377 3.57227 14.1977C3.57227 15.0318 4.18878 15.7143 5.14158 15.7143ZM9.99523 11.4245C9.56928 11.4245 9.25542 11.1428 9.24421 10.7312L9.15453 7.71969C9.14332 7.24305 9.49081 6.90724 9.99523 6.90724C10.5109 6.90724 10.8584 7.23222 10.8471 7.71969L10.7575 10.7312C10.7351 11.1428 10.4324 11.4245 9.99523 11.4245ZM9.99523 14.0677C9.43477 14.0677 8.98639 13.6452 8.98639 13.1036C8.98639 12.5728 9.43477 12.1503 9.99523 12.1503C10.5669 12.1503 11.0153 12.5836 11.0153 13.1036C11.0041 13.6452 10.5669 14.0677 9.99523 14.0677Z"
       fill="#F95E14"
     />
   </svg>
-)
+);
 
 export const FailedListingIcon = (props: SVGProps) => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M9.9933 16.2444C13.5529 16.2444 16.4909 13.3064 16.4909 9.75307C16.4909 6.19978 13.5466 3.26172 9.98703 3.26172C6.43373 3.26172 3.50195 6.19978 3.50195 9.75307C3.50195 13.3064 6.44001 16.2444 9.9933 16.2444ZM8.12877 12.3207C7.78976 12.3207 7.62653 12.1324 7.62653 11.8624V7.63742C7.62653 7.36747 7.78976 7.17913 8.12877 7.17913H8.80678C9.14579 7.17913 9.30901 7.36747 9.30901 7.63742V11.8624C9.30901 12.1324 9.14579 12.3207 8.80678 12.3207H8.12877ZM11.1798 12.3207C10.8471 12.3207 10.6776 12.1324 10.6776 11.8624V7.63742C10.6776 7.36747 10.8471 7.17913 11.1798 7.17913H11.8641C12.1906 7.17913 12.3538 7.36747 12.3538 7.63742V11.8624C12.3538 12.1324 12.1906 12.3207 11.8641 12.3207H11.1798Z"
       fill={themeVars.colors.textSecondary}
     />
   </svg>
-)
+);
 
 export const FilterIcon = (props: SVGProps) => (
-  <svg width="20" height="20" viewBox="1 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="20"
+    height="20"
+    viewBox="1 0 18 18"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M18.3332 2.5H1.6665L8.33317 10.3833V15.8333L11.6665 17.5V10.3833L18.3332 2.5Z"
       stroke="currentColor"
@@ -346,10 +510,17 @@ export const FilterIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const MagnifyingGlassIcon = (props: SVGProps) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M15 15L11.2439 11.2439M12.3821 6.69106C12.3821 9.83414 9.83414 12.3821 6.69106 12.3821C3.54797 12.3821 1 9.83414 1 6.69106C1 3.54797 3.54797 1 6.69106 1C9.83414 1 12.3821 3.54797 12.3821 6.69106Z"
       stroke="currentColor"
@@ -358,7 +529,7 @@ export const MagnifyingGlassIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const NavMagnifyingGlassIcon = () => (
   <svg
@@ -376,12 +547,25 @@ export const NavMagnifyingGlassIcon = () => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <path d="M21 21L16 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M21 21L16 16"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
-)
+);
 
 export const BagIcon = (props: SVGProps) => (
-  <svg fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" {...props}>
+  <svg
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    {...props}
+  >
     <path
       d="M19.2893 5H4.5115C3.34557 5 2.40039 5.89543 2.40039 7V21C2.40039 22.1046 3.34557 23 4.5115 23H19.2893C20.4552 23 21.4004 22.1046 21.4004 21V7C21.4004 5.89543 20.4552 5 19.2893 5Z"
       stroke="currentColor"
@@ -395,10 +579,16 @@ export const BagIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const HundredsOverflowIcon = () => (
-  <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="8"
+    height="12"
+    viewBox="0 0 8 12"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M0.781304 6.5554C0.565868 6.5554 0.381209 6.47964 0.227327 6.32812C0.073444 6.17661 -0.00231359 5.99195 5.38039e-05 5.77415C-0.00231359 5.56108 0.073444 5.37879 0.227327 5.22727C0.381209 5.07576 0.565868 5 0.781304 5C0.989637 5 1.17075 5.07576 1.32463 5.22727C1.48088 5.37879 1.56019 5.56108 1.56255 5.77415C1.56019 5.91856 1.52231 6.04995 1.44892 6.16832C1.37789 6.2867 1.2832 6.38139 1.16483 6.45242C1.04882 6.52107 0.920982 6.5554 0.781304 6.5554Z"
       fill="white"
@@ -412,10 +602,17 @@ export const HundredsOverflowIcon = () => (
       fill="white"
     />
   </svg>
-)
+);
 
 export const TagIcon = (props: SVGProps) => (
-  <svg fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" {...props}>
+  <svg
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    {...props}
+  >
     <path
       d="M8.33333 8.33333H8.34097M20.7908 14.2092L14.2183 20.7817C14.0481 20.9521 13.8459 21.0873 13.6233 21.1796C13.4007 21.2719 13.1622 21.3194 12.9213 21.3194C12.6803 21.3194 12.4418 21.2719 12.2192 21.1796C11.9966 21.0873 11.7944 20.9521 11.6242 20.7817L3.75 12.9167V3.75H12.9167L20.7908 11.6242C21.1323 11.9677 21.324 12.4323 21.324 12.9167C21.324 13.401 21.1323 13.8657 20.7908 14.2092Z"
       stroke="currentColor"
@@ -424,27 +621,58 @@ export const TagIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const BarChartIcon = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M12 20V10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M6 20V4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M18 20V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M12 20V10"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6 20V4"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M18 20V16"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
-)
+);
 
 export const DiscordIcon = (props: SVGProps) => (
-  <svg role="img" width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" {...props} fill="none">
+  <svg
+    role="img"
+    width="44"
+    height="44"
+    viewBox="0 0 44 44"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+    fill="none"
+  >
     <path
       d="M27.2113 25.4989C25.6574 25.4989 24.3869 24.1067 24.3869 22.3837C24.3869 20.6607 25.63 19.2685 27.2113 19.2685C27.5983 19.2814 27.9789 19.3726 28.331 19.5367C28.6831 19.7007 28.9998 19.9345 29.2625 20.2243C29.5253 20.5141 29.729 20.8543 29.8617 21.225C29.9944 21.5956 30.0536 21.9895 30.0358 22.3837C30.0358 24.0927 28.7892 25.4989 27.2113 25.4989ZM16.7708 25.4989C15.2203 25.4989 13.9464 24.1067 13.9464 22.3837C13.9464 20.6607 15.1929 19.2685 16.7708 19.2685C17.1578 19.2814 17.5384 19.3726 17.8905 19.5367C18.2426 19.7007 18.5593 19.9345 18.822 20.2243C19.0848 20.5141 19.2885 20.8543 19.4212 21.225C19.5539 21.5956 19.6131 21.9895 19.5952 22.3837C19.5987 24.0927 18.3487 25.4989 16.7708 25.4989ZM32.8978 11.402C30.8261 10.4652 28.6454 9.80198 26.4087 9.42847C26.103 9.96986 25.8259 10.5276 25.5788 11.0992C23.2005 10.749 20.7851 10.749 18.4067 11.0992C18.1547 10.5281 17.8743 9.97046 17.5666 9.42847C15.3293 9.80279 13.1484 10.4684 11.0775 11.409C6.97921 17.4167 5.86241 23.2748 6.4191 29.0493C8.83313 30.8106 11.521 32.145 14.3699 32.9964C15.0139 32.1426 15.5852 31.2343 16.0775 30.2815C15.1502 29.9373 14.2533 29.5134 13.3965 29.0145C13.6185 28.8544 13.8405 28.6664 14.0522 28.5098C16.5478 29.6693 19.2586 30.2693 22.0013 30.2693C24.744 30.2693 27.4548 29.6693 29.9504 28.5098C30.1655 28.6838 30.3841 28.8578 30.6061 29.0145C29.7492 29.5157 28.851 29.9396 27.9217 30.2815C28.4139 31.2355 28.9852 32.145 29.6293 32.9999C32.4808 32.1479 35.171 30.8123 37.5869 29.0493C38.2222 22.3559 36.4531 16.55 32.8978 11.402Z"
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const TwitterIcon = (props: SVGProps) => (
-  <svg {...props} role="img" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    {...props}
+    role="img"
+    viewBox="0 0 44 44"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -452,7 +680,7 @@ export const TwitterIcon = (props: SVGProps) => (
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const DiscordIconMenu = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -461,7 +689,7 @@ export const DiscordIconMenu = (props: SVGProps) => (
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const TwitterIconMenu = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -470,7 +698,7 @@ export const TwitterIconMenu = (props: SVGProps) => (
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const GithubIconMenu = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -481,7 +709,7 @@ export const GithubIconMenu = (props: SVGProps) => (
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const CheckMarkIcon = (props: SVGProps) => (
   <svg {...props} fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -493,7 +721,7 @@ export const CheckMarkIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const GovernanceIcon = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -504,8 +732,20 @@ export const GovernanceIcon = (props: SVGProps) => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <path d="M9.75 8.75H15.75" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M9.75 12.75H15.75" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M9.75 8.75H15.75"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M9.75 12.75H15.75"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
     <path
       d="M2.07187 7.49977C1.829 7.22785 1.65585 6.90097 1.56733 6.54728C1.4788 6.19359 1.47756 5.82369 1.56369 5.46941C1.64983 5.11513 1.82077 4.7871 2.0618 4.51353C2.30283 4.23997 2.60673 4.02908 2.94734 3.89902C3.28795 3.76895 3.65507 3.72361 4.01709 3.76689C4.37911 3.81017 4.72519 3.94077 5.02554 4.14747C5.32589 4.35416 5.57151 4.63074 5.74126 4.95342C5.91101 5.27609 5.9998 5.63518 6 5.99977V17.9998C6.00019 18.3644 6.08899 18.7235 6.25874 19.0461C6.42849 19.3688 6.67411 19.6454 6.97446 19.8521C7.27481 20.0588 7.62089 20.1894 7.98291 20.2327C8.34493 20.2759 8.71205 20.2306 9.05266 20.1005C9.39327 19.9705 9.69717 19.7596 9.9382 19.486C10.1792 19.2125 10.3502 18.8844 10.4363 18.5301C10.5224 18.1759 10.5212 17.806 10.4327 17.4523C10.3441 17.0986 10.171 16.7717 9.92813 16.4998H20.4281C20.7177 16.8236 20.9074 17.2243 20.9743 17.6536C21.0411 18.0828 20.9823 18.5223 20.8048 18.9188C20.6274 19.3154 20.3389 19.6521 19.9743 19.8882C19.6096 20.1244 19.1844 20.25 18.75 20.2498H8.25"
       stroke="currentColor"
@@ -514,39 +754,77 @@ export const GovernanceIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const MinusIconLarge = (props: SVGProps) => (
   <svg {...props} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M5 12H19"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
-)
+);
 
 export const PlusIconLarge = (props: SVGProps) => (
   <svg {...props} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 5V19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M12 5V19"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M5 12H19"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
-)
+);
 
 export const ChevronLeftIcon = (props: SVGProps) => (
-  <svg width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M7 1L1 7L7 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  <svg
+    width="8"
+    height="16"
+    viewBox="0 0 8 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M7 1L1 7L7 13"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
-)
+);
 
 export const ChevronRightIcon = styled(ChevronLeftIcon)`
   transform: rotate(180deg);
-`
+`;
 
 export const TrendingArrow = (props: SVGProps) => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M17.5 5.8335H18.25C18.25 5.41928 17.9142 5.0835 17.5 5.0835V5.8335ZM11.0227 12.4307L10.4876 12.9562C10.6286 13.0998 10.8214 13.1807 11.0227 13.1807C11.224 13.1807 11.4169 13.0998 11.5579 12.9562L11.0227 12.4307ZM7.61364 8.9585L8.14881 8.43305C8.00778 8.28941 7.81493 8.2085 7.61364 8.2085C7.41234 8.2085 7.21949 8.28941 7.07846 8.43305L7.61364 8.9585ZM1.96483 13.6414C1.67463 13.937 1.67899 14.4118 1.97456 14.702C2.27013 14.9922 2.74498 14.9878 3.03517 14.6923L1.96483 13.6414ZM13.4091 5.0835C12.9949 5.0835 12.6591 5.41928 12.6591 5.8335C12.6591 6.24771 12.9949 6.5835 13.4091 6.5835V5.0835ZM16.75 10.0002C16.75 10.4144 17.0858 10.7502 17.5 10.7502C17.9142 10.7502 18.25 10.4144 18.25 10.0002H16.75ZM16.9648 5.30805L10.4876 11.9053L11.5579 12.9562L18.0352 6.35894L16.9648 5.30805ZM11.5579 11.9053L8.14881 8.43305L7.07846 9.48394L10.4876 12.9562L11.5579 11.9053ZM7.07846 8.43305L1.96483 13.6414L3.03517 14.6923L8.14881 9.48394L7.07846 8.43305ZM13.4091 6.5835H17.5V5.0835H13.4091V6.5835ZM16.75 5.8335V10.0002H18.25V5.8335H16.75Z"
       fill={vars.color.gray300}
     />
   </svg>
-)
+);
 export const ActivityListingIcon = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
@@ -555,9 +833,14 @@ export const ActivityListingIcon = (props: SVGProps) => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <path d="M5.66797 5.66675H5.6763" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M5.66797 5.66675H5.6763"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
-)
+);
 
 export const ActivitySaleIcon = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -580,19 +863,31 @@ export const ActivitySaleIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const TokenWarningRedIcon = (props: SVGProps) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M10.8566 6.57347L10.2153 6.18449L10.2132 6.18807L10.8566 6.57347ZM5.20993 16.0001L4.56645 15.6147L4.56044 15.6251L5.20993 16.0001ZM6.34993 18.0001L6.34169 18.7501H6.34993V18.0001ZM17.6433 18.0001V18.7502L17.6515 18.7501L17.6433 18.0001ZM18.7833 16.0001L19.4328 15.625L19.4267 15.6147L18.7833 16.0001ZM13.1366 6.57347L13.78 6.18806L13.7778 6.1845L13.1366 6.57347ZM11.9966 5.93164V5.18164V5.93164ZM12.7467 10.0001C12.7467 9.58587 12.411 9.25008 11.9967 9.25008C11.5825 9.25008 11.2467 9.58587 11.2467 10.0001H12.7467ZM11.2467 12.6667C11.2467 13.081 11.5825 13.4167 11.9967 13.4167C12.411 13.4167 12.7467 13.081 12.7467 12.6667H11.2467ZM11.9967 14.5834C11.5825 14.5834 11.2467 14.9192 11.2467 15.3334C11.2467 15.7476 11.5825 16.0834 11.9967 16.0834V14.5834ZM12.0034 16.0834C12.4176 16.0834 12.7534 15.7476 12.7534 15.3334C12.7534 14.9192 12.4176 14.5834 12.0034 14.5834V16.0834ZM10.2132 6.18807L4.56653 15.6147L5.85333 16.3855L11.5 6.95887L10.2132 6.18807ZM4.56044 15.6251C4.37853 15.9401 4.28228 16.2973 4.28126 16.661L5.78125 16.6652C5.78154 16.5634 5.80849 16.4634 5.85942 16.3752L4.56044 15.6251ZM4.28126 16.661C4.28024 17.0248 4.37449 17.3825 4.55463 17.6986L5.8578 16.9558C5.80736 16.8673 5.78097 16.7671 5.78125 16.6652L4.28126 16.661ZM4.55463 17.6986C4.73477 18.0146 4.99452 18.278 5.30805 18.4624L6.06875 17.1696C5.98097 17.118 5.90824 17.0442 5.8578 16.9558L4.55463 17.6986ZM5.30805 18.4624C5.62157 18.6469 5.97793 18.7461 6.34169 18.7501L6.35817 17.2502C6.25632 17.2491 6.15654 17.2213 6.06875 17.1696L5.30805 18.4624ZM6.34993 18.7501H17.6433V17.2501H6.34993V18.7501ZM17.6515 18.7501C18.0153 18.7461 18.3716 18.6469 18.6851 18.4624L17.9244 17.1696C17.8367 17.2213 17.7369 17.2491 17.635 17.2502L17.6515 18.7501ZM18.6851 18.4624C18.9987 18.278 19.2584 18.0146 19.4386 17.6986L18.1354 16.9558C18.085 17.0442 18.0122 17.118 17.9244 17.1696L18.6851 18.4624ZM19.4386 17.6986C19.6187 17.3825 19.713 17.0248 19.7119 16.661L18.2119 16.6652C18.2122 16.7671 18.1858 16.8673 18.1354 16.9558L19.4386 17.6986ZM19.7119 16.661C19.7109 16.2973 19.6147 15.9401 19.4328 15.6251L18.1338 16.3752C18.1847 16.4634 18.2117 16.5634 18.2119 16.6652L19.7119 16.661ZM19.4267 15.6147L13.78 6.18807L12.4932 6.95887L18.1399 16.3855L19.4267 15.6147ZM13.7778 6.1845C13.5921 5.87836 13.3307 5.62525 13.0187 5.44959L12.2828 6.75667C12.3701 6.80585 12.4434 6.87672 12.4953 6.96244L13.7778 6.1845ZM13.0187 5.44959C12.7067 5.27392 12.3547 5.18164 11.9966 5.18164V6.68164C12.0969 6.68164 12.1954 6.70748 12.2828 6.75667L13.0187 5.44959ZM11.9966 5.18164C11.6385 5.18164 11.2865 5.27392 10.9745 5.44959L11.7104 6.75667C11.7978 6.70748 11.8963 6.68164 11.9966 6.68164V5.18164ZM10.9745 5.44959C10.6625 5.62525 10.401 5.87836 10.2153 6.1845L11.4978 6.96244C11.5498 6.87672 11.6231 6.80585 11.7104 6.75667L10.9745 5.44959ZM11.2467 10.0001V12.6667H12.7467V10.0001H11.2467ZM11.9967 16.0834H12.0034V14.5834H11.9967V16.0834Z"
-      fill={props.fill ? props.fill : '#FA2B39'}
+      fill={props.fill ? props.fill : "#FA2B39"}
     />
   </svg>
-)
+);
 export const ActivityTransferIcon = (props: SVGProps) => (
   <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M14.6654 1.33337L7.33203 8.66671" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M14.6654 1.33337L7.33203 8.66671"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
     <path
       d="M14.6654 1.33337L9.9987 14.6667L7.33203 8.66671L1.33203 6.00004L14.6654 1.33337Z"
       stroke="currentColor"
@@ -600,11 +895,25 @@ export const ActivityTransferIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const ActivityExternalLinkIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <mask id="path-1-outside-1_3799_46574" maskUnits="userSpaceOnUse" x="2" y="2" width="15" height="15" fill="black">
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <mask
+      id="path-1-outside-1_3799_46574"
+      maskUnits="userSpaceOnUse"
+      x="2"
+      y="2"
+      width="15"
+      height="15"
+      fill="black"
+    >
       <rect fill="white" x="2" y="2" width="15" height="15" />
       <path
         fillRule="evenodd"
@@ -624,10 +933,17 @@ export const ActivityExternalLinkIcon = () => (
       mask="url(#path-1-outside-1_3799_46574)"
     />
   </svg>
-)
+);
 
 export const LargeTagIcon = (props: SVGProps) => (
-  <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="96"
+    height="96"
+    viewBox="0 0 96 96"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M55.6215 80.6815L55.621 80.6819C55.0823 81.2212 54.4427 81.649 53.7386 81.9409C53.0345 82.2328 52.2797 82.383 51.5175 82.383C50.7553 82.383 50.0006 82.2328 49.2965 81.9409C48.5923 81.649 47.9527 81.2212 47.414 80.6819L47.413 80.681L17.7 51.0025V17.7H51.0029L80.714 47.411C80.7141 47.4111 80.7142 47.4112 80.7143 47.4113C81.7943 48.498 82.4006 49.9679 82.4006 51.5C82.4006 53.032 81.7944 54.5017 80.7146 55.5884C80.7144 55.5886 80.7142 55.5888 80.714 55.589L55.6215 80.6815Z"
       stroke="currentColor"
@@ -637,10 +953,17 @@ export const LargeTagIcon = (props: SVGProps) => (
     />
     <circle cx="34" cy="34" r="3" fill="currentColor" />
   </svg>
-)
+);
 
 export const CircularCloseIcon = (props: SVGProps) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <circle cx="8" cy="8" r="8" fill="#293249" />
     <path
       fillRule="evenodd"
@@ -649,10 +972,17 @@ export const CircularCloseIcon = (props: SVGProps) => (
       fill="white"
     />
   </svg>
-)
+);
 
 export const SquareArrowDownIcon = (props: SVGProps) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M4.66797 4.66663L11.3346 11.3333M11.3346 11.3333V4.66663M11.3346 11.3333H4.66797"
       stroke="currentColor"
@@ -660,10 +990,17 @@ export const SquareArrowDownIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const SquareArrowUpIcon = (props: SVGProps) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M4.66797 11.3334L11.3346 4.66671M11.3346 4.66671V11.3334M11.3346 4.66671H4.66797"
       stroke="currentColor"
@@ -671,19 +1008,33 @@ export const SquareArrowUpIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const CloseTimerIcon = (props: SVGProps) => (
-  <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="11"
+    height="12"
+    viewBox="0 0 11 12"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M8.2435 3.95892C8.53639 3.66603 8.53639 3.19115 8.2435 2.89826C7.95061 2.60537 7.47573 2.60537 7.18284 2.89826L8.2435 3.95892ZM2.03998 8.04112C1.74709 8.33401 1.74709 8.80888 2.03998 9.10178C2.33288 9.39467 2.80775 9.39467 3.10064 9.10178L2.03998 8.04112ZM3.10064 2.89826C2.80775 2.60537 2.33288 2.60537 2.03998 2.89826C1.74709 3.19115 1.74709 3.66603 2.03998 3.95892L3.10064 2.89826ZM7.18284 9.10178C7.47573 9.39467 7.95061 9.39467 8.2435 9.10178C8.53639 8.80888 8.53639 8.33401 8.2435 8.04112L7.18284 9.10178ZM7.18284 2.89826L2.03998 8.04112L3.10064 9.10178L8.2435 3.95892L7.18284 2.89826ZM2.03998 3.95892L7.18284 9.10178L8.2435 8.04112L3.10064 2.89826L2.03998 3.95892Z"
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const ChevronDownBagIcon = (props: SVGProps) => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M5 7.5L10 12.5L15 7.5"
       stroke="currentColor"
@@ -692,10 +1043,17 @@ export const ChevronDownBagIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const ChevronUpBagIcon = (props: SVGProps) => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M5 12.5L10 7.5L15 12.5"
       stroke="currentColor"
@@ -704,19 +1062,33 @@ export const ChevronUpBagIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const BagCloseIcon = (props: SVGProps) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L18.7071 6.70711ZM5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L5.29289 17.2929ZM6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L6.70711 5.29289ZM17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L17.2929 18.7071ZM17.2929 5.29289L5.29289 17.2929L6.70711 18.7071L18.7071 6.70711L17.2929 5.29289ZM5.29289 6.70711L17.2929 18.7071L18.7071 17.2929L6.70711 5.29289L5.29289 6.70711Z"
       fill="currentColor"
     />
   </svg>
-)
+);
 
 export const EmptyNFTWalletIcon = (props: SVGProps) => (
-  <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="96"
+    height="96"
+    viewBox="0 0 96 96"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <rect
       x="4.46976"
       y="35.0579"
@@ -740,10 +1112,17 @@ export const EmptyNFTWalletIcon = (props: SVGProps) => (
       strokeLinecap="round"
     />
   </svg>
-)
+);
 
 export const CancelListingIcon = (props: SVGProps) => (
-  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="15"
+    height="15"
+    viewBox="0 0 15 15"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <path
       d="M12.6667 6L13.3933 6.72667C13.6417 6.97648 13.7811 7.31442 13.7811 7.66667C13.7811 8.01891 13.6417 8.35685 13.3933 8.60667L8.61333 13.3867C8.4895 13.5106 8.34245 13.609 8.18059 13.6761C8.01872 13.7432 7.84522 13.7777 7.67 13.7777C7.49478 13.7777 7.32128 13.7432 7.15941 13.6761C6.99755 13.609 6.8505 13.5106 6.72667 13.3867L6 12.6667M8.8 2.13333L7.66667 1H1V7.66667L2.13333 8.8M13.7811 1L1.10498 13.6761M4.33333 4.33333H4.33889"
       stroke="currentColor"
@@ -751,17 +1130,42 @@ export const CancelListingIcon = (props: SVGProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);
 
 export const ListingModalWindowActive = (props: SVGProps) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <circle cx="8" cy="8" r="8" fill={props.fill ? props.fill : themeVars.colors.accentAction} fillOpacity="0.24" />
-    <circle cx="8" cy="8" r="5" fill={props.fill ? props.fill : themeVars.colors.accentAction} />
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <circle
+      cx="8"
+      cy="8"
+      r="8"
+      fill={props.fill ? props.fill : themeVars.colors.accentAction}
+      fillOpacity="0.24"
+    />
+    <circle
+      cx="8"
+      cy="8"
+      r="5"
+      fill={props.fill ? props.fill : themeVars.colors.accentAction}
+    />
   </svg>
-)
+);
 
 export const ListingModalWindowClosed = (props: SVGProps) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <circle cx="8" cy="8" r="7" stroke="#333D59" strokeWidth="2" />
   </svg>
-)
+);

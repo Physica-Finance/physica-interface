@@ -1,10 +1,17 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import * as Apollo from "@apollo/client";
+import { gql } from "@apollo/client";
+
 export type Maybe<T> = T;
 export type InputMaybe<T> = T;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -30,7 +37,10 @@ export type Scalars = {
  *  Types, unions, and inputs (alphabetized):
  * These are colocated to highlight the relationship between some types and their inputs.
  */
-export type ActivityDetails = OnRampTransactionDetails | SwapOrderDetails | TransactionDetails;
+export type ActivityDetails =
+  | OnRampTransactionDetails
+  | SwapOrderDetails
+  | TransactionDetails;
 
 export type ActivityDetailsInput = {
   onRampTransactionDetails?: InputMaybe<OnRampTransactionDetailsInput>;
@@ -43,76 +53,76 @@ export type ActivityDetailsInput = {
  * deprecated and replaced with TransactionType, please do not use this
  */
 export enum ActivityType {
-  Approve = 'APPROVE',
-  Borrow = 'BORROW',
-  Burn = 'BURN',
-  Cancel = 'CANCEL',
-  Claim = 'CLAIM',
-  Deployment = 'DEPLOYMENT',
-  Lend = 'LEND',
-  Mint = 'MINT',
-  Nft = 'NFT',
-  OnRamp = 'ON_RAMP',
-  Receive = 'RECEIVE',
-  Repay = 'REPAY',
-  Send = 'SEND',
-  Stake = 'STAKE',
-  Swap = 'SWAP',
-  SwapOrder = 'SWAP_ORDER',
-  Staking = 'Staking',
-  Unknown = 'UNKNOWN',
-  Unstake = 'UNSTAKE',
-  Withdraw = 'WITHDRAW',
-  Market = 'market',
-  Money = 'money'
+  Approve = "APPROVE",
+  Borrow = "BORROW",
+  Burn = "BURN",
+  Cancel = "CANCEL",
+  Claim = "CLAIM",
+  Deployment = "DEPLOYMENT",
+  Lend = "LEND",
+  Mint = "MINT",
+  Nft = "NFT",
+  OnRamp = "ON_RAMP",
+  Receive = "RECEIVE",
+  Repay = "REPAY",
+  Send = "SEND",
+  Stake = "STAKE",
+  Swap = "SWAP",
+  SwapOrder = "SWAP_ORDER",
+  Staking = "Staking",
+  Unknown = "UNKNOWN",
+  Unstake = "UNSTAKE",
+  Withdraw = "WITHDRAW",
+  Market = "market",
+  Money = "money",
 }
 
 export type Amount = IAmount & {
-  __typename?: 'Amount';
+  __typename?: "Amount";
   currency?: Maybe<Currency>;
-  id: Scalars['ID'];
-  value: Scalars['Float'];
+  id: Scalars["ID"];
+  value: Scalars["Float"];
 };
 
 export type AmountChange = {
-  __typename?: 'AmountChange';
+  __typename?: "AmountChange";
   absolute?: Maybe<Amount>;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   percentage?: Maybe<Amount>;
 };
 
 export type AmountInput = {
   currency?: InputMaybe<Currency>;
-  value: Scalars['Float'];
+  value: Scalars["Float"];
 };
 
 export type ApplicationContract = IContract & {
-  __typename?: 'ApplicationContract';
-  address: Scalars['String'];
+  __typename?: "ApplicationContract";
+  address: Scalars["String"];
   chain: Chain;
   icon?: Maybe<Image>;
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
+  id: Scalars["ID"];
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type ApplicationContractInput = {
-  address: Scalars['String'];
+  address: Scalars["String"];
   chain: Chain;
   icon?: InputMaybe<ImageInput>;
-  name?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars["String"]>;
 };
 
 export type AssetActivity = {
-  __typename?: 'AssetActivity';
-  addresses?: Maybe<Array<Scalars['String']>>;
+  __typename?: "AssetActivity";
+  addresses?: Maybe<Array<Scalars["String"]>>;
   /** @deprecated use assetChanges field in details */
   assetChanges: Array<Maybe<AssetChange>>;
   chain: Chain;
   details: ActivityDetails;
   /** @deprecated not required, remove usage */
-  gasUsed?: Maybe<Scalars['Float']>;
-  id: Scalars['ID'];
-  timestamp: Scalars['Int'];
+  gasUsed?: Maybe<Scalars["Float"]>;
+  id: Scalars["ID"];
+  timestamp: Scalars["Int"];
   /** @deprecated use fields from details */
   transaction: Transaction;
   /** @deprecated use type field in details */
@@ -122,15 +132,21 @@ export type AssetActivity = {
 export type AssetActivityInput = {
   chain: Chain;
   details: ActivityDetailsInput;
-  timestamp: Scalars['Int'];
+  timestamp: Scalars["Int"];
 };
 
 export enum AssetActivitySwitch {
-  Alternate = 'ALTERNATE',
-  Legacy = 'LEGACY'
+  Alternate = "ALTERNATE",
+  Legacy = "LEGACY",
 }
 
-export type AssetChange = NftApproval | NftApproveForAll | NftTransfer | OnRampTransfer | TokenApproval | TokenTransfer;
+export type AssetChange =
+  | NftApproval
+  | NftApproveForAll
+  | NftTransfer
+  | OnRampTransfer
+  | TokenApproval
+  | TokenTransfer;
 
 export type AssetChangeInput = {
   nftApproval?: InputMaybe<NftApprovalInput>;
@@ -142,523 +158,514 @@ export type AssetChangeInput = {
 };
 
 export enum Chain {
-  Arbitrum = 'ARBITRUM',
-  AstrochainSepolia = 'ASTROCHAIN_SEPOLIA',
-  Avalanche = 'AVALANCHE',
-  Base = 'BASE',
-  Blast = 'BLAST',
-  Bnb = 'BNB',
-  Celo = 'CELO',
-  Ethereum = 'ETHEREUM',
-  EthereumGoerli = 'ETHEREUM_GOERLI',
-  EthereumSepolia = 'ETHEREUM_SEPOLIA',
-  Optimism = 'OPTIMISM',
-  Polygon = 'POLYGON',
-  UnknownChain = 'UNKNOWN_CHAIN',
-  Worldchain = 'WORLDCHAIN',
-  Zksync = 'ZKSYNC',
-  Zora = 'ZORA'
+  Arbitrum = "ARBITRUM",
+  AstrochainSepolia = "ASTROCHAIN_SEPOLIA",
+  Avalanche = "AVALANCHE",
+  Base = "BASE",
+  Blast = "BLAST",
+  Bnb = "BNB",
+  Celo = "CELO",
+  Ethereum = "ETHEREUM",
+  EthereumGoerli = "ETHEREUM_GOERLI",
+  EthereumSepolia = "ETHEREUM_SEPOLIA",
+  Optimism = "OPTIMISM",
+  Polygon = "POLYGON",
+  UnknownChain = "UNKNOWN_CHAIN",
+  Worldchain = "WORLDCHAIN",
+  Zksync = "ZKSYNC",
+  Zora = "ZORA",
 }
 
 export enum CollectionSortableField {
-  Volume = 'VOLUME'
+  Volume = "VOLUME",
 }
 
 export type ContractInput = {
-  address?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars["String"]>;
   chain: Chain;
 };
 
 export enum Currency {
-  Aud = 'AUD',
-  Brl = 'BRL',
-  Cad = 'CAD',
-  Cny = 'CNY',
-  Eth = 'ETH',
-  Eur = 'EUR',
-  Gbp = 'GBP',
-  Hkd = 'HKD',
-  Idr = 'IDR',
-  Inr = 'INR',
-  Jpy = 'JPY',
-  Krw = 'KRW',
-  Matic = 'MATIC',
-  Ngn = 'NGN',
-  Pkr = 'PKR',
-  Rub = 'RUB',
-  Sgd = 'SGD',
-  Thb = 'THB',
-  Try = 'TRY',
-  Uah = 'UAH',
-  Usd = 'USD',
-  Vnd = 'VND'
+  Aud = "AUD",
+  Brl = "BRL",
+  Cad = "CAD",
+  Cny = "CNY",
+  Eth = "ETH",
+  Eur = "EUR",
+  Gbp = "GBP",
+  Hkd = "HKD",
+  Idr = "IDR",
+  Inr = "INR",
+  Jpy = "JPY",
+  Krw = "KRW",
+  Matic = "MATIC",
+  Ngn = "NGN",
+  Pkr = "PKR",
+  Rub = "RUB",
+  Sgd = "SGD",
+  Thb = "THB",
+  Try = "TRY",
+  Uah = "UAH",
+  Usd = "USD",
+  Vnd = "VND",
 }
 
 export type CurrencyAmountInput = {
   currency: Currency;
-  value: Scalars['Float'];
+  value: Scalars["Float"];
 };
 
 export type DescriptionTranslations = {
-  __typename?: 'DescriptionTranslations';
-  descriptionEnUs?: Maybe<Scalars['String']>;
-  descriptionEs419?: Maybe<Scalars['String']>;
-  descriptionEsEs?: Maybe<Scalars['String']>;
-  descriptionEsUs?: Maybe<Scalars['String']>;
-  descriptionFrFr?: Maybe<Scalars['String']>;
-  descriptionHiIn?: Maybe<Scalars['String']>;
-  descriptionIdId?: Maybe<Scalars['String']>;
-  descriptionJaJp?: Maybe<Scalars['String']>;
-  descriptionMsMy?: Maybe<Scalars['String']>;
-  descriptionNlNl?: Maybe<Scalars['String']>;
-  descriptionPtPt?: Maybe<Scalars['String']>;
-  descriptionRuRu?: Maybe<Scalars['String']>;
-  descriptionThTh?: Maybe<Scalars['String']>;
-  descriptionTrTr?: Maybe<Scalars['String']>;
-  descriptionUkUa?: Maybe<Scalars['String']>;
-  descriptionUrPk?: Maybe<Scalars['String']>;
-  descriptionViVn?: Maybe<Scalars['String']>;
-  descriptionZhHans?: Maybe<Scalars['String']>;
-  descriptionZhHant?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  __typename?: "DescriptionTranslations";
+  descriptionEnUs?: Maybe<Scalars["String"]>;
+  descriptionEs419?: Maybe<Scalars["String"]>;
+  descriptionEsEs?: Maybe<Scalars["String"]>;
+  descriptionEsUs?: Maybe<Scalars["String"]>;
+  descriptionFrFr?: Maybe<Scalars["String"]>;
+  descriptionHiIn?: Maybe<Scalars["String"]>;
+  descriptionIdId?: Maybe<Scalars["String"]>;
+  descriptionJaJp?: Maybe<Scalars["String"]>;
+  descriptionMsMy?: Maybe<Scalars["String"]>;
+  descriptionNlNl?: Maybe<Scalars["String"]>;
+  descriptionPtPt?: Maybe<Scalars["String"]>;
+  descriptionRuRu?: Maybe<Scalars["String"]>;
+  descriptionThTh?: Maybe<Scalars["String"]>;
+  descriptionTrTr?: Maybe<Scalars["String"]>;
+  descriptionUkUa?: Maybe<Scalars["String"]>;
+  descriptionUrPk?: Maybe<Scalars["String"]>;
+  descriptionViVn?: Maybe<Scalars["String"]>;
+  descriptionZhHans?: Maybe<Scalars["String"]>;
+  descriptionZhHant?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
 };
 
 export type Dimensions = {
-  __typename?: 'Dimensions';
-  height?: Maybe<Scalars['Float']>;
-  id: Scalars['ID'];
-  width?: Maybe<Scalars['Float']>;
+  __typename?: "Dimensions";
+  height?: Maybe<Scalars["Float"]>;
+  id: Scalars["ID"];
+  width?: Maybe<Scalars["Float"]>;
 };
 
 export type DimensionsInput = {
-  height?: InputMaybe<Scalars['Float']>;
-  width?: InputMaybe<Scalars['Float']>;
+  height?: InputMaybe<Scalars["Float"]>;
+  width?: InputMaybe<Scalars["Float"]>;
 };
 
 export type FeeData = {
-  __typename?: 'FeeData';
-  buyFeeBps?: Maybe<Scalars['String']>;
-  externalTransferFailed?: Maybe<Scalars['Boolean']>;
-  feeTakenOnTransfer?: Maybe<Scalars['Boolean']>;
-  sellFeeBps?: Maybe<Scalars['String']>;
-  sellReverted?: Maybe<Scalars['Boolean']>;
+  __typename?: "FeeData";
+  buyFeeBps?: Maybe<Scalars["String"]>;
+  externalTransferFailed?: Maybe<Scalars["Boolean"]>;
+  feeTakenOnTransfer?: Maybe<Scalars["Boolean"]>;
+  sellFeeBps?: Maybe<Scalars["String"]>;
+  sellReverted?: Maybe<Scalars["Boolean"]>;
 };
 
 export enum HighLow {
-  High = 'HIGH',
-  Low = 'LOW'
+  High = "HIGH",
+  Low = "LOW",
 }
 
 /**   FIVE_MINUTE is only supported for TokenMarket.pricePercentChange */
 export enum HistoryDuration {
-  Day = 'DAY',
-  FiveMinute = 'FIVE_MINUTE',
-  Hour = 'HOUR',
-  Max = 'MAX',
-  Month = 'MONTH',
-  Week = 'WEEK',
-  Year = 'YEAR'
+  Day = "DAY",
+  FiveMinute = "FIVE_MINUTE",
+  Hour = "HOUR",
+  Max = "MAX",
+  Month = "MONTH",
+  Week = "WEEK",
+  Year = "YEAR",
 }
 
 /**   Interfaces (alphabetized): */
 export type IAmount = {
   currency?: Maybe<Currency>;
-  value: Scalars['Float'];
+  value: Scalars["Float"];
 };
 
 export type IContract = {
-  address?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars["String"]>;
   chain: Chain;
 };
 
 export type IPool = {
-  address: Scalars['String'];
+  address: Scalars["String"];
   chain: Chain;
-  createdAtTimestamp?: Maybe<Scalars['Int']>;
+  createdAtTimestamp?: Maybe<Scalars["Int"]>;
   cumulativeVolume?: Maybe<Amount>;
   historicalVolume?: Maybe<Array<Maybe<TimestampedAmount>>>;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   priceHistory?: Maybe<Array<Maybe<TimestampedPoolPrice>>>;
   protocolVersion: ProtocolVersion;
   token0?: Maybe<Token>;
-  token0Supply?: Maybe<Scalars['Float']>;
+  token0Supply?: Maybe<Scalars["Float"]>;
   token1?: Maybe<Token>;
-  token1Supply?: Maybe<Scalars['Float']>;
+  token1Supply?: Maybe<Scalars["Float"]>;
   totalLiquidity?: Maybe<Amount>;
   totalLiquidityPercentChange24h?: Maybe<Amount>;
   transactions?: Maybe<Array<Maybe<PoolTransaction>>>;
-  txCount?: Maybe<Scalars['Int']>;
+  txCount?: Maybe<Scalars["Int"]>;
 };
-
 
 export type IPoolCumulativeVolumeArgs = {
   duration: HistoryDuration;
 };
 
-
 export type IPoolHistoricalVolumeArgs = {
   duration: HistoryDuration;
 };
-
 
 export type IPoolPriceHistoryArgs = {
   duration: HistoryDuration;
 };
 
-
 export type IPoolTransactionsArgs = {
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
 
 export type Image = {
-  __typename?: 'Image';
+  __typename?: "Image";
   dimensions?: Maybe<Dimensions>;
-  id: Scalars['ID'];
-  url: Scalars['String'];
+  id: Scalars["ID"];
+  url: Scalars["String"];
 };
 
 export type ImageInput = {
   dimensions?: InputMaybe<DimensionsInput>;
-  url: Scalars['String'];
+  url: Scalars["String"];
 };
 
 export enum MediaType {
-  Audio = 'AUDIO',
-  Image = 'IMAGE',
-  Raw = 'RAW',
-  Video = 'VIDEO'
+  Audio = "AUDIO",
+  Image = "IMAGE",
+  Raw = "RAW",
+  Video = "VIDEO",
 }
 
 export type Mutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   assetActivity: AssetActivity;
   heartbeat: Status;
   unsubscribe: Status;
 };
 
-
 export type MutationAssetActivityArgs = {
   input: AssetActivityInput;
 };
 
-
 export type MutationHeartbeatArgs = {
-  subscriptionId: Scalars['ID'];
+  subscriptionId: Scalars["ID"];
   type: SubscriptionType;
 };
 
-
 export type MutationUnsubscribeArgs = {
-  subscriptionId: Scalars['ID'];
+  subscriptionId: Scalars["ID"];
   type: SubscriptionType;
 };
 
 export type NetworkFee = {
-  __typename?: 'NetworkFee';
-  quantity?: Maybe<Scalars['String']>;
-  tokenAddress?: Maybe<Scalars['String']>;
-  tokenChain?: Maybe<Scalars['String']>;
-  tokenSymbol?: Maybe<Scalars['String']>;
+  __typename?: "NetworkFee";
+  quantity?: Maybe<Scalars["String"]>;
+  tokenAddress?: Maybe<Scalars["String"]>;
+  tokenChain?: Maybe<Scalars["String"]>;
+  tokenSymbol?: Maybe<Scalars["String"]>;
 };
 
 export type NftActivity = {
-  __typename?: 'NftActivity';
-  address: Scalars['String'];
+  __typename?: "NftActivity";
+  address: Scalars["String"];
   asset?: Maybe<NftAsset>;
-  fromAddress: Scalars['String'];
-  id: Scalars['ID'];
-  marketplace?: Maybe<Scalars['String']>;
+  fromAddress: Scalars["String"];
+  id: Scalars["ID"];
+  marketplace?: Maybe<Scalars["String"]>;
   orderStatus?: Maybe<OrderStatus>;
   price?: Maybe<Amount>;
-  quantity?: Maybe<Scalars['Int']>;
-  timestamp: Scalars['Int'];
-  toAddress?: Maybe<Scalars['String']>;
-  tokenId?: Maybe<Scalars['String']>;
-  transactionHash?: Maybe<Scalars['String']>;
+  quantity?: Maybe<Scalars["Int"]>;
+  timestamp: Scalars["Int"];
+  toAddress?: Maybe<Scalars["String"]>;
+  tokenId?: Maybe<Scalars["String"]>;
+  transactionHash?: Maybe<Scalars["String"]>;
   type: NftActivityType;
-  url?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars["String"]>;
 };
 
 export type NftActivityConnection = {
-  __typename?: 'NftActivityConnection';
+  __typename?: "NftActivityConnection";
   edges: Array<NftActivityEdge>;
   pageInfo: PageInfo;
 };
 
 export type NftActivityEdge = {
-  __typename?: 'NftActivityEdge';
-  cursor: Scalars['String'];
+  __typename?: "NftActivityEdge";
+  cursor: Scalars["String"];
   node: NftActivity;
 };
 
 export type NftActivityFilterInput = {
   activityTypes?: InputMaybe<Array<NftActivityType>>;
-  address?: InputMaybe<Scalars['String']>;
-  tokenId?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars["String"]>;
+  tokenId?: InputMaybe<Scalars["String"]>;
 };
 
 export enum NftActivityType {
-  CancelListing = 'CANCEL_LISTING',
-  Listing = 'LISTING',
-  Sale = 'SALE',
-  Transfer = 'TRANSFER'
+  CancelListing = "CANCEL_LISTING",
+  Listing = "LISTING",
+  Sale = "SALE",
+  Transfer = "TRANSFER",
 }
 
 export type NftApproval = {
-  __typename?: 'NftApproval';
-  approvedAddress: Scalars['String'];
+  __typename?: "NftApproval";
+  approvedAddress: Scalars["String"];
   /**   can be erc721, erc1155, noncompliant */
   asset: NftAsset;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   nftStandard: NftStandard;
 };
 
 export type NftApprovalInput = {
-  approvedAddress: Scalars['String'];
+  approvedAddress: Scalars["String"];
   asset: NftAssetInput;
   nftStandard: NftStandard;
 };
 
 export type NftApproveForAll = {
-  __typename?: 'NftApproveForAll';
-  approved: Scalars['Boolean'];
+  __typename?: "NftApproveForAll";
+  approved: Scalars["Boolean"];
   /**   can be erc721, erc1155, noncompliant */
   asset: NftAsset;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   nftStandard: NftStandard;
-  operatorAddress: Scalars['String'];
+  operatorAddress: Scalars["String"];
 };
 
 export type NftApproveForAllInput = {
-  approved: Scalars['Boolean'];
+  approved: Scalars["Boolean"];
   asset: NftAssetInput;
   nftStandard: NftStandard;
-  operatorAddress: Scalars['String'];
+  operatorAddress: Scalars["String"];
 };
 
 export type NftAsset = {
-  __typename?: 'NftAsset';
-  animationUrl?: Maybe<Scalars['String']>;
+  __typename?: "NftAsset";
+  animationUrl?: Maybe<Scalars["String"]>;
   chain?: Maybe<Chain>;
   collection?: Maybe<NftCollection>;
   creator?: Maybe<NftProfile>;
-  description?: Maybe<Scalars['String']>;
-  flaggedBy?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  description?: Maybe<Scalars["String"]>;
+  flaggedBy?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
   image?: Maybe<Image>;
   /** @deprecated Field no longer supported */
-  imageUrl?: Maybe<Scalars['String']>;
-  isSpam?: Maybe<Scalars['Boolean']>;
+  imageUrl?: Maybe<Scalars["String"]>;
+  isSpam?: Maybe<Scalars["Boolean"]>;
   listings?: Maybe<NftOrderConnection>;
   mediaType?: Maybe<MediaType>;
-  metadataUrl?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  metadataUrl?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
   nftContract?: Maybe<NftContract>;
   originalImage?: Maybe<Image>;
   /**   TODO: may need to be array to support erc1155 cases. not needed at the moment so will revisit. */
-  ownerAddress?: Maybe<Scalars['String']>;
+  ownerAddress?: Maybe<Scalars["String"]>;
   rarities?: Maybe<Array<NftAssetRarity>>;
   smallImage?: Maybe<Image>;
   /** @deprecated Field no longer supported */
-  smallImageUrl?: Maybe<Scalars['String']>;
-  suspiciousFlag?: Maybe<Scalars['Boolean']>;
+  smallImageUrl?: Maybe<Scalars["String"]>;
+  suspiciousFlag?: Maybe<Scalars["Boolean"]>;
   thumbnail?: Maybe<Image>;
   /** @deprecated Field no longer supported */
-  thumbnailUrl?: Maybe<Scalars['String']>;
-  tokenId: Scalars['String'];
+  thumbnailUrl?: Maybe<Scalars["String"]>;
+  tokenId: Scalars["String"];
   traits?: Maybe<Array<NftAssetTrait>>;
 };
 
-
 export type NftAssetListingsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  asc?: InputMaybe<Scalars['Boolean']>;
-  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars["String"]>;
+  asc?: InputMaybe<Scalars["Boolean"]>;
+  before?: InputMaybe<Scalars["String"]>;
   chain?: InputMaybe<Chain>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars["Int"]>;
+  last?: InputMaybe<Scalars["Int"]>;
 };
 
 export type NftAssetConnection = {
-  __typename?: 'NftAssetConnection';
+  __typename?: "NftAssetConnection";
   edges: Array<NftAssetEdge>;
   pageInfo: PageInfo;
-  totalCount?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars["Int"]>;
 };
 
 export type NftAssetEdge = {
-  __typename?: 'NftAssetEdge';
-  cursor: Scalars['String'];
+  __typename?: "NftAssetEdge";
+  cursor: Scalars["String"];
   node: NftAsset;
 };
 
 export type NftAssetInput = {
-  animationUrl?: InputMaybe<Scalars['String']>;
+  animationUrl?: InputMaybe<Scalars["String"]>;
   collection?: InputMaybe<NftCollectionInput>;
-  description?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars["String"]>;
   image?: InputMaybe<ImageInput>;
-  isSpam?: InputMaybe<Scalars['Boolean']>;
+  isSpam?: InputMaybe<Scalars["Boolean"]>;
   mediaType?: InputMaybe<MediaType>;
-  name?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars["String"]>;
   nftContract?: InputMaybe<NftContractInput>;
   smallImage?: InputMaybe<ImageInput>;
   thumbnail?: InputMaybe<ImageInput>;
-  tokenId: Scalars['String'];
+  tokenId: Scalars["String"];
 };
 
 export type NftAssetRarity = {
-  __typename?: 'NftAssetRarity';
-  id: Scalars['ID'];
+  __typename?: "NftAssetRarity";
+  id: Scalars["ID"];
   provider?: Maybe<NftRarityProvider>;
-  rank?: Maybe<Scalars['Int']>;
-  score?: Maybe<Scalars['Float']>;
+  rank?: Maybe<Scalars["Int"]>;
+  score?: Maybe<Scalars["Float"]>;
 };
 
 export enum NftAssetSortableField {
-  Price = 'PRICE',
-  Rarity = 'RARITY'
+  Price = "PRICE",
+  Rarity = "RARITY",
 }
 
 export type NftAssetTrait = {
-  __typename?: 'NftAssetTrait';
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
-  rarity?: Maybe<Scalars['Float']>;
-  value?: Maybe<Scalars['String']>;
+  __typename?: "NftAssetTrait";
+  id: Scalars["ID"];
+  name?: Maybe<Scalars["String"]>;
+  rarity?: Maybe<Scalars["Float"]>;
+  value?: Maybe<Scalars["String"]>;
 };
 
 export type NftAssetTraitInput = {
-  name: Scalars['String'];
-  values: Array<Scalars['String']>;
+  name: Scalars["String"];
+  values: Array<Scalars["String"]>;
 };
 
 export type NftAssetsFilterInput = {
-  listed?: InputMaybe<Scalars['Boolean']>;
+  listed?: InputMaybe<Scalars["Boolean"]>;
   marketplaces?: InputMaybe<Array<NftMarketplace>>;
-  maxPrice?: InputMaybe<Scalars['String']>;
-  minPrice?: InputMaybe<Scalars['String']>;
-  tokenIds?: InputMaybe<Array<Scalars['String']>>;
-  tokenSearchQuery?: InputMaybe<Scalars['String']>;
+  maxPrice?: InputMaybe<Scalars["String"]>;
+  minPrice?: InputMaybe<Scalars["String"]>;
+  tokenIds?: InputMaybe<Array<Scalars["String"]>>;
+  tokenSearchQuery?: InputMaybe<Scalars["String"]>;
   traits?: InputMaybe<Array<NftAssetTraitInput>>;
 };
 
 export type NftBalance = {
-  __typename?: 'NftBalance';
-  id: Scalars['ID'];
+  __typename?: "NftBalance";
+  id: Scalars["ID"];
   lastPrice?: Maybe<TimestampedAmount>;
   listedMarketplaces?: Maybe<Array<NftMarketplace>>;
   listingFees?: Maybe<Array<Maybe<NftFee>>>;
   ownedAsset?: Maybe<NftAsset>;
-  quantity?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars["Int"]>;
 };
 
 export type NftBalanceAssetInput = {
-  address: Scalars['String'];
-  tokenId: Scalars['String'];
+  address: Scalars["String"];
+  tokenId: Scalars["String"];
 };
 
 export type NftBalanceConnection = {
-  __typename?: 'NftBalanceConnection';
+  __typename?: "NftBalanceConnection";
   edges: Array<NftBalanceEdge>;
   pageInfo: PageInfo;
 };
 
 export type NftBalanceEdge = {
-  __typename?: 'NftBalanceEdge';
-  cursor: Scalars['String'];
+  __typename?: "NftBalanceEdge";
+  cursor: Scalars["String"];
   node: NftBalance;
 };
 
 export type NftBalancesFilterInput = {
-  addresses?: InputMaybe<Array<Scalars['String']>>;
+  addresses?: InputMaybe<Array<Scalars["String"]>>;
   assets?: InputMaybe<Array<NftBalanceAssetInput>>;
-  filterSpam?: InputMaybe<Scalars['Boolean']>;
+  filterSpam?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type NftCollection = {
-  __typename?: 'NftCollection';
+  __typename?: "NftCollection";
   bannerImage?: Maybe<Image>;
   /**
    *  TODO: support querying for collection assets here
    * assets(page: Int, pageSize: Int, orderBy: NftAssetSortableField): [NftAsset]
    * @deprecated Field no longer supported
    */
-  bannerImageUrl?: Maybe<Scalars['String']>;
-  collectionId: Scalars['String'];
+  bannerImageUrl?: Maybe<Scalars["String"]>;
+  collectionId: Scalars["String"];
   creator?: Maybe<NftProfile>;
-  description?: Maybe<Scalars['String']>;
-  discordUrl?: Maybe<Scalars['String']>;
-  homepageUrl?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  description?: Maybe<Scalars["String"]>;
+  discordUrl?: Maybe<Scalars["String"]>;
+  homepageUrl?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
   image?: Maybe<Image>;
   /** @deprecated Field no longer supported */
-  imageUrl?: Maybe<Scalars['String']>;
-  instagramName?: Maybe<Scalars['String']>;
-  isVerified?: Maybe<Scalars['Boolean']>;
+  imageUrl?: Maybe<Scalars["String"]>;
+  instagramName?: Maybe<Scalars["String"]>;
+  isVerified?: Maybe<Scalars["Boolean"]>;
   markets?: Maybe<Array<NftCollectionMarket>>;
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars["String"]>;
   nftContracts?: Maybe<Array<NftContract>>;
-  numAssets?: Maybe<Scalars['Int']>;
+  numAssets?: Maybe<Scalars["Int"]>;
   /** @deprecated Field no longer supported */
-  openseaUrl?: Maybe<Scalars['String']>;
+  openseaUrl?: Maybe<Scalars["String"]>;
   traits?: Maybe<Array<NftCollectionTrait>>;
-  twitterName?: Maybe<Scalars['String']>;
+  twitterName?: Maybe<Scalars["String"]>;
 };
-
 
 export type NftCollectionMarketsArgs = {
   currencies: Array<Currency>;
 };
 
 export type NftCollectionBalance = {
-  __typename?: 'NftCollectionBalance';
-  address: Scalars['String'];
-  balance: Scalars['Float'];
-  id: Scalars['ID'];
+  __typename?: "NftCollectionBalance";
+  address: Scalars["String"];
+  balance: Scalars["Float"];
+  id: Scalars["ID"];
   logoImage?: Maybe<Image>;
-  name: Scalars['String'];
+  name: Scalars["String"];
 };
 
 export type NftCollectionBalanceConnection = {
-  __typename?: 'NftCollectionBalanceConnection';
+  __typename?: "NftCollectionBalanceConnection";
   edges: Array<NftCollectionBalanceEdge>;
   pageInfo: PageInfo;
 };
 
 export type NftCollectionBalanceEdge = {
-  __typename?: 'NftCollectionBalanceEdge';
-  cursor: Scalars['String'];
+  __typename?: "NftCollectionBalanceEdge";
+  cursor: Scalars["String"];
   node: NftCollectionBalance;
 };
 
 export type NftCollectionConnection = {
-  __typename?: 'NftCollectionConnection';
+  __typename?: "NftCollectionConnection";
   edges: Array<NftCollectionEdge>;
   pageInfo: PageInfo;
 };
 
 export type NftCollectionEdge = {
-  __typename?: 'NftCollectionEdge';
-  cursor: Scalars['String'];
+  __typename?: "NftCollectionEdge";
+  cursor: Scalars["String"];
   node: NftCollection;
 };
 
 export type NftCollectionInput = {
-  collectionId: Scalars['String'];
-  name?: InputMaybe<Scalars['String']>;
+  collectionId: Scalars["String"];
+  name?: InputMaybe<Scalars["String"]>;
   nftContracts?: InputMaybe<Array<NftContractInput>>;
 };
 
 export type NftCollectionMarket = {
-  __typename?: 'NftCollectionMarket';
+  __typename?: "NftCollectionMarket";
   floorPrice?: Maybe<TimestampedAmount>;
   floorPricePercentChange?: Maybe<TimestampedAmount>;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   listings?: Maybe<TimestampedAmount>;
   marketplaces?: Maybe<Array<NftCollectionMarketplace>>;
   nftContracts?: Maybe<Array<NftContract>>;
-  owners?: Maybe<Scalars['Int']>;
+  owners?: Maybe<Scalars["Int"]>;
   percentListed?: Maybe<TimestampedAmount>;
   percentUniqueOwners?: Maybe<TimestampedAmount>;
   sales?: Maybe<TimestampedAmount>;
@@ -669,289 +676,284 @@ export type NftCollectionMarket = {
   volumePercentChange?: Maybe<TimestampedAmount>;
 };
 
-
 export type NftCollectionMarketFloorPricePercentChangeArgs = {
   duration?: InputMaybe<HistoryDuration>;
 };
-
 
 export type NftCollectionMarketMarketplacesArgs = {
   marketplaces?: InputMaybe<Array<NftMarketplace>>;
 };
 
-
 export type NftCollectionMarketSalesArgs = {
   duration?: InputMaybe<HistoryDuration>;
 };
 
-
 export type NftCollectionMarketVolumeArgs = {
   duration?: InputMaybe<HistoryDuration>;
 };
-
 
 export type NftCollectionMarketVolumePercentChangeArgs = {
   duration?: InputMaybe<HistoryDuration>;
 };
 
 export type NftCollectionMarketplace = {
-  __typename?: 'NftCollectionMarketplace';
-  floorPrice?: Maybe<Scalars['Float']>;
-  id: Scalars['ID'];
-  listings?: Maybe<Scalars['Int']>;
+  __typename?: "NftCollectionMarketplace";
+  floorPrice?: Maybe<Scalars["Float"]>;
+  id: Scalars["ID"];
+  listings?: Maybe<Scalars["Int"]>;
   marketplace?: Maybe<NftMarketplace>;
 };
 
 export type NftCollectionTrait = {
-  __typename?: 'NftCollectionTrait';
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
+  __typename?: "NftCollectionTrait";
+  id: Scalars["ID"];
+  name?: Maybe<Scalars["String"]>;
   stats?: Maybe<Array<NftCollectionTraitStats>>;
-  values?: Maybe<Array<Scalars['String']>>;
+  values?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type NftCollectionTraitStats = {
-  __typename?: 'NftCollectionTraitStats';
-  assets?: Maybe<Scalars['Int']>;
-  id: Scalars['ID'];
-  listings?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
+  __typename?: "NftCollectionTraitStats";
+  assets?: Maybe<Scalars["Int"]>;
+  id: Scalars["ID"];
+  listings?: Maybe<Scalars["Int"]>;
+  name?: Maybe<Scalars["String"]>;
+  value?: Maybe<Scalars["String"]>;
 };
 
 export type NftCollectionsFilterInput = {
-  addresses?: InputMaybe<Array<Scalars['String']>>;
-  nameQuery?: InputMaybe<Scalars['String']>;
+  addresses?: InputMaybe<Array<Scalars["String"]>>;
+  nameQuery?: InputMaybe<Scalars["String"]>;
 };
 
 export type NftContract = IContract & {
-  __typename?: 'NftContract';
-  address: Scalars['String'];
+  __typename?: "NftContract";
+  address: Scalars["String"];
   chain: Chain;
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
+  id: Scalars["ID"];
+  name?: Maybe<Scalars["String"]>;
   standard?: Maybe<NftStandard>;
-  symbol?: Maybe<Scalars['String']>;
-  totalSupply?: Maybe<Scalars['Int']>;
+  symbol?: Maybe<Scalars["String"]>;
+  totalSupply?: Maybe<Scalars["Int"]>;
 };
 
 export type NftContractInput = {
-  address: Scalars['String'];
+  address: Scalars["String"];
   chain: Chain;
-  name?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars["String"]>;
   standard?: InputMaybe<NftStandard>;
-  symbol?: InputMaybe<Scalars['String']>;
-  totalSupply?: InputMaybe<Scalars['Int']>;
+  symbol?: InputMaybe<Scalars["String"]>;
+  totalSupply?: InputMaybe<Scalars["Int"]>;
 };
 
 export type NftFee = {
-  __typename?: 'NftFee';
-  basisPoints: Scalars['Int'];
-  id: Scalars['ID'];
-  payoutAddress: Scalars['String'];
+  __typename?: "NftFee";
+  basisPoints: Scalars["Int"];
+  id: Scalars["ID"];
+  payoutAddress: Scalars["String"];
 };
 
 export enum NftMarketplace {
-  Cryptopunks = 'CRYPTOPUNKS',
-  Foundation = 'FOUNDATION',
-  Looksrare = 'LOOKSRARE',
-  Nft20 = 'NFT20',
-  Nftx = 'NFTX',
-  Opensea = 'OPENSEA',
-  Sudoswap = 'SUDOSWAP',
-  X2Y2 = 'X2Y2'
+  Cryptopunks = "CRYPTOPUNKS",
+  Foundation = "FOUNDATION",
+  Looksrare = "LOOKSRARE",
+  Nft20 = "NFT20",
+  Nftx = "NFTX",
+  Opensea = "OPENSEA",
+  Sudoswap = "SUDOSWAP",
+  X2Y2 = "X2Y2",
 }
 
 export type NftOrder = {
-  __typename?: 'NftOrder';
-  address: Scalars['String'];
-  auctionType?: Maybe<Scalars['String']>;
-  createdAt: Scalars['Float'];
-  endAt?: Maybe<Scalars['Float']>;
-  id: Scalars['ID'];
-  maker: Scalars['String'];
+  __typename?: "NftOrder";
+  address: Scalars["String"];
+  auctionType?: Maybe<Scalars["String"]>;
+  createdAt: Scalars["Float"];
+  endAt?: Maybe<Scalars["Float"]>;
+  id: Scalars["ID"];
+  maker: Scalars["String"];
   marketplace: NftMarketplace;
-  marketplaceUrl: Scalars['String'];
-  orderHash?: Maybe<Scalars['String']>;
-  poolPrices?: Maybe<Array<Scalars['String']>>;
+  marketplaceUrl: Scalars["String"];
+  orderHash?: Maybe<Scalars["String"]>;
+  poolPrices?: Maybe<Array<Scalars["String"]>>;
   price: Amount;
-  protocolParameters?: Maybe<Scalars['AWSJSON']>;
-  quantity: Scalars['Int'];
-  startAt: Scalars['Float'];
+  protocolParameters?: Maybe<Scalars["AWSJSON"]>;
+  quantity: Scalars["Int"];
+  startAt: Scalars["Float"];
   status: OrderStatus;
-  taker?: Maybe<Scalars['String']>;
-  tokenId?: Maybe<Scalars['String']>;
+  taker?: Maybe<Scalars["String"]>;
+  tokenId?: Maybe<Scalars["String"]>;
   type: OrderType;
 };
 
 export type NftOrderConnection = {
-  __typename?: 'NftOrderConnection';
+  __typename?: "NftOrderConnection";
   edges: Array<NftOrderEdge>;
   pageInfo: PageInfo;
 };
 
 export type NftOrderEdge = {
-  __typename?: 'NftOrderEdge';
-  cursor: Scalars['String'];
+  __typename?: "NftOrderEdge";
+  cursor: Scalars["String"];
   node: NftOrder;
 };
 
 export type NftProfile = {
-  __typename?: 'NftProfile';
-  address: Scalars['String'];
-  id: Scalars['ID'];
-  isVerified?: Maybe<Scalars['Boolean']>;
+  __typename?: "NftProfile";
+  address: Scalars["String"];
+  id: Scalars["ID"];
+  isVerified?: Maybe<Scalars["Boolean"]>;
   profileImage?: Maybe<Image>;
-  username?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars["String"]>;
 };
 
 export enum NftRarityProvider {
-  RaritySniper = 'RARITY_SNIPER'
+  RaritySniper = "RARITY_SNIPER",
 }
 
 export type NftRouteResponse = {
-  __typename?: 'NftRouteResponse';
-  calldata: Scalars['String'];
-  id: Scalars['ID'];
+  __typename?: "NftRouteResponse";
+  calldata: Scalars["String"];
+  id: Scalars["ID"];
   route?: Maybe<Array<NftTrade>>;
   sendAmount: TokenAmount;
-  toAddress: Scalars['String'];
+  toAddress: Scalars["String"];
 };
 
 export enum NftStandard {
-  Erc721 = 'ERC721',
-  Erc1155 = 'ERC1155',
-  Noncompliant = 'NONCOMPLIANT'
+  Erc721 = "ERC721",
+  Erc1155 = "ERC1155",
+  Noncompliant = "NONCOMPLIANT",
 }
 
 export type NftTrade = {
-  __typename?: 'NftTrade';
-  amount: Scalars['Int'];
-  contractAddress: Scalars['String'];
-  id: Scalars['ID'];
+  __typename?: "NftTrade";
+  amount: Scalars["Int"];
+  contractAddress: Scalars["String"];
+  id: Scalars["ID"];
   marketplace: NftMarketplace;
   /**   price represents the current price of the NFT, which can be different from quotePrice */
   price: TokenAmount;
   /**   quotePrice represents the last quoted price of the NFT */
   quotePrice?: Maybe<TokenAmount>;
-  tokenId: Scalars['String'];
+  tokenId: Scalars["String"];
   tokenType?: Maybe<NftStandard>;
 };
 
 export type NftTradeInput = {
-  amount: Scalars['Int'];
-  contractAddress: Scalars['String'];
-  id: Scalars['ID'];
+  amount: Scalars["Int"];
+  contractAddress: Scalars["String"];
+  id: Scalars["ID"];
   marketplace: NftMarketplace;
   quotePrice?: InputMaybe<TokenAmountInput>;
-  tokenId: Scalars['String'];
+  tokenId: Scalars["String"];
   tokenType?: InputMaybe<NftStandard>;
 };
 
 export type NftTransfer = {
-  __typename?: 'NftTransfer';
+  __typename?: "NftTransfer";
   asset: NftAsset;
   direction: TransactionDirection;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   nftStandard: NftStandard;
-  recipient: Scalars['String'];
-  sender: Scalars['String'];
+  recipient: Scalars["String"];
+  sender: Scalars["String"];
 };
 
 export type NftTransferInput = {
   asset: NftAssetInput;
   direction: TransactionDirection;
   nftStandard: NftStandard;
-  recipient: Scalars['String'];
-  sender: Scalars['String'];
+  recipient: Scalars["String"];
+  sender: Scalars["String"];
 };
 
 export type OnRampServiceProvider = {
-  __typename?: 'OnRampServiceProvider';
-  id: Scalars['ID'];
-  logoDarkUrl: Scalars['String'];
-  logoLightUrl: Scalars['String'];
-  name: Scalars['String'];
-  serviceProvider: Scalars['String'];
-  supportUrl?: Maybe<Scalars['String']>;
-  url: Scalars['String'];
+  __typename?: "OnRampServiceProvider";
+  id: Scalars["ID"];
+  logoDarkUrl: Scalars["String"];
+  logoLightUrl: Scalars["String"];
+  name: Scalars["String"];
+  serviceProvider: Scalars["String"];
+  supportUrl?: Maybe<Scalars["String"]>;
+  url: Scalars["String"];
 };
 
 export type OnRampServiceProviderInput = {
-  logoDarkUrl: Scalars['String'];
-  logoLightUrl: Scalars['String'];
-  name: Scalars['String'];
-  serviceProvider: Scalars['String'];
-  supportUrl?: InputMaybe<Scalars['String']>;
-  url: Scalars['String'];
+  logoDarkUrl: Scalars["String"];
+  logoLightUrl: Scalars["String"];
+  name: Scalars["String"];
+  serviceProvider: Scalars["String"];
+  supportUrl?: InputMaybe<Scalars["String"]>;
+  url: Scalars["String"];
 };
 
 export type OnRampTransactionDetails = {
-  __typename?: 'OnRampTransactionDetails';
-  id: Scalars['ID'];
+  __typename?: "OnRampTransactionDetails";
+  id: Scalars["ID"];
   onRampTransfer: OnRampTransfer;
-  receiverAddress: Scalars['String'];
+  receiverAddress: Scalars["String"];
   status: TransactionStatus;
 };
 
 export type OnRampTransactionDetailsInput = {
   onRampTransfer: OnRampTransferInput;
-  receiverAddress: Scalars['String'];
+  receiverAddress: Scalars["String"];
   status: TransactionStatus;
 };
 
 export type OnRampTransactionsAuth = {
-  queryParams: Scalars['String'];
-  signature: Scalars['String'];
+  queryParams: Scalars["String"];
+  signature: Scalars["String"];
 };
 
 export type OnRampTransfer = {
-  __typename?: 'OnRampTransfer';
-  amount: Scalars['Float'];
-  externalSessionId: Scalars['String'];
-  id: Scalars['ID'];
-  networkFee?: Maybe<Scalars['Float']>;
+  __typename?: "OnRampTransfer";
+  amount: Scalars["Float"];
+  externalSessionId: Scalars["String"];
+  id: Scalars["ID"];
+  networkFee?: Maybe<Scalars["Float"]>;
   serviceProvider: OnRampServiceProvider;
-  sourceAmount: Scalars['Float'];
-  sourceCurrency?: Maybe<Scalars['String']>;
+  sourceAmount: Scalars["Float"];
+  sourceCurrency?: Maybe<Scalars["String"]>;
   token: Token;
   tokenStandard: TokenStandard;
-  totalFee?: Maybe<Scalars['Float']>;
-  transactionFee?: Maybe<Scalars['Float']>;
-  transactionReferenceId: Scalars['String'];
+  totalFee?: Maybe<Scalars["Float"]>;
+  transactionFee?: Maybe<Scalars["Float"]>;
+  transactionReferenceId: Scalars["String"];
 };
 
 export type OnRampTransferInput = {
-  amount: Scalars['Float'];
-  networkFee?: InputMaybe<Scalars['Float']>;
+  amount: Scalars["Float"];
+  networkFee?: InputMaybe<Scalars["Float"]>;
   serviceProvider: OnRampServiceProviderInput;
-  sourceAmount: Scalars['Float'];
-  sourceCurrency?: InputMaybe<Scalars['String']>;
+  sourceAmount: Scalars["Float"];
+  sourceCurrency?: InputMaybe<Scalars["String"]>;
   token: TokenAssetInput;
   tokenStandard: TokenStandard;
-  totalFee?: InputMaybe<Scalars['Float']>;
-  transactionFee?: InputMaybe<Scalars['Float']>;
-  transactionReferenceId: Scalars['String'];
+  totalFee?: InputMaybe<Scalars["Float"]>;
+  transactionFee?: InputMaybe<Scalars["Float"]>;
+  transactionReferenceId: Scalars["String"];
 };
 
 export enum OrderStatus {
-  Cancelled = 'CANCELLED',
-  Executed = 'EXECUTED',
-  Expired = 'EXPIRED',
-  Valid = 'VALID'
+  Cancelled = "CANCELLED",
+  Executed = "EXECUTED",
+  Expired = "EXPIRED",
+  Valid = "VALID",
 }
 
 export enum OrderType {
-  Listing = 'LISTING',
-  Offer = 'OFFER'
+  Listing = "LISTING",
+  Offer = "OFFER",
 }
 
 export type PageInfo = {
-  __typename?: 'PageInfo';
-  endCursor?: Maybe<Scalars['String']>;
-  hasNextPage?: Maybe<Scalars['Boolean']>;
-  hasPreviousPage?: Maybe<Scalars['Boolean']>;
-  startCursor?: Maybe<Scalars['String']>;
+  __typename?: "PageInfo";
+  endCursor?: Maybe<Scalars["String"]>;
+  hasNextPage?: Maybe<Scalars["Boolean"]>;
+  hasPreviousPage?: Maybe<Scalars["Boolean"]>;
+  startCursor?: Maybe<Scalars["String"]>;
 };
 
 /**   v2 pool parameters as defined by https://github.com/Uniswap/v2-sdk/blob/main/src/entities/pair.ts */
@@ -961,75 +963,73 @@ export type PairInput = {
 };
 
 export type PermitDetailsInput = {
-  amount: Scalars['String'];
-  expiration: Scalars['String'];
-  nonce: Scalars['String'];
-  token: Scalars['String'];
+  amount: Scalars["String"];
+  expiration: Scalars["String"];
+  nonce: Scalars["String"];
+  token: Scalars["String"];
 };
 
 export type PermitInput = {
   details: PermitDetailsInput;
-  sigDeadline: Scalars['String'];
-  signature: Scalars['String'];
-  spender: Scalars['String'];
+  sigDeadline: Scalars["String"];
+  signature: Scalars["String"];
+  spender: Scalars["String"];
 };
 
 /**   v3 pool parameters as defined by https://github.com/Uniswap/v3-sdk/blob/main/src/entities/pool.ts */
 export type PoolInput = {
-  fee: Scalars['Int'];
-  liquidity: Scalars['String'];
-  sqrtRatioX96: Scalars['String'];
-  tickCurrent: Scalars['String'];
+  fee: Scalars["Int"];
+  liquidity: Scalars["String"];
+  sqrtRatioX96: Scalars["String"];
+  tickCurrent: Scalars["String"];
   tokenA: TokenInput;
   tokenB: TokenInput;
 };
 
 export type PoolTransaction = {
-  __typename?: 'PoolTransaction';
-  account: Scalars['String'];
+  __typename?: "PoolTransaction";
+  account: Scalars["String"];
   chain: Chain;
-  hash: Scalars['String'];
-  id: Scalars['ID'];
+  hash: Scalars["String"];
+  id: Scalars["ID"];
   protocolVersion: ProtocolVersion;
-  timestamp: Scalars['Int'];
+  timestamp: Scalars["Int"];
   token0: Token;
-  token0Quantity: Scalars['String'];
+  token0Quantity: Scalars["String"];
   token1: Token;
-  token1Quantity: Scalars['String'];
+  token1Quantity: Scalars["String"];
   type: PoolTransactionType;
   usdValue: Amount;
 };
 
 export enum PoolTransactionType {
-  Add = 'ADD',
-  Remove = 'REMOVE',
-  Swap = 'SWAP'
+  Add = "ADD",
+  Remove = "REMOVE",
+  Swap = "SWAP",
 }
 
 export type Portfolio = {
-  __typename?: 'Portfolio';
+  __typename?: "Portfolio";
   assetActivities?: Maybe<Array<Maybe<AssetActivity>>>;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   /**   TODO: (michael.zhang) replace with paginated query */
   nftBalances?: Maybe<Array<Maybe<NftBalance>>>;
-  ownerAddress: Scalars['String'];
+  ownerAddress: Scalars["String"];
   tokenBalances?: Maybe<Array<Maybe<TokenBalance>>>;
   tokensTotalDenominatedValue?: Maybe<Amount>;
   tokensTotalDenominatedValueChange?: Maybe<AmountChange>;
 };
 
-
 export type PortfolioAssetActivitiesArgs = {
   _fs?: InputMaybe<AssetActivitySwitch>;
   chains?: InputMaybe<Array<Chain>>;
-  includeBridging?: InputMaybe<Scalars['Boolean']>;
-  includeOffChain?: InputMaybe<Scalars['Boolean']>;
-  onRampTransactionIDs?: InputMaybe<Array<Scalars['String']>>;
+  includeBridging?: InputMaybe<Scalars["Boolean"]>;
+  includeOffChain?: InputMaybe<Scalars["Boolean"]>;
+  onRampTransactionIDs?: InputMaybe<Array<Scalars["String"]>>;
   onRampTransactionsAuth?: InputMaybe<OnRampTransactionsAuth>;
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars["Int"]>;
+  pageSize?: InputMaybe<Scalars["Int"]>;
 };
-
 
 export type PortfolioTokensTotalDenominatedValueChangeArgs = {
   duration?: InputMaybe<HistoryDuration>;
@@ -1037,69 +1037,69 @@ export type PortfolioTokensTotalDenominatedValueChangeArgs = {
 
 /**   Specify how the portfolio value should be calculated for each `ownerAddress`. */
 export type PortfolioValueModifier = {
-  includeSmallBalances?: InputMaybe<Scalars['Boolean']>;
-  includeSpamTokens?: InputMaybe<Scalars['Boolean']>;
-  ownerAddress: Scalars['String'];
-  tokenBalancesLimit?: InputMaybe<Scalars['Int']>;
+  includeSmallBalances?: InputMaybe<Scalars["Boolean"]>;
+  includeSpamTokens?: InputMaybe<Scalars["Boolean"]>;
+  ownerAddress: Scalars["String"];
+  tokenBalancesLimit?: InputMaybe<Scalars["Int"]>;
   tokenExcludeOverrides?: InputMaybe<Array<ContractInput>>;
   tokenIncludeOverrides?: InputMaybe<Array<ContractInput>>;
 };
 
 export enum PriceSource {
-  SubgraphV2 = 'SUBGRAPH_V2',
-  SubgraphV3 = 'SUBGRAPH_V3',
-  SubgraphV4 = 'SUBGRAPH_V4'
+  SubgraphV2 = "SUBGRAPH_V2",
+  SubgraphV3 = "SUBGRAPH_V3",
+  SubgraphV4 = "SUBGRAPH_V4",
 }
 
 export enum ProtectionAttackType {
-  AirdropPattern = 'AIRDROP_PATTERN',
-  DynamicAnalysis = 'DYNAMIC_ANALYSIS',
-  HighFees = 'HIGH_FEES',
-  Impersonator = 'IMPERSONATOR',
-  InorganicVolume = 'INORGANIC_VOLUME',
-  KnownMalicious = 'KNOWN_MALICIOUS',
-  Metadata = 'METADATA',
-  Rugpull = 'RUGPULL',
-  StaticCodeSignature = 'STATIC_CODE_SIGNATURE',
-  Unknown = 'UNKNOWN',
-  UnstableTokenPrice = 'UNSTABLE_TOKEN_PRICE'
+  AirdropPattern = "AIRDROP_PATTERN",
+  DynamicAnalysis = "DYNAMIC_ANALYSIS",
+  HighFees = "HIGH_FEES",
+  Impersonator = "IMPERSONATOR",
+  InorganicVolume = "INORGANIC_VOLUME",
+  KnownMalicious = "KNOWN_MALICIOUS",
+  Metadata = "METADATA",
+  Rugpull = "RUGPULL",
+  StaticCodeSignature = "STATIC_CODE_SIGNATURE",
+  Unknown = "UNKNOWN",
+  UnstableTokenPrice = "UNSTABLE_TOKEN_PRICE",
 }
 
 export type ProtectionInfo = {
-  __typename?: 'ProtectionInfo';
+  __typename?: "ProtectionInfo";
   attackTypes?: Maybe<Array<Maybe<ProtectionAttackType>>>;
   result?: Maybe<ProtectionResult>;
 };
 
 export enum ProtectionResult {
-  Benign = 'BENIGN',
-  Malicious = 'MALICIOUS',
-  Spam = 'SPAM',
-  Unknown = 'UNKNOWN',
-  Warning = 'WARNING'
+  Benign = "BENIGN",
+  Malicious = "MALICIOUS",
+  Spam = "SPAM",
+  Unknown = "UNKNOWN",
+  Warning = "WARNING",
 }
 
 export enum ProtocolVersion {
-  V2 = 'V2',
-  V3 = 'V3',
-  V4 = 'V4'
+  V2 = "V2",
+  V3 = "V3",
+  V4 = "V4",
 }
 
 export type PushNotification = {
-  __typename?: 'PushNotification';
-  contents: Scalars['AWSJSON'];
-  id: Scalars['ID'];
-  notifyAddress: Scalars['String'];
-  signerHeader: Scalars['AWSJSON'];
-  viewerHeader: Scalars['AWSJSON'];
+  __typename?: "PushNotification";
+  contents: Scalars["AWSJSON"];
+  id: Scalars["ID"];
+  notifyAddress: Scalars["String"];
+  signerHeader: Scalars["AWSJSON"];
+  viewerHeader: Scalars["AWSJSON"];
 };
 
 export type Query = {
-  __typename?: 'Query';
+  __typename?: "Query";
   convert?: Maybe<Amount>;
   dailyProtocolTvl?: Maybe<Array<TimestampedAmount>>;
   historicalProtocolVolume?: Maybe<Array<TimestampedAmount>>;
-  isV3SubgraphStale?: Maybe<Scalars['Boolean']>;
+  isV3SubgraphStale?: Maybe<Scalars["Boolean"]>;
   nftActivity?: Maybe<NftActivityConnection>;
   nftAssets?: Maybe<NftAssetConnection>;
   nftBalances?: Maybe<NftBalanceConnection>;
@@ -1134,18 +1134,15 @@ export type Query = {
   v4Transactions?: Maybe<Array<PoolTransaction>>;
 };
 
-
 export type QueryConvertArgs = {
   fromAmount: CurrencyAmountInput;
   toCurrency: Currency;
 };
 
-
 export type QueryDailyProtocolTvlArgs = {
   chain: Chain;
   version: ProtocolVersion;
 };
-
 
 export type QueryHistoricalProtocolVolumeArgs = {
   chain: Chain;
@@ -1153,243 +1150,216 @@ export type QueryHistoricalProtocolVolumeArgs = {
   version: ProtocolVersion;
 };
 
-
 export type QueryIsV3SubgraphStaleArgs = {
   chain: Chain;
 };
 
-
 export type QueryNftActivityArgs = {
-  after?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars["String"]>;
   chain?: InputMaybe<Chain>;
   filter?: InputMaybe<NftActivityFilterInput>;
-  first?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars["Int"]>;
 };
 
-
 export type QueryNftAssetsArgs = {
-  address: Scalars['String'];
-  after?: InputMaybe<Scalars['String']>;
-  asc?: InputMaybe<Scalars['Boolean']>;
-  before?: InputMaybe<Scalars['String']>;
+  address: Scalars["String"];
+  after?: InputMaybe<Scalars["String"]>;
+  asc?: InputMaybe<Scalars["Boolean"]>;
+  before?: InputMaybe<Scalars["String"]>;
   chain?: InputMaybe<Chain>;
   filter?: InputMaybe<NftAssetsFilterInput>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars["Int"]>;
+  last?: InputMaybe<Scalars["Int"]>;
   orderBy?: InputMaybe<NftAssetSortableField>;
 };
 
-
 export type QueryNftBalancesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars["String"]>;
+  before?: InputMaybe<Scalars["String"]>;
   chain?: InputMaybe<Chain>;
   chains?: InputMaybe<Array<Chain>>;
   filter?: InputMaybe<NftBalancesFilterInput>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  ownerAddress: Scalars['String'];
+  first?: InputMaybe<Scalars["Int"]>;
+  last?: InputMaybe<Scalars["Int"]>;
+  ownerAddress: Scalars["String"];
 };
-
 
 export type QueryNftCollectionBalancesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars["String"]>;
+  before?: InputMaybe<Scalars["String"]>;
   chain?: InputMaybe<Chain>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  ownerAddress: Scalars['String'];
+  first?: InputMaybe<Scalars["Int"]>;
+  last?: InputMaybe<Scalars["Int"]>;
+  ownerAddress: Scalars["String"];
 };
-
 
 export type QueryNftCollectionsArgs = {
-  after?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars["String"]>;
   chain?: InputMaybe<Chain>;
   filter?: InputMaybe<NftCollectionsFilterInput>;
-  first?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars["Int"]>;
 };
-
 
 export type QueryNftRouteArgs = {
   chain?: InputMaybe<Chain>;
   nftTrades: Array<NftTradeInput>;
-  senderAddress: Scalars['String'];
+  senderAddress: Scalars["String"];
   tokenTrades?: InputMaybe<Array<TokenTradeInput>>;
 };
 
-
 export type QueryPortfoliosArgs = {
   chains?: InputMaybe<Array<Chain>>;
-  fungibleIds?: InputMaybe<Array<Scalars['String']>>;
+  fungibleIds?: InputMaybe<Array<Scalars["String"]>>;
   lookupTokens?: InputMaybe<Array<ContractInput>>;
-  ownerAddresses: Array<Scalars['String']>;
+  ownerAddresses: Array<Scalars["String"]>;
   valueModifiers?: InputMaybe<Array<PortfolioValueModifier>>;
 };
 
-
 export type QuerySearchTokensArgs = {
   chains?: InputMaybe<Array<Chain>>;
-  searchQuery: Scalars['String'];
+  searchQuery: Scalars["String"];
 };
-
 
 export type QueryTokenArgs = {
-  address?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars["String"]>;
   chain: Chain;
 };
-
 
 export type QueryTokenProjectsArgs = {
   contracts: Array<ContractInput>;
 };
 
-
 export type QueryTokensArgs = {
   contracts: Array<ContractInput>;
 };
 
-
 export type QueryTopCollectionsArgs = {
-  after?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars["String"]>;
   chains?: InputMaybe<Array<Chain>>;
-  cursor?: InputMaybe<Scalars['String']>;
+  cursor?: InputMaybe<Scalars["String"]>;
   duration?: InputMaybe<HistoryDuration>;
-  first?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars["Int"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
   orderBy?: InputMaybe<CollectionSortableField>;
 };
-
 
 export type QueryTopTokensArgs = {
   chain?: InputMaybe<Chain>;
   orderBy?: InputMaybe<TokenSortableField>;
-  page?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars["Int"]>;
+  pageSize?: InputMaybe<Scalars["Int"]>;
 };
-
 
 export type QueryTopV2PairsArgs = {
   chain: Chain;
-  first: Scalars['Int'];
-  tokenFilter?: InputMaybe<Scalars['String']>;
-  tvlCursor?: InputMaybe<Scalars['Float']>;
+  first: Scalars["Int"];
+  tokenFilter?: InputMaybe<Scalars["String"]>;
+  tvlCursor?: InputMaybe<Scalars["Float"]>;
 };
-
 
 export type QueryTopV3PoolsArgs = {
   chain: Chain;
-  first: Scalars['Int'];
-  tokenFilter?: InputMaybe<Scalars['String']>;
-  tvlCursor?: InputMaybe<Scalars['Float']>;
+  first: Scalars["Int"];
+  tokenFilter?: InputMaybe<Scalars["String"]>;
+  tvlCursor?: InputMaybe<Scalars["Float"]>;
 };
-
 
 export type QueryTopV4PoolsArgs = {
   chain: Chain;
-  first: Scalars['Int'];
-  tokenFilter?: InputMaybe<Scalars['String']>;
-  tvlCursor?: InputMaybe<Scalars['Float']>;
+  first: Scalars["Int"];
+  tokenFilter?: InputMaybe<Scalars["String"]>;
+  tvlCursor?: InputMaybe<Scalars["Float"]>;
 };
-
 
 export type QueryTransactionNotificationArgs = {
-  address: Scalars['String'];
+  address: Scalars["String"];
   chain: Chain;
-  isBridging?: InputMaybe<Scalars['Boolean']>;
-  transactionHash: Scalars['String'];
+  isBridging?: InputMaybe<Scalars["Boolean"]>;
+  transactionHash: Scalars["String"];
 };
-
 
 export type QueryV2PairArgs = {
-  address: Scalars['String'];
+  address: Scalars["String"];
   chain: Chain;
 };
-
 
 export type QueryV2TransactionsArgs = {
   chain: Chain;
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
-
 
 export type QueryV3PoolArgs = {
-  address: Scalars['String'];
+  address: Scalars["String"];
   chain: Chain;
 };
-
 
 export type QueryV3PoolsForTokenPairArgs = {
   chain: Chain;
-  token0: Scalars['String'];
-  token1: Scalars['String'];
+  token0: Scalars["String"];
+  token1: Scalars["String"];
 };
-
 
 export type QueryV3TransactionsArgs = {
   chain: Chain;
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
-
 
 export type QueryV4PoolArgs = {
   chain: Chain;
-  poolId: Scalars['String'];
+  poolId: Scalars["String"];
 };
-
 
 export type QueryV4PoolsForTokenPairArgs = {
   chain: Chain;
-  token0: Scalars['String'];
-  token1: Scalars['String'];
+  token0: Scalars["String"];
+  token1: Scalars["String"];
 };
-
 
 export type QueryV4TransactionsArgs = {
   chain: Chain;
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
 
 export enum SafetyLevel {
-  Blocked = 'BLOCKED',
-  MediumWarning = 'MEDIUM_WARNING',
-  StrongWarning = 'STRONG_WARNING',
-  Verified = 'VERIFIED'
+  Blocked = "BLOCKED",
+  MediumWarning = "MEDIUM_WARNING",
+  StrongWarning = "STRONG_WARNING",
+  Verified = "VERIFIED",
 }
 
 export type Status = {
-  __typename?: 'Status';
-  success: Scalars['Boolean'];
+  __typename?: "Status";
+  success: Scalars["Boolean"];
 };
 
 export type Subscription = {
-  __typename?: 'Subscription';
+  __typename?: "Subscription";
   onAssetActivity?: Maybe<AssetActivity>;
 };
 
-
 export type SubscriptionOnAssetActivityArgs = {
-  addresses: Array<Scalars['String']>;
-  subscriptionId: Scalars['ID'];
+  addresses: Array<Scalars["String"]>;
+  subscriptionId: Scalars["ID"];
 };
 
 export enum SubscriptionType {
-  AssetActivity = 'ASSET_ACTIVITY'
+  AssetActivity = "ASSET_ACTIVITY",
 }
 
 export type SwapOrderDetails = {
-  __typename?: 'SwapOrderDetails';
-  encodedOrder: Scalars['String'];
-  expiry: Scalars['Int'];
-  hash: Scalars['String'];
-  id: Scalars['ID'];
+  __typename?: "SwapOrderDetails";
+  encodedOrder: Scalars["String"];
+  expiry: Scalars["Int"];
+  hash: Scalars["String"];
+  id: Scalars["ID"];
   inputToken: Token;
-  inputTokenQuantity: Scalars['String'];
-  offerer: Scalars['String'];
+  inputTokenQuantity: Scalars["String"];
+  offerer: Scalars["String"];
   outputToken: Token;
-  outputTokenQuantity: Scalars['String'];
+  outputTokenQuantity: Scalars["String"];
   /** @deprecated use swapOrderStatus to disambiguate from transactionStatus */
   status: SwapOrderStatus;
   swapOrderStatus: SwapOrderStatus;
@@ -1397,13 +1367,13 @@ export type SwapOrderDetails = {
 };
 
 export type SwapOrderDetailsInput = {
-  encodedOrder: Scalars['String'];
-  expiry: Scalars['Int'];
-  hash: Scalars['String'];
-  inputAmount: Scalars['String'];
+  encodedOrder: Scalars["String"];
+  expiry: Scalars["Int"];
+  hash: Scalars["String"];
+  inputAmount: Scalars["String"];
   inputToken: TokenAssetInput;
-  offerer: Scalars['String'];
-  outputAmount: Scalars['String'];
+  offerer: Scalars["String"];
+  outputAmount: Scalars["String"];
   outputToken: TokenAssetInput;
   status?: InputMaybe<SwapOrderStatus>;
   swapOrderStatus: SwapOrderStatus;
@@ -1411,152 +1381,148 @@ export type SwapOrderDetailsInput = {
 };
 
 export enum SwapOrderStatus {
-  Cancelled = 'CANCELLED',
-  Error = 'ERROR',
-  Expired = 'EXPIRED',
-  Filled = 'FILLED',
-  InsufficientFunds = 'INSUFFICIENT_FUNDS',
-  Open = 'OPEN'
+  Cancelled = "CANCELLED",
+  Error = "ERROR",
+  Expired = "EXPIRED",
+  Filled = "FILLED",
+  InsufficientFunds = "INSUFFICIENT_FUNDS",
+  Open = "OPEN",
 }
 
 export enum SwapOrderType {
-  Dutch = 'DUTCH',
-  DutchV2 = 'DUTCH_V2',
-  Limit = 'LIMIT',
-  Priority = 'PRIORITY'
+  Dutch = "DUTCH",
+  DutchV2 = "DUTCH_V2",
+  Limit = "LIMIT",
+  Priority = "PRIORITY",
 }
 
 export type TimestampedAmount = IAmount & {
-  __typename?: 'TimestampedAmount';
+  __typename?: "TimestampedAmount";
   currency?: Maybe<Currency>;
-  id: Scalars['ID'];
-  timestamp: Scalars['Int'];
-  value: Scalars['Float'];
+  id: Scalars["ID"];
+  timestamp: Scalars["Int"];
+  value: Scalars["Float"];
 };
 
 export type TimestampedOhlc = {
-  __typename?: 'TimestampedOhlc';
+  __typename?: "TimestampedOhlc";
   close: Amount;
   high: Amount;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   low: Amount;
   open: Amount;
-  timestamp: Scalars['Int'];
+  timestamp: Scalars["Int"];
 };
 
 export type TimestampedPoolPrice = {
-  __typename?: 'TimestampedPoolPrice';
-  id: Scalars['ID'];
-  timestamp: Scalars['Int'];
-  token0Price: Scalars['Float'];
-  token1Price: Scalars['Float'];
+  __typename?: "TimestampedPoolPrice";
+  id: Scalars["ID"];
+  timestamp: Scalars["Int"];
+  token0Price: Scalars["Float"];
+  token1Price: Scalars["Float"];
 };
 
 export type Token = IContract & {
-  __typename?: 'Token';
-  address?: Maybe<Scalars['String']>;
+  __typename?: "Token";
+  address?: Maybe<Scalars["String"]>;
   chain: Chain;
-  decimals?: Maybe<Scalars['Int']>;
+  decimals?: Maybe<Scalars["Int"]>;
   feeData?: Maybe<FeeData>;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   market?: Maybe<TokenMarket>;
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars["String"]>;
   project?: Maybe<TokenProject>;
   protectionInfo?: Maybe<ProtectionInfo>;
   standard?: Maybe<TokenStandard>;
-  symbol?: Maybe<Scalars['String']>;
+  symbol?: Maybe<Scalars["String"]>;
   v2Transactions?: Maybe<Array<Maybe<PoolTransaction>>>;
   v3Transactions?: Maybe<Array<Maybe<PoolTransaction>>>;
   v4Transactions?: Maybe<Array<Maybe<PoolTransaction>>>;
 };
 
-
 export type TokenMarketArgs = {
   currency?: InputMaybe<Currency>;
 };
 
-
 export type TokenV2TransactionsArgs = {
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
-
 
 export type TokenV3TransactionsArgs = {
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
 
-
 export type TokenV4TransactionsArgs = {
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
 
 export type TokenAmount = {
-  __typename?: 'TokenAmount';
+  __typename?: "TokenAmount";
   currency: Currency;
-  id: Scalars['ID'];
-  value: Scalars['String'];
+  id: Scalars["ID"];
+  value: Scalars["String"];
 };
 
 export type TokenAmountInput = {
-  amount: Scalars['String'];
+  amount: Scalars["String"];
   token: TokenInput;
 };
 
 export type TokenApproval = {
-  __typename?: 'TokenApproval';
-  approvedAddress: Scalars['String'];
+  __typename?: "TokenApproval";
+  approvedAddress: Scalars["String"];
   /**   can be erc20 or native */
   asset: Token;
-  id: Scalars['ID'];
-  quantity: Scalars['String'];
+  id: Scalars["ID"];
+  quantity: Scalars["String"];
   tokenStandard: TokenStandard;
 };
 
 export type TokenApprovalInput = {
-  approvedAddress: Scalars['String'];
+  approvedAddress: Scalars["String"];
   asset: TokenAssetInput;
-  quantity: Scalars['String'];
+  quantity: Scalars["String"];
   tokenStandard: TokenStandard;
 };
 
 export type TokenAssetInput = {
-  address?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars["String"]>;
   chain: Chain;
-  decimals?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
+  decimals?: InputMaybe<Scalars["Int"]>;
+  name?: InputMaybe<Scalars["String"]>;
   standard: TokenStandard;
-  symbol?: InputMaybe<Scalars['String']>;
+  symbol?: InputMaybe<Scalars["String"]>;
 };
 
 export type TokenBalance = {
-  __typename?: 'TokenBalance';
-  blockNumber?: Maybe<Scalars['Int']>;
-  blockTimestamp?: Maybe<Scalars['Int']>;
+  __typename?: "TokenBalance";
+  blockNumber?: Maybe<Scalars["Int"]>;
+  blockTimestamp?: Maybe<Scalars["Int"]>;
   denominatedValue?: Maybe<Amount>;
-  id: Scalars['ID'];
-  isHidden?: Maybe<Scalars['Boolean']>;
-  ownerAddress: Scalars['String'];
-  quantity?: Maybe<Scalars['Float']>;
+  id: Scalars["ID"];
+  isHidden?: Maybe<Scalars["Boolean"]>;
+  ownerAddress: Scalars["String"];
+  quantity?: Maybe<Scalars["Float"]>;
   token?: Maybe<Token>;
   tokenProjectMarket?: Maybe<TokenProjectMarket>;
 };
 
 export type TokenInput = {
-  address: Scalars['String'];
-  chainId: Scalars['Int'];
-  decimals: Scalars['Int'];
-  isNative: Scalars['Boolean'];
+  address: Scalars["String"];
+  chainId: Scalars["Int"];
+  decimals: Scalars["Int"];
+  isNative: Scalars["Boolean"];
 };
 
 export type TokenMarket = {
-  __typename?: 'TokenMarket';
+  __typename?: "TokenMarket";
   fullyDilutedValuation?: Maybe<Amount>;
   historicalTvl?: Maybe<Array<Maybe<TimestampedAmount>>>;
   historicalVolume?: Maybe<Array<Maybe<TimestampedAmount>>>;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   ohlc?: Maybe<Array<Maybe<TimestampedOhlc>>>;
   price?: Maybe<Amount>;
   priceHighLow?: Maybe<Amount>;
@@ -1569,72 +1535,64 @@ export type TokenMarket = {
   volume?: Maybe<Amount>;
 };
 
-
 export type TokenMarketHistoricalTvlArgs = {
   duration: HistoryDuration;
 };
-
 
 export type TokenMarketHistoricalVolumeArgs = {
   duration: HistoryDuration;
 };
 
-
 export type TokenMarketOhlcArgs = {
   duration: HistoryDuration;
 };
-
 
 export type TokenMarketPriceHighLowArgs = {
   duration: HistoryDuration;
   highLow: HighLow;
 };
 
-
 export type TokenMarketPriceHistoryArgs = {
   duration: HistoryDuration;
 };
 
-
 export type TokenMarketPricePercentChangeArgs = {
   duration: HistoryDuration;
 };
-
 
 export type TokenMarketVolumeArgs = {
   duration: HistoryDuration;
 };
 
 export type TokenProject = {
-  __typename?: 'TokenProject';
-  description?: Maybe<Scalars['String']>;
+  __typename?: "TokenProject";
+  description?: Maybe<Scalars["String"]>;
   descriptionTranslations?: Maybe<DescriptionTranslations>;
-  homepageUrl?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  isSpam?: Maybe<Scalars['Boolean']>;
+  homepageUrl?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  isSpam?: Maybe<Scalars["Boolean"]>;
   logo?: Maybe<Image>;
   /** @deprecated use logo */
-  logoUrl?: Maybe<Scalars['String']>;
+  logoUrl?: Maybe<Scalars["String"]>;
   markets?: Maybe<Array<Maybe<TokenProjectMarket>>>;
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars["String"]>;
   safetyLevel?: Maybe<SafetyLevel>;
   /** @deprecated use logo */
   smallLogo?: Maybe<Image>;
-  spamCode?: Maybe<Scalars['Int']>;
+  spamCode?: Maybe<Scalars["Int"]>;
   tokens: Array<Token>;
-  twitterName?: Maybe<Scalars['String']>;
+  twitterName?: Maybe<Scalars["String"]>;
 };
-
 
 export type TokenProjectMarketsArgs = {
   currencies: Array<Currency>;
 };
 
 export type TokenProjectMarket = {
-  __typename?: 'TokenProjectMarket';
+  __typename?: "TokenProjectMarket";
   currency: Currency;
   fullyDilutedValuation?: Maybe<Amount>;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   marketCap?: Maybe<Amount>;
   price?: Maybe<Amount>;
   priceHigh52w?: Maybe<Amount>;
@@ -1646,38 +1604,35 @@ export type TokenProjectMarket = {
   tokenProject: TokenProject;
 };
 
-
 export type TokenProjectMarketPriceHighLowArgs = {
   duration: HistoryDuration;
   highLow: HighLow;
 };
 
-
 export type TokenProjectMarketPriceHistoryArgs = {
   duration: HistoryDuration;
 };
-
 
 export type TokenProjectMarketPricePercentChangeArgs = {
   duration: HistoryDuration;
 };
 
 export enum TokenSortableField {
-  MarketCap = 'MARKET_CAP',
-  Popularity = 'POPULARITY',
-  TotalValueLocked = 'TOTAL_VALUE_LOCKED',
-  Volume = 'VOLUME'
+  MarketCap = "MARKET_CAP",
+  Popularity = "POPULARITY",
+  TotalValueLocked = "TOTAL_VALUE_LOCKED",
+  Volume = "VOLUME",
 }
 
 export enum TokenStandard {
-  Erc20 = 'ERC20',
-  Native = 'NATIVE'
+  Erc20 = "ERC20",
+  Native = "NATIVE",
 }
 
 export type TokenTradeInput = {
   permit?: InputMaybe<PermitInput>;
   routes?: InputMaybe<TokenTradeRoutesInput>;
-  slippageToleranceBasisPoints?: InputMaybe<Scalars['Int']>;
+  slippageToleranceBasisPoints?: InputMaybe<Scalars["Int"]>;
   tokenAmount: TokenAmountInput;
 };
 
@@ -1695,18 +1650,18 @@ export type TokenTradeRoutesInput = {
 };
 
 export enum TokenTradeType {
-  ExactInput = 'EXACT_INPUT',
-  ExactOutput = 'EXACT_OUTPUT'
+  ExactInput = "EXACT_INPUT",
+  ExactOutput = "EXACT_OUTPUT",
 }
 
 export type TokenTransfer = {
-  __typename?: 'TokenTransfer';
+  __typename?: "TokenTransfer";
   asset: Token;
   direction: TransactionDirection;
-  id: Scalars['ID'];
-  quantity: Scalars['String'];
-  recipient: Scalars['String'];
-  sender: Scalars['String'];
+  id: Scalars["ID"];
+  quantity: Scalars["String"];
+  recipient: Scalars["String"];
+  sender: Scalars["String"];
   tokenStandard: TokenStandard;
   transactedValue?: Maybe<Amount>;
 };
@@ -1714,9 +1669,9 @@ export type TokenTransfer = {
 export type TokenTransferInput = {
   asset: TokenAssetInput;
   direction: TransactionDirection;
-  quantity: Scalars['String'];
-  recipient: Scalars['String'];
-  sender: Scalars['String'];
+  quantity: Scalars["String"];
+  recipient: Scalars["String"];
+  sender: Scalars["String"];
   tokenStandard: TokenStandard;
   transactedValue?: InputMaybe<AmountInput>;
 };
@@ -1727,30 +1682,30 @@ export type TradePoolInput = {
 };
 
 export type Transaction = {
-  __typename?: 'Transaction';
-  blockNumber: Scalars['Int'];
-  from: Scalars['String'];
-  gasLimit?: Maybe<Scalars['Float']>;
-  hash: Scalars['String'];
-  id: Scalars['ID'];
-  maxFeePerGas?: Maybe<Scalars['Float']>;
-  nonce: Scalars['Int'];
+  __typename?: "Transaction";
+  blockNumber: Scalars["Int"];
+  from: Scalars["String"];
+  gasLimit?: Maybe<Scalars["Float"]>;
+  hash: Scalars["String"];
+  id: Scalars["ID"];
+  maxFeePerGas?: Maybe<Scalars["Float"]>;
+  nonce: Scalars["Int"];
   status: TransactionStatus;
-  to: Scalars['String'];
+  to: Scalars["String"];
 };
 
 export type TransactionDetails = {
-  __typename?: 'TransactionDetails';
+  __typename?: "TransactionDetails";
   application?: Maybe<ApplicationContract>;
   assetChanges: Array<Maybe<AssetChange>>;
-  from: Scalars['String'];
-  hash: Scalars['String'];
-  id: Scalars['ID'];
+  from: Scalars["String"];
+  hash: Scalars["String"];
+  id: Scalars["ID"];
   networkFee?: Maybe<NetworkFee>;
-  nonce: Scalars['Int'];
+  nonce: Scalars["Int"];
   /** @deprecated use transactionStatus to disambiguate from swapOrderStatus */
   status: TransactionStatus;
-  to: Scalars['String'];
+  to: Scalars["String"];
   transactionStatus: TransactionStatus;
   type: TransactionType;
 };
@@ -1758,386 +1713,990 @@ export type TransactionDetails = {
 export type TransactionDetailsInput = {
   application?: InputMaybe<ApplicationContractInput>;
   assetChanges: Array<InputMaybe<AssetChangeInput>>;
-  from: Scalars['String'];
-  hash: Scalars['String'];
-  nonce: Scalars['Int'];
+  from: Scalars["String"];
+  hash: Scalars["String"];
+  nonce: Scalars["Int"];
   status?: InputMaybe<TransactionStatus>;
-  to: Scalars['String'];
+  to: Scalars["String"];
   transactionStatus: TransactionStatus;
   type: TransactionType;
 };
 
 export enum TransactionDirection {
-  In = 'IN',
-  Out = 'OUT',
-  Self = 'SELF'
+  In = "IN",
+  Out = "OUT",
+  Self = "SELF",
 }
 
 export type TransactionNotification = {
-  __typename?: 'TransactionNotification';
-  hash: Scalars['String'];
-  id: Scalars['ID'];
+  __typename?: "TransactionNotification";
+  hash: Scalars["String"];
+  id: Scalars["ID"];
   push: Array<PushNotification>;
 };
 
 export enum TransactionStatus {
-  Confirmed = 'CONFIRMED',
-  Failed = 'FAILED',
-  Pending = 'PENDING'
+  Confirmed = "CONFIRMED",
+  Failed = "FAILED",
+  Pending = "PENDING",
 }
 
 export enum TransactionType {
-  Approve = 'APPROVE',
-  Borrow = 'BORROW',
-  Bridging = 'BRIDGING',
-  Cancel = 'CANCEL',
-  Claim = 'CLAIM',
-  Deployment = 'DEPLOYMENT',
-  Execute = 'EXECUTE',
-  Lend = 'LEND',
-  Mint = 'MINT',
-  OnRamp = 'ON_RAMP',
-  Receive = 'RECEIVE',
-  Repay = 'REPAY',
-  Send = 'SEND',
-  Stake = 'STAKE',
-  Swap = 'SWAP',
-  SwapOrder = 'SWAP_ORDER',
-  Unknown = 'UNKNOWN',
-  Unstake = 'UNSTAKE',
-  Withdraw = 'WITHDRAW'
+  Approve = "APPROVE",
+  Borrow = "BORROW",
+  Bridging = "BRIDGING",
+  Cancel = "CANCEL",
+  Claim = "CLAIM",
+  Deployment = "DEPLOYMENT",
+  Execute = "EXECUTE",
+  Lend = "LEND",
+  Mint = "MINT",
+  OnRamp = "ON_RAMP",
+  Receive = "RECEIVE",
+  Repay = "REPAY",
+  Send = "SEND",
+  Stake = "STAKE",
+  Swap = "SWAP",
+  SwapOrder = "SWAP_ORDER",
+  Unknown = "UNKNOWN",
+  Unstake = "UNSTAKE",
+  Withdraw = "WITHDRAW",
 }
 
 export type V2Pair = IPool & {
-  __typename?: 'V2Pair';
-  address: Scalars['String'];
+  __typename?: "V2Pair";
+  address: Scalars["String"];
   chain: Chain;
-  createdAtTimestamp?: Maybe<Scalars['Int']>;
+  createdAtTimestamp?: Maybe<Scalars["Int"]>;
   cumulativeVolume?: Maybe<Amount>;
   historicalVolume?: Maybe<Array<Maybe<TimestampedAmount>>>;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   priceHistory?: Maybe<Array<Maybe<TimestampedPoolPrice>>>;
   protocolVersion: ProtocolVersion;
   token0?: Maybe<Token>;
-  token0Supply?: Maybe<Scalars['Float']>;
+  token0Supply?: Maybe<Scalars["Float"]>;
   token1?: Maybe<Token>;
-  token1Supply?: Maybe<Scalars['Float']>;
+  token1Supply?: Maybe<Scalars["Float"]>;
   totalLiquidity?: Maybe<Amount>;
   totalLiquidityPercentChange24h?: Maybe<Amount>;
   transactions?: Maybe<Array<Maybe<PoolTransaction>>>;
-  txCount?: Maybe<Scalars['Int']>;
+  txCount?: Maybe<Scalars["Int"]>;
 };
-
 
 export type V2PairCumulativeVolumeArgs = {
   duration: HistoryDuration;
 };
 
-
 export type V2PairHistoricalVolumeArgs = {
   duration: HistoryDuration;
 };
-
 
 export type V2PairPriceHistoryArgs = {
   duration: HistoryDuration;
 };
 
-
 export type V2PairTransactionsArgs = {
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
 
 export type V3Pool = IPool & {
-  __typename?: 'V3Pool';
-  address: Scalars['String'];
+  __typename?: "V3Pool";
+  address: Scalars["String"];
   chain: Chain;
-  createdAtTimestamp?: Maybe<Scalars['Int']>;
+  createdAtTimestamp?: Maybe<Scalars["Int"]>;
   cumulativeVolume?: Maybe<Amount>;
-  feeTier?: Maybe<Scalars['Float']>;
+  feeTier?: Maybe<Scalars["Float"]>;
   historicalVolume?: Maybe<Array<Maybe<TimestampedAmount>>>;
-  id: Scalars['ID'];
+  id: Scalars["ID"];
   priceHistory?: Maybe<Array<Maybe<TimestampedPoolPrice>>>;
   protocolVersion: ProtocolVersion;
   ticks?: Maybe<Array<Maybe<V3PoolTick>>>;
   token0?: Maybe<Token>;
-  token0Supply?: Maybe<Scalars['Float']>;
+  token0Supply?: Maybe<Scalars["Float"]>;
   token1?: Maybe<Token>;
-  token1Supply?: Maybe<Scalars['Float']>;
+  token1Supply?: Maybe<Scalars["Float"]>;
   totalLiquidity?: Maybe<Amount>;
   totalLiquidityPercentChange24h?: Maybe<Amount>;
   transactions?: Maybe<Array<Maybe<PoolTransaction>>>;
-  txCount?: Maybe<Scalars['Int']>;
+  txCount?: Maybe<Scalars["Int"]>;
 };
-
 
 export type V3PoolCumulativeVolumeArgs = {
   duration: HistoryDuration;
 };
 
-
 export type V3PoolHistoricalVolumeArgs = {
   duration: HistoryDuration;
 };
-
 
 export type V3PoolPriceHistoryArgs = {
   duration: HistoryDuration;
 };
 
-
 export type V3PoolTicksArgs = {
-  first?: InputMaybe<Scalars['Int']>;
-  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars["Int"]>;
+  skip?: InputMaybe<Scalars["Int"]>;
 };
 
-
 export type V3PoolTransactionsArgs = {
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
 
 export type V3PoolTick = {
-  __typename?: 'V3PoolTick';
-  id: Scalars['ID'];
-  liquidityGross?: Maybe<Scalars['String']>;
-  liquidityNet?: Maybe<Scalars['String']>;
-  price0?: Maybe<Scalars['String']>;
-  price1?: Maybe<Scalars['String']>;
-  tickIdx?: Maybe<Scalars['Int']>;
+  __typename?: "V3PoolTick";
+  id: Scalars["ID"];
+  liquidityGross?: Maybe<Scalars["String"]>;
+  liquidityNet?: Maybe<Scalars["String"]>;
+  price0?: Maybe<Scalars["String"]>;
+  price1?: Maybe<Scalars["String"]>;
+  tickIdx?: Maybe<Scalars["Int"]>;
 };
 
 export type V4Pool = {
-  __typename?: 'V4Pool';
+  __typename?: "V4Pool";
   chain: Chain;
-  createdAtTimestamp?: Maybe<Scalars['Int']>;
+  createdAtTimestamp?: Maybe<Scalars["Int"]>;
   cumulativeVolume?: Maybe<Amount>;
-  feeTier?: Maybe<Scalars['Float']>;
+  feeTier?: Maybe<Scalars["Float"]>;
   historicalVolume?: Maybe<Array<Maybe<TimestampedAmount>>>;
   hook?: Maybe<V4PoolHook>;
-  id: Scalars['ID'];
-  poolId: Scalars['String'];
+  id: Scalars["ID"];
+  poolId: Scalars["String"];
   priceHistory?: Maybe<Array<Maybe<TimestampedPoolPrice>>>;
   protocolVersion: ProtocolVersion;
   ticks?: Maybe<Array<Maybe<V4PoolTick>>>;
   token0?: Maybe<Token>;
-  token0Supply?: Maybe<Scalars['Float']>;
+  token0Supply?: Maybe<Scalars["Float"]>;
   token1?: Maybe<Token>;
-  token1Supply?: Maybe<Scalars['Float']>;
+  token1Supply?: Maybe<Scalars["Float"]>;
   totalLiquidity?: Maybe<Amount>;
   totalLiquidityPercentChange24h?: Maybe<Amount>;
   transactions?: Maybe<Array<Maybe<PoolTransaction>>>;
-  txCount?: Maybe<Scalars['Int']>;
+  txCount?: Maybe<Scalars["Int"]>;
 };
-
 
 export type V4PoolCumulativeVolumeArgs = {
   duration: HistoryDuration;
 };
 
-
 export type V4PoolHistoricalVolumeArgs = {
   duration: HistoryDuration;
 };
-
 
 export type V4PoolPriceHistoryArgs = {
   duration: HistoryDuration;
 };
 
-
 export type V4PoolTicksArgs = {
-  first?: InputMaybe<Scalars['Int']>;
-  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars["Int"]>;
+  skip?: InputMaybe<Scalars["Int"]>;
 };
 
-
 export type V4PoolTransactionsArgs = {
-  first: Scalars['Int'];
-  timestampCursor?: InputMaybe<Scalars['Int']>;
+  first: Scalars["Int"];
+  timestampCursor?: InputMaybe<Scalars["Int"]>;
 };
 
 export type V4PoolHook = {
-  __typename?: 'V4PoolHook';
-  address: Scalars['String'];
-  id: Scalars['ID'];
+  __typename?: "V4PoolHook";
+  address: Scalars["String"];
+  id: Scalars["ID"];
 };
 
 export type V4PoolTick = {
-  __typename?: 'V4PoolTick';
-  id: Scalars['ID'];
-  liquidityGross?: Maybe<Scalars['String']>;
-  liquidityNet?: Maybe<Scalars['String']>;
-  price0?: Maybe<Scalars['String']>;
-  price1?: Maybe<Scalars['String']>;
-  tickIdx?: Maybe<Scalars['Int']>;
+  __typename?: "V4PoolTick";
+  id: Scalars["ID"];
+  liquidityGross?: Maybe<Scalars["String"]>;
+  liquidityNet?: Maybe<Scalars["String"]>;
+  price0?: Maybe<Scalars["String"]>;
+  price1?: Maybe<Scalars["String"]>;
+  tickIdx?: Maybe<Scalars["Int"]>;
 };
 
 export type RecentlySearchedAssetsQueryVariables = Exact<{
-  collectionAddresses: Array<Scalars['String']> | Scalars['String'];
+  collectionAddresses: Array<Scalars["String"]> | Scalars["String"];
   contracts: Array<ContractInput> | ContractInput;
 }>;
 
-
-export type RecentlySearchedAssetsQuery = { __typename?: 'Query', nftCollections?: { __typename?: 'NftCollectionConnection', edges: Array<{ __typename?: 'NftCollectionEdge', node: { __typename?: 'NftCollection', collectionId: string, isVerified?: boolean, name?: string, numAssets?: number, image?: { __typename?: 'Image', url: string }, nftContracts?: Array<{ __typename?: 'NftContract', address: string }>, markets?: Array<{ __typename?: 'NftCollectionMarket', floorPrice?: { __typename?: 'TimestampedAmount', currency?: Currency, value: number } }> } }> }, tokens?: Array<{ __typename?: 'Token', id: string, decimals?: number, name?: string, chain: Chain, standard?: TokenStandard, address?: string, symbol?: string, market?: { __typename?: 'TokenMarket', id: string, price?: { __typename?: 'Amount', id: string, value: number, currency?: Currency }, pricePercentChange?: { __typename?: 'Amount', id: string, value: number }, volume24H?: { __typename?: 'Amount', id: string, value: number, currency?: Currency } }, project?: { __typename?: 'TokenProject', id: string, logoUrl?: string, safetyLevel?: SafetyLevel } }> };
+export type RecentlySearchedAssetsQuery = {
+  __typename?: "Query";
+  nftCollections?: {
+    __typename?: "NftCollectionConnection";
+    edges: Array<{
+      __typename?: "NftCollectionEdge";
+      node: {
+        __typename?: "NftCollection";
+        collectionId: string;
+        isVerified?: boolean;
+        name?: string;
+        numAssets?: number;
+        image?: { __typename?: "Image"; url: string };
+        nftContracts?: Array<{ __typename?: "NftContract"; address: string }>;
+        markets?: Array<{
+          __typename?: "NftCollectionMarket";
+          floorPrice?: {
+            __typename?: "TimestampedAmount";
+            currency?: Currency;
+            value: number;
+          };
+        }>;
+      };
+    }>;
+  };
+  tokens?: Array<{
+    __typename?: "Token";
+    id: string;
+    decimals?: number;
+    name?: string;
+    chain: Chain;
+    standard?: TokenStandard;
+    address?: string;
+    symbol?: string;
+    market?: {
+      __typename?: "TokenMarket";
+      id: string;
+      price?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+      pricePercentChange?: { __typename?: "Amount"; id: string; value: number };
+      volume24H?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+    };
+    project?: {
+      __typename?: "TokenProject";
+      id: string;
+      logoUrl?: string;
+      safetyLevel?: SafetyLevel;
+    };
+  }>;
+};
 
 export type SearchTokensQueryVariables = Exact<{
-  searchQuery: Scalars['String'];
+  searchQuery: Scalars["String"];
 }>;
 
-
-export type SearchTokensQuery = { __typename?: 'Query', searchTokens?: Array<{ __typename?: 'Token', id: string, decimals?: number, name?: string, chain: Chain, standard?: TokenStandard, address?: string, symbol?: string, market?: { __typename?: 'TokenMarket', id: string, price?: { __typename?: 'Amount', id: string, value: number, currency?: Currency }, pricePercentChange?: { __typename?: 'Amount', id: string, value: number }, volume24H?: { __typename?: 'Amount', id: string, value: number, currency?: Currency } }, project?: { __typename?: 'TokenProject', id: string, logoUrl?: string, safetyLevel?: SafetyLevel } }> };
+export type SearchTokensQuery = {
+  __typename?: "Query";
+  searchTokens?: Array<{
+    __typename?: "Token";
+    id: string;
+    decimals?: number;
+    name?: string;
+    chain: Chain;
+    standard?: TokenStandard;
+    address?: string;
+    symbol?: string;
+    market?: {
+      __typename?: "TokenMarket";
+      id: string;
+      price?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+      pricePercentChange?: { __typename?: "Amount"; id: string; value: number };
+      volume24H?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+    };
+    project?: {
+      __typename?: "TokenProject";
+      id: string;
+      logoUrl?: string;
+      safetyLevel?: SafetyLevel;
+    };
+  }>;
+};
 
 export type TokenQueryVariables = Exact<{
   chain: Chain;
-  address?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars["String"]>;
 }>;
 
-
-export type TokenQuery = { __typename?: 'Query', token?: { __typename?: 'Token', id: string, decimals?: number, name?: string, chain: Chain, address?: string, symbol?: string, standard?: TokenStandard, market?: { __typename?: 'TokenMarket', id: string, totalValueLocked?: { __typename?: 'Amount', id: string, value: number, currency?: Currency }, price?: { __typename?: 'Amount', id: string, value: number, currency?: Currency }, volume24H?: { __typename?: 'Amount', id: string, value: number, currency?: Currency }, priceHigh52W?: { __typename?: 'Amount', id: string, value: number }, priceLow52W?: { __typename?: 'Amount', id: string, value: number } }, project?: { __typename?: 'TokenProject', id: string, description?: string, homepageUrl?: string, twitterName?: string, logoUrl?: string, tokens: Array<{ __typename?: 'Token', id: string, chain: Chain, address?: string }> } } };
+export type TokenQuery = {
+  __typename?: "Query";
+  token?: {
+    __typename?: "Token";
+    id: string;
+    decimals?: number;
+    name?: string;
+    chain: Chain;
+    address?: string;
+    symbol?: string;
+    standard?: TokenStandard;
+    market?: {
+      __typename?: "TokenMarket";
+      id: string;
+      totalValueLocked?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+      price?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+      volume24H?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+      priceHigh52W?: { __typename?: "Amount"; id: string; value: number };
+      priceLow52W?: { __typename?: "Amount"; id: string; value: number };
+    };
+    project?: {
+      __typename?: "TokenProject";
+      id: string;
+      description?: string;
+      homepageUrl?: string;
+      twitterName?: string;
+      logoUrl?: string;
+      tokens: Array<{
+        __typename?: "Token";
+        id: string;
+        chain: Chain;
+        address?: string;
+      }>;
+    };
+  };
+};
 
 export type TokenPriceQueryVariables = Exact<{
   chain: Chain;
-  address?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars["String"]>;
   duration: HistoryDuration;
 }>;
 
-
-export type TokenPriceQuery = { __typename?: 'Query', token?: { __typename?: 'Token', id: string, address?: string, chain: Chain, market?: { __typename?: 'TokenMarket', id: string, price?: { __typename?: 'Amount', id: string, value: number }, priceHistory?: Array<{ __typename?: 'TimestampedAmount', id: string, timestamp: number, value: number }> } } };
+export type TokenPriceQuery = {
+  __typename?: "Query";
+  token?: {
+    __typename?: "Token";
+    id: string;
+    address?: string;
+    chain: Chain;
+    market?: {
+      __typename?: "TokenMarket";
+      id: string;
+      price?: { __typename?: "Amount"; id: string; value: number };
+      priceHistory?: Array<{
+        __typename?: "TimestampedAmount";
+        id: string;
+        timestamp: number;
+        value: number;
+      }>;
+    };
+  };
+};
 
 export type TopTokens100QueryVariables = Exact<{
   duration: HistoryDuration;
   chain: Chain;
 }>;
 
-
-export type TopTokens100Query = { __typename?: 'Query', topTokens?: Array<{ __typename?: 'Token', id: string, name?: string, chain: Chain, address?: string, symbol?: string, standard?: TokenStandard, market?: { __typename?: 'TokenMarket', id: string, totalValueLocked?: { __typename?: 'Amount', id: string, value: number, currency?: Currency }, price?: { __typename?: 'Amount', id: string, value: number, currency?: Currency }, pricePercentChange?: { __typename?: 'Amount', id: string, currency?: Currency, value: number }, volume?: { __typename?: 'Amount', id: string, value: number, currency?: Currency } }, project?: { __typename?: 'TokenProject', id: string, logoUrl?: string } }> };
+export type TopTokens100Query = {
+  __typename?: "Query";
+  topTokens?: Array<{
+    __typename?: "Token";
+    id: string;
+    name?: string;
+    chain: Chain;
+    address?: string;
+    symbol?: string;
+    standard?: TokenStandard;
+    market?: {
+      __typename?: "TokenMarket";
+      id: string;
+      totalValueLocked?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+      price?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+      pricePercentChange?: {
+        __typename?: "Amount";
+        id: string;
+        currency?: Currency;
+        value: number;
+      };
+      volume?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+    };
+    project?: { __typename?: "TokenProject"; id: string; logoUrl?: string };
+  }>;
+};
 
 export type TopTokensSparklineQueryVariables = Exact<{
   duration: HistoryDuration;
   chain: Chain;
 }>;
 
-
-export type TopTokensSparklineQuery = { __typename?: 'Query', topTokens?: Array<{ __typename?: 'Token', id: string, address?: string, chain: Chain, market?: { __typename?: 'TokenMarket', id: string, priceHistory?: Array<{ __typename?: 'TimestampedAmount', id: string, timestamp: number, value: number }> } }> };
+export type TopTokensSparklineQuery = {
+  __typename?: "Query";
+  topTokens?: Array<{
+    __typename?: "Token";
+    id: string;
+    address?: string;
+    chain: Chain;
+    market?: {
+      __typename?: "TokenMarket";
+      id: string;
+      priceHistory?: Array<{
+        __typename?: "TimestampedAmount";
+        id: string;
+        timestamp: number;
+        value: number;
+      }>;
+    };
+  }>;
+};
 
 export type TrendingTokensQueryVariables = Exact<{
   chain: Chain;
 }>;
 
-
-export type TrendingTokensQuery = { __typename?: 'Query', topTokens?: Array<{ __typename?: 'Token', id: string, decimals?: number, name?: string, chain: Chain, standard?: TokenStandard, address?: string, symbol?: string, market?: { __typename?: 'TokenMarket', id: string, price?: { __typename?: 'Amount', id: string, value: number, currency?: Currency }, pricePercentChange?: { __typename?: 'Amount', id: string, value: number }, volume24H?: { __typename?: 'Amount', id: string, value: number, currency?: Currency } }, project?: { __typename?: 'TokenProject', id: string, logoUrl?: string, safetyLevel?: SafetyLevel } }> };
+export type TrendingTokensQuery = {
+  __typename?: "Query";
+  topTokens?: Array<{
+    __typename?: "Token";
+    id: string;
+    decimals?: number;
+    name?: string;
+    chain: Chain;
+    standard?: TokenStandard;
+    address?: string;
+    symbol?: string;
+    market?: {
+      __typename?: "TokenMarket";
+      id: string;
+      price?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+      pricePercentChange?: { __typename?: "Amount"; id: string; value: number };
+      volume24H?: {
+        __typename?: "Amount";
+        id: string;
+        value: number;
+        currency?: Currency;
+      };
+    };
+    project?: {
+      __typename?: "TokenProject";
+      id: string;
+      logoUrl?: string;
+      safetyLevel?: SafetyLevel;
+    };
+  }>;
+};
 
 export type AssetQueryVariables = Exact<{
-  address: Scalars['String'];
+  address: Scalars["String"];
   orderBy?: InputMaybe<NftAssetSortableField>;
-  asc?: InputMaybe<Scalars['Boolean']>;
+  asc?: InputMaybe<Scalars["Boolean"]>;
   filter?: InputMaybe<NftAssetsFilterInput>;
-  first?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-  last?: InputMaybe<Scalars['Int']>;
-  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  last?: InputMaybe<Scalars["Int"]>;
+  before?: InputMaybe<Scalars["String"]>;
 }>;
 
-
-export type AssetQuery = { __typename?: 'Query', nftAssets?: { __typename?: 'NftAssetConnection', totalCount?: number, edges: Array<{ __typename?: 'NftAssetEdge', cursor: string, node: { __typename?: 'NftAsset', id: string, name?: string, ownerAddress?: string, tokenId: string, description?: string, animationUrl?: string, suspiciousFlag?: boolean, metadataUrl?: string, image?: { __typename?: 'Image', url: string }, smallImage?: { __typename?: 'Image', url: string }, originalImage?: { __typename?: 'Image', url: string }, collection?: { __typename?: 'NftCollection', name?: string, isVerified?: boolean, image?: { __typename?: 'Image', url: string }, creator?: { __typename?: 'NftProfile', address: string, isVerified?: boolean, profileImage?: { __typename?: 'Image', url: string } }, nftContracts?: Array<{ __typename?: 'NftContract', address: string, standard?: NftStandard }> }, listings?: { __typename?: 'NftOrderConnection', edges: Array<{ __typename?: 'NftOrderEdge', cursor: string, node: { __typename?: 'NftOrder', address: string, createdAt: number, endAt?: number, id: string, maker: string, marketplace: NftMarketplace, marketplaceUrl: string, orderHash?: string, quantity: number, startAt: number, status: OrderStatus, taker?: string, tokenId?: string, type: OrderType, protocolParameters?: any, price: { __typename?: 'Amount', currency?: Currency, value: number } } }> }, rarities?: Array<{ __typename?: 'NftAssetRarity', provider?: NftRarityProvider, rank?: number, score?: number }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string, hasNextPage?: boolean, hasPreviousPage?: boolean, startCursor?: string } } };
+export type AssetQuery = {
+  __typename?: "Query";
+  nftAssets?: {
+    __typename?: "NftAssetConnection";
+    totalCount?: number;
+    edges: Array<{
+      __typename?: "NftAssetEdge";
+      cursor: string;
+      node: {
+        __typename?: "NftAsset";
+        id: string;
+        name?: string;
+        ownerAddress?: string;
+        tokenId: string;
+        description?: string;
+        animationUrl?: string;
+        suspiciousFlag?: boolean;
+        metadataUrl?: string;
+        image?: { __typename?: "Image"; url: string };
+        smallImage?: { __typename?: "Image"; url: string };
+        originalImage?: { __typename?: "Image"; url: string };
+        collection?: {
+          __typename?: "NftCollection";
+          name?: string;
+          isVerified?: boolean;
+          image?: { __typename?: "Image"; url: string };
+          creator?: {
+            __typename?: "NftProfile";
+            address: string;
+            isVerified?: boolean;
+            profileImage?: { __typename?: "Image"; url: string };
+          };
+          nftContracts?: Array<{
+            __typename?: "NftContract";
+            address: string;
+            standard?: NftStandard;
+          }>;
+        };
+        listings?: {
+          __typename?: "NftOrderConnection";
+          edges: Array<{
+            __typename?: "NftOrderEdge";
+            cursor: string;
+            node: {
+              __typename?: "NftOrder";
+              address: string;
+              createdAt: number;
+              endAt?: number;
+              id: string;
+              maker: string;
+              marketplace: NftMarketplace;
+              marketplaceUrl: string;
+              orderHash?: string;
+              quantity: number;
+              startAt: number;
+              status: OrderStatus;
+              taker?: string;
+              tokenId?: string;
+              type: OrderType;
+              protocolParameters?: any;
+              price: {
+                __typename?: "Amount";
+                currency?: Currency;
+                value: number;
+              };
+            };
+          }>;
+        };
+        rarities?: Array<{
+          __typename?: "NftAssetRarity";
+          provider?: NftRarityProvider;
+          rank?: number;
+          score?: number;
+        }>;
+      };
+    }>;
+    pageInfo: {
+      __typename?: "PageInfo";
+      endCursor?: string;
+      hasNextPage?: boolean;
+      hasPreviousPage?: boolean;
+      startCursor?: string;
+    };
+  };
+};
 
 export type CollectionQueryVariables = Exact<{
-  addresses: Array<Scalars['String']> | Scalars['String'];
+  addresses: Array<Scalars["String"]> | Scalars["String"];
 }>;
 
-
-export type CollectionQuery = { __typename?: 'Query', nftCollections?: { __typename?: 'NftCollectionConnection', edges: Array<{ __typename?: 'NftCollectionEdge', cursor: string, node: { __typename?: 'NftCollection', collectionId: string, description?: string, discordUrl?: string, homepageUrl?: string, instagramName?: string, isVerified?: boolean, name?: string, numAssets?: number, twitterName?: string, bannerImage?: { __typename?: 'Image', url: string }, image?: { __typename?: 'Image', url: string }, nftContracts?: Array<{ __typename?: 'NftContract', address: string, chain: Chain, name?: string, standard?: NftStandard, symbol?: string, totalSupply?: number }>, traits?: Array<{ __typename?: 'NftCollectionTrait', name?: string, values?: Array<string>, stats?: Array<{ __typename?: 'NftCollectionTraitStats', name?: string, value?: string, assets?: number, listings?: number }> }>, markets?: Array<{ __typename?: 'NftCollectionMarket', owners?: number, floorPrice?: { __typename?: 'TimestampedAmount', currency?: Currency, value: number }, totalVolume?: { __typename?: 'TimestampedAmount', value: number, currency?: Currency }, listings?: { __typename?: 'TimestampedAmount', value: number }, volume?: { __typename?: 'TimestampedAmount', value: number, currency?: Currency }, volumePercentChange?: { __typename?: 'TimestampedAmount', value: number, currency?: Currency }, floorPricePercentChange?: { __typename?: 'TimestampedAmount', value: number, currency?: Currency }, marketplaces?: Array<{ __typename?: 'NftCollectionMarketplace', marketplace?: NftMarketplace, listings?: number, floorPrice?: number }> }> } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string, hasNextPage?: boolean, hasPreviousPage?: boolean, startCursor?: string } } };
+export type CollectionQuery = {
+  __typename?: "Query";
+  nftCollections?: {
+    __typename?: "NftCollectionConnection";
+    edges: Array<{
+      __typename?: "NftCollectionEdge";
+      cursor: string;
+      node: {
+        __typename?: "NftCollection";
+        collectionId: string;
+        description?: string;
+        discordUrl?: string;
+        homepageUrl?: string;
+        instagramName?: string;
+        isVerified?: boolean;
+        name?: string;
+        numAssets?: number;
+        twitterName?: string;
+        bannerImage?: { __typename?: "Image"; url: string };
+        image?: { __typename?: "Image"; url: string };
+        nftContracts?: Array<{
+          __typename?: "NftContract";
+          address: string;
+          chain: Chain;
+          name?: string;
+          standard?: NftStandard;
+          symbol?: string;
+          totalSupply?: number;
+        }>;
+        traits?: Array<{
+          __typename?: "NftCollectionTrait";
+          name?: string;
+          values?: Array<string>;
+          stats?: Array<{
+            __typename?: "NftCollectionTraitStats";
+            name?: string;
+            value?: string;
+            assets?: number;
+            listings?: number;
+          }>;
+        }>;
+        markets?: Array<{
+          __typename?: "NftCollectionMarket";
+          owners?: number;
+          floorPrice?: {
+            __typename?: "TimestampedAmount";
+            currency?: Currency;
+            value: number;
+          };
+          totalVolume?: {
+            __typename?: "TimestampedAmount";
+            value: number;
+            currency?: Currency;
+          };
+          listings?: { __typename?: "TimestampedAmount"; value: number };
+          volume?: {
+            __typename?: "TimestampedAmount";
+            value: number;
+            currency?: Currency;
+          };
+          volumePercentChange?: {
+            __typename?: "TimestampedAmount";
+            value: number;
+            currency?: Currency;
+          };
+          floorPricePercentChange?: {
+            __typename?: "TimestampedAmount";
+            value: number;
+            currency?: Currency;
+          };
+          marketplaces?: Array<{
+            __typename?: "NftCollectionMarketplace";
+            marketplace?: NftMarketplace;
+            listings?: number;
+            floorPrice?: number;
+          }>;
+        }>;
+      };
+    }>;
+    pageInfo: {
+      __typename?: "PageInfo";
+      endCursor?: string;
+      hasNextPage?: boolean;
+      hasPreviousPage?: boolean;
+      startCursor?: string;
+    };
+  };
+};
 
 export type DetailsQueryVariables = Exact<{
-  address: Scalars['String'];
-  tokenId: Scalars['String'];
+  address: Scalars["String"];
+  tokenId: Scalars["String"];
 }>;
 
-
-export type DetailsQuery = { __typename?: 'Query', nftAssets?: { __typename?: 'NftAssetConnection', edges: Array<{ __typename?: 'NftAssetEdge', node: { __typename?: 'NftAsset', id: string, name?: string, ownerAddress?: string, tokenId: string, description?: string, animationUrl?: string, suspiciousFlag?: boolean, metadataUrl?: string, image?: { __typename?: 'Image', url: string }, smallImage?: { __typename?: 'Image', url: string }, originalImage?: { __typename?: 'Image', url: string }, creator?: { __typename?: 'NftProfile', address: string, isVerified?: boolean, profileImage?: { __typename?: 'Image', url: string } }, collection?: { __typename?: 'NftCollection', name?: string, isVerified?: boolean, numAssets?: number, twitterName?: string, discordUrl?: string, homepageUrl?: string, description?: string, image?: { __typename?: 'Image', url: string }, nftContracts?: Array<{ __typename?: 'NftContract', address: string, standard?: NftStandard }> }, listings?: { __typename?: 'NftOrderConnection', edges: Array<{ __typename?: 'NftOrderEdge', cursor: string, node: { __typename?: 'NftOrder', address: string, createdAt: number, endAt?: number, id: string, maker: string, marketplace: NftMarketplace, marketplaceUrl: string, orderHash?: string, quantity: number, startAt: number, status: OrderStatus, taker?: string, tokenId?: string, type: OrderType, protocolParameters?: any, price: { __typename?: 'Amount', currency?: Currency, value: number } } }> }, rarities?: Array<{ __typename?: 'NftAssetRarity', provider?: NftRarityProvider, rank?: number, score?: number }>, traits?: Array<{ __typename?: 'NftAssetTrait', name?: string, value?: string }> } }> } };
+export type DetailsQuery = {
+  __typename?: "Query";
+  nftAssets?: {
+    __typename?: "NftAssetConnection";
+    edges: Array<{
+      __typename?: "NftAssetEdge";
+      node: {
+        __typename?: "NftAsset";
+        id: string;
+        name?: string;
+        ownerAddress?: string;
+        tokenId: string;
+        description?: string;
+        animationUrl?: string;
+        suspiciousFlag?: boolean;
+        metadataUrl?: string;
+        image?: { __typename?: "Image"; url: string };
+        smallImage?: { __typename?: "Image"; url: string };
+        originalImage?: { __typename?: "Image"; url: string };
+        creator?: {
+          __typename?: "NftProfile";
+          address: string;
+          isVerified?: boolean;
+          profileImage?: { __typename?: "Image"; url: string };
+        };
+        collection?: {
+          __typename?: "NftCollection";
+          name?: string;
+          isVerified?: boolean;
+          numAssets?: number;
+          twitterName?: string;
+          discordUrl?: string;
+          homepageUrl?: string;
+          description?: string;
+          image?: { __typename?: "Image"; url: string };
+          nftContracts?: Array<{
+            __typename?: "NftContract";
+            address: string;
+            standard?: NftStandard;
+          }>;
+        };
+        listings?: {
+          __typename?: "NftOrderConnection";
+          edges: Array<{
+            __typename?: "NftOrderEdge";
+            cursor: string;
+            node: {
+              __typename?: "NftOrder";
+              address: string;
+              createdAt: number;
+              endAt?: number;
+              id: string;
+              maker: string;
+              marketplace: NftMarketplace;
+              marketplaceUrl: string;
+              orderHash?: string;
+              quantity: number;
+              startAt: number;
+              status: OrderStatus;
+              taker?: string;
+              tokenId?: string;
+              type: OrderType;
+              protocolParameters?: any;
+              price: {
+                __typename?: "Amount";
+                currency?: Currency;
+                value: number;
+              };
+            };
+          }>;
+        };
+        rarities?: Array<{
+          __typename?: "NftAssetRarity";
+          provider?: NftRarityProvider;
+          rank?: number;
+          score?: number;
+        }>;
+        traits?: Array<{
+          __typename?: "NftAssetTrait";
+          name?: string;
+          value?: string;
+        }>;
+      };
+    }>;
+  };
+};
 
 export type NftBalanceQueryVariables = Exact<{
-  ownerAddress: Scalars['String'];
+  ownerAddress: Scalars["String"];
   filter?: InputMaybe<NftBalancesFilterInput>;
-  first?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-  last?: InputMaybe<Scalars['Int']>;
-  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  last?: InputMaybe<Scalars["Int"]>;
+  before?: InputMaybe<Scalars["String"]>;
 }>;
 
-
-export type NftBalanceQuery = { __typename?: 'Query', nftBalances?: { __typename?: 'NftBalanceConnection', edges: Array<{ __typename?: 'NftBalanceEdge', node: { __typename?: 'NftBalance', listedMarketplaces?: Array<NftMarketplace>, ownedAsset?: { __typename?: 'NftAsset', id: string, animationUrl?: string, description?: string, flaggedBy?: string, name?: string, ownerAddress?: string, suspiciousFlag?: boolean, tokenId: string, collection?: { __typename?: 'NftCollection', isVerified?: boolean, name?: string, twitterName?: string, image?: { __typename?: 'Image', url: string }, nftContracts?: Array<{ __typename?: 'NftContract', address: string, chain: Chain, name?: string, standard?: NftStandard, symbol?: string, totalSupply?: number }>, markets?: Array<{ __typename?: 'NftCollectionMarket', floorPrice?: { __typename?: 'TimestampedAmount', value: number } }> }, image?: { __typename?: 'Image', url: string }, originalImage?: { __typename?: 'Image', url: string }, smallImage?: { __typename?: 'Image', url: string }, thumbnail?: { __typename?: 'Image', url: string }, listings?: { __typename?: 'NftOrderConnection', edges: Array<{ __typename?: 'NftOrderEdge', node: { __typename?: 'NftOrder', createdAt: number, marketplace: NftMarketplace, endAt?: number, price: { __typename?: 'Amount', value: number, currency?: Currency } } }> } }, listingFees?: Array<{ __typename?: 'NftFee', payoutAddress: string, basisPoints: number }>, lastPrice?: { __typename?: 'TimestampedAmount', currency?: Currency, timestamp: number, value: number } } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string, hasNextPage?: boolean, hasPreviousPage?: boolean, startCursor?: string } } };
+export type NftBalanceQuery = {
+  __typename?: "Query";
+  nftBalances?: {
+    __typename?: "NftBalanceConnection";
+    edges: Array<{
+      __typename?: "NftBalanceEdge";
+      node: {
+        __typename?: "NftBalance";
+        listedMarketplaces?: Array<NftMarketplace>;
+        ownedAsset?: {
+          __typename?: "NftAsset";
+          id: string;
+          animationUrl?: string;
+          description?: string;
+          flaggedBy?: string;
+          name?: string;
+          ownerAddress?: string;
+          suspiciousFlag?: boolean;
+          tokenId: string;
+          collection?: {
+            __typename?: "NftCollection";
+            isVerified?: boolean;
+            name?: string;
+            twitterName?: string;
+            image?: { __typename?: "Image"; url: string };
+            nftContracts?: Array<{
+              __typename?: "NftContract";
+              address: string;
+              chain: Chain;
+              name?: string;
+              standard?: NftStandard;
+              symbol?: string;
+              totalSupply?: number;
+            }>;
+            markets?: Array<{
+              __typename?: "NftCollectionMarket";
+              floorPrice?: { __typename?: "TimestampedAmount"; value: number };
+            }>;
+          };
+          image?: { __typename?: "Image"; url: string };
+          originalImage?: { __typename?: "Image"; url: string };
+          smallImage?: { __typename?: "Image"; url: string };
+          thumbnail?: { __typename?: "Image"; url: string };
+          listings?: {
+            __typename?: "NftOrderConnection";
+            edges: Array<{
+              __typename?: "NftOrderEdge";
+              node: {
+                __typename?: "NftOrder";
+                createdAt: number;
+                marketplace: NftMarketplace;
+                endAt?: number;
+                price: {
+                  __typename?: "Amount";
+                  value: number;
+                  currency?: Currency;
+                };
+              };
+            }>;
+          };
+        };
+        listingFees?: Array<{
+          __typename?: "NftFee";
+          payoutAddress: string;
+          basisPoints: number;
+        }>;
+        lastPrice?: {
+          __typename?: "TimestampedAmount";
+          currency?: Currency;
+          timestamp: number;
+          value: number;
+        };
+      };
+    }>;
+    pageInfo: {
+      __typename?: "PageInfo";
+      endCursor?: string;
+      hasNextPage?: boolean;
+      hasPreviousPage?: boolean;
+      startCursor?: string;
+    };
+  };
+};
 
 export type NftRouteQueryVariables = Exact<{
   chain?: InputMaybe<Chain>;
-  senderAddress: Scalars['String'];
+  senderAddress: Scalars["String"];
   nftTrades: Array<NftTradeInput> | NftTradeInput;
   tokenTrades?: InputMaybe<Array<TokenTradeInput> | TokenTradeInput>;
 }>;
 
-
-export type NftRouteQuery = { __typename?: 'Query', nftRoute?: { __typename?: 'NftRouteResponse', id: string, calldata: string, toAddress: string, route?: Array<{ __typename?: 'NftTrade', amount: number, contractAddress: string, id: string, marketplace: NftMarketplace, tokenId: string, tokenType?: NftStandard, price: { __typename?: 'TokenAmount', id: string, currency: Currency, value: string }, quotePrice?: { __typename?: 'TokenAmount', id: string, currency: Currency, value: string } }>, sendAmount: { __typename?: 'TokenAmount', id: string, currency: Currency, value: string } } };
-
+export type NftRouteQuery = {
+  __typename?: "Query";
+  nftRoute?: {
+    __typename?: "NftRouteResponse";
+    id: string;
+    calldata: string;
+    toAddress: string;
+    route?: Array<{
+      __typename?: "NftTrade";
+      amount: number;
+      contractAddress: string;
+      id: string;
+      marketplace: NftMarketplace;
+      tokenId: string;
+      tokenType?: NftStandard;
+      price: {
+        __typename?: "TokenAmount";
+        id: string;
+        currency: Currency;
+        value: string;
+      };
+      quotePrice?: {
+        __typename?: "TokenAmount";
+        id: string;
+        currency: Currency;
+        value: string;
+      };
+    }>;
+    sendAmount: {
+      __typename?: "TokenAmount";
+      id: string;
+      currency: Currency;
+      value: string;
+    };
+  };
+};
 
 export const RecentlySearchedAssetsDocument = gql`
-    query RecentlySearchedAssets($collectionAddresses: [String!]!, $contracts: [ContractInput!]!) {
-  nftCollections(filter: {addresses: $collectionAddresses}) {
-    edges {
-      node {
-        collectionId
-        image {
-          url
-        }
-        isVerified
-        name
-        numAssets
-        nftContracts {
-          address
-        }
-        markets(currencies: ETH) {
-          floorPrice {
-            currency
-            value
+  query RecentlySearchedAssets(
+    $collectionAddresses: [String!]!
+    $contracts: [ContractInput!]!
+  ) {
+    nftCollections(filter: { addresses: $collectionAddresses }) {
+      edges {
+        node {
+          collectionId
+          image {
+            url
+          }
+          isVerified
+          name
+          numAssets
+          nftContracts {
+            address
+          }
+          markets(currencies: ETH) {
+            floorPrice {
+              currency
+              value
+            }
           }
         }
       }
     }
-  }
-  tokens(contracts: $contracts) {
-    id
-    decimals
-    name
-    chain
-    standard
-    address
-    symbol
-    market(currency: USD) {
+    tokens(contracts: $contracts) {
       id
-      price {
+      decimals
+      name
+      chain
+      standard
+      address
+      symbol
+      market(currency: USD) {
         id
-        value
-        currency
+        price {
+          id
+          value
+          currency
+        }
+        pricePercentChange(duration: DAY) {
+          id
+          value
+        }
+        volume24H: volume(duration: DAY) {
+          id
+          value
+          currency
+        }
       }
-      pricePercentChange(duration: DAY) {
+      project {
         id
-        value
-      }
-      volume24H: volume(duration: DAY) {
-        id
-        value
-        currency
+        logoUrl
+        safetyLevel
       }
     }
-    project {
-      id
-      logoUrl
-      safetyLevel
-    }
   }
-}
-    `;
+`;
 
 /**
  * __useRecentlySearchedAssetsQuery__
@@ -2156,52 +2715,75 @@ export const RecentlySearchedAssetsDocument = gql`
  *   },
  * });
  */
-export function useRecentlySearchedAssetsQuery(baseOptions: Apollo.QueryHookOptions<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>(RecentlySearchedAssetsDocument, options);
-      }
-export function useRecentlySearchedAssetsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>(RecentlySearchedAssetsDocument, options);
-        }
-export type RecentlySearchedAssetsQueryHookResult = ReturnType<typeof useRecentlySearchedAssetsQuery>;
-export type RecentlySearchedAssetsLazyQueryHookResult = ReturnType<typeof useRecentlySearchedAssetsLazyQuery>;
-export type RecentlySearchedAssetsQueryResult = Apollo.QueryResult<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>;
+export function useRecentlySearchedAssetsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    RecentlySearchedAssetsQuery,
+    RecentlySearchedAssetsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    RecentlySearchedAssetsQuery,
+    RecentlySearchedAssetsQueryVariables
+  >(RecentlySearchedAssetsDocument, options);
+}
+export function useRecentlySearchedAssetsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    RecentlySearchedAssetsQuery,
+    RecentlySearchedAssetsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    RecentlySearchedAssetsQuery,
+    RecentlySearchedAssetsQueryVariables
+  >(RecentlySearchedAssetsDocument, options);
+}
+export type RecentlySearchedAssetsQueryHookResult = ReturnType<
+  typeof useRecentlySearchedAssetsQuery
+>;
+export type RecentlySearchedAssetsLazyQueryHookResult = ReturnType<
+  typeof useRecentlySearchedAssetsLazyQuery
+>;
+export type RecentlySearchedAssetsQueryResult = Apollo.QueryResult<
+  RecentlySearchedAssetsQuery,
+  RecentlySearchedAssetsQueryVariables
+>;
 export const SearchTokensDocument = gql`
-    query SearchTokens($searchQuery: String!) {
-  searchTokens(searchQuery: $searchQuery) {
-    id
-    decimals
-    name
-    chain
-    standard
-    address
-    symbol
-    market(currency: USD) {
+  query SearchTokens($searchQuery: String!) {
+    searchTokens(searchQuery: $searchQuery) {
       id
-      price {
+      decimals
+      name
+      chain
+      standard
+      address
+      symbol
+      market(currency: USD) {
         id
-        value
-        currency
+        price {
+          id
+          value
+          currency
+        }
+        pricePercentChange(duration: DAY) {
+          id
+          value
+        }
+        volume24H: volume(duration: DAY) {
+          id
+          value
+          currency
+        }
       }
-      pricePercentChange(duration: DAY) {
+      project {
         id
-        value
+        logoUrl
+        safetyLevel
       }
-      volume24H: volume(duration: DAY) {
-        id
-        value
-        currency
-      }
-    }
-    project {
-      id
-      logoUrl
-      safetyLevel
     }
   }
-}
-    `;
+`;
 
 /**
  * __useSearchTokensQuery__
@@ -2219,68 +2801,91 @@ export const SearchTokensDocument = gql`
  *   },
  * });
  */
-export function useSearchTokensQuery(baseOptions: Apollo.QueryHookOptions<SearchTokensQuery, SearchTokensQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SearchTokensQuery, SearchTokensQueryVariables>(SearchTokensDocument, options);
-      }
-export function useSearchTokensLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchTokensQuery, SearchTokensQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SearchTokensQuery, SearchTokensQueryVariables>(SearchTokensDocument, options);
-        }
-export type SearchTokensQueryHookResult = ReturnType<typeof useSearchTokensQuery>;
-export type SearchTokensLazyQueryHookResult = ReturnType<typeof useSearchTokensLazyQuery>;
-export type SearchTokensQueryResult = Apollo.QueryResult<SearchTokensQuery, SearchTokensQueryVariables>;
+export function useSearchTokensQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    SearchTokensQuery,
+    SearchTokensQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SearchTokensQuery, SearchTokensQueryVariables>(
+    SearchTokensDocument,
+    options
+  );
+}
+export function useSearchTokensLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SearchTokensQuery,
+    SearchTokensQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SearchTokensQuery, SearchTokensQueryVariables>(
+    SearchTokensDocument,
+    options
+  );
+}
+export type SearchTokensQueryHookResult = ReturnType<
+  typeof useSearchTokensQuery
+>;
+export type SearchTokensLazyQueryHookResult = ReturnType<
+  typeof useSearchTokensLazyQuery
+>;
+export type SearchTokensQueryResult = Apollo.QueryResult<
+  SearchTokensQuery,
+  SearchTokensQueryVariables
+>;
 export const TokenDocument = gql`
-    query Token($chain: Chain!, $address: String = null) {
-  token(chain: $chain, address: $address) {
-    id
-    decimals
-    name
-    chain
-    address
-    symbol
-    standard
-    market(currency: USD) {
+  query Token($chain: Chain!, $address: String = null) {
+    token(chain: $chain, address: $address) {
       id
-      totalValueLocked {
+      decimals
+      name
+      chain
+      address
+      symbol
+      standard
+      market(currency: USD) {
         id
-        value
-        currency
+        totalValueLocked {
+          id
+          value
+          currency
+        }
+        price {
+          id
+          value
+          currency
+        }
+        volume24H: volume(duration: DAY) {
+          id
+          value
+          currency
+        }
+        priceHigh52W: priceHighLow(duration: YEAR, highLow: HIGH) {
+          id
+          value
+        }
+        priceLow52W: priceHighLow(duration: YEAR, highLow: LOW) {
+          id
+          value
+        }
       }
-      price {
+      project {
         id
-        value
-        currency
-      }
-      volume24H: volume(duration: DAY) {
-        id
-        value
-        currency
-      }
-      priceHigh52W: priceHighLow(duration: YEAR, highLow: HIGH) {
-        id
-        value
-      }
-      priceLow52W: priceHighLow(duration: YEAR, highLow: LOW) {
-        id
-        value
-      }
-    }
-    project {
-      id
-      description
-      homepageUrl
-      twitterName
-      logoUrl
-      tokens {
-        id
-        chain
-        address
+        description
+        homepageUrl
+        twitterName
+        logoUrl
+        tokens {
+          id
+          chain
+          address
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useTokenQuery__
@@ -2299,38 +2904,55 @@ export const TokenDocument = gql`
  *   },
  * });
  */
-export function useTokenQuery(baseOptions: Apollo.QueryHookOptions<TokenQuery, TokenQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TokenQuery, TokenQueryVariables>(TokenDocument, options);
-      }
-export function useTokenLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TokenQuery, TokenQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TokenQuery, TokenQueryVariables>(TokenDocument, options);
-        }
+export function useTokenQuery(
+  baseOptions: Apollo.QueryHookOptions<TokenQuery, TokenQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<TokenQuery, TokenQueryVariables>(
+    TokenDocument,
+    options
+  );
+}
+export function useTokenLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<TokenQuery, TokenQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<TokenQuery, TokenQueryVariables>(
+    TokenDocument,
+    options
+  );
+}
 export type TokenQueryHookResult = ReturnType<typeof useTokenQuery>;
 export type TokenLazyQueryHookResult = ReturnType<typeof useTokenLazyQuery>;
-export type TokenQueryResult = Apollo.QueryResult<TokenQuery, TokenQueryVariables>;
+export type TokenQueryResult = Apollo.QueryResult<
+  TokenQuery,
+  TokenQueryVariables
+>;
 export const TokenPriceDocument = gql`
-    query TokenPrice($chain: Chain!, $address: String = null, $duration: HistoryDuration!) {
-  token(chain: $chain, address: $address) {
-    id
-    address
-    chain
-    market(currency: USD) {
+  query TokenPrice(
+    $chain: Chain!
+    $address: String = null
+    $duration: HistoryDuration!
+  ) {
+    token(chain: $chain, address: $address) {
       id
-      price {
+      address
+      chain
+      market(currency: USD) {
         id
-        value
-      }
-      priceHistory(duration: $duration) {
-        id
-        timestamp
-        value
+        price {
+          id
+          value
+        }
+        priceHistory(duration: $duration) {
+          id
+          timestamp
+          value
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useTokenPriceQuery__
@@ -2350,56 +2972,77 @@ export const TokenPriceDocument = gql`
  *   },
  * });
  */
-export function useTokenPriceQuery(baseOptions: Apollo.QueryHookOptions<TokenPriceQuery, TokenPriceQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TokenPriceQuery, TokenPriceQueryVariables>(TokenPriceDocument, options);
-      }
-export function useTokenPriceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TokenPriceQuery, TokenPriceQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TokenPriceQuery, TokenPriceQueryVariables>(TokenPriceDocument, options);
-        }
+export function useTokenPriceQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TokenPriceQuery,
+    TokenPriceQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<TokenPriceQuery, TokenPriceQueryVariables>(
+    TokenPriceDocument,
+    options
+  );
+}
+export function useTokenPriceLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TokenPriceQuery,
+    TokenPriceQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<TokenPriceQuery, TokenPriceQueryVariables>(
+    TokenPriceDocument,
+    options
+  );
+}
 export type TokenPriceQueryHookResult = ReturnType<typeof useTokenPriceQuery>;
-export type TokenPriceLazyQueryHookResult = ReturnType<typeof useTokenPriceLazyQuery>;
-export type TokenPriceQueryResult = Apollo.QueryResult<TokenPriceQuery, TokenPriceQueryVariables>;
+export type TokenPriceLazyQueryHookResult = ReturnType<
+  typeof useTokenPriceLazyQuery
+>;
+export type TokenPriceQueryResult = Apollo.QueryResult<
+  TokenPriceQuery,
+  TokenPriceQueryVariables
+>;
 export const TopTokens100Document = gql`
-    query TopTokens100($duration: HistoryDuration!, $chain: Chain!) {
-  topTokens(pageSize: 100, page: 1, chain: $chain, orderBy: VOLUME) {
-    id
-    name
-    chain
-    address
-    symbol
-    standard
-    market(currency: USD) {
+  query TopTokens100($duration: HistoryDuration!, $chain: Chain!) {
+    topTokens(pageSize: 100, page: 1, chain: $chain, orderBy: VOLUME) {
       id
-      totalValueLocked {
+      name
+      chain
+      address
+      symbol
+      standard
+      market(currency: USD) {
         id
-        value
-        currency
+        totalValueLocked {
+          id
+          value
+          currency
+        }
+        price {
+          id
+          value
+          currency
+        }
+        pricePercentChange(duration: $duration) {
+          id
+          currency
+          value
+        }
+        volume(duration: $duration) {
+          id
+          value
+          currency
+        }
       }
-      price {
+      project {
         id
-        value
-        currency
+        logoUrl
       }
-      pricePercentChange(duration: $duration) {
-        id
-        currency
-        value
-      }
-      volume(duration: $duration) {
-        id
-        value
-        currency
-      }
-    }
-    project {
-      id
-      logoUrl
     }
   }
-}
-    `;
+`;
 
 /**
  * __useTopTokens100Query__
@@ -2418,34 +3061,57 @@ export const TopTokens100Document = gql`
  *   },
  * });
  */
-export function useTopTokens100Query(baseOptions: Apollo.QueryHookOptions<TopTokens100Query, TopTokens100QueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TopTokens100Query, TopTokens100QueryVariables>(TopTokens100Document, options);
-      }
-export function useTopTokens100LazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TopTokens100Query, TopTokens100QueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TopTokens100Query, TopTokens100QueryVariables>(TopTokens100Document, options);
-        }
-export type TopTokens100QueryHookResult = ReturnType<typeof useTopTokens100Query>;
-export type TopTokens100LazyQueryHookResult = ReturnType<typeof useTopTokens100LazyQuery>;
-export type TopTokens100QueryResult = Apollo.QueryResult<TopTokens100Query, TopTokens100QueryVariables>;
+export function useTopTokens100Query(
+  baseOptions: Apollo.QueryHookOptions<
+    TopTokens100Query,
+    TopTokens100QueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<TopTokens100Query, TopTokens100QueryVariables>(
+    TopTokens100Document,
+    options
+  );
+}
+export function useTopTokens100LazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TopTokens100Query,
+    TopTokens100QueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<TopTokens100Query, TopTokens100QueryVariables>(
+    TopTokens100Document,
+    options
+  );
+}
+export type TopTokens100QueryHookResult = ReturnType<
+  typeof useTopTokens100Query
+>;
+export type TopTokens100LazyQueryHookResult = ReturnType<
+  typeof useTopTokens100LazyQuery
+>;
+export type TopTokens100QueryResult = Apollo.QueryResult<
+  TopTokens100Query,
+  TopTokens100QueryVariables
+>;
 export const TopTokensSparklineDocument = gql`
-    query TopTokensSparkline($duration: HistoryDuration!, $chain: Chain!) {
-  topTokens(pageSize: 100, page: 1, chain: $chain) {
-    id
-    address
-    chain
-    market(currency: USD) {
+  query TopTokensSparkline($duration: HistoryDuration!, $chain: Chain!) {
+    topTokens(pageSize: 100, page: 1, chain: $chain) {
       id
-      priceHistory(duration: $duration) {
+      address
+      chain
+      market(currency: USD) {
         id
-        timestamp
-        value
+        priceHistory(duration: $duration) {
+          id
+          timestamp
+          value
+        }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useTopTokensSparklineQuery__
@@ -2464,52 +3130,75 @@ export const TopTokensSparklineDocument = gql`
  *   },
  * });
  */
-export function useTopTokensSparklineQuery(baseOptions: Apollo.QueryHookOptions<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>(TopTokensSparklineDocument, options);
-      }
-export function useTopTokensSparklineLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>(TopTokensSparklineDocument, options);
-        }
-export type TopTokensSparklineQueryHookResult = ReturnType<typeof useTopTokensSparklineQuery>;
-export type TopTokensSparklineLazyQueryHookResult = ReturnType<typeof useTopTokensSparklineLazyQuery>;
-export type TopTokensSparklineQueryResult = Apollo.QueryResult<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>;
+export function useTopTokensSparklineQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TopTokensSparklineQuery,
+    TopTokensSparklineQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    TopTokensSparklineQuery,
+    TopTokensSparklineQueryVariables
+  >(TopTokensSparklineDocument, options);
+}
+export function useTopTokensSparklineLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TopTokensSparklineQuery,
+    TopTokensSparklineQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    TopTokensSparklineQuery,
+    TopTokensSparklineQueryVariables
+  >(TopTokensSparklineDocument, options);
+}
+export type TopTokensSparklineQueryHookResult = ReturnType<
+  typeof useTopTokensSparklineQuery
+>;
+export type TopTokensSparklineLazyQueryHookResult = ReturnType<
+  typeof useTopTokensSparklineLazyQuery
+>;
+export type TopTokensSparklineQueryResult = Apollo.QueryResult<
+  TopTokensSparklineQuery,
+  TopTokensSparklineQueryVariables
+>;
 export const TrendingTokensDocument = gql`
-    query TrendingTokens($chain: Chain!) {
-  topTokens(pageSize: 4, page: 1, chain: $chain, orderBy: VOLUME) {
-    id
-    decimals
-    name
-    chain
-    standard
-    address
-    symbol
-    market(currency: USD) {
+  query TrendingTokens($chain: Chain!) {
+    topTokens(pageSize: 4, page: 1, chain: $chain, orderBy: VOLUME) {
       id
-      price {
+      decimals
+      name
+      chain
+      standard
+      address
+      symbol
+      market(currency: USD) {
         id
-        value
-        currency
+        price {
+          id
+          value
+          currency
+        }
+        pricePercentChange(duration: DAY) {
+          id
+          value
+        }
+        volume24H: volume(duration: DAY) {
+          id
+          value
+          currency
+        }
       }
-      pricePercentChange(duration: DAY) {
+      project {
         id
-        value
+        logoUrl
+        safetyLevel
       }
-      volume24H: volume(duration: DAY) {
-        id
-        value
-        currency
-      }
-    }
-    project {
-      id
-      logoUrl
-      safetyLevel
     }
   }
-}
-    `;
+`;
 
 /**
  * __useTrendingTokensQuery__
@@ -2527,110 +3216,142 @@ export const TrendingTokensDocument = gql`
  *   },
  * });
  */
-export function useTrendingTokensQuery(baseOptions: Apollo.QueryHookOptions<TrendingTokensQuery, TrendingTokensQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TrendingTokensQuery, TrendingTokensQueryVariables>(TrendingTokensDocument, options);
-      }
-export function useTrendingTokensLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TrendingTokensQuery, TrendingTokensQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TrendingTokensQuery, TrendingTokensQueryVariables>(TrendingTokensDocument, options);
-        }
-export type TrendingTokensQueryHookResult = ReturnType<typeof useTrendingTokensQuery>;
-export type TrendingTokensLazyQueryHookResult = ReturnType<typeof useTrendingTokensLazyQuery>;
-export type TrendingTokensQueryResult = Apollo.QueryResult<TrendingTokensQuery, TrendingTokensQueryVariables>;
+export function useTrendingTokensQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TrendingTokensQuery,
+    TrendingTokensQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<TrendingTokensQuery, TrendingTokensQueryVariables>(
+    TrendingTokensDocument,
+    options
+  );
+}
+export function useTrendingTokensLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TrendingTokensQuery,
+    TrendingTokensQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<TrendingTokensQuery, TrendingTokensQueryVariables>(
+    TrendingTokensDocument,
+    options
+  );
+}
+export type TrendingTokensQueryHookResult = ReturnType<
+  typeof useTrendingTokensQuery
+>;
+export type TrendingTokensLazyQueryHookResult = ReturnType<
+  typeof useTrendingTokensLazyQuery
+>;
+export type TrendingTokensQueryResult = Apollo.QueryResult<
+  TrendingTokensQuery,
+  TrendingTokensQueryVariables
+>;
 export const AssetDocument = gql`
-    query Asset($address: String!, $orderBy: NftAssetSortableField, $asc: Boolean, $filter: NftAssetsFilterInput, $first: Int, $after: String, $last: Int, $before: String) {
-  nftAssets(
-    address: $address
-    orderBy: $orderBy
-    asc: $asc
-    filter: $filter
-    first: $first
-    after: $after
-    last: $last
-    before: $before
+  query Asset(
+    $address: String!
+    $orderBy: NftAssetSortableField
+    $asc: Boolean
+    $filter: NftAssetsFilterInput
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
   ) {
-    edges {
-      node {
-        id
-        name
-        ownerAddress
-        image {
-          url
-        }
-        smallImage {
-          url
-        }
-        originalImage {
-          url
-        }
-        tokenId
-        description
-        animationUrl
-        suspiciousFlag
-        collection {
+    nftAssets(
+      address: $address
+      orderBy: $orderBy
+      asc: $asc
+      filter: $filter
+      first: $first
+      after: $after
+      last: $last
+      before: $before
+    ) {
+      edges {
+        node {
+          id
           name
-          isVerified
+          ownerAddress
           image {
             url
           }
-          creator {
-            address
-            profileImage {
+          smallImage {
+            url
+          }
+          originalImage {
+            url
+          }
+          tokenId
+          description
+          animationUrl
+          suspiciousFlag
+          collection {
+            name
+            isVerified
+            image {
               url
             }
-            isVerified
-          }
-          nftContracts {
-            address
-            standard
-          }
-        }
-        listings(first: 1) {
-          edges {
-            node {
+            creator {
               address
-              createdAt
-              endAt
-              id
-              maker
-              marketplace
-              marketplaceUrl
-              orderHash
-              price {
-                currency
-                value
+              profileImage {
+                url
               }
-              quantity
-              startAt
-              status
-              taker
-              tokenId
-              type
-              protocolParameters
+              isVerified
             }
-            cursor
+            nftContracts {
+              address
+              standard
+            }
           }
+          listings(first: 1) {
+            edges {
+              node {
+                address
+                createdAt
+                endAt
+                id
+                maker
+                marketplace
+                marketplaceUrl
+                orderHash
+                price {
+                  currency
+                  value
+                }
+                quantity
+                startAt
+                status
+                taker
+                tokenId
+                type
+                protocolParameters
+              }
+              cursor
+            }
+          }
+          rarities {
+            provider
+            rank
+            score
+          }
+          metadataUrl
         }
-        rarities {
-          provider
-          rank
-          score
-        }
-        metadataUrl
+        cursor
       }
-      cursor
-    }
-    totalCount
-    pageInfo {
-      endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
+      totalCount
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useAssetQuery__
@@ -2655,98 +3376,111 @@ export const AssetDocument = gql`
  *   },
  * });
  */
-export function useAssetQuery(baseOptions: Apollo.QueryHookOptions<AssetQuery, AssetQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AssetQuery, AssetQueryVariables>(AssetDocument, options);
-      }
-export function useAssetLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AssetQuery, AssetQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AssetQuery, AssetQueryVariables>(AssetDocument, options);
-        }
+export function useAssetQuery(
+  baseOptions: Apollo.QueryHookOptions<AssetQuery, AssetQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<AssetQuery, AssetQueryVariables>(
+    AssetDocument,
+    options
+  );
+}
+export function useAssetLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<AssetQuery, AssetQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<AssetQuery, AssetQueryVariables>(
+    AssetDocument,
+    options
+  );
+}
 export type AssetQueryHookResult = ReturnType<typeof useAssetQuery>;
 export type AssetLazyQueryHookResult = ReturnType<typeof useAssetLazyQuery>;
-export type AssetQueryResult = Apollo.QueryResult<AssetQuery, AssetQueryVariables>;
+export type AssetQueryResult = Apollo.QueryResult<
+  AssetQuery,
+  AssetQueryVariables
+>;
 export const CollectionDocument = gql`
-    query Collection($addresses: [String!]!) {
-  nftCollections(filter: {addresses: $addresses}) {
-    edges {
-      cursor
-      node {
-        bannerImage {
-          url
-        }
-        collectionId
-        description
-        discordUrl
-        homepageUrl
-        image {
-          url
-        }
-        instagramName
-        isVerified
-        name
-        numAssets
-        twitterName
-        nftContracts {
-          address
-          chain
+  query Collection($addresses: [String!]!) {
+    nftCollections(filter: { addresses: $addresses }) {
+      edges {
+        cursor
+        node {
+          bannerImage {
+            url
+          }
+          collectionId
+          description
+          discordUrl
+          homepageUrl
+          image {
+            url
+          }
+          instagramName
+          isVerified
           name
-          standard
-          symbol
-          totalSupply
-        }
-        traits {
-          name
-          values
-          stats {
+          numAssets
+          twitterName
+          nftContracts {
+            address
+            chain
             name
-            value
-            assets
-            listings
+            standard
+            symbol
+            totalSupply
           }
-        }
-        markets(currencies: ETH) {
-          floorPrice {
-            currency
-            value
+          traits {
+            name
+            values
+            stats {
+              name
+              value
+              assets
+              listings
+            }
           }
-          owners
-          totalVolume {
-            value
-            currency
-          }
-          listings {
-            value
-          }
-          volume(duration: DAY) {
-            value
-            currency
-          }
-          volumePercentChange(duration: DAY) {
-            value
-            currency
-          }
-          floorPricePercentChange(duration: DAY) {
-            value
-            currency
-          }
-          marketplaces {
-            marketplace
-            listings
-            floorPrice
+          markets(currencies: ETH) {
+            floorPrice {
+              currency
+              value
+            }
+            owners
+            totalVolume {
+              value
+              currency
+            }
+            listings {
+              value
+            }
+            volume(duration: DAY) {
+              value
+              currency
+            }
+            volumePercentChange(duration: DAY) {
+              value
+              currency
+            }
+            floorPricePercentChange(duration: DAY) {
+              value
+              currency
+            }
+            marketplaces {
+              marketplace
+              listings
+              floorPrice
+            }
           }
         }
       }
-    }
-    pageInfo {
-      endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useCollectionQuery__
@@ -2764,102 +3498,126 @@ export const CollectionDocument = gql`
  *   },
  * });
  */
-export function useCollectionQuery(baseOptions: Apollo.QueryHookOptions<CollectionQuery, CollectionQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<CollectionQuery, CollectionQueryVariables>(CollectionDocument, options);
-      }
-export function useCollectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CollectionQuery, CollectionQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<CollectionQuery, CollectionQueryVariables>(CollectionDocument, options);
-        }
+export function useCollectionQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    CollectionQuery,
+    CollectionQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<CollectionQuery, CollectionQueryVariables>(
+    CollectionDocument,
+    options
+  );
+}
+export function useCollectionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    CollectionQuery,
+    CollectionQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<CollectionQuery, CollectionQueryVariables>(
+    CollectionDocument,
+    options
+  );
+}
 export type CollectionQueryHookResult = ReturnType<typeof useCollectionQuery>;
-export type CollectionLazyQueryHookResult = ReturnType<typeof useCollectionLazyQuery>;
-export type CollectionQueryResult = Apollo.QueryResult<CollectionQuery, CollectionQueryVariables>;
+export type CollectionLazyQueryHookResult = ReturnType<
+  typeof useCollectionLazyQuery
+>;
+export type CollectionQueryResult = Apollo.QueryResult<
+  CollectionQuery,
+  CollectionQueryVariables
+>;
 export const DetailsDocument = gql`
-    query Details($address: String!, $tokenId: String!) {
-  nftAssets(address: $address, filter: {listed: false, tokenIds: [$tokenId]}) {
-    edges {
-      node {
-        id
-        name
-        ownerAddress
-        image {
-          url
-        }
-        smallImage {
-          url
-        }
-        originalImage {
-          url
-        }
-        tokenId
-        description
-        animationUrl
-        suspiciousFlag
-        creator {
-          address
-          profileImage {
-            url
-          }
-          isVerified
-        }
-        collection {
+  query Details($address: String!, $tokenId: String!) {
+    nftAssets(
+      address: $address
+      filter: { listed: false, tokenIds: [$tokenId] }
+    ) {
+      edges {
+        node {
+          id
           name
-          isVerified
-          numAssets
-          twitterName
-          discordUrl
-          homepageUrl
+          ownerAddress
           image {
             url
           }
-          nftContracts {
-            address
-            standard
+          smallImage {
+            url
           }
+          originalImage {
+            url
+          }
+          tokenId
           description
-        }
-        listings(first: 1) {
-          edges {
-            node {
-              address
-              createdAt
-              endAt
-              id
-              maker
-              marketplace
-              marketplaceUrl
-              orderHash
-              price {
-                currency
-                value
-              }
-              quantity
-              startAt
-              status
-              taker
-              tokenId
-              type
-              protocolParameters
+          animationUrl
+          suspiciousFlag
+          creator {
+            address
+            profileImage {
+              url
             }
-            cursor
+            isVerified
           }
-        }
-        rarities {
-          provider
-          rank
-          score
-        }
-        metadataUrl
-        traits {
-          name
-          value
+          collection {
+            name
+            isVerified
+            numAssets
+            twitterName
+            discordUrl
+            homepageUrl
+            image {
+              url
+            }
+            nftContracts {
+              address
+              standard
+            }
+            description
+          }
+          listings(first: 1) {
+            edges {
+              node {
+                address
+                createdAt
+                endAt
+                id
+                maker
+                marketplace
+                marketplaceUrl
+                orderHash
+                price {
+                  currency
+                  value
+                }
+                quantity
+                startAt
+                status
+                taker
+                tokenId
+                type
+                protocolParameters
+              }
+              cursor
+            }
+          }
+          rarities {
+            provider
+            rank
+            score
+          }
+          metadataUrl
+          traits {
+            name
+            value
+          }
         }
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useDetailsQuery__
@@ -2878,106 +3636,126 @@ export const DetailsDocument = gql`
  *   },
  * });
  */
-export function useDetailsQuery(baseOptions: Apollo.QueryHookOptions<DetailsQuery, DetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<DetailsQuery, DetailsQueryVariables>(DetailsDocument, options);
-      }
-export function useDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DetailsQuery, DetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<DetailsQuery, DetailsQueryVariables>(DetailsDocument, options);
-        }
+export function useDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<DetailsQuery, DetailsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<DetailsQuery, DetailsQueryVariables>(
+    DetailsDocument,
+    options
+  );
+}
+export function useDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<DetailsQuery, DetailsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<DetailsQuery, DetailsQueryVariables>(
+    DetailsDocument,
+    options
+  );
+}
 export type DetailsQueryHookResult = ReturnType<typeof useDetailsQuery>;
 export type DetailsLazyQueryHookResult = ReturnType<typeof useDetailsLazyQuery>;
-export type DetailsQueryResult = Apollo.QueryResult<DetailsQuery, DetailsQueryVariables>;
+export type DetailsQueryResult = Apollo.QueryResult<
+  DetailsQuery,
+  DetailsQueryVariables
+>;
 export const NftBalanceDocument = gql`
-    query NftBalance($ownerAddress: String!, $filter: NftBalancesFilterInput, $first: Int, $after: String, $last: Int, $before: String) {
-  nftBalances(
-    ownerAddress: $ownerAddress
-    filter: $filter
-    first: $first
-    after: $after
-    last: $last
-    before: $before
+  query NftBalance(
+    $ownerAddress: String!
+    $filter: NftBalancesFilterInput
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
   ) {
-    edges {
-      node {
-        ownedAsset {
-          id
-          animationUrl
-          collection {
-            isVerified
+    nftBalances(
+      ownerAddress: $ownerAddress
+      filter: $filter
+      first: $first
+      after: $after
+      last: $last
+      before: $before
+    ) {
+      edges {
+        node {
+          ownedAsset {
+            id
+            animationUrl
+            collection {
+              isVerified
+              image {
+                url
+              }
+              name
+              twitterName
+              nftContracts {
+                address
+                chain
+                name
+                standard
+                symbol
+                totalSupply
+              }
+              markets(currencies: ETH) {
+                floorPrice {
+                  value
+                }
+              }
+            }
+            description
+            flaggedBy
             image {
               url
             }
+            originalImage {
+              url
+            }
             name
-            twitterName
-            nftContracts {
-              address
-              chain
-              name
-              standard
-              symbol
-              totalSupply
+            ownerAddress
+            smallImage {
+              url
             }
-            markets(currencies: ETH) {
-              floorPrice {
-                value
-              }
+            suspiciousFlag
+            tokenId
+            thumbnail {
+              url
             }
-          }
-          description
-          flaggedBy
-          image {
-            url
-          }
-          originalImage {
-            url
-          }
-          name
-          ownerAddress
-          smallImage {
-            url
-          }
-          suspiciousFlag
-          tokenId
-          thumbnail {
-            url
-          }
-          listings(first: 1) {
-            edges {
-              node {
-                price {
-                  value
-                  currency
+            listings(first: 1) {
+              edges {
+                node {
+                  price {
+                    value
+                    currency
+                  }
+                  createdAt
+                  marketplace
+                  endAt
                 }
-                createdAt
-                marketplace
-                endAt
               }
             }
           }
-        }
-        listedMarketplaces
-        listingFees {
-          payoutAddress
-          basisPoints
-        }
-        lastPrice {
-          currency
-          timestamp
-          value
+          listedMarketplaces
+          listingFees {
+            payoutAddress
+            basisPoints
+          }
+          lastPrice {
+            currency
+            timestamp
+            value
+          }
         }
       }
-    }
-    pageInfo {
-      endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useNftBalanceQuery__
@@ -3000,54 +3778,80 @@ export const NftBalanceDocument = gql`
  *   },
  * });
  */
-export function useNftBalanceQuery(baseOptions: Apollo.QueryHookOptions<NftBalanceQuery, NftBalanceQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<NftBalanceQuery, NftBalanceQueryVariables>(NftBalanceDocument, options);
-      }
-export function useNftBalanceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NftBalanceQuery, NftBalanceQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<NftBalanceQuery, NftBalanceQueryVariables>(NftBalanceDocument, options);
-        }
-export type NftBalanceQueryHookResult = ReturnType<typeof useNftBalanceQuery>;
-export type NftBalanceLazyQueryHookResult = ReturnType<typeof useNftBalanceLazyQuery>;
-export type NftBalanceQueryResult = Apollo.QueryResult<NftBalanceQuery, NftBalanceQueryVariables>;
-export const NftRouteDocument = gql`
-    query NftRoute($chain: Chain = ETHEREUM, $senderAddress: String!, $nftTrades: [NftTradeInput!]!, $tokenTrades: [TokenTradeInput!]) {
-  nftRoute(
-    chain: $chain
-    senderAddress: $senderAddress
-    nftTrades: $nftTrades
-    tokenTrades: $tokenTrades
-  ) {
-    id
-    calldata
-    route {
-      amount
-      contractAddress
-      id
-      marketplace
-      price {
-        id
-        currency
-        value
-      }
-      quotePrice {
-        id
-        currency
-        value
-      }
-      tokenId
-      tokenType
-    }
-    sendAmount {
-      id
-      currency
-      value
-    }
-    toAddress
-  }
+export function useNftBalanceQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    NftBalanceQuery,
+    NftBalanceQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<NftBalanceQuery, NftBalanceQueryVariables>(
+    NftBalanceDocument,
+    options
+  );
 }
-    `;
+export function useNftBalanceLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NftBalanceQuery,
+    NftBalanceQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<NftBalanceQuery, NftBalanceQueryVariables>(
+    NftBalanceDocument,
+    options
+  );
+}
+export type NftBalanceQueryHookResult = ReturnType<typeof useNftBalanceQuery>;
+export type NftBalanceLazyQueryHookResult = ReturnType<
+  typeof useNftBalanceLazyQuery
+>;
+export type NftBalanceQueryResult = Apollo.QueryResult<
+  NftBalanceQuery,
+  NftBalanceQueryVariables
+>;
+export const NftRouteDocument = gql`
+  query NftRoute(
+    $chain: Chain = ETHEREUM
+    $senderAddress: String!
+    $nftTrades: [NftTradeInput!]!
+    $tokenTrades: [TokenTradeInput!]
+  ) {
+    nftRoute(
+      chain: $chain
+      senderAddress: $senderAddress
+      nftTrades: $nftTrades
+      tokenTrades: $tokenTrades
+    ) {
+      id
+      calldata
+      route {
+        amount
+        contractAddress
+        id
+        marketplace
+        price {
+          id
+          currency
+          value
+        }
+        quotePrice {
+          id
+          currency
+          value
+        }
+        tokenId
+        tokenType
+      }
+      sendAmount {
+        id
+        currency
+        value
+      }
+      toAddress
+    }
+  }
+`;
 
 /**
  * __useNftRouteQuery__
@@ -3068,14 +3872,32 @@ export const NftRouteDocument = gql`
  *   },
  * });
  */
-export function useNftRouteQuery(baseOptions: Apollo.QueryHookOptions<NftRouteQuery, NftRouteQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<NftRouteQuery, NftRouteQueryVariables>(NftRouteDocument, options);
-      }
-export function useNftRouteLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NftRouteQuery, NftRouteQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<NftRouteQuery, NftRouteQueryVariables>(NftRouteDocument, options);
-        }
+export function useNftRouteQuery(
+  baseOptions: Apollo.QueryHookOptions<NftRouteQuery, NftRouteQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<NftRouteQuery, NftRouteQueryVariables>(
+    NftRouteDocument,
+    options
+  );
+}
+export function useNftRouteLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NftRouteQuery,
+    NftRouteQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<NftRouteQuery, NftRouteQueryVariables>(
+    NftRouteDocument,
+    options
+  );
+}
 export type NftRouteQueryHookResult = ReturnType<typeof useNftRouteQuery>;
-export type NftRouteLazyQueryHookResult = ReturnType<typeof useNftRouteLazyQuery>;
-export type NftRouteQueryResult = Apollo.QueryResult<NftRouteQuery, NftRouteQueryVariables>;
+export type NftRouteLazyQueryHookResult = ReturnType<
+  typeof useNftRouteLazyQuery
+>;
+export type NftRouteQueryResult = Apollo.QueryResult<
+  NftRouteQuery,
+  NftRouteQueryVariables
+>;

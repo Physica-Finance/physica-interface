@@ -1,15 +1,15 @@
-import { Trans } from '@lingui/macro'
-import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components/macro'
+import { Trans } from "@lingui/macro";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components/macro";
 
-import { ReactComponent as EyeIcon } from '../../../assets/svg/eye.svg'
+import { ReactComponent as EyeIcon } from "../../../assets/svg/eye.svg";
 
 const InvalidDetailsContainer = styled.div`
   padding-top: 128px;
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const InvalidDetailsText = styled.span`
   margin-top: 28px;
@@ -21,7 +21,7 @@ const InvalidDetailsText = styled.span`
   font-size: 20px;
   font-weight: 500;
   line-height: 28px;
-`
+`;
 
 const TokenExploreButton = styled.button`
   border: none;
@@ -32,10 +32,14 @@ const TokenExploreButton = styled.button`
   color: ${({ theme }) => theme.textPrimary};
   font-size: 16px;
   font-weight: 600;
-`
+`;
 
-export default function InvalidTokenDetails({ chainName }: { chainName?: string }) {
-  const navigate = useNavigate()
+export default function InvalidTokenDetails({
+  chainName,
+}: {
+  chainName?: string;
+}) {
+  const navigate = useNavigate();
   return (
     <InvalidDetailsContainer>
       <EyeIcon />
@@ -46,9 +50,9 @@ export default function InvalidTokenDetails({ chainName }: { chainName?: string 
           <Trans>This token doesn&apos;t exist</Trans>
         )}
       </InvalidDetailsText>
-      <TokenExploreButton onClick={() => navigate('/tokens')}>
+      <TokenExploreButton onClick={() => navigate("/tokens")}>
         <Trans>Explore tokens</Trans>
       </TokenExploreButton>
     </InvalidDetailsContainer>
-  )
+  );
 }

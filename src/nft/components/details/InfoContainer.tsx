@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { ChevronDown, ChevronUp } from 'react-feather'
-import styled, { css } from 'styled-components/macro'
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "react-feather";
+import styled, { css } from "styled-components/macro";
 
 const Header = styled.div<{ isOpen: boolean }>`
   display: flex;
-  border-radius: ${({ isOpen }) => (isOpen ? '16px 16px 0px 0px' : '16px')};
+  border-radius: ${({ isOpen }) => (isOpen ? "16px 16px 0px 0px" : "16px")};
   justify-content: space-between;
   background-color: ${({ theme }) => theme.backgroundSurface};
   padding: 14px 20px;
@@ -27,7 +27,7 @@ const Header = styled.div<{ isOpen: boolean }>`
       transition: { duration, timing },
     },
   }) => css`background-color ${duration.medium} ${timing.ease}`};
-`
+`;
 
 const PrimaryHeader = styled.span`
   display: flex;
@@ -37,12 +37,12 @@ const PrimaryHeader = styled.span`
   font-weight: 500;
   line-height: 28px;
   font-size: 20px;
-`
+`;
 
 const SecondaryHeader = styled.span`
   font-size: 12px;
   color: ${({ theme }) => theme.textSecondary};
-`
+`;
 
 const SecondaryHeaderContainer = styled.span`
   display: flex;
@@ -50,7 +50,7 @@ const SecondaryHeaderContainer = styled.span`
   justify-content: center;
   gap: 32px;
   color: ${({ theme }) => theme.textPrimary};
-`
+`;
 
 const ContentContainer = styled.div`
   padding: 20px;
@@ -58,7 +58,7 @@ const ContentContainer = styled.div`
   border-top: none;
   border-radius: 0px 0px 16px 16px;
   background-color: ${({ theme }) => theme.backgroundSurface}; ;
-`
+`;
 
 const InfoContainer = ({
   children,
@@ -67,12 +67,12 @@ const InfoContainer = ({
   defaultOpen,
   ...props
 }: {
-  children: JSX.Element
-  primaryHeader: string
-  secondaryHeader: React.ReactNode
-  defaultOpen?: boolean
+  children: JSX.Element;
+  primaryHeader: string;
+  secondaryHeader: React.ReactNode;
+  defaultOpen?: boolean;
 }) => {
-  const [isOpen, setIsOpen] = useState(!!defaultOpen)
+  const [isOpen, setIsOpen] = useState(!!defaultOpen);
 
   return (
     <div>
@@ -80,11 +80,13 @@ const InfoContainer = ({
         <PrimaryHeader>
           {primaryHeader} <SecondaryHeader>{secondaryHeader}</SecondaryHeader>
         </PrimaryHeader>
-        <SecondaryHeaderContainer>{isOpen ? <ChevronUp /> : <ChevronDown />}</SecondaryHeaderContainer>
+        <SecondaryHeaderContainer>
+          {isOpen ? <ChevronUp /> : <ChevronDown />}
+        </SecondaryHeaderContainer>
       </Header>
       {isOpen && <ContentContainer>{children}</ContentContainer>}
     </div>
-  )
-}
+  );
+};
 
-export default InfoContainer
+export default InfoContainer;

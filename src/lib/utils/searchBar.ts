@@ -15,7 +15,17 @@ export function organizeSearchResults(
   collectionResults: GenieCollection[]
 ): [SearchToken[], GenieCollection[]] {
   const reducedTokens =
-    tokenResults?.slice(0, isNFTPage ? 3 : collectionResults.length < 3 ? 8 - collectionResults.length : 5) ?? []
-  const reducedCollections = collectionResults.slice(0, 8 - reducedTokens.length)
-  return [reducedTokens, reducedCollections]
+    tokenResults?.slice(
+      0,
+      isNFTPage
+        ? 3
+        : collectionResults.length < 3
+        ? 8 - collectionResults.length
+        : 5
+    ) ?? [];
+  const reducedCollections = collectionResults.slice(
+    0,
+    8 - reducedTokens.length
+  );
+  return [reducedTokens, reducedCollections];
 }

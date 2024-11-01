@@ -1,31 +1,46 @@
-import { Currency, Token } from '@uniswap/sdk-core'
-import { useMemo } from 'react'
+import { Currency, Token } from "@uniswap/sdk-core";
+import { useMemo } from "react";
 
-import { ADDITIONAL_BASES, BASES_TO_CHECK_TRADES_AGAINST, CUSTOM_BASES } from '../constants/routing'
+import {
+  ADDITIONAL_BASES,
+  BASES_TO_CHECK_TRADES_AGAINST,
+  CUSTOM_BASES,
+} from "../constants/routing";
 
-export function useAllCurrencyCombinations(currencyA?: Currency, currencyB?: Currency): [Token, Token][] {
-  const chainId = currencyA?.chainId
+export function useAllCurrencyCombinations(
+  currencyA?: Currency,
+  currencyB?: Currency
+): [Token, Token][] {
+  const chainId = currencyA?.chainId;
 
-  const [tokenA, tokenB] = chainId ? [currencyA?.wrapped, currencyB?.wrapped] : [undefined, undefined]
+  const [tokenA, tokenB] = chainId
+    ? [currencyA?.wrapped, currencyB?.wrapped]
+    : [undefined, undefined];
 
   const bases: Token[] = useMemo(() => {
-    if (!chainId || chainId !== tokenB?.chainId) return []
+    if (!chainId || chainId !== tokenB?.chainId) return [];
 
-    const common = BASES_TO_CHECK_TRADES_AGAINST[chainId] ?? []
-    const additionalA = tokenA ? ADDITIONAL_BASES[chainId]?.[tokenA.address] ?? [] : []
-    const additionalB = tokenB ? ADDITIONAL_BASES[chainId]?.[tokenB.address] ?? [] : []
+    const common = BASES_TO_CHECK_TRADES_AGAINST[chainId] ?? [];
+    const additionalA = tokenA
+      ? ADDITIONAL_BASES[chainId]?.[tokenA.address] ?? []
+      : [];
+    const additionalB = tokenB
+      ? ADDITIONAL_BASES[chainId]?.[tokenB.address] ?? []
+      : [];
 
-    return [...common, ...additionalA, ...additionalB]
-  }, [chainId, tokenA, tokenB])
+    return [...common, ...additionalA, ...additionalB];
+  }, [chainId, tokenA, tokenB]);
 
   const basePairs: [Token, Token][] = useMemo(
     () =>
       bases
-        .flatMap((base): [Token, Token][] => bases.map((otherBase) => [base, otherBase]))
+        .flatMap((base): [Token, Token][] =>
+          bases.map((otherBase) => [base, otherBase])
+        )
         // though redundant with the first filter below, that expression runs more often, so this is probably worthwhile
         .filter(([t0, t1]) => !t0.equals(t1)),
     [bases]
-  )
+  );
 
   return useMemo(
     () =>
@@ -45,28 +60,43 @@ export function useAllCurrencyCombinations(currencyA?: Currency, currencyB?: Cur
             // filter out duplicate pairs
             .filter(([t0, t1], i, otherPairs) => {
               // find the first index in the array at which there are the same 2 tokens as the current
-              const firstIndexInOtherPairs = otherPairs.findIndex(([t0Other, t1Other]) => {
-                return (t0.equals(t0Other) && t1.equals(t1Other)) || (t0.equals(t1Other) && t1.equals(t0Other))
-              })
+              const firstIndexInOtherPairs = otherPairs.findIndex(
+                ([t0Other, t1Other]) => {
+                  return (
+                    (t0.equals(t0Other) && t1.equals(t1Other)) ||
+                    (t0.equals(t1Other) && t1.equals(t0Other))
+                  );
+                }
+              );
               // only accept the first occurrence of the same 2 tokens
-              return firstIndexInOtherPairs === i
+              return firstIndexInOtherPairs === i;
             })
             // optionally filter out some pairs for tokens with custom bases defined
             .filter(([tokenA, tokenB]) => {
-              if (!chainId) return true
-              const customBases = CUSTOM_BASES[chainId]
+              if (!chainId) return true;
+              const customBases = CUSTOM_BASES[chainId];
 
-              const customBasesA: Token[] | undefined = customBases?.[tokenA.address]
-              const customBasesB: Token[] | undefined = customBases?.[tokenB.address]
+              const customBasesA: Token[] | undefined =
+                customBases?.[tokenA.address];
+              const customBasesB: Token[] | undefined =
+                customBases?.[tokenB.address];
 
-              if (!customBasesA && !customBasesB) return true
+              if (!customBasesA && !customBasesB) return true;
 
-              if (customBasesA && !customBasesA.find((base) => tokenB.equals(base))) return false
-              if (customBasesB && !customBasesB.find((base) => tokenA.equals(base))) return false
+              if (
+                customBasesA &&
+                !customBasesA.find((base) => tokenB.equals(base))
+              )
+                return false;
+              if (
+                customBasesB &&
+                !customBasesB.find((base) => tokenA.equals(base))
+              )
+                return false;
 
-              return true
+              return true;
             })
         : [],
     [tokenA, tokenB, bases, basePairs, chainId]
-  )
+  );
 }

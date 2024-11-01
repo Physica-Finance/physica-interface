@@ -1,12 +1,16 @@
-import { TraceEvent } from '@uniswap/analytics'
-import { BrowserEvent, InterfaceElementName, SharedEventName } from '@uniswap/analytics-events'
-import { useIsDarkMode } from 'state/user/hooks'
-import styled from 'styled-components/macro'
-import { BREAKPOINTS, ExternalLink, StyledRouterLink } from 'theme'
+import { TraceEvent } from "@uniswap/analytics";
+import {
+  BrowserEvent,
+  InterfaceElementName,
+  SharedEventName,
+} from "@uniswap/analytics-events";
+import { useIsDarkMode } from "state/user/hooks";
+import styled from "styled-components/macro";
+import { BREAKPOINTS, ExternalLink, StyledRouterLink } from "theme";
 
-import { DiscordIcon, GithubIcon, TwitterIcon } from './Icons'
-import darkUnicornImgSrc from './images/unicornEmbossDark.png'
-import lightUnicornImgSrc from './images/unicornEmbossLight.png'
+import { DiscordIcon, GithubIcon, TwitterIcon } from "./Icons";
+import darkUnicornImgSrc from "./images/unicornEmbossDark.png";
+import lightUnicornImgSrc from "./images/unicornEmbossLight.png";
 
 const Footer = styled.div`
   display: flex;
@@ -19,12 +23,12 @@ const Footer = styled.div`
     flex-direction: row;
     justify-content: space-between;
   }
-`
+`;
 
 const LogoSection = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const LogoSectionLeft = styled(LogoSection)`
   display: none;
@@ -32,7 +36,7 @@ const LogoSectionLeft = styled(LogoSection)`
   @media screen and (min-width: ${BREAKPOINTS.lg}px) {
     display: flex;
   }
-`
+`;
 
 const LogoSectionBottom = styled(LogoSection)`
   display: flex;
@@ -40,7 +44,7 @@ const LogoSectionBottom = styled(LogoSection)`
   @media screen and (min-width: ${BREAKPOINTS.lg}px) {
     display: none;
   }
-`
+`;
 
 const StyledLogo = styled.img`
   width: 72px;
@@ -50,18 +54,18 @@ const StyledLogo = styled.img`
   @media screen and (min-width: ${BREAKPOINTS.lg}px) {
     display: block;
   }
-`
+`;
 
 const SocialLinks = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
   margin: 20px 0 0 0;
-`
+`;
 
 const SocialLink = styled.a`
   display: flex;
-`
+`;
 
 const FooterLinks = styled.div`
   display: grid;
@@ -71,7 +75,7 @@ const FooterLinks = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 24px;
   }
-`
+`;
 
 const LinkGroup = styled.div`
   display: flex;
@@ -82,59 +86,74 @@ const LinkGroup = styled.div`
   @media screen and (min-width: ${BREAKPOINTS.xl}px) {
     margin: 0;
   }
-`
+`;
 
 const LinkGroupTitle = styled.span`
   font-size: 16px;
   line-height: 20px;
   font-weight: 700;
-`
+`;
 
 const ExternalTextLink = styled(ExternalLink)`
   font-size: 16px;
   line-height: 20px;
   color: ${({ theme }) => theme.textSecondary};
-`
+`;
 
 const TextLink = styled(StyledRouterLink)`
   font-size: 16px;
   line-height: 20px;
   color: ${({ theme }) => theme.textSecondary};
-`
+`;
 
 const Copyright = styled.span`
   font-size: 16px;
   line-height: 20px;
   margin: 1rem 0 0 0;
   color: ${({ theme }) => theme.textTertiary};
-`
+`;
 
 const LogoSectionContent = () => {
-  const isDarkMode = useIsDarkMode()
+  const isDarkMode = useIsDarkMode();
   return (
     <>
-      <StyledLogo src={isDarkMode ? darkUnicornImgSrc : lightUnicornImgSrc} alt="Physica Logo" />
+      <StyledLogo
+        src={isDarkMode ? darkUnicornImgSrc : lightUnicornImgSrc}
+        alt="Physica Logo"
+      />
       <SocialLinks>
-        <SocialLink href="https://discord.gg/FCfyBSbCU5" target="_blank" rel="noopener noreferrer">
+        <SocialLink
+          href="https://discord.gg/FCfyBSbCU5"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <DiscordIcon size={32} />
         </SocialLink>
         <TraceEvent
-            events={[BrowserEvent.onClick]}
-            name={SharedEventName.ELEMENT_CLICKED}
-            element={InterfaceElementName.TWITTER_LINK}
+          events={[BrowserEvent.onClick]}
+          name={SharedEventName.ELEMENT_CLICKED}
+          element={InterfaceElementName.TWITTER_LINK}
         >
-          <SocialLink href="https://twitter.com/PhysicaFinance" target="_blank" rel="noopener noreferrer">
+          <SocialLink
+            href="https://twitter.com/PhysicaFinance"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <TwitterIcon size={32} />
           </SocialLink>
         </TraceEvent>
-        <SocialLink href="https://github.com/PhysicaFinance" target="_blank" rel="noopener noreferrer">
+        <SocialLink
+          href="https://github.com/PhysicaFinance"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <GithubIcon size={32} />
         </SocialLink>
       </SocialLinks>
       <Copyright>© {new Date().getFullYear()} Physica</Copyright>
     </>
-  )
-}
+  );
+};
 
 export const AboutFooter = () => {
   return (
@@ -153,8 +172,12 @@ export const AboutFooter = () => {
         </LinkGroup>
         <LinkGroup>
           <LinkGroupTitle>Protocol</LinkGroupTitle>
-          <ExternalTextLink href="https://physica.finance.org/community">Community</ExternalTextLink>
-          <ExternalTextLink href="https://planq.network/developers">Developers</ExternalTextLink>
+          <ExternalTextLink href="https://physica.finance.org/community">
+            Community
+          </ExternalTextLink>
+          <ExternalTextLink href="https://planq.network/developers">
+            Developers
+          </ExternalTextLink>
         </LinkGroup>
       </FooterLinks>
 
@@ -162,5 +185,5 @@ export const AboutFooter = () => {
         <LogoSectionContent />
       </LogoSectionBottom>
     </Footer>
-  )
-}
+  );
+};

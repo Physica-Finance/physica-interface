@@ -1,5 +1,5 @@
-import { CrossIcon } from 'nft/components/icons'
-import styled from 'styled-components/macro'
+import { CrossIcon } from "nft/components/icons";
+import styled from "styled-components/macro";
 
 const TraitChipWrap = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ const TraitChipWrap = styled.div`
   border-radius: 8px;
   background-color: ${({ theme }) => theme.backgroundInteractive};
   font-size: 14px;
-`
+`;
 
 const CrossIconWrap = styled.div`
   color: ${({ theme }) => theme.textSecondary};
@@ -18,9 +18,15 @@ const CrossIconWrap = styled.div`
   width: 28px;
   border: none;
   padding-top: 1px;
-`
+`;
 
-export const TraitChip = ({ onClick, value }: { value: string | JSX.Element; onClick: () => void }) => {
+export const TraitChip = ({
+  onClick,
+  value,
+}: {
+  value: string | JSX.Element;
+  onClick: () => void;
+}) => {
   return (
     <TraitChipWrap>
       <span>{value}</span>
@@ -28,5 +34,5 @@ export const TraitChip = ({ onClick, value }: { value: string | JSX.Element; onC
         <CrossIcon cursor="pointer" />
       </CrossIconWrap>
     </TraitChipWrap>
-  )
-}
+  );
+};

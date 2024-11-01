@@ -1,14 +1,14 @@
-import { Theme } from '@uniswap/widgets'
-import { darkTheme, lightTheme } from 'theme/colors'
-import { Z_INDEX } from 'theme/zIndex'
+import { Theme } from "@uniswap/widgets";
+import { darkTheme, lightTheme } from "theme/colors";
+import { Z_INDEX } from "theme/zIndex";
 
 const zIndex = {
   modal: Z_INDEX.modal,
-}
+};
 
 const fonts = {
-  fontFamily: 'Inter custom',
-}
+  fontFamily: "Inter custom",
+};
 
 export const LIGHT_THEME: Theme = {
   // surface
@@ -37,7 +37,7 @@ export const LIGHT_THEME: Theme = {
 
   ...fonts,
   zIndex,
-}
+};
 
 export const DARK_THEME: Theme = {
   // surface
@@ -65,4 +65,4 @@ export const DARK_THEME: Theme = {
 
   ...fonts,
   zIndex,
-}
+};

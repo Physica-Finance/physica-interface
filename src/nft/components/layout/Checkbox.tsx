@@ -1,16 +1,20 @@
-import clsx from 'clsx'
-import { Box } from 'nft/components/Box'
-import { ApprovedCheckmarkIcon } from 'nft/components/icons'
-import React from 'react'
+import clsx from "clsx";
+import { Box } from "nft/components/Box";
+import { ApprovedCheckmarkIcon } from "nft/components/icons";
+import React from "react";
 
-import * as styles from './Checkbox.css'
+import * as styles from "./Checkbox.css";
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  hovered: boolean
-  children: React.ReactNode
+  hovered: boolean;
+  children: React.ReactNode;
 }
 
-export const Checkbox: React.FC<CheckboxProps> = ({ hovered, children, ...props }: CheckboxProps) => {
+export const Checkbox: React.FC<CheckboxProps> = ({
+  hovered,
+  children,
+  ...props
+}: CheckboxProps) => {
   return (
     <Box
       as="label"
@@ -24,15 +28,20 @@ export const Checkbox: React.FC<CheckboxProps> = ({ hovered, children, ...props 
       {children}
       <Box
         as="span"
-        borderColor={props.checked || hovered ? 'accentAction' : 'gray400'}
+        borderColor={props.checked || hovered ? "accentAction" : "gray400"}
         className={styles.checkbox}
-        background={props.checked ? 'accentAction' : undefined}
+        background={props.checked ? "accentAction" : undefined}
         // This element is purely decorative so
         // we hide it for screen readers
         aria-hidden="true"
       />
       <input {...props} className={styles.input} type="checkbox" />
-      <ApprovedCheckmarkIcon className={clsx(styles.checkMark, props.checked && styles.checkMarkActive)} />
+      <ApprovedCheckmarkIcon
+        className={clsx(
+          styles.checkMark,
+          props.checked && styles.checkMarkActive
+        )}
+      />
     </Box>
-  )
-}
+  );
+};

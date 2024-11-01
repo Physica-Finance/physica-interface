@@ -1,34 +1,34 @@
-import { useEffect } from 'react'
-import { useAppDispatch } from 'state/hooks'
+import { useEffect } from "react";
+import { useAppDispatch } from "state/hooks";
 
-import { updateMatchesDarkMode } from './reducer'
+import { updateMatchesDarkMode } from "./reducer";
 
 export default function Updater(): null {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   // keep dark mode in sync with the system
   useEffect(() => {
     const darkHandler = (match: MediaQueryListEvent) => {
-      dispatch(updateMatchesDarkMode({ matchesDarkMode: match.matches }))
-    }
+      dispatch(updateMatchesDarkMode({ matchesDarkMode: match.matches }));
+    };
 
-    const match = window?.matchMedia('(prefers-color-scheme: dark)')
-    dispatch(updateMatchesDarkMode({ matchesDarkMode: match.matches }))
+    const match = window?.matchMedia("(prefers-color-scheme: dark)");
+    dispatch(updateMatchesDarkMode({ matchesDarkMode: match.matches }));
 
     if (match?.addListener) {
-      match?.addListener(darkHandler)
+      match?.addListener(darkHandler);
     } else if (match?.addEventListener) {
-      match?.addEventListener('change', darkHandler)
+      match?.addEventListener("change", darkHandler);
     }
 
     return () => {
       if (match?.removeListener) {
-        match?.removeListener(darkHandler)
+        match?.removeListener(darkHandler);
       } else if (match?.removeEventListener) {
-        match?.removeEventListener('change', darkHandler)
+        match?.removeEventListener("change", darkHandler);
       }
-    }
-  }, [dispatch])
+    };
+  }, [dispatch]);
 
-  return null
+  return null;
 }

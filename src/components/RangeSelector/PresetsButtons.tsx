@@ -1,29 +1,33 @@
-import { Trans } from '@lingui/macro'
-import { sendEvent } from 'components/analytics'
-import { ButtonOutlined } from 'components/Button'
-import { AutoRow } from 'components/Row'
-import React from 'react'
-import styled from 'styled-components/macro'
-import { ThemedText } from 'theme'
+import { Trans } from "@lingui/macro";
+import { sendEvent } from "components/analytics";
+import { ButtonOutlined } from "components/Button";
+import { AutoRow } from "components/Row";
+import React from "react";
+import styled from "styled-components/macro";
+import { ThemedText } from "theme";
 
 const Button = styled(ButtonOutlined).attrs(() => ({
-  padding: '8px',
-  $borderRadius: '8px',
+  padding: "8px",
+  $borderRadius: "8px",
 }))`
   color: ${({ theme }) => theme.textPrimary};
   flex: 1;
-`
+`;
 
-export default function PresetsButtons({ setFullRange }: { setFullRange: () => void }) {
+export default function PresetsButtons({
+  setFullRange,
+}: {
+  setFullRange: () => void;
+}) {
   return (
     <AutoRow gap="4px" width="auto">
       <Button
         onClick={() => {
-          setFullRange()
+          setFullRange();
           sendEvent({
-            category: 'Liquidity',
-            action: 'Full Range Clicked',
-          })
+            category: "Liquidity",
+            action: "Full Range Clicked",
+          });
         }}
       >
         <ThemedText.DeprecatedBody fontSize={12}>
@@ -31,5 +35,5 @@ export default function PresetsButtons({ setFullRange }: { setFullRange: () => v
         </ThemedText.DeprecatedBody>
       </Button>
     </AutoRow>
-  )
+  );
 }

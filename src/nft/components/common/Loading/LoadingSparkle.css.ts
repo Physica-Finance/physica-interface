@@ -1,34 +1,34 @@
-import { keyframes, style } from '@vanilla-extract/css'
+import { keyframes, style } from "@vanilla-extract/css";
 
 const pathAnim = keyframes({
-  '0%': {
-    opacity: '0.2',
+  "0%": {
+    opacity: "0.2",
   },
-  '100%': {
-    opacity: '1',
+  "100%": {
+    opacity: "1",
   },
-})
+});
 
 const pathAnimCommonProps = {
-  animationDirection: 'alternate',
-  animationTimingFunction: 'linear',
-}
+  animationDirection: "alternate",
+  animationTimingFunction: "linear",
+};
 
 export const path = style({
   selectors: {
-    '&:nth-child(1)': {
+    "&:nth-child(1)": {
       animation: `0.5s infinite ${pathAnim}`,
       ...pathAnimCommonProps,
     },
-    '&:nth-child(2)': {
+    "&:nth-child(2)": {
       animation: `0.5s infinite ${pathAnim}`,
-      animationDelay: '0.1s',
+      animationDelay: "0.1s",
       ...pathAnimCommonProps,
     },
-    '&:nth-child(3)': {
+    "&:nth-child(3)": {
       animation: `0.5s infinite ${pathAnim}`,
-      animationDelay: '0.2s',
+      animationDelay: "0.2s",
       ...pathAnimCommonProps,
     },
   },
-})
+});
