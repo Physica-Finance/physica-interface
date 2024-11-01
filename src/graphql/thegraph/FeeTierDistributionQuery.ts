@@ -12,12 +12,20 @@ const query = gql`
         number
       }
     }
-    asToken0: pools(orderBy: totalValueLockedToken0, orderDirection: desc, where: { token0: $token0, token1: $token1 }) {
+    asToken0: pools(
+      orderBy: totalValueLockedToken0
+      orderDirection: desc
+      where: { token0: $token0, token1: $token1 }
+    ) {
       feeTier
       totalValueLockedToken0
       totalValueLockedToken1
     }
-    asToken1: pools(orderBy: totalValueLockedToken0, orderDirection: desc, where: { token0: $token1, token1: $token0 }) {
+    asToken1: pools(
+      orderBy: totalValueLockedToken0
+      orderDirection: desc
+      where: { token0: $token1, token1: $token0 }
+    ) {
       feeTier
       totalValueLockedToken0
       totalValueLockedToken1
@@ -28,7 +36,7 @@ const query = gql`
 export default function useFeeTierDistributionQuery(
   token0: string | undefined,
   token1: string | undefined,
-  interval: number,
+  interval: number
 ): {
   error: ApolloError | undefined
   isLoading: boolean
@@ -53,6 +61,6 @@ export default function useFeeTierDistributionQuery(
       isLoading,
       data,
     }),
-    [data, error, isLoading],
+    [data, error, isLoading]
   )
 }

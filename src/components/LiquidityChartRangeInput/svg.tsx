@@ -41,7 +41,15 @@ export const brushHandleAccentPath = () =>
     'z',
   ].join(' ')
 
-export const OffScreenHandle = ({ color, size = 10, margin = 10 }: { color: string; size?: number; margin?: number }) => (
+export const OffScreenHandle = ({
+  color,
+  size = 10,
+  margin = 10,
+}: {
+  color: string
+  size?: number
+  margin?: number
+}) => (
   <polygon
     points={`0 0, ${size} ${size}, 0 ${size}`}
     transform={` translate(${size + margin}, ${margin}) rotate(45) `}

@@ -105,8 +105,8 @@ export default memo(function SwapRoute({ trade, syncing, fixedOpen = false, ...r
                     <Trans>Best price route costs ~{formattedGasPriceString} in gas. </Trans>
                   ) : null}{' '}
                   <Trans>
-                    This route optimizes your total output by considering split routes, multiple hops, and the gas cost of
-                    each step.
+                    This route optimizes your total output by considering split routes, multiple hops, and the gas cost
+                    of each step.
                   </Trans>
                 </ThemedText.DeprecatedMain>
               )}

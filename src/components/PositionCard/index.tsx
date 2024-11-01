@@ -57,7 +57,9 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
   const totalPoolTokens = useTotalSupply(pair.liquidityToken)
 
   const poolTokenPercentage =
-    !!userPoolBalance && !!totalPoolTokens && JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
+    !!userPoolBalance &&
+    !!totalPoolTokens &&
+    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
       ? new Percent(userPoolBalance.quotient, totalPoolTokens.quotient)
       : undefined
 
@@ -145,8 +147,8 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
               ⭐️
             </span>{' '}
             <Trans>
-              By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the pool.
-              Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
+              By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the
+              pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
             </Trans>{' '}
           </ThemedText.DeprecatedSubHeader>
         </LightCard>
@@ -170,7 +172,9 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
   const userPoolBalance = stakedBalance ? userDefaultPoolBalance?.add(stakedBalance) : userDefaultPoolBalance
 
   const poolTokenPercentage =
-    !!userPoolBalance && !!totalPoolTokens && JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
+    !!userPoolBalance &&
+    !!totalPoolTokens &&
+    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
       ? new Percent(userPoolBalance.quotient, totalPoolTokens.quotient)
       : undefined
 
@@ -298,7 +302,9 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
               </Text>
               <Text fontSize={16} fontWeight={500}>
                 {poolTokenPercentage ? (
-                  <Trans>{poolTokenPercentage.toFixed(2) === '0.00' ? '<0.01' : poolTokenPercentage.toFixed(2)} %</Trans>
+                  <Trans>
+                    {poolTokenPercentage.toFixed(2) === '0.00' ? '<0.01' : poolTokenPercentage.toFixed(2)} %
+                  </Trans>
                 ) : (
                   '-'
                 )}

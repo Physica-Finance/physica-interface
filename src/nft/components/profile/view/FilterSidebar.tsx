@@ -79,7 +79,12 @@ interface FilterSidebarProps {
   walletCollections: WalletCollection[]
 }
 
-export const FilterSidebar = ({ fetchNextPage, hasNextPage, isFetchingNextPage, walletCollections }: FilterSidebarProps) => {
+export const FilterSidebar = ({
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+  walletCollections,
+}: FilterSidebarProps) => {
   const collectionFilters = useWalletCollections((state) => state.collectionFilters)
   const setCollectionFilters = useWalletCollections((state) => state.setCollectionFilters)
 
@@ -96,7 +101,7 @@ export const FilterSidebar = ({ fetchNextPage, hasNextPage, isFetchingNextPage, 
 
   const hideSearch = useMemo(
     () => (walletCollections && walletCollections?.length >= WALLET_COLLECTIONS_PAGINATION_LIMIT) || isFetchingNextPage,
-    [walletCollections, isFetchingNextPage],
+    [walletCollections, isFetchingNextPage]
   )
 
   return (
@@ -168,7 +173,7 @@ const CollectionSelect = ({
   useEffect(() => {
     if (collectionSearchText) {
       const filtered = collections.filter((collection) =>
-        collection.name?.toLowerCase().includes(collectionSearchText.toLowerCase()),
+        collection.name?.toLowerCase().includes(collectionSearchText.toLowerCase())
       )
       setDisplayCollections(filtered)
     } else {
@@ -192,7 +197,7 @@ const CollectionSelect = ({
   // Every row is loaded except for our loading indicator row.
   const isItemLoaded = useCallback(
     (index: number) => !hasNextPage || index < displayCollections.length,
-    [displayCollections.length, hasNextPage],
+    [displayCollections.length, hasNextPage]
   )
 
   const CollectionFilterRow = useCallback(
@@ -211,7 +216,7 @@ const CollectionSelect = ({
         />
       )
     },
-    [displayCollections, isFetchingNextPage, itemKey, collectionFilters, setCollectionFilters],
+    [displayCollections, isFetchingNextPage, itemKey, collectionFilters, setCollectionFilters]
   )
 
   return (
@@ -231,7 +236,13 @@ const CollectionSelect = ({
             <AutoSizer disableWidth>
               {({ height }) => (
                 <InfiniteLoader isItemLoaded={isItemLoaded} itemCount={itemCount} loadMoreItems={loadMoreItems}>
-                  {({ onItemsRendered, ref }: { onItemsRendered: (props: ListOnItemsRenderedProps) => any; ref: any }) => (
+                  {({
+                    onItemsRendered,
+                    ref,
+                  }: {
+                    onItemsRendered: (props: ListOnItemsRenderedProps) => any
+                    ref: any
+                  }) => (
                     <FixedSizeList
                       height={height}
                       width="100%"
@@ -294,7 +305,7 @@ const CollectionItem = ({
     (address: string) => {
       return collectionFilters.some((collection) => collection === address)
     },
-    [collectionFilters],
+    [collectionFilters]
   )
   const handleCheckbox = () => {
     setCheckboxSelected(!isCheckboxSelected)

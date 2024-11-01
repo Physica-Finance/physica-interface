@@ -159,7 +159,7 @@ export default function Modal({
                 {children}
               </StyledDialogContent>
             </StyledDialogOverlay>
-          ),
+          )
       )}
     </>
   )

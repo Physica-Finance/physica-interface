@@ -158,7 +158,13 @@ interface ActionButtonProps {
   textColor: string
 }
 
-const ActionButton = ({ disabled, children, onClick, backgroundColor, textColor }: PropsWithChildren<ActionButtonProps>) => {
+const ActionButton = ({
+  disabled,
+  children,
+  onClick,
+  backgroundColor,
+  textColor,
+}: PropsWithChildren<ActionButtonProps>) => {
   return (
     <PayButton disabled={disabled} onClick={onClick} $backgroundColor={backgroundColor} $color={textColor}>
       {children}
@@ -297,7 +303,7 @@ export const BagFooter = ({ totalEthPrice, bagStatus, fetchAssets, eventProperti
   const defaultCurrency = useCurrency('ETH')
   const inputCurrencyBalance = useTokenBalance(
     account ?? undefined,
-    !!inputCurrency && inputCurrency.isToken ? inputCurrency : undefined,
+    !!inputCurrency && inputCurrency.isToken ? inputCurrency : undefined
   )
 
   const {
@@ -310,7 +316,7 @@ export const BagFooter = ({ totalEthPrice, bagStatus, fetchAssets, eventProperti
       setBagExpanded,
       setBagStatus,
     }),
-    shallow,
+    shallow
   )
 
   const [tokenSelectorOpen, setTokenSelectorOpen] = useState(false)
@@ -331,7 +337,7 @@ export const BagFooter = ({ totalEthPrice, bagStatus, fetchAssets, eventProperti
   const { allowance, isAllowancePending, isApprovalLoading, updateAllowance } = usePermit2Approval(
     trade?.inputAmount.currency.isToken ? (trade?.inputAmount as CurrencyAmount<Token>) : undefined,
     maximumAmountIn,
-    shouldUsePayWithAnyToken,
+    shouldUsePayWithAnyToken
   )
   usePayWithAnyTokenSwap(trade, allowance, allowedSlippage)
 
@@ -343,7 +349,7 @@ export const BagFooter = ({ totalEthPrice, bagStatus, fetchAssets, eventProperti
       tradeState === TradeState.SYNCING || !trade
         ? undefined
         : computeFiatValuePriceImpact(fiatValueTradeInput, fiatValueTradeOutput),
-    [fiatValueTradeInput, fiatValueTradeOutput, tradeState, trade],
+    [fiatValueTradeInput, fiatValueTradeOutput, tradeState, trade]
   )
   const { priceImpactWarning, priceImpactColor } = useMemo(() => {
     const severity = warningSeverity(stablecoinPriceImpact)
@@ -457,7 +463,9 @@ export const BagFooter = ({ totalEthPrice, bagStatus, fetchAssets, eventProperti
       } else if (sufficientBalance === true) {
         disabled = false
         buttonText = <Trans>Pay</Trans>
-        helperText = usingPayWithAnyToken ? <Trans>Refunds for unavailable items will be given in ETH</Trans> : undefined
+        helperText = usingPayWithAnyToken ? (
+          <Trans>Refunds for unavailable items will be given in ETH</Trans>
+        ) : undefined
       }
 
       return {
@@ -570,7 +578,12 @@ export const BagFooter = ({ totalEthPrice, bagStatus, fetchAssets, eventProperti
         >
           <Warning>{warningText}</Warning>
           <Helper color={helperTextColor}>{helperText}</Helper>
-          <ActionButton onClick={handleClick} disabled={disabled} backgroundColor={buttonColor} textColor={buttonTextColor}>
+          <ActionButton
+            onClick={handleClick}
+            disabled={disabled}
+            backgroundColor={buttonColor}
+            textColor={buttonTextColor}
+          >
             {isPending && <Loader size="20px" stroke="white" />}
             {buttonText}
           </ActionButton>

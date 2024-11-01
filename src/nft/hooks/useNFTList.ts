@@ -13,7 +13,11 @@ interface NFTListState {
   setListings: (listings: ListingRow[]) => void
   setCollectionsRequiringApproval: (collections: CollectionRow[]) => void
   setListingStatusAndCallback: (listing: ListingRow, status: ListingStatus, callback?: () => Promise<void>) => void
-  setCollectionStatusAndCallback: (collection: CollectionRow, status: ListingStatus, callback?: () => Promise<void>) => void
+  setCollectionStatusAndCallback: (
+    collection: CollectionRow,
+    status: ListingStatus,
+    callback?: () => Promise<void>
+  ) => void
 }
 
 export const useNFTList = create<NFTListState>()(
@@ -41,7 +45,7 @@ export const useNFTList = create<NFTListState>()(
               oldListing.asset.asset_contract.address === listing.asset.asset_contract.address &&
               oldListing.asset.tokenId === listing.asset.tokenId &&
               oldListing.marketplace.name === listing.marketplace.name &&
-              oldListing.price === listing.price,
+              oldListing.price === listing.price
           )
           const oldStatus = oldListing?.status
           const oldCallback = oldListing?.callback
@@ -73,7 +77,7 @@ export const useNFTList = create<NFTListState>()(
           const oldCollection = get().collectionsRequiringApproval.find(
             (oldCollection) =>
               oldCollection.collectionAddress === collection.collectionAddress &&
-              oldCollection.marketplace.name === collection.marketplace.name,
+              oldCollection.marketplace.name === collection.marketplace.name
           )
           const oldStatus = oldCollection?.status
           const oldCallback = oldCollection?.callback
@@ -106,7 +110,7 @@ export const useNFTList = create<NFTListState>()(
           (oldListing) =>
             oldListing.name === listing.name &&
             oldListing.price === listing.price &&
-            oldListing.marketplace.name === listing.marketplace.name,
+            oldListing.marketplace.name === listing.marketplace.name
         )
         if (oldListingIndex > -1) {
           const updatedListing = {
@@ -125,7 +129,7 @@ export const useNFTList = create<NFTListState>()(
         const collectionsCopy = [...collectionsRequiringApproval]
         const oldCollectionIndex = collectionsCopy.findIndex(
           (oldCollection) =>
-            oldCollection.name === collection.name && oldCollection.marketplace.name === collection.marketplace.name,
+            oldCollection.name === collection.name && oldCollection.marketplace.name === collection.marketplace.name
         )
         if (oldCollectionIndex > -1) {
           const updatedCollection = {
@@ -139,5 +143,5 @@ export const useNFTList = create<NFTListState>()(
           collectionsRequiringApproval: collectionsCopy,
         }
       }),
-  })),
+  }))
 )

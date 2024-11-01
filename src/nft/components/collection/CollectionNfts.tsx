@@ -39,7 +39,13 @@ import {
   UniformAspectRatio,
   UniformAspectRatios,
 } from 'nft/types'
-import { calcPoolPrice, getRarityStatus, isInSameMarketplaceCollection, isInSameSudoSwapPool, pluralize } from 'nft/utils'
+import {
+  calcPoolPrice,
+  getRarityStatus,
+  isInSameMarketplaceCollection,
+  isInSameSudoSwapPool,
+  pluralize,
+} from 'nft/utils'
 import { scrollToTop } from 'nft/utils/scrollToTop'
 import { applyFiltersFromURL, syncLocalFiltersWithURL } from 'nft/utils/urlParams'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -280,7 +286,7 @@ export const CollectionNfts = ({ contractAddress, collectionStats, rarityVerifie
   const getPoolPosition = useCallback(
     (asset: GenieAsset) => {
       const assetInBag = itemsInBag.some(
-        (item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address,
+        (item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address
       )
 
       if (asset.marketplace === Markets.Sudoswap) {
@@ -298,14 +304,14 @@ export const CollectionNfts = ({ contractAddress, collectionStats, rarityVerifie
             .findIndex((item) => item.asset.tokenId === asset.tokenId)
         : itemsInBag.filter((item) => isInSameMarketplaceCollection(asset, item.asset)).length
     },
-    [itemsInBag],
+    [itemsInBag]
   )
 
   const calculatePrice = useCallback(
     (asset: GenieAsset) => {
       return calcPoolPrice(asset, getPoolPosition(asset))
     },
-    [getPoolPosition],
+    [getPoolPosition]
   )
 
   const collectionAssets = useMemo(() => {
@@ -317,7 +323,9 @@ export const CollectionNfts = ({ contractAddress, collectionStats, rarityVerifie
 
     assets.forEach(
       (asset) =>
-        asset.marketplace && isPooledMarket(asset.marketplace) && (asset.priceInfo.ETHPrice = calculatePrice(asset) ?? '0'),
+        asset.marketplace &&
+        isPooledMarket(asset.marketplace) &&
+        (asset.priceInfo.ETHPrice = calculatePrice(asset) ?? '0')
     )
 
     if (sortBy === SortBy.HighToLow || sortBy === SortBy.LowToHigh) {
@@ -364,7 +372,7 @@ export const CollectionNfts = ({ contractAddress, collectionStats, rarityVerifie
 
   const sortDropDownOptions: DropDownOption[] = useMemo(
     () => getSortDropdownOptions(setSortBy, hasRarity),
-    [hasRarity, setSortBy],
+    [hasRarity, setSortBy]
   )
 
   useEffect(() => {
@@ -529,7 +537,11 @@ export const CollectionNfts = ({ contractAddress, collectionStats, rarityVerifie
           {sweepIsOpen && (
             <Sweep contractAddress={contractAddress} minPrice={debouncedMinPrice} maxPrice={debouncedMaxPrice} />
           )}
-          <Row paddingTop={!!markets.length || !!traits.length || minMaxPriceChipText ? '12' : '0'} gap="8" flexWrap="wrap">
+          <Row
+            paddingTop={!!markets.length || !!traits.length || minMaxPriceChipText ? '12' : '0'}
+            gap="8"
+            flexWrap="wrap"
+          >
             {markets.map((market) => (
               <TraitChip
                 key={market}

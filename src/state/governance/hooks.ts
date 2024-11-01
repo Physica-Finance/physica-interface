@@ -130,7 +130,7 @@ function useFormattedProposalCreatedLogs(
   contract: Contract | null,
   indices: number[][],
   fromBlock?: number,
-  toBlock?: number,
+  toBlock?: number
 ): FormattedProposalLog[] | undefined {
   // create filters for ProposalCreated events
   const filter = useMemo(() => {
@@ -185,7 +185,11 @@ function useFormattedProposalCreatedLogs(
         }
 
         // some proposals omit newlines
-        if (startBlock === BRAVO_START_BLOCK || startBlock === ONE_BIP_START_BLOCK || startBlock === MOONBEAN_START_BLOCK) {
+        if (
+          startBlock === BRAVO_START_BLOCK ||
+          startBlock === ONE_BIP_START_BLOCK ||
+          startBlock === MOONBEAN_START_BLOCK
+        ) {
           description = description.replace(/ {2}/g, '\n').replace(/\d\. /g, '\n$&')
         }
 
@@ -386,7 +390,8 @@ export function useUserVotesAsOfBlock(block: number | undefined): CurrencyAmount
 
   // check for available votes
   const uni = useMemo(() => (chainId ? UNI[chainId] : undefined), [chainId])
-  const votes = useSingleCallResult(uniContract, 'getPriorVotes', [account ?? undefined, block ?? undefined])?.result?.[0]
+  const votes = useSingleCallResult(uniContract, 'getPriorVotes', [account ?? undefined, block ?? undefined])
+    ?.result?.[0]
   return votes && uni ? CurrencyAmount.fromRawAmount(uni, votes) : undefined
 }
 
@@ -416,11 +421,14 @@ export function useDelegateCallback(): (delegatee: string | undefined) => undefi
           })
       })
     },
-    [account, addTransaction, chainId, provider, uniContract],
+    [account, addTransaction, chainId, provider, uniContract]
   )
 }
 
-export function useVoteCallback(): (proposalId: string | undefined, voteOption: VoteOption) => undefined | Promise<string> {
+export function useVoteCallback(): (
+  proposalId: string | undefined,
+  voteOption: VoteOption
+) => undefined | Promise<string> {
   const { account, chainId } = useWeb3React()
   const latestGovernanceContract = useLatestGovernanceContract()
   const addTransaction = useTransactionAdder()
@@ -447,7 +455,7 @@ export function useVoteCallback(): (proposalId: string | undefined, voteOption: 
           })
       })
     },
-    [account, addTransaction, latestGovernanceContract, chainId],
+    [account, addTransaction, latestGovernanceContract, chainId]
   )
 }
 
@@ -476,7 +484,7 @@ export function useQueueCallback(): (proposalId: string | undefined) => undefine
           })
       })
     },
-    [account, addTransaction, latestGovernanceContract, chainId],
+    [account, addTransaction, latestGovernanceContract, chainId]
   )
 }
 
@@ -505,12 +513,12 @@ export function useExecuteCallback(): (proposalId: string | undefined) => undefi
           })
       })
     },
-    [account, addTransaction, latestGovernanceContract, chainId],
+    [account, addTransaction, latestGovernanceContract, chainId]
   )
 }
 
 export function useCreateProposalCallback(): (
-  createProposalData: CreateProposalData | undefined,
+  createProposalData: CreateProposalData | undefined
 ) => undefined | Promise<string> {
   const { account, chainId } = useWeb3React()
   const latestGovernanceContract = useLatestGovernanceContract()
@@ -541,7 +549,7 @@ export function useCreateProposalCallback(): (
           })
       })
     },
-    [account, addTransaction, latestGovernanceContract, chainId],
+    [account, addTransaction, latestGovernanceContract, chainId]
   )
 }
 

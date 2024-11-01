@@ -124,8 +124,8 @@ const Fallback = ({ error, eventId }: { error: Error; eventId: string | null }) 
                 </Title>
                 <Description textAlign="center" color="textSecondary">
                   <Trans>
-                    Sorry, an error occured while processing your request. If you request support, be sure to provide your
-                    error ID.
+                    Sorry, an error occured while processing your request. If you request support, be sure to provide
+                    your error ID.
                   </Trans>
                 </Description>
               </Column>

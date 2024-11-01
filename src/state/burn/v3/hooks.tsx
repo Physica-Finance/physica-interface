@@ -19,7 +19,7 @@ export function useBurnV3State(): AppState['burnV3'] {
 
 export function useDerivedV3BurnInfo(
   position?: PositionDetails,
-  asWETH = false,
+  asWETH = false
 ): {
   position?: Position
   liquidityPercentage?: Percent
@@ -48,13 +48,17 @@ export function useDerivedV3BurnInfo(
             tickUpper: position.tickUpper,
           })
         : undefined,
-    [pool, position],
+    [pool, position]
   )
 
   const liquidityPercentage = new Percent(percent, 100)
 
-  const discountedAmount0 = positionSDK ? liquidityPercentage.multiply(positionSDK.amount0.quotient).quotient : undefined
-  const discountedAmount1 = positionSDK ? liquidityPercentage.multiply(positionSDK.amount1.quotient).quotient : undefined
+  const discountedAmount0 = positionSDK
+    ? liquidityPercentage.multiply(positionSDK.amount0.quotient).quotient
+    : undefined
+  const discountedAmount1 = positionSDK
+    ? liquidityPercentage.multiply(positionSDK.amount1.quotient).quotient
+    : undefined
 
   const liquidityValue0 =
     token0 && discountedAmount0
@@ -98,7 +102,7 @@ export function useBurnV3ActionHandlers(): {
     (percent: number) => {
       dispatch(selectPercent({ percent }))
     },
-    [dispatch],
+    [dispatch]
   )
 
   return {

@@ -88,7 +88,7 @@ const SearchBarDropdownSection = ({
                 ...eventProperties,
               }}
             />
-          ),
+          )
         )}
       </Column>
     </Column>
@@ -133,7 +133,7 @@ export const SearchBarDropdown = ({
         volumeType: 'eth',
         timePeriod: 'ONE_DAY' as TimePeriod,
         size: 3,
-      }),
+      })
   )
 
   const trendingCollections = useMemo(
@@ -152,7 +152,7 @@ export const SearchBarDropdown = ({
             }))
             .slice(0, isNFTPage ? 3 : 2)
         : [...Array<GenieCollection>(isNFTPage ? 3 : 2)],
-    [isNFTPage, trendingCollectionResults],
+    [isNFTPage, trendingCollectionResults]
   )
 
   const { data: trendingTokenData } = useTrendingTokens(useWeb3React().chainId)
@@ -160,7 +160,7 @@ export const SearchBarDropdown = ({
   const trendingTokensLength = isTokenPage ? 3 : 2
   const trendingTokens = useMemo(
     () => trendingTokenData?.slice(0, trendingTokensLength) ?? [...Array<SearchToken>(trendingTokensLength)],
-    [trendingTokenData, trendingTokensLength],
+    [trendingTokenData, trendingTokensLength]
   )
 
   const totalSuggestions = hasInput

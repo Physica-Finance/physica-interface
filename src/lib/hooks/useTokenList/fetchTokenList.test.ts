@@ -27,7 +27,9 @@ describe('fetchTokenList', () => {
     const url = 'example.eth'
     const contenthash = '0xD3ADB33F'
     resolver.mockResolvedValue(contenthash)
-    await expect(fetchTokenList(url, resolver)).rejects.toThrow(`failed to translate contenthash to URI: ${contenthash}`)
+    await expect(fetchTokenList(url, resolver)).rejects.toThrow(
+      `failed to translate contenthash to URI: ${contenthash}`
+    )
     expect(resolver).toHaveBeenCalledWith(url)
   })
 

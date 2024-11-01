@@ -14,13 +14,16 @@ export default function useENSAddress(ensName?: string | null): {
   address: string | null
 } {
   const debouncedName = useDebounce(ensName, 200)
-  const ensNodeArgument = useMemo(() => [debouncedName === null ? undefined : safeNamehash(debouncedName)], [debouncedName])
+  const ensNodeArgument = useMemo(
+    () => [debouncedName === null ? undefined : safeNamehash(debouncedName)],
+    [debouncedName]
+  )
   const registrarContract = useENSRegistrarContract(false)
   const resolverAddress = useSingleCallResult(registrarContract, 'resolver', ensNodeArgument)
   const resolverAddressResult = resolverAddress.result?.[0]
   const resolverContract = useENSResolverContract(
     resolverAddressResult && !isZero(resolverAddressResult) ? resolverAddressResult : undefined,
-    false,
+    false
   )
   const addr = useSingleCallResult(resolverContract, 'addr', ensNodeArgument)
 
@@ -30,6 +33,6 @@ export default function useENSAddress(ensName?: string | null): {
       address: changed ? null : addr.result?.[0] ?? null,
       loading: changed || resolverAddress.loading || addr.loading,
     }),
-    [addr.loading, addr.result, changed, resolverAddress.loading],
+    [addr.loading, addr.result, changed, resolverAddress.loading]
   )
 }

@@ -44,7 +44,7 @@ function deserializeToken(serializedToken: SerializedToken, Class: typeof Token 
     serializedToken.address,
     serializedToken.decimals,
     serializedToken.symbol,
-    serializedToken.name,
+    serializedToken.name
   )
 }
 
@@ -54,7 +54,7 @@ export function useIsDarkMode(): boolean {
       userDarkMode,
       matchesDarkMode,
     }),
-    shallowEqual,
+    shallowEqual
   )
 
   return userDarkMode === null ? matchesDarkMode : userDarkMode
@@ -83,7 +83,7 @@ export function useUserLocaleManager(): [SupportedLocale | null, (newLocale: Sup
     (newLocale: SupportedLocale) => {
       dispatch(updateUserLocale({ userLocale: newLocale }))
     },
-    [dispatch],
+    [dispatch]
   )
 
   return [locale, setLocale]
@@ -111,7 +111,7 @@ interface FiatOnrampAcknowledgements {
 }
 export function useFiatOnrampAck(): [
   FiatOnrampAcknowledgements,
-  (acknowledgements: Partial<FiatOnrampAcknowledgements>) => void,
+  (acknowledgements: Partial<FiatOnrampAcknowledgements>) => void
 ] {
   const dispatch = useAppDispatch()
   const fiatOnrampAcknowledgments = useAppSelector((state) => state.user.fiatOnrampAcknowledgments)
@@ -119,7 +119,7 @@ export function useFiatOnrampAck(): [
     (acks: Partial<FiatOnrampAcknowledgements>) => {
       dispatch(updateFiatOnrampAcknowledgments(acks))
     },
-    [dispatch],
+    [dispatch]
   )
   return [fiatOnrampAcknowledgments, setAcknowledgements]
 }
@@ -134,10 +134,10 @@ export function useClientSideRouter(): [boolean, (userClientSideRouter: boolean)
       dispatch(
         updateUserClientSideRouter({
           userClientSideRouter: newClientSideRouter,
-        }),
+        })
       )
     },
-    [dispatch],
+    [dispatch]
   )
 
   return [clientSideRouter, setClientSideRouter]
@@ -152,7 +152,7 @@ export function useUserSlippageTolerance(): [Percent | 'auto', (slippageToleranc
   })
   const userSlippageTolerance = useMemo(
     () => (userSlippageToleranceRaw === 'auto' ? 'auto' : new Percent(userSlippageToleranceRaw, 10_000)),
-    [userSlippageToleranceRaw],
+    [userSlippageToleranceRaw]
   )
 
   const dispatch = useAppDispatch()
@@ -160,20 +160,24 @@ export function useUserSlippageTolerance(): [Percent | 'auto', (slippageToleranc
     (userSlippageTolerance: Percent | 'auto') => {
       let value: 'auto' | number
       try {
-        value = userSlippageTolerance === 'auto' ? 'auto' : JSBI.toNumber(userSlippageTolerance.multiply(10_000).quotient)
+        value =
+          userSlippageTolerance === 'auto' ? 'auto' : JSBI.toNumber(userSlippageTolerance.multiply(10_000).quotient)
       } catch (error) {
         value = 'auto'
       }
       dispatch(
         updateUserSlippageTolerance({
           userSlippageTolerance: value,
-        }),
+        })
       )
     },
-    [dispatch],
+    [dispatch]
   )
 
-  return useMemo(() => [userSlippageTolerance, setUserSlippageTolerance], [setUserSlippageTolerance, userSlippageTolerance])
+  return useMemo(
+    () => [userSlippageTolerance, setUserSlippageTolerance],
+    [setUserSlippageTolerance, userSlippageTolerance]
+  )
 }
 
 export function useUserHideClosedPositions(): [boolean, (newHideClosedPositions: boolean) => void] {
@@ -186,10 +190,10 @@ export function useUserHideClosedPositions(): [boolean, (newHideClosedPositions:
       dispatch(
         updateHideClosedPositions({
           userHideClosedPositions: newHideClosedPositions,
-        }),
+        })
       )
     },
-    [dispatch],
+    [dispatch]
   )
 
   return [hideClosedPositions, setHideClosedPositions]
@@ -203,7 +207,7 @@ export function useUserSlippageToleranceWithDefault(defaultSlippageTolerance: Pe
   const allowedSlippage = useUserSlippageTolerance()[0]
   return useMemo(
     () => (allowedSlippage === 'auto' ? defaultSlippageTolerance : allowedSlippage),
-    [allowedSlippage, defaultSlippageTolerance],
+    [allowedSlippage, defaultSlippageTolerance]
   )
 }
 
@@ -218,7 +222,7 @@ export function useUserTransactionTTL(): [number, (slippage: number) => void] {
     (userDeadline: number) => {
       dispatch(updateUserDeadline({ userDeadline }))
     },
-    [dispatch],
+    [dispatch]
   )
 
   return [deadline, setUserDeadline]
@@ -230,7 +234,7 @@ export function useAddUserToken(): (token: Token) => void {
     (token: Token) => {
       dispatch(addSerializedToken({ serializedToken: serializeToken(token) }))
     },
-    [dispatch],
+    [dispatch]
   )
 }
 
@@ -264,7 +268,7 @@ export function usePairAdder(): (pair: Pair) => void {
     (pair: Pair) => {
       dispatch(addSerializedPair({ serializedPair: serializePair(pair) }))
     },
-    [dispatch],
+    [dispatch]
   )
 }
 
@@ -291,7 +295,7 @@ export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
     }),
     18,
     'UNI-V2',
-    'Uniswap V2',
+    'Uniswap V2'
   )
 }
 
@@ -327,7 +331,7 @@ export function useTrackedTokenPairs(): [Token, Token][] {
             )
           })
         : [],
-    [tokens, chainId],
+    [tokens, chainId]
   )
 
   // pairs saved by users
@@ -345,7 +349,7 @@ export function useTrackedTokenPairs(): [Token, Token][] {
 
   const combinedList = useMemo(
     () => userPairs.concat(generatedPairs).concat(pinnedPairs),
-    [generatedPairs, pinnedPairs, userPairs],
+    [generatedPairs, pinnedPairs, userPairs]
   )
 
   return useMemo(() => {

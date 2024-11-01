@@ -30,7 +30,7 @@ export function useSwapCallArguments(
   recipientAddressOrName: string | null | undefined,
   signatureData: SignatureData | null | undefined,
   deadline: BigNumber | undefined,
-  feeOptions: FeeOptions | undefined,
+  feeOptions: FeeOptions | undefined
 ): SwapCall[] {
   const { account, chainId, provider } = useWeb3React()
 

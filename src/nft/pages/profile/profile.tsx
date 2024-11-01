@@ -32,7 +32,8 @@ const LoadedAccountPage = styled.div<{
 }>`
   width: calc(
     100% -
-      ${({ cartExpanded, isOnV2ListPage }) => (isOnV2ListPage ? LIST_PAGE_MARGIN * 2 : cartExpanded ? XXXL_BAG_WIDTH : 0)}px
+      ${({ cartExpanded, isOnV2ListPage }) =>
+        isOnV2ListPage ? LIST_PAGE_MARGIN * 2 : cartExpanded ? XXXL_BAG_WIDTH : 0}px
   );
   margin: 0px ${({ isOnV2ListPage }) => (isOnV2ListPage ? LIST_PAGE_MARGIN : 0)}px;
 

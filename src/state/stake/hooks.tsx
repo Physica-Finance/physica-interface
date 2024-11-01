@@ -65,7 +65,7 @@ interface StakingInfo {
   getHypotheticalRewardRate: (
     stakedAmount: CurrencyAmount<Token>,
     totalStakedAmount: CurrencyAmount<Token>,
-    totalRewardRate: CurrencyAmount<Token>,
+    totalRewardRate: CurrencyAmount<Token>
   ) => CurrencyAmount<Token>
 }
 
@@ -85,10 +85,10 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
               : pairToFilterBy === null
               ? false
               : pairToFilterBy.involvesToken(stakingRewardInfo.tokens[0]) &&
-                pairToFilterBy.involvesToken(stakingRewardInfo.tokens[1]),
+                pairToFilterBy.involvesToken(stakingRewardInfo.tokens[1])
           ) ?? []
         : [],
-    [chainId, pairToFilterBy],
+    [chainId, pairToFilterBy]
   )
 
   const uni = chainId ? UNI[chainId] : undefined
@@ -108,14 +108,14 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     STAKING_REWARDS_INTERFACE,
     'rewardRate',
     undefined,
-    NEVER_RELOAD,
+    NEVER_RELOAD
   )
   const periodFinishes = useMultipleContractSingleData(
     rewardsAddresses,
     STAKING_REWARDS_INTERFACE,
     'periodFinish',
     undefined,
-    NEVER_RELOAD,
+    NEVER_RELOAD
   )
 
   return useMemo(() => {
@@ -158,31 +158,31 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
         const tokens = info[index].tokens
         const dummyPair = new Pair(
           CurrencyAmount.fromRawAmount(tokens[0], '0'),
-          CurrencyAmount.fromRawAmount(tokens[1], '0'),
+          CurrencyAmount.fromRawAmount(tokens[1], '0')
         )
 
         // check for account, if no account set to 0
 
         const stakedAmount = CurrencyAmount.fromRawAmount(
           dummyPair.liquidityToken,
-          JSBI.BigInt(balanceState?.result?.[0] ?? 0),
+          JSBI.BigInt(balanceState?.result?.[0] ?? 0)
         )
         const totalStakedAmount = CurrencyAmount.fromRawAmount(
           dummyPair.liquidityToken,
-          JSBI.BigInt(totalSupplyState.result?.[0]),
+          JSBI.BigInt(totalSupplyState.result?.[0])
         )
         const totalRewardRate = CurrencyAmount.fromRawAmount(uni, JSBI.BigInt(rewardRateState.result?.[0]))
 
         const getHypotheticalRewardRate = (
           stakedAmount: CurrencyAmount<Token>,
           totalStakedAmount: CurrencyAmount<Token>,
-          totalRewardRate: CurrencyAmount<Token>,
+          totalRewardRate: CurrencyAmount<Token>
         ): CurrencyAmount<Token> => {
           return CurrencyAmount.fromRawAmount(
             uni,
             JSBI.greaterThan(totalStakedAmount.quotient, JSBI.BigInt(0))
               ? JSBI.divide(JSBI.multiply(totalRewardRate.quotient, stakedAmount.quotient), totalStakedAmount.quotient)
-              : JSBI.BigInt(0),
+              : JSBI.BigInt(0)
           )
         }
 

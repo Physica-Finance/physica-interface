@@ -112,9 +112,14 @@ const WalletDropdown = ({ setMenu }: { setMenu: (state: MenuState) => void }) =>
   const allTransactions = useAllTransactions()
   const toggleWalletModal = useToggleWalletModal()
 
-  const pendingTransactions = useMemo(() => Object.values(allTransactions).filter((tx) => !tx.receipt), [allTransactions])
+  const pendingTransactions = useMemo(
+    () => Object.values(allTransactions).filter((tx) => !tx.receipt),
+    [allTransactions]
+  )
   const latestPendingTransaction =
-    pendingTransactions.length > 0 ? pendingTransactions.sort((tx1, tx2) => tx2.addedTime - tx1.addedTime)[0] : undefined
+    pendingTransactions.length > 0
+      ? pendingTransactions.sort((tx1, tx2) => tx2.addedTime - tx1.addedTime)[0]
+      : undefined
 
   return (
     <DefaultMenuWrap>

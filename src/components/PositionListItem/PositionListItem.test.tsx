@@ -11,7 +11,13 @@ jest.mock('hooks/Tokens', () => {
     ...originalModule,
     useToken: jest.fn(
       () =>
-        new uniSDK.Token(1, '0x39AA39c021dfbaE8faC545936693aC917d5E7563', 8, 'https://www.example.com', 'example.com coin'),
+        new uniSDK.Token(
+          1,
+          '0x39AA39c021dfbaE8faC545936693aC917d5E7563',
+          8,
+          'https://www.example.com',
+          'example.com coin'
+        )
     ),
   }
 })

@@ -13,6 +13,6 @@ export function useTotalSupply(token?: Currency): CurrencyAmount<Token> | undefi
 
   return useMemo(
     () => (token?.isToken && totalSupplyStr ? CurrencyAmount.fromRawAmount(token, totalSupplyStr) : undefined),
-    [token, totalSupplyStr],
+    [token, totalSupplyStr]
   )
 }

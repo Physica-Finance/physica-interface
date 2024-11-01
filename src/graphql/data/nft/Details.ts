@@ -93,7 +93,7 @@ gql`
 
 export function useNftAssetDetails(
   address: string,
-  tokenId: string,
+  tokenId: string
 ): { data: [GenieAsset, CollectionInfoForAsset]; loading: boolean } {
   const { data: queryData, loading } = useDetailsQuery({
     variables: {
@@ -175,6 +175,6 @@ export function useNftAssetDetails(
       ],
       loading,
     }),
-    [address, asset, collection, ethPrice, listing?.marketplace, loading, tokenId],
+    [address, asset, collection, ethPrice, listing?.marketplace, loading, tokenId]
   )
 }

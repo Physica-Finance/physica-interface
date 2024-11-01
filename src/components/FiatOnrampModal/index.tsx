@@ -99,8 +99,8 @@ export default function FiatOnrampModal() {
                 ...acc,
                 [currencyCode]: account,
               }),
-              {},
-            ),
+              {}
+            )
           ),
         }),
       })

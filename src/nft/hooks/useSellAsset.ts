@@ -34,13 +34,15 @@ export const useSellAsset = create<SellAssetState>()(
         set(({ sellAssets }) => {
           if (sellAssets.length === 0) return { sellAssets: [] }
           else
-            sellAssets.find((x) => asset.tokenId === x.tokenId && x.asset_contract.address === asset.asset_contract.address)
+            sellAssets.find(
+              (x) => asset.tokenId === x.tokenId && x.asset_contract.address === asset.asset_contract.address
+            )
           const assetsCopy = [...sellAssets]
           assetsCopy.splice(
             sellAssets.findIndex(
-              (n) => n.tokenId === asset.tokenId && n.asset_contract.address === asset.asset_contract.address,
+              (n) => n.tokenId === asset.tokenId && n.asset_contract.address === asset.asset_contract.address
             ),
-            1,
+            1
           )
           return { sellAssets: assetsCopy }
         })
@@ -60,7 +62,9 @@ export const useSellAsset = create<SellAssetState>()(
         set(({ sellAssets }) => {
           const assetsCopy = [...sellAssets]
           if (marketplace) {
-            const listingIndex = asset.newListings?.findIndex((listing) => listing.marketplace.name === marketplace.name)
+            const listingIndex = asset.newListings?.findIndex(
+              (listing) => listing.marketplace.name === marketplace.name
+            )
             if (asset.newListings && listingIndex != null && listingIndex > -1) {
               asset.newListings[listingIndex] = {
                 price,
@@ -76,7 +80,7 @@ export const useSellAsset = create<SellAssetState>()(
               })
           } else asset.marketAgnosticPrice = price
           const index = sellAssets.findIndex(
-            (n) => n.tokenId === asset.tokenId && n.asset_contract.address === asset.asset_contract.address,
+            (n) => n.tokenId === asset.tokenId && n.asset_contract.address === asset.asset_contract.address
           )
           assetsCopy[index] = asset
           return { sellAssets: assetsCopy }
@@ -89,7 +93,9 @@ export const useSellAsset = create<SellAssetState>()(
             asset.marketplaces = marketplaces
             asset.newListings = []
             for (const marketplace of marketplaces) {
-              const listingIndex = asset.newListings.findIndex((listing) => listing.marketplace.name === marketplace.name)
+              const listingIndex = asset.newListings.findIndex(
+                (listing) => listing.marketplace.name === marketplace.name
+              )
               const newListing = {
                 price: asset.marketAgnosticPrice,
                 marketplace,
@@ -106,7 +112,8 @@ export const useSellAsset = create<SellAssetState>()(
         set(({ sellAssets }) => {
           const assetsCopy = [...sellAssets]
           const assetIndex = sellAssets.indexOf(asset)
-          const marketplaceIndex = asset.marketplaces?.findIndex((oldMarket) => oldMarket.name === marketplace.name) ?? -1
+          const marketplaceIndex =
+            asset.marketplaces?.findIndex((oldMarket) => oldMarket.name === marketplace.name) ?? -1
           const listingIndex = asset.newListings?.findIndex((listing) => listing.marketplace.name === marketplace.name)
           const assetCopy = JSON.parse(JSON.stringify(asset))
           if (marketplaceIndex > -1) {
@@ -122,7 +129,7 @@ export const useSellAsset = create<SellAssetState>()(
           const assetsCopy = [...sellAssets]
           asset.listingWarnings?.push(warning)
           const index = sellAssets.findIndex(
-            (n) => n.tokenId === asset.tokenId && n.asset_contract.address === asset.asset_contract.address,
+            (n) => n.tokenId === asset.tokenId && n.asset_contract.address === asset.asset_contract.address
           )
           assetsCopy[index] = asset
           return { sellAssets: assetsCopy }
@@ -132,18 +139,20 @@ export const useSellAsset = create<SellAssetState>()(
         set(({ sellAssets }) => {
           const assetsCopy = [...sellAssets]
           if (asset.listingWarnings === undefined || asset.newListings === undefined) return { sellAssets: assetsCopy }
-          const warningIndex = asset.listingWarnings?.findIndex((n) => n.marketplace.name === warning.marketplace.name) ?? -1
+          const warningIndex =
+            asset.listingWarnings?.findIndex((n) => n.marketplace.name === warning.marketplace.name) ?? -1
           asset.listingWarnings?.splice(warningIndex, 1)
           if (warning?.message?.includes('LISTING BELOW FLOOR')) {
             if (setGlobalOverride) {
               asset.newListings?.forEach((listing) => (listing.overrideFloorPrice = true))
             } else {
-              const listingIndex = asset.newListings?.findIndex((n) => n.marketplace.name === warning.marketplace.name) ?? -1
+              const listingIndex =
+                asset.newListings?.findIndex((n) => n.marketplace.name === warning.marketplace.name) ?? -1
               asset.newListings[listingIndex].overrideFloorPrice = true
             }
           }
           const index = sellAssets.findIndex(
-            (n) => n.tokenId === asset.tokenId && n.asset_contract.address === asset.asset_contract.address,
+            (n) => n.tokenId === asset.tokenId && n.asset_contract.address === asset.asset_contract.address
           )
           assetsCopy[index] = asset
           return { sellAssets: assetsCopy }
@@ -162,6 +171,6 @@ export const useSellAsset = create<SellAssetState>()(
         })
       },
     }),
-    { name: 'useSelectAsset' },
-  ),
+    { name: 'useSelectAsset' }
+  )
 )

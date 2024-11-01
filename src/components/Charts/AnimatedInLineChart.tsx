@@ -17,7 +17,15 @@ const config = {
 
 // code reference: https://airbnb.io/visx/lineradial
 
-function AnimatedInLineChart<T>({ data, getX, getY, marginTop, curve, color, strokeWidth }: AnimatedInLineChartProps<T>) {
+function AnimatedInLineChart<T>({
+  data,
+  getX,
+  getY,
+  marginTop,
+  curve,
+  color,
+  strokeWidth,
+}: AnimatedInLineChartProps<T>) {
   const lineRef = useRef<SVGPathElement>(null)
   const [lineLength, setLineLength] = useState(0)
   const [shouldAnimate, setShouldAnimate] = useState(false)

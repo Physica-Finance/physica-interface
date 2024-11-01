@@ -105,7 +105,7 @@ export const Brush = ({
 
       setLocalBrushExtent(scaled)
     },
-    [xScale, brushExtent, setBrushExtent],
+    [xScale, brushExtent, setBrushExtent]
   )
 
   // keep local and external brush extent in sync
@@ -165,8 +165,10 @@ export const Brush = ({
   const showEastArrow =
     localBrushExtent && (xScale(localBrushExtent[0]) > innerWidth || xScale(localBrushExtent[1]) > innerWidth)
 
-  const westHandleInView = localBrushExtent && xScale(localBrushExtent[0]) >= 0 && xScale(localBrushExtent[0]) <= innerWidth
-  const eastHandleInView = localBrushExtent && xScale(localBrushExtent[1]) >= 0 && xScale(localBrushExtent[1]) <= innerWidth
+  const westHandleInView =
+    localBrushExtent && xScale(localBrushExtent[0]) >= 0 && xScale(localBrushExtent[0]) <= innerWidth
+  const eastHandleInView =
+    localBrushExtent && xScale(localBrushExtent[1]) >= 0 && xScale(localBrushExtent[1]) <= innerWidth
 
   return useMemo(
     () => (
@@ -266,6 +268,6 @@ export const Brush = ({
       westHandleColor,
       westHandleInView,
       xScale,
-    ],
+    ]
   )
 }

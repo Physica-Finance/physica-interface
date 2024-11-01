@@ -62,7 +62,12 @@ import { useIsSwapUnsupported } from '../../hooks/useIsSwapUnsupported'
 import { useStablecoinValue } from '../../hooks/useStablecoinPrice'
 import useWrapCallback, { WrapErrorText, WrapType } from '../../hooks/useWrapCallback'
 import { Field } from '../../state/swap/actions'
-import { useDefaultsFromURLSearch, useDerivedSwapInfo, useSwapActionHandlers, useSwapState } from '../../state/swap/hooks'
+import {
+  useDefaultsFromURLSearch,
+  useDerivedSwapInfo,
+  useSwapActionHandlers,
+  useSwapState,
+} from '../../state/swap/hooks'
 import { useExpertModeManager } from '../../state/user/hooks'
 import { LinkStyledButton, ThemedText } from '../../theme'
 import { computeFiatValuePriceImpact } from '../../utils/computeFiatValuePriceImpact'
@@ -130,7 +135,7 @@ const DetailsSwapSection = styled(SwapSection)`
 export function getIsValidSwapQuote(
   trade: InterfaceTrade<Currency, Currency, TradeType> | undefined,
   tradeState: TradeState,
-  swapInputError?: ReactNode,
+  swapInputError?: ReactNode
 ): boolean {
   return !!swapInputError && !!trade && (tradeState === TradeState.VALID || tradeState === TradeState.SYNCING)
 }
@@ -164,7 +169,7 @@ export default function Swap({ className }: { className?: string }) {
   const [dismissTokenWarning, setDismissTokenWarning] = useState<boolean>(false)
   const urlLoadedTokens: Token[] = useMemo(
     () => [loadedInputCurrency, loadedOutputCurrency]?.filter((c): c is Token => c?.isToken ?? false) ?? [],
-    [loadedInputCurrency, loadedOutputCurrency],
+    [loadedInputCurrency, loadedOutputCurrency]
   )
   const handleConfirmTokenWarning = useCallback(() => {
     setDismissTokenWarning(true)
@@ -188,7 +193,7 @@ export default function Swap({ className }: { className?: string }) {
             return shorthandTokenAddress && shorthandTokenAddress === token.address
           })
         }),
-    [chainId, defaultTokens, urlLoadedTokens],
+    [chainId, defaultTokens, urlLoadedTokens]
   )
 
   const theme = useTheme()
@@ -228,21 +233,22 @@ export default function Swap({ className }: { className?: string }) {
             [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
             [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
           },
-    [independentField, parsedAmount, showWrap, trade],
+    [independentField, parsedAmount, showWrap, trade]
   )
   const fiatValueInput = useStablecoinValue(parsedAmounts[Field.INPUT])
   const fiatValueOutput = useStablecoinValue(parsedAmounts[Field.OUTPUT])
 
   const [routeNotFound, routeIsLoading, routeIsSyncing] = useMemo(
     () => [!trade?.swaps, TradeState.LOADING === tradeState, TradeState.SYNCING === tradeState],
-    [trade, tradeState],
+    [trade, tradeState]
   )
 
   const fiatValueTradeInput = useStablecoinValue(trade?.inputAmount)
   const fiatValueTradeOutput = useStablecoinValue(trade?.outputAmount)
   const stablecoinPriceImpact = useMemo(
-    () => (routeIsSyncing || !trade ? undefined : computeFiatValuePriceImpact(fiatValueTradeInput, fiatValueTradeOutput)),
-    [fiatValueTradeInput, fiatValueTradeOutput, routeIsSyncing, trade],
+    () =>
+      routeIsSyncing || !trade ? undefined : computeFiatValuePriceImpact(fiatValueTradeInput, fiatValueTradeOutput),
+    [fiatValueTradeInput, fiatValueTradeOutput, routeIsSyncing, trade]
   )
 
   const { onSwitchTokens, onCurrencySelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
@@ -253,13 +259,13 @@ export default function Swap({ className }: { className?: string }) {
     (value: string) => {
       onUserInput(Field.INPUT, value)
     },
-    [onUserInput],
+    [onUserInput]
   )
   const handleTypeOutput = useCallback(
     (value: string) => {
       onUserInput(Field.OUTPUT, value)
     },
-    [onUserInput],
+    [onUserInput]
   )
 
   // reset if they close warning without tokens in params
@@ -290,11 +296,11 @@ export default function Swap({ className }: { className?: string }) {
         ? parsedAmounts[independentField]?.toExact() ?? ''
         : formatTransactionAmount(currencyAmountToPreciseFloat(parsedAmounts[dependentField])),
     }),
-    [dependentField, independentField, parsedAmounts, showWrap, typedValue],
+    [dependentField, independentField, parsedAmounts, showWrap, typedValue]
   )
 
   const userHasSpecifiedInputOutput = Boolean(
-    currencies[Field.INPUT] && currencies[Field.OUTPUT] && parsedAmounts[independentField]?.greaterThan(JSBI.BigInt(0)),
+    currencies[Field.INPUT] && currencies[Field.OUTPUT] && parsedAmounts[independentField]?.greaterThan(JSBI.BigInt(0))
   )
 
   const permit2Enabled = usePermit2Enabled()
@@ -305,9 +311,11 @@ export default function Swap({ className }: { className?: string }) {
   const allowance = usePermit2Allowance(
     permit2Enabled
       ? maximumAmountIn ??
-          (parsedAmounts[Field.INPUT]?.currency.isToken ? (parsedAmounts[Field.INPUT] as CurrencyAmount<Token>) : undefined)
+          (parsedAmounts[Field.INPUT]?.currency.isToken
+            ? (parsedAmounts[Field.INPUT] as CurrencyAmount<Token>)
+            : undefined)
       : undefined,
-    permit2Enabled && chainId ? UNIVERSAL_ROUTER_ADDRESS(chainId) : undefined,
+    permit2Enabled && chainId ? UNIVERSAL_ROUTER_ADDRESS(chainId) : undefined
   )
   const isApprovalLoading = allowance.state === AllowanceState.REQUIRED && allowance.isApprovalLoading
   const [isAllowancePending, setIsAllowancePending] = useState(false)
@@ -329,7 +337,10 @@ export default function Swap({ className }: { className?: string }) {
   }, [allowance, chainId, maximumAmountIn?.currency.address, maximumAmountIn?.currency.symbol])
 
   // check whether the user has approved the router on the input token
-  const [approvalState, approveCallback] = useApproveCallbackFromTrade(permit2Enabled ? undefined : trade, allowedSlippage)
+  const [approvalState, approveCallback] = useApproveCallbackFromTrade(
+    permit2Enabled ? undefined : trade,
+    allowedSlippage
+  )
   const transactionDeadline = useTransactionDeadline()
   const {
     state: signatureState,
@@ -376,7 +387,7 @@ export default function Swap({ className }: { className?: string }) {
 
   const maxInputAmount: CurrencyAmount<Currency> | undefined = useMemo(
     () => maxAmountSpend(currencyBalances[Field.INPUT]),
-    [currencyBalances],
+    [currencyBalances]
   )
   const showMaxButton = Boolean(maxInputAmount?.greaterThan(0) && !parsedAmounts[Field.INPUT]?.equalTo(maxInputAmount))
 
@@ -386,7 +397,7 @@ export default function Swap({ className }: { className?: string }) {
     allowedSlippage,
     recipient,
     signatureData,
-    allowance.state === AllowanceState.ALLOWED ? allowance.permitSignature : undefined,
+    allowance.state === AllowanceState.ALLOWED ? allowance.permitSignature : undefined
   )
 
   const handleSwap = useCallback(() => {
@@ -425,7 +436,9 @@ export default function Swap({ className }: { className?: string }) {
               : (recipientAddress ?? recipient) === account
               ? 'Swap w/o Send + recipient'
               : 'Swap w/ Send',
-          label: [TRADE_STRING, trade?.inputAmount?.currency?.symbol, trade?.outputAmount?.currency?.symbol, 'MH'].join('/'),
+          label: [TRADE_STRING, trade?.inputAmount?.currency?.symbol, trade?.outputAmount?.currency?.symbol, 'MH'].join(
+            '/'
+          ),
         })
       })
       .catch((error) => {
@@ -504,7 +517,7 @@ export default function Swap({ className }: { className?: string }) {
       setApprovalSubmitted(false) // reset 2 step UI for approvals
       onCurrencySelection(Field.INPUT, inputCurrency)
     },
-    [onCurrencySelection],
+    [onCurrencySelection]
   )
 
   const handleMaxInput = useCallback(() => {
@@ -517,7 +530,7 @@ export default function Swap({ className }: { className?: string }) {
 
   const handleOutputSelect = useCallback(
     (outputCurrency: Currency) => onCurrencySelection(Field.OUTPUT, outputCurrency),
-    [onCurrencySelection],
+    [onCurrencySelection]
   )
 
   const swapIsUnsupported = useIsSwapUnsupported(currencies[Field.INPUT], currencies[Field.OUTPUT])
@@ -535,7 +548,7 @@ export default function Swap({ className }: { className?: string }) {
       // Log swap quote.
       sendAnalyticsEvent(
         SwapEventName.SWAP_QUOTE_RECEIVED,
-        formatSwapQuoteReceivedEventProperties(trade, trade.gasUseEstimateUSD ?? undefined, fetchingSwapQuoteStartTime),
+        formatSwapQuoteReceivedEventProperties(trade, trade.gasUseEstimateUSD ?? undefined, fetchingSwapQuoteStartTime)
       )
       // Latest swap quote has just been logged, so we don't need to log the current trade anymore
       // unless user inputs change again and a new trade is in the process of being generated.
@@ -548,13 +561,20 @@ export default function Swap({ className }: { className?: string }) {
       setNewSwapQuoteNeedsLogging(true)
       if (!fetchingSwapQuoteStartTime) setFetchingSwapQuoteStartTime(now)
     }
-  }, [newSwapQuoteNeedsLogging, routeIsSyncing, routeIsLoading, fetchingSwapQuoteStartTime, trade, setSwapQuoteReceivedDate])
+  }, [
+    newSwapQuoteNeedsLogging,
+    routeIsSyncing,
+    routeIsLoading,
+    fetchingSwapQuoteStartTime,
+    trade,
+    setSwapQuoteReceivedDate,
+  ])
 
   const approveTokenButtonDisabled =
     approvalState !== ApprovalState.NOT_APPROVED || approvalSubmitted || signatureState === UseERC20PermitState.SIGNED
 
   const showDetailsDropdown = Boolean(
-    !showWrap && userHasSpecifiedInputOutput && (trade || routeIsLoading || routeIsSyncing),
+    !showWrap && userHasSpecifiedInputOutput && (trade || routeIsLoading || routeIsSyncing)
   )
 
   return (
@@ -602,7 +622,11 @@ export default function Swap({ className }: { className?: string }) {
                   <Trace section={InterfaceSectionName.CURRENCY_INPUT_PANEL}>
                     <SwapCurrencyInputPanel
                       label={
-                        independentField === Field.OUTPUT && !showWrap ? <Trans>From (at most)</Trans> : <Trans>From</Trans>
+                        independentField === Field.OUTPUT && !showWrap ? (
+                          <Trans>From (at most)</Trans>
+                        ) : (
+                          <Trans>From</Trans>
+                        )
                       }
                       value={formattedAmounts[Field.INPUT]}
                       showMaxButton={showMaxButton}
@@ -633,7 +657,9 @@ export default function Swap({ className }: { className?: string }) {
                     >
                       <ArrowDown
                         size="16"
-                        color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.textPrimary : theme.textTertiary}
+                        color={
+                          currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.textPrimary : theme.textTertiary
+                        }
                       />
                     </ArrowContainer>
                   </TraceEvent>
@@ -647,7 +673,11 @@ export default function Swap({ className }: { className?: string }) {
                         value={formattedAmounts[Field.OUTPUT]}
                         onUserInput={handleTypeOutput}
                         label={
-                          independentField === Field.INPUT && !showWrap ? <Trans>To (at least)</Trans> : <Trans>To</Trans>
+                          independentField === Field.INPUT && !showWrap ? (
+                            <Trans>To (at least)</Trans>
+                          ) : (
+                            <Trans>To</Trans>
+                          )
                         }
                         showMaxButton={false}
                         hideBalance={false}
@@ -739,7 +769,8 @@ export default function Swap({ className }: { className?: string }) {
                         >
                           <AutoRow justify="space-between" style={{ flexWrap: 'nowrap' }} height="20px">
                             {/* we need to shorten this string on mobile */}
-                            {approvalState === ApprovalState.APPROVED || signatureState === UseERC20PermitState.SIGNED ? (
+                            {approvalState === ApprovalState.APPROVED ||
+                            signatureState === UseERC20PermitState.SIGNED ? (
                               <ThemedText.SubHeader width="100%" textAlign="center" color="textSecondary">
                                 <Trans>You can now trade {currencies[Field.INPUT]?.symbol}</Trans>
                               </ThemedText.SubHeader>
@@ -788,7 +819,8 @@ export default function Swap({ className }: { className?: string }) {
                             !isValid ||
                             routeIsSyncing ||
                             routeIsLoading ||
-                            (approvalState !== ApprovalState.APPROVED && signatureState !== UseERC20PermitState.SIGNED) ||
+                            (approvalState !== ApprovalState.APPROVED &&
+                              signatureState !== UseERC20PermitState.SIGNED) ||
                             priceImpactTooHigh
                           }
                           error={isValid && priceImpactSeverity > 2}
@@ -827,8 +859,8 @@ export default function Swap({ className }: { className?: string }) {
                             <MouseoverTooltip
                               text={
                                 <Trans>
-                                  Permission is required for Physica to swap each token. This will expire after one month for
-                                  your security.
+                                  Permission is required for Physica to swap each token. This will expire after one
+                                  month for your security.
                                 </Trans>
                               }
                             >

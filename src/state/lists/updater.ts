@@ -46,7 +46,9 @@ export default function Updater(): null {
     UNSUPPORTED_LIST_URLS.forEach((listUrl) => {
       const list = lists[listUrl]
       if (!list || (!list.current && !list.loadingRequestId && !list.error)) {
-        fetchList(listUrl, /* isUnsupportedList= */ true).catch((error) => console.debug('list added fetching error', error))
+        fetchList(listUrl, /* isUnsupportedList= */ true).catch((error) =>
+          console.debug('list added fetching error', error)
+        )
       }
     })
   }, [dispatch, fetchList, lists])
@@ -68,7 +70,7 @@ export default function Updater(): null {
               dispatch(acceptListUpdate(listUrl))
             } else {
               console.error(
-                `List at url ${listUrl} could not automatically update because the version bump was only PATCH/MINOR while the update had breaking changes and should have been MAJOR`,
+                `List at url ${listUrl} could not automatically update because the version bump was only PATCH/MINOR while the update had breaking changes and should have been MAJOR`
               )
             }
             break

@@ -12,7 +12,7 @@ export function isDevelopment() {
       // 127.0.0.0/8 are considered localhost for IPv4
       self.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/) ||
       // vercel previews
-      self.location.hostname.endsWith('.vercel.app'),
+      self.location.hostname.endsWith('.vercel.app')
   )
 }
 

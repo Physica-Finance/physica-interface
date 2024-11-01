@@ -114,7 +114,7 @@ const Bag = () => {
       resetSellAssets: reset,
       sellAssets,
     }),
-    shallow,
+    shallow
   )
 
   const { profilePageState, setProfilePageState } = useProfilePageState(
@@ -122,7 +122,7 @@ const Bag = () => {
       profilePageState: state,
       setProfilePageState,
     }),
-    shallow,
+    shallow
   )
 
   const {
@@ -144,7 +144,7 @@ const Bag = () => {
       bagIsLocked: state.isLocked,
       uncheckedItemsInBag: state.itemsInBag,
     }),
-    shallow,
+    shallow
   )
   const { uncheckedItemsInBag } = useBag(({ itemsInBag }) => ({
     uncheckedItemsInBag: itemsInBag,
@@ -184,11 +184,11 @@ const Bag = () => {
         item.status !== BagItemStatus.UNAVAILABLE
           ? total.add(
               BigNumber.from(
-                item.asset.updatedPriceInfo ? item.asset.updatedPriceInfo.ETHPrice : item.asset.priceInfo.ETHPrice,
-              ),
+                item.asset.updatedPriceInfo ? item.asset.updatedPriceInfo.ETHPrice : item.asset.priceInfo.ETHPrice
+              )
             )
           : total,
-      BigNumber.from(0),
+      BigNumber.from(0)
     )
 
     return { totalEthPrice }
@@ -199,7 +199,7 @@ const Bag = () => {
     const purchaseResponse = await sendTransaction(
       provider?.getSigner(),
       itemsInBag.filter((item) => item.status !== BagItemStatus.UNAVAILABLE).map((item) => item.asset),
-      routingData,
+      routingData
     )
     if (
       purchaseResponse &&
@@ -224,7 +224,7 @@ const Bag = () => {
     const ethSellObject = buildSellObject(
       itemsToBuy
         .reduce((ethTotal, asset) => ethTotal.add(BigNumber.from(asset.priceInfo.ETHPrice)), BigNumber.from(0))
-        .toString(),
+        .toString()
     )
 
     didOpenUnavailableAssets && setDidOpenUnavailableAssets(false)
@@ -249,9 +249,13 @@ const Bag = () => {
 
             const updatedAssets = combineBuyItemsWithTxRoute(itemsToBuy, route)
 
-            const fetchedPriceChangedAssets = updatedAssets.filter((asset) => asset.updatedPriceInfo).sort(sortUpdatedAssets)
+            const fetchedPriceChangedAssets = updatedAssets
+              .filter((asset) => asset.updatedPriceInfo)
+              .sort(sortUpdatedAssets)
             const fetchedUnavailableAssets = updatedAssets.filter((asset) => asset.isUnavailable)
-            const fetchedUnchangedAssets = updatedAssets.filter((asset) => !asset.updatedPriceInfo && !asset.isUnavailable)
+            const fetchedUnchangedAssets = updatedAssets.filter(
+              (asset) => !asset.updatedPriceInfo && !asset.isUnavailable
+            )
             const hasReviewedAssets = fetchedUnchangedAssets.length > 0
             const hasAssetsInReview = fetchedPriceChangedAssets.length > 0
             const hasUnavailableAssets = fetchedUnavailableAssets.length > 0
@@ -297,12 +301,14 @@ const Bag = () => {
             toSell: [ethSellObject],
             toBuy: itemsToBuy,
             senderAddress: account ?? '',
-          }),
+          })
         )
 
         const updatedAssets = combineBuyItemsWithTxRoute(itemsToBuy, routeData.route)
 
-        const fetchedPriceChangedAssets = updatedAssets.filter((asset) => asset.updatedPriceInfo).sort(sortUpdatedAssets)
+        const fetchedPriceChangedAssets = updatedAssets
+          .filter((asset) => asset.updatedPriceInfo)
+          .sort(sortUpdatedAssets)
         const fetchedUnavailableAssets = updatedAssets.filter((asset) => asset.isUnavailable)
         const fetchedUnchangedAssets = updatedAssets.filter((asset) => !asset.updatedPriceInfo && !asset.isUnavailable)
         const hasReviewedAssets = fetchedUnchangedAssets.length > 0
@@ -383,14 +389,14 @@ const Bag = () => {
   const isSellingAssets = sellAssets.length > 0
 
   const shouldRenderEmptyState = Boolean(
-    (!isProfilePage && !isBuyingAssets && bagStatus === BagStatus.ADDING_TO_BAG) || (isProfilePage && !isSellingAssets),
+    (!isProfilePage && !isBuyingAssets && bagStatus === BagStatus.ADDING_TO_BAG) || (isProfilePage && !isSellingAssets)
   )
 
   const eventProperties = useMemo(
     () => ({
       ...formatAssetEventProperties(itemsInBag.map((item) => item.asset)),
     }),
-    [itemsInBag],
+    [itemsInBag]
   )
 
   if (!bagExpanded || !isNFTPage) {

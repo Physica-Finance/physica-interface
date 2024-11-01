@@ -48,7 +48,9 @@ export function ConfirmAddModalBottom({
           <Trans>Rates</Trans>
         </ThemedText.DeprecatedBody>
         <ThemedText.DeprecatedBody>
-          {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSignificant(4)} ${currencies[Field.CURRENCY_B]?.symbol}`}
+          {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSignificant(4)} ${
+            currencies[Field.CURRENCY_B]?.symbol
+          }`}
         </ThemedText.DeprecatedBody>
       </RowBetween>
       <RowBetween style={{ justifyContent: 'flex-end' }}>

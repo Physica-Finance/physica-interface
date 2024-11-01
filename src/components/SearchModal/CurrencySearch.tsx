@@ -116,7 +116,7 @@ export function CurrencySearch({
       otherSelectedCurrency,
       selectedCurrency,
       onlyShowCurrenciesWithBalance,
-    ],
+    ]
   )
   const isLoading = Boolean(balancesAreLoading && !tokenLoaderTimerElapsed)
 
@@ -152,7 +152,7 @@ export function CurrencySearch({
       onCurrencySelect(currency, hasWarning)
       if (!hasWarning) onDismiss()
     },
-    [onDismiss, onCurrencySelect],
+    [onDismiss, onCurrencySelect]
   )
 
   // clear the input on open
@@ -185,7 +185,7 @@ export function CurrencySearch({
         }
       }
     },
-    [debouncedQuery, native, searchCurrencies, handleCurrencySelect],
+    [debouncedQuery, native, searchCurrencies, handleCurrencySelect]
   )
 
   // menu ui
@@ -197,7 +197,7 @@ export function CurrencySearch({
   const filteredInactiveTokens = useSearchInactiveTokenLists(
     !onlyShowCurrenciesWithBalance && (filteredTokens.length === 0 || (debouncedQuery.length > 2 && !isAddressSearch))
       ? debouncedQuery
-      : undefined,
+      : undefined
   )
 
   // Timeout token loader after 3 seconds to avoid hanging in a loading state.
@@ -210,7 +210,11 @@ export function CurrencySearch({
 
   return (
     <ContentWrapper>
-      <Trace name={InterfaceEventName.TOKEN_SELECTOR_OPENED} modal={InterfaceModalName.TOKEN_SELECTOR} shouldLogImpression>
+      <Trace
+        name={InterfaceEventName.TOKEN_SELECTOR_OPENED}
+        modal={InterfaceModalName.TOKEN_SELECTOR}
+        shouldLogImpression
+      >
         <PaddedColumn gap="16px">
           <RowBetween>
             <Text fontWeight={500} fontSize={16}>
@@ -249,7 +253,13 @@ export function CurrencySearch({
               onSelect={(hasWarning: boolean) => searchToken && handleCurrencySelect(searchToken, hasWarning)}
               otherSelected={Boolean(searchToken && otherSelectedCurrency && otherSelectedCurrency.equals(searchToken))}
               showCurrencyAmount={showCurrencyAmount}
-              eventProperties={formatAnalyticsEventProperties(searchToken, 0, [searchToken], searchQuery, isAddressSearch)}
+              eventProperties={formatAnalyticsEventProperties(
+                searchToken,
+                0,
+                [searchToken],
+                searchQuery,
+                isAddressSearch
+              )}
             />
           </Column>
         ) : searchCurrencies?.length > 0 || filteredInactiveTokens?.length > 0 || isLoading ? (

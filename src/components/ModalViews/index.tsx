@@ -63,7 +63,10 @@ export function SubmittedView({
       <AutoColumn gap="100px" justify="center">
         {children}
         {chainId && hash && (
-          <ExternalLink href={getExplorerLink(chainId, hash, ExplorerDataType.TRANSACTION)} style={{ marginLeft: '4px' }}>
+          <ExternalLink
+            href={getExplorerLink(chainId, hash, ExplorerDataType.TRANSACTION)}
+            style={{ marginLeft: '4px' }}
+          >
             <ThemedText.DeprecatedSubHeader>
               <Trans>View transaction on Explorer</Trans>
             </ThemedText.DeprecatedSubHeader>

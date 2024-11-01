@@ -154,7 +154,7 @@ describe('#useBestV3Trade ExactOut', () => {
       TradeType.EXACT_OUTPUT,
       undefined,
       USDC_MAINNET,
-      RouterPreference.CLIENT,
+      RouterPreference.CLIENT
     )
     expect(mockUseClientSideV3Trade).toHaveBeenCalledWith(TradeType.EXACT_OUTPUT, DAIAmount, USDC_MAINNET)
     expect(result.current).toEqual({
@@ -174,7 +174,7 @@ describe('#useBestV3Trade ExactOut', () => {
       TradeType.EXACT_OUTPUT,
       undefined,
       USDC_MAINNET,
-      RouterPreference.CLIENT,
+      RouterPreference.CLIENT
     )
     expect(mockUseClientSideV3Trade).toHaveBeenCalledWith(TradeType.EXACT_OUTPUT, DAIAmount, USDC_MAINNET)
     expect(result.current).toEqual({

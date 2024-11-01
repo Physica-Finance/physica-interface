@@ -1,6 +1,13 @@
 import { createStore, Store } from 'redux'
 
-import reducer, { addPopup, ApplicationModal, ApplicationState, removePopup, setOpenModal, updateChainId } from './reducer'
+import reducer, {
+  addPopup,
+  ApplicationModal,
+  ApplicationState,
+  removePopup,
+  setOpenModal,
+  updateChainId,
+} from './reducer'
 
 describe('application reducer', () => {
   let store: Store<ApplicationState>

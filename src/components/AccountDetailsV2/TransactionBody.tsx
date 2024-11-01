@@ -54,7 +54,14 @@ const formatAmount = (amountRaw: string, decimals: number, sigFigs: number): str
 const FailedText = ({ transactionState }: { transactionState: TransactionState }) =>
   transactionState === TransactionState.Failed ? <Trans>failed</Trans> : <span />
 
-const FormattedCurrencyAmount = ({ rawAmount, currencyId }: { rawAmount: string; currencyId: string; sigFigs: number }) => {
+const FormattedCurrencyAmount = ({
+  rawAmount,
+  currencyId,
+}: {
+  rawAmount: string
+  currencyId: string
+  sigFigs: number
+}) => {
   const currency = useCurrency(currencyId)
 
   return currency ? (
@@ -65,7 +72,7 @@ const FormattedCurrencyAmount = ({ rawAmount, currencyId }: { rawAmount: string;
 }
 
 const getRawAmounts = (
-  info: ExactInputSwapTransactionInfo | ExactOutputSwapTransactionInfo,
+  info: ExactInputSwapTransactionInfo | ExactOutputSwapTransactionInfo
 ): { rawAmountFrom: string; rawAmountTo: string } => {
   return info.tradeType === TradeType.EXACT_INPUT
     ? {
@@ -96,7 +103,8 @@ const SwapSummary = ({
   return (
     <BodyWrap>
       <Action {...actionProps} />{' '}
-      <FormattedCurrencyAmount rawAmount={rawAmountFrom} currencyId={info.inputCurrencyId} sigFigs={2} /> <Trans>for </Trans>{' '}
+      <FormattedCurrencyAmount rawAmount={rawAmountFrom} currencyId={info.inputCurrencyId} sigFigs={2} />{' '}
+      <Trans>for </Trans>{' '}
       <FormattedCurrencyAmount rawAmount={rawAmountTo} currencyId={info.outputCurrencyId} sigFigs={2} />{' '}
       <FailedText transactionState={transactionState} />
     </BodyWrap>
@@ -206,9 +214,10 @@ const CollectFeesSummary = ({
   return (
     <BodyWrap>
       <Action {...actionProps} />{' '}
-      <FormattedCurrencyAmount rawAmount={expectedCurrencyOwed0} currencyId={currencyId0} sigFigs={2} /> <Trans>and</Trans>{' '}
-      <FormattedCurrencyAmount rawAmount={expectedCurrencyOwed1} currencyId={currencyId1} sigFigs={2} /> <Trans>fees</Trans>{' '}
-      <FailedText transactionState={transactionState} />
+      <FormattedCurrencyAmount rawAmount={expectedCurrencyOwed0} currencyId={currencyId0} sigFigs={2} />{' '}
+      <Trans>and</Trans>{' '}
+      <FormattedCurrencyAmount rawAmount={expectedCurrencyOwed1} currencyId={currencyId1} sigFigs={2} />{' '}
+      <Trans>fees</Trans> <FailedText transactionState={transactionState} />
     </BodyWrap>
   )
 }

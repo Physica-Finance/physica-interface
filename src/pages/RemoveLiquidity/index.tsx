@@ -100,7 +100,10 @@ export default function RemoveLiquidity() {
   const router = useV2RouterContract()
 
   // allowance handling
-  const { gatherPermitSignature, signatureData } = useV2LiquidityTokenPermit(parsedAmounts[Field.LIQUIDITY], router?.address)
+  const { gatherPermitSignature, signatureData } = useV2LiquidityTokenPermit(
+    parsedAmounts[Field.LIQUIDITY],
+    router?.address
+  )
   const [approval, approveCallback] = useApproveCallback(parsedAmounts[Field.LIQUIDITY], router?.address)
 
   async function onAttemptToApprove() {
@@ -127,17 +130,20 @@ export default function RemoveLiquidity() {
     (field: Field, typedValue: string) => {
       return _onUserInput(field, typedValue)
     },
-    [_onUserInput],
+    [_onUserInput]
   )
 
-  const onLiquidityInput = useCallback((typedValue: string): void => onUserInput(Field.LIQUIDITY, typedValue), [onUserInput])
+  const onLiquidityInput = useCallback(
+    (typedValue: string): void => onUserInput(Field.LIQUIDITY, typedValue),
+    [onUserInput]
+  )
   const onCurrencyAInput = useCallback(
     (typedValue: string): void => onUserInput(Field.CURRENCY_A, typedValue),
-    [onUserInput],
+    [onUserInput]
   )
   const onCurrencyBInput = useCallback(
     (typedValue: string): void => onUserInput(Field.CURRENCY_B, typedValue),
-    [onUserInput],
+    [onUserInput]
   )
 
   // tx sending
@@ -239,12 +245,12 @@ export default function RemoveLiquidity() {
           .catch((error) => {
             console.error(`estimateGas failed`, methodName, args, error)
             return undefined
-          }),
-      ),
+          })
+      )
     )
 
     const indexOfSuccessfulEstimation = safeGasEstimates.findIndex((safeGasEstimate) =>
-      BigNumber.isBigNumber(safeGasEstimate),
+      BigNumber.isBigNumber(safeGasEstimate)
     )
 
     // all estimations failed...
@@ -316,8 +322,8 @@ export default function RemoveLiquidity() {
 
         <ThemedText.DeprecatedItalic fontSize={12} color={theme.textSecondary} textAlign="left" padding="12px 0 0 0">
           <Trans>
-            Output is estimated. If the price changes by more than {allowedSlippage.toSignificant(4)}% your transaction will
-            revert.
+            Output is estimated. If the price changes by more than {allowedSlippage.toSignificant(4)}% your transaction
+            will revert.
           </Trans>
         </ThemedText.DeprecatedItalic>
       </AutoColumn>
@@ -378,7 +384,7 @@ export default function RemoveLiquidity() {
     (value: number) => {
       onUserInput(Field.LIQUIDITY_PERCENT, value.toString())
     },
-    [onUserInput],
+    [onUserInput]
   )
 
   const oneCurrencyIsETH = currencyA?.isNative || currencyB?.isNative
@@ -387,7 +393,7 @@ export default function RemoveLiquidity() {
     chainId &&
       WRAPPED_NATIVE_CURRENCY[chainId] &&
       ((currencyA && WRAPPED_NATIVE_CURRENCY[chainId]?.equals(currencyA)) ||
-        (currencyB && WRAPPED_NATIVE_CURRENCY[chainId]?.equals(currencyB))),
+        (currencyB && WRAPPED_NATIVE_CURRENCY[chainId]?.equals(currencyB)))
   )
 
   const handleSelectCurrencyA = useCallback(
@@ -398,7 +404,7 @@ export default function RemoveLiquidity() {
         navigate(`/remove/v2/${currencyId(currency)}/${currencyIdB}`)
       }
     },
-    [currencyIdA, currencyIdB, navigate],
+    [currencyIdA, currencyIdB, navigate]
   )
   const handleSelectCurrencyB = useCallback(
     (currency: Currency) => {
@@ -408,7 +414,7 @@ export default function RemoveLiquidity() {
         navigate(`/remove/v2/${currencyIdA}/${currencyId(currency)}`)
       }
     },
-    [currencyIdA, currencyIdB, navigate],
+    [currencyIdA, currencyIdB, navigate]
   )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -422,7 +428,7 @@ export default function RemoveLiquidity() {
 
   const [innerLiquidityPercentage, setInnerLiquidityPercentage] = useDebouncedChangeHandler(
     Number.parseInt(parsedAmounts[Field.LIQUIDITY_PERCENT].toFixed(0)),
-    liquidityPercentChangeCallback,
+    liquidityPercentChangeCallback
   )
 
   return (
@@ -450,8 +456,8 @@ export default function RemoveLiquidity() {
               <AutoColumn gap="10px">
                 <ThemedText.DeprecatedLink fontWeight={400} color="accentAction">
                   <Trans>
-                    <b>Tip:</b> Removing pool tokens converts your position back into underlying tokens at the current rate,
-                    proportional to your share of the pool. Accrued fees are included in the amounts you receive.
+                    <b>Tip:</b> Removing pool tokens converts your position back into underlying tokens at the current
+                    rate, proportional to your share of the pool. Accrued fees are included in the amounts you receive.
                   </Trans>
                 </ThemedText.DeprecatedLink>
               </AutoColumn>
@@ -546,7 +552,9 @@ export default function RemoveLiquidity() {
                           <StyledInternalLink
                             to={`/remove/v2/${
                               currencyA && WRAPPED_NATIVE_CURRENCY[chainId]?.equals(currencyA) ? 'ETH' : currencyIdA
-                            }/${currencyB && WRAPPED_NATIVE_CURRENCY[chainId]?.equals(currencyB) ? 'ETH' : currencyIdB}`}
+                            }/${
+                              currencyB && WRAPPED_NATIVE_CURRENCY[chainId]?.equals(currencyB) ? 'ETH' : currencyIdB
+                            }`}
                           >
                             Receive ETH
                           </StyledInternalLink>

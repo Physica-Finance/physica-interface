@@ -48,7 +48,7 @@ const { abi: V2MigratorABI } = V3MigratorJson
 export function useContract<T extends Contract = Contract>(
   addressOrAddressMap: string | { [chainId: number]: string } | undefined,
   ABI: any,
-  withSignerIfPossible = true,
+  withSignerIfPossible = true
 ): T | null {
   const { provider, account, chainId } = useWeb3React()
 
@@ -77,7 +77,11 @@ export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: b
 
 export function useWETHContract(withSignerIfPossible?: boolean) {
   const { chainId } = useWeb3React()
-  return useContract<Weth>(chainId ? WRAPPED_NATIVE_CURRENCY[chainId]?.address : undefined, WETH_ABI, withSignerIfPossible)
+  return useContract<Weth>(
+    chainId ? WRAPPED_NATIVE_CURRENCY[chainId]?.address : undefined,
+    WETH_ABI,
+    withSignerIfPossible
+  )
 }
 
 export function useERC721Contract(nftAddress?: string) {
@@ -124,7 +128,7 @@ export function useV3NFTPositionManagerContract(withSignerIfPossible?: boolean):
   return useContract<NonfungiblePositionManager>(
     NONFUNGIBLE_POSITION_MANAGER_ADDRESSES,
     NFTPositionManagerABI,
-    withSignerIfPossible,
+    withSignerIfPossible
   )
 }
 

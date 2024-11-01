@@ -11,6 +11,6 @@ export function useArgentWalletContract(): ArgentWalletContract | null {
   return useContract(
     isArgentWallet ? account ?? undefined : undefined,
     ArgentWalletContractABI,
-    true,
+    true
   ) as ArgentWalletContract
 }

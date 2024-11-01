@@ -33,6 +33,6 @@ export function useLocationLinkProps(locale: SupportedLocale | null): {
               })
             },
           },
-    [location, qs, activeLocale, locale],
+    [location, qs, activeLocale, locale]
   )
 }

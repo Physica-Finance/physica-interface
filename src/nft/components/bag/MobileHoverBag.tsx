@@ -49,7 +49,10 @@ export const MobileHoverBag = () => {
           </Box>
           <Row gap="8">
             <Box className={body}>{`${formatWeiToDecimal(totalEthPrice.toString())}`}</Box>
-            <Box color="textSecondary" className={bodySmall}>{`${ethNumberStandardFormatter(totalUsdPrice, true)}`}</Box>
+            <Box color="textSecondary" className={bodySmall}>{`${ethNumberStandardFormatter(
+              totalUsdPrice,
+              true
+            )}`}</Box>
           </Row>
         </Column>
       </Row>

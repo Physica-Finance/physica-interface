@@ -12,15 +12,22 @@ const token3 = new Token(1, '0x0000000000000000000000000000000000000003', 18)
 
 const pair12 = new Pair(
   CurrencyAmount.fromRawAmount(token1, JSBI.BigInt(10000)),
-  CurrencyAmount.fromRawAmount(token2, JSBI.BigInt(20000)),
+  CurrencyAmount.fromRawAmount(token2, JSBI.BigInt(20000))
 )
 const pair23 = new Pair(
   CurrencyAmount.fromRawAmount(token2, JSBI.BigInt(20000)),
-  CurrencyAmount.fromRawAmount(token3, JSBI.BigInt(30000)),
+  CurrencyAmount.fromRawAmount(token3, JSBI.BigInt(30000))
 )
 
 const pool12 = new Pool(token1, token2, FeeAmount.HIGH, '2437312313659959819381354528', '10272714736694327408', -69633)
-const pool13 = new Pool(token1, token3, FeeAmount.MEDIUM, '2437312313659959819381354528', '10272714736694327408', -69633)
+const pool13 = new Pool(
+  token1,
+  token3,
+  FeeAmount.MEDIUM,
+  '2437312313659959819381354528',
+  '10272714736694327408',
+  -69633
+)
 
 const currencyAmount = (token: Token, amount: number) => CurrencyAmount.fromRawAmount(token, JSBI.BigInt(amount))
 
@@ -44,8 +51,8 @@ describe('prices', () => {
             ],
             v3Routes: [],
             tradeType: TradeType.EXACT_INPUT,
-          }),
-        ),
+          })
+        )
       ).toEqual(currencyAmount(token1, 3)) // 3% realized fee
     })
 
@@ -63,8 +70,8 @@ describe('prices', () => {
             ],
             v2Routes: [],
             tradeType: TradeType.EXACT_INPUT,
-          }),
-        ),
+          })
+        )
       ).toEqual(currencyAmount(token1, 10)) // 3% realized fee
     })
 
@@ -81,8 +88,8 @@ describe('prices', () => {
             ],
             v3Routes: [],
             tradeType: TradeType.EXACT_INPUT,
-          }),
-        ),
+          })
+        )
       ).toEqual(currencyAmount(token1, 5))
     })
 
@@ -105,8 +112,8 @@ describe('prices', () => {
               },
             ],
             tradeType: TradeType.EXACT_INPUT,
-          }),
-        ),
+          })
+        )
       ).toEqual(currencyAmount(token1, 8))
     })
   })

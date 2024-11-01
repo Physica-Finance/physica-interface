@@ -24,7 +24,7 @@ export function outboundLink(
   }: {
     label: string
   },
-  hitCallback: () => unknown,
+  hitCallback: () => unknown
 ) {
   return googleAnalytics.outboundLink({ label }, hitCallback)
 }
@@ -43,7 +43,11 @@ if (typeof GOOGLE_ANALYTICS_ID === 'string') {
   })
   googleAnalytics.set({
     anonymizeIp: true,
-    customBrowserType: !isMobile ? 'desktop' : 'web3' in window || 'ethereum' in window ? 'mobileWeb3' : 'mobileRegular',
+    customBrowserType: !isMobile
+      ? 'desktop'
+      : 'web3' in window || 'ethereum' in window
+      ? 'mobileWeb3'
+      : 'mobileRegular',
   })
 } else {
   googleAnalytics.initialize('test', { gtagOptions: { debug_mode: true } })

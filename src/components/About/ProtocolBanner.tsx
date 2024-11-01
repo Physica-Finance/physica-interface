@@ -90,7 +90,9 @@ const ProtocolBanner = () => {
     <Banner isDarkMode={isDarkMode}>
       <TextContainer>
         <HeaderText>Powered by the Physica Protocol</HeaderText>
-        <DescriptionText>The leading decentralized crypto trading protocol, governed by a global community.</DescriptionText>
+        <DescriptionText>
+          The leading decentralized crypto trading protocol, governed by a global community.
+        </DescriptionText>
       </TextContainer>
       <BannerButtonContainer>
         <BannerButton width="200px" as="a" href="https://physica.finance" rel="noopener noreferrer" target="_blank">

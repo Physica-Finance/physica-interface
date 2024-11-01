@@ -96,7 +96,7 @@ const userSlice = createSlice({
           user: boolean
           system: boolean
         }>
-      },
+      }
     ) {
       state.fiatOnrampAcknowledgments = {
         ...state.fiatOnrampAcknowledgments,
@@ -168,7 +168,10 @@ const userSlice = createSlice({
       ) {
         state.userSlippageTolerance = 'auto'
       } else {
-        if (!state.userSlippageToleranceHasBeenMigratedToAuto && [10, 50, 100].indexOf(state.userSlippageTolerance) !== -1) {
+        if (
+          !state.userSlippageToleranceHasBeenMigratedToAuto &&
+          [10, 50, 100].indexOf(state.userSlippageTolerance) !== -1
+        ) {
           state.userSlippageTolerance = 'auto'
           state.userSlippageToleranceHasBeenMigratedToAuto = true
         }

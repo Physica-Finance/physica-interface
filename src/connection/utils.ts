@@ -57,7 +57,10 @@ export function getConnection(c: Connector | ConnectionType) {
   }
 }
 
-export function getConnectionName(connectionType: ConnectionType, hasMetaMaskExtension: boolean = getIsMetaMaskWallet()) {
+export function getConnectionName(
+  connectionType: ConnectionType,
+  hasMetaMaskExtension: boolean = getIsMetaMaskWallet()
+) {
   switch (connectionType) {
     case ConnectionType.INJECTED:
       return hasMetaMaskExtension ? 'MetaMask' : 'Browser Wallet'

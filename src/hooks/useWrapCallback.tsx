@@ -58,7 +58,7 @@ export function WrapErrorText({ wrapInputError }: { wrapInputError: WrapInputErr
 export default function useWrapCallback(
   inputCurrency: Currency | undefined | null,
   outputCurrency: Currency | undefined | null,
-  typedValue: string | undefined,
+  typedValue: string | undefined
 ): {
   wrapType: WrapType
   execute?: undefined | (() => Promise<void>)
@@ -70,7 +70,7 @@ export default function useWrapCallback(
   // we can always parse the amount typed as the input currency, since wrapping is 1:1
   const inputAmount = useMemo(
     () => tryParseCurrencyAmount(typedValue, inputCurrency ?? undefined),
-    [inputCurrency, typedValue],
+    [inputCurrency, typedValue]
   )
   const addTransaction = useTransactionAdder()
 

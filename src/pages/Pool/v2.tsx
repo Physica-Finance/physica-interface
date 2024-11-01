@@ -101,24 +101,24 @@ export default function Pool() {
         liquidityToken: toV2LiquidityToken(tokens),
         tokens,
       })),
-    [trackedTokenPairs],
+    [trackedTokenPairs]
   )
   const liquidityTokens = useMemo(
     () => tokenPairsWithLiquidityTokens.map((tpwlt) => tpwlt.liquidityToken),
-    [tokenPairsWithLiquidityTokens],
+    [tokenPairsWithLiquidityTokens]
   )
   const [v2PairsBalances, fetchingV2PairBalances] = useTokenBalancesWithLoadingIndicator(
     account ?? undefined,
-    liquidityTokens,
+    liquidityTokens
   )
 
   // fetch the reserves for all V2 pools in which the user has a balance
   const liquidityTokensWithBalances = useMemo(
     () =>
       tokenPairsWithLiquidityTokens.filter(({ liquidityToken }) =>
-        v2PairsBalances[liquidityToken.address]?.greaterThan('0'),
+        v2PairsBalances[liquidityToken.address]?.greaterThan('0')
       ),
-    [tokenPairsWithLiquidityTokens, v2PairsBalances],
+    [tokenPairsWithLiquidityTokens, v2PairsBalances]
   )
 
   const v2Pairs = useV2Pairs(liquidityTokensWithBalances.map(({ tokens }) => tokens))
@@ -129,7 +129,9 @@ export default function Pool() {
 
   // show liquidity even if its deposited in rewards contract
   const stakingInfo = useStakingInfo()
-  const stakingInfosWithBalance = stakingInfo?.filter((pool) => JSBI.greaterThan(pool.stakedAmount.quotient, BIG_INT_ZERO))
+  const stakingInfosWithBalance = stakingInfo?.filter((pool) =>
+    JSBI.greaterThan(pool.stakedAmount.quotient, BIG_INT_ZERO)
+  )
   const stakingPairs = useV2Pairs(stakingInfosWithBalance?.map((stakingInfo) => stakingInfo.tokens))
 
   // remove any pairs that also are included in pairs with stake in mining pool
@@ -158,8 +160,8 @@ export default function Pool() {
                 <RowBetween>
                   <ThemedText.DeprecatedWhite fontSize={14}>
                     <Trans>
-                      Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are
-                      added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
+                      Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees
+                      are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
                     </Trans>
                   </ThemedText.DeprecatedWhite>
                 </RowBetween>
@@ -251,7 +253,7 @@ export default function Pool() {
                             pair={stakingPair[1]}
                             stakedBalance={stakingInfosWithBalance[i].stakedAmount}
                           />
-                        ),
+                        )
                     )}
                     <RowFixed justify="center" style={{ width: '100%' }}>
                       <ButtonOutlined

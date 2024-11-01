@@ -87,7 +87,9 @@ export function useSyncWidgetTransactions() {
           token_in_symbol: transactionAmount.currency.symbol,
           token_out_symbol: transactionAmount.currency.wrapped.symbol,
           chain_id: transactionAmount.currency.chainId,
-          amount: transactionAmount ? formatToDecimal(transactionAmount, transactionAmount?.currency.decimals) : undefined,
+          amount: transactionAmount
+            ? formatToDecimal(transactionAmount, transactionAmount?.currency.decimals)
+            : undefined,
           type: type === WidgetTransactionType.WRAP ? TransactionType.WRAP : TransactionType.UNWRAP,
           ...trace,
         }
@@ -133,7 +135,7 @@ export function useSyncWidgetTransactions() {
         }
       }
     },
-    [addTransaction, chainId, trace],
+    [addTransaction, chainId, trace]
   )
 
   const onTxSuccess: OnTxSuccess = useCallback((hash: string, tx) => {
@@ -148,7 +150,7 @@ export function useSyncWidgetTransactions() {
           blockNumber: tx.receipt?.blockNumber,
           allowedSlippage: slippageTolerance,
           succeeded: tx.receipt?.status === 1,
-        }),
+        })
       )
     }
   }, [])

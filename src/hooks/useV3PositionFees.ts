@@ -14,10 +14,11 @@ const MAX_UINT128 = BigNumber.from(2).pow(128).sub(1)
 export function useV3PositionFees(
   pool?: Pool,
   tokenId?: BigNumber,
-  asWETH = false,
+  asWETH = false
 ): [CurrencyAmount<Currency>, CurrencyAmount<Currency>] | [undefined, undefined] {
   const positionManager = useV3NFTPositionManagerContract(false)
-  const owner: string | undefined = useSingleCallResult(tokenId ? positionManager : null, 'ownerOf', [tokenId]).result?.[0]
+  const owner: string | undefined = useSingleCallResult(tokenId ? positionManager : null, 'ownerOf', [tokenId])
+    .result?.[0]
 
   const tokenIdHexString = tokenId?.toHexString()
   const latestBlockNumber = useBlockNumber()
@@ -35,7 +36,7 @@ export function useV3PositionFees(
             amount0Max: MAX_UINT128,
             amount1Max: MAX_UINT128,
           },
-          { from: owner }, // need to simulate the call as the owner
+          { from: owner } // need to simulate the call as the owner
         )
         .then((results) => {
           setAmounts([results.amount0, results.amount1])

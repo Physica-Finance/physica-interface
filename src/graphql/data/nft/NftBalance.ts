@@ -15,7 +15,14 @@ gql`
     $last: Int
     $before: String
   ) {
-    nftBalances(ownerAddress: $ownerAddress, filter: $filter, first: $first, after: $after, last: $last, before: $before) {
+    nftBalances(
+      ownerAddress: $ownerAddress
+      filter: $filter
+      first: $first
+      after: $after
+      last: $last
+      before: $before
+    ) {
       edges {
         node {
           ownedAsset {
@@ -103,7 +110,7 @@ export function useNftBalance(
   first?: number,
   after?: string,
   last?: number,
-  before?: string,
+  before?: string
 ) {
   const { data, loading, fetchMore } = useNftBalanceQuery({
     variables: {
@@ -131,7 +138,7 @@ export function useNftBalance(
           after: data?.nftBalances?.pageInfo?.endCursor,
         },
       }),
-    [data?.nftBalances?.pageInfo?.endCursor, fetchMore],
+    [data?.nftBalances?.pageInfo?.endCursor, fetchMore]
   )
 
   const walletAssets: WalletAsset[] | undefined = data?.nftBalances?.edges?.map((queryAsset) => {

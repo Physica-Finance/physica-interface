@@ -44,13 +44,17 @@ const formatRoutesEventProperties = (routes: RoutingDiagramEntry[]) => {
   routes.forEach((route, index) => {
     routesEventProperties['routes_percentages'].push(formatPercentNumber(route.percent))
     routesEventProperties['routes_protocols'].push(route.protocol)
-    routesEventProperties[`route_${index}_input_currency_symbols`] = route.path.map((pathStep) => pathStep[0].symbol ?? '')
-    routesEventProperties[`route_${index}_output_currency_symbols`] = route.path.map((pathStep) => pathStep[1].symbol ?? '')
+    routesEventProperties[`route_${index}_input_currency_symbols`] = route.path.map(
+      (pathStep) => pathStep[0].symbol ?? ''
+    )
+    routesEventProperties[`route_${index}_output_currency_symbols`] = route.path.map(
+      (pathStep) => pathStep[1].symbol ?? ''
+    )
     routesEventProperties[`route_${index}_input_currency_addresses`] = route.path.map((pathStep) =>
-      getTokenAddress(pathStep[0]),
+      getTokenAddress(pathStep[0])
     )
     routesEventProperties[`route_${index}_output_currency_addresses`] = route.path.map((pathStep) =>
-      getTokenAddress(pathStep[1]),
+      getTokenAddress(pathStep[1])
     )
     routesEventProperties[`route_${index}_fee_amounts_hundredths_of_bps`] = route.path.map((pathStep) => pathStep[2])
   })

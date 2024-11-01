@@ -44,8 +44,8 @@ export default function ProposalEmptyState() {
         HeaderContent={() => <Trans>Please connect to Layer 1 Ethereum</Trans>}
         SubHeaderContent={() => (
           <Trans>
-            Physica governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and
-            Vote.
+            Physica governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals
+            and Vote.
           </Trans>
         )}
       />

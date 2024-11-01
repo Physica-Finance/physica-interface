@@ -11,13 +11,13 @@ export default function useSwapApproval(
   trade: Trade<Currency, Currency, TradeType> | undefined,
   allowedSlippage: Percent,
   useIsPendingApproval: (token?: Token, spender?: string) => boolean,
-  amount?: CurrencyAmount<Currency>, // defaults to trade.maximumAmountIn(allowedSlippage)
+  amount?: CurrencyAmount<Currency> // defaults to trade.maximumAmountIn(allowedSlippage)
 ) {
   const { chainId } = useWeb3React()
 
   const amountToApprove = useMemo(
     () => amount || (trade && trade.inputAmount.currency.isToken ? trade.maximumAmountIn(allowedSlippage) : undefined),
-    [amount, trade, allowedSlippage],
+    [amount, trade, allowedSlippage]
   )
   const spender = chainId ? SWAP_ROUTER_ADDRESSES[chainId] : undefined
 

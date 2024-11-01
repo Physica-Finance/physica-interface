@@ -58,7 +58,7 @@ function searchTokenSortFunction(
   searchChain: Chain,
   wrappedNativeAddress: string | undefined,
   a: SearchToken,
-  b: SearchToken,
+  b: SearchToken
 ) {
   if (a.standard === 'NATIVE') {
     if (b.standard === 'NATIVE') {
@@ -90,7 +90,7 @@ export function useSearchTokens(searchQuery: string, chainId: number) {
       }
     })
     return Object.values(selectionMap).sort(
-      searchTokenSortFunction.bind(null, searchChain, WRAPPED_NATIVE_CURRENCY[chainId]?.address),
+      searchTokenSortFunction.bind(null, searchChain, WRAPPED_NATIVE_CURRENCY[chainId]?.address)
     )
   }, [data, chainId])
 

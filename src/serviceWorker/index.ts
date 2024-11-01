@@ -33,7 +33,7 @@ const { assets, entries } = self.__WB_MANIFEST.reduce<{
       return { entries, assets: [...assets, toURL(entry)] }
     }
   },
-  { assets: [], entries: [] },
+  { assets: [], entries: [] }
 )
 
 // Registers the assets' routes for on-demand caching.
@@ -43,8 +43,8 @@ registerRoute(
     new CacheFirst({
       cacheName: 'assets',
       plugins: [new ExpirationPlugin({ maxEntries: 16 })],
-    }),
-  ),
+    })
+  )
 )
 
 // Precaches entries and registers a default route to serve them.

@@ -14,10 +14,11 @@ export const useMarketplaceSelect = create<State>()(
       options: [],
       select: (option) =>
         set(({ options }) => {
-          if (options.find((o) => option.name === o.name)) return { options: options.filter((x) => x.name !== option.name) }
+          if (options.find((o) => option.name === o.name))
+            return { options: options.filter((x) => x.name !== option.name) }
           else return { options: [...options, option] }
         }),
     }),
-    { name: 'useMarketplaceSelect' },
-  ),
+    { name: 'useMarketplaceSelect' }
+  )
 )

@@ -61,7 +61,7 @@ const CreateProposalButton = ({
   const formattedProposalThreshold = proposalThreshold
     ? JSBI.divide(
         proposalThreshold.quotient,
-        JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(proposalThreshold.currency.decimals)),
+        JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(proposalThreshold.currency.decimals))
       ).toLocaleString()
     : undefined
 
@@ -125,7 +125,7 @@ export default function CreateProposal() {
     (proposalAction: ProposalAction) => {
       setProposalAction(proposalAction)
     },
-    [setProposalAction],
+    [setProposalAction]
   )
 
   const handleDismissActionSelector = useCallback(() => {
@@ -141,35 +141,35 @@ export default function CreateProposal() {
     (toAddress: string) => {
       setToAddressValue(toAddress)
     },
-    [setToAddressValue],
+    [setToAddressValue]
   )
 
   const handleCurrencySelect = useCallback(
     (currency: Currency) => {
       setCurrencyValue(currency)
     },
-    [setCurrencyValue],
+    [setCurrencyValue]
   )
 
   const handleAmountInput = useCallback(
     (amount: string) => {
       setAmountValue(amount)
     },
-    [setAmountValue],
+    [setAmountValue]
   )
 
   const handleTitleInput = useCallback(
     (title: string) => {
       setTitleValue(title)
     },
-    [setTitleValue],
+    [setTitleValue]
   )
 
   const handleBodyInput = useCallback(
     (body: string) => {
       setBodyValue(body)
     },
-    [setBodyValue],
+    [setBodyValue]
   )
 
   const isFormInvalid = useMemo(
@@ -180,13 +180,13 @@ export default function CreateProposal() {
           !currencyValue?.isToken ||
           amountValue === '' ||
           titleValue === '' ||
-          bodyValue === '',
+          bodyValue === ''
       ),
-    [proposalAction, toAddressValue, currencyValue, amountValue, titleValue, bodyValue],
+    [proposalAction, toAddressValue, currencyValue, amountValue, titleValue, bodyValue]
   )
 
   const hasEnoughVote = Boolean(
-    availableVotes && proposalThreshold && JSBI.greaterThanOrEqual(availableVotes.quotient, proposalThreshold.quotient),
+    availableVotes && proposalThreshold && JSBI.greaterThanOrEqual(availableVotes.quotient, proposalThreshold.quotient)
   )
 
   const createProposalCallback = useCreateProposalCallback()
@@ -248,9 +248,9 @@ ${bodyValue}
               <AutoColumn gap="10px">
                 <ThemedText.DeprecatedLink fontWeight={400} color="accentAction">
                   <Trans>
-                    <strong>Tip:</strong> Select an action and describe your proposal for the community. The proposal cannot
-                    be modified after submission, so please verify all information before submitting. The voting period will
-                    begin immediately and last for 7 days. To propose a custom action,{' '}
+                    <strong>Tip:</strong> Select an action and describe your proposal for the community. The proposal
+                    cannot be modified after submission, so please verify all information before submitting. The voting
+                    period will begin immediately and last for 7 days. To propose a custom action,{' '}
                     <ExternalLink href="https://docs.planq.network/protocol/reference/Governance/governance-reference#propose">
                       read the docs
                     </ExternalLink>
@@ -279,7 +279,8 @@ ${bodyValue}
             <CreateProposalButton
               proposalThreshold={proposalThreshold}
               hasActiveOrPendingProposal={
-                latestProposalData?.status === ProposalState.ACTIVE || latestProposalData?.status === ProposalState.PENDING
+                latestProposalData?.status === ProposalState.ACTIVE ||
+                latestProposalData?.status === ProposalState.PENDING
               }
               hasEnoughVote={hasEnoughVote}
               isFormInvalid={isFormInvalid}

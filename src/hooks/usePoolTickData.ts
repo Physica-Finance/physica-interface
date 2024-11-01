@@ -38,7 +38,7 @@ function useTicksFromTickLens(
   currencyA: Currency | undefined,
   currencyB: Currency | undefined,
   feeAmount: FeeAmount | undefined,
-  numSurroundingTicks: number | undefined = 125,
+  numSurroundingTicks: number | undefined = 125
 ) {
   const [tickDataLatestSynced, setTickDataLatestSynced] = useState<TickData[]>([])
 
@@ -58,20 +58,22 @@ function useTicksFromTickLens(
           currencyB?.wrapped,
           feeAmount,
           undefined,
-          chainId ? V3_CORE_FACTORY_ADDRESSES[chainId] : undefined,
+          chainId ? V3_CORE_FACTORY_ADDRESSES[chainId] : undefined
         )
       : undefined
 
   // it is also possible to grab all tick data but it is extremely slow
   // bitmapIndex(nearestUsableTick(TickMath.MIN_TICK, tickSpacing), tickSpacing)
   const minIndex = useMemo(
-    () => (tickSpacing && activeTick ? bitmapIndex(activeTick - numSurroundingTicks * tickSpacing, tickSpacing) : undefined),
-    [tickSpacing, activeTick, numSurroundingTicks],
+    () =>
+      tickSpacing && activeTick ? bitmapIndex(activeTick - numSurroundingTicks * tickSpacing, tickSpacing) : undefined,
+    [tickSpacing, activeTick, numSurroundingTicks]
   )
 
   const maxIndex = useMemo(
-    () => (tickSpacing && activeTick ? bitmapIndex(activeTick + numSurroundingTicks * tickSpacing, tickSpacing) : undefined),
-    [tickSpacing, activeTick, numSurroundingTicks],
+    () =>
+      tickSpacing && activeTick ? bitmapIndex(activeTick + numSurroundingTicks * tickSpacing, tickSpacing) : undefined,
+    [tickSpacing, activeTick, numSurroundingTicks]
   )
 
   const tickLensArgs: [string, number][] = useMemo(
@@ -82,7 +84,7 @@ function useTicksFromTickLens(
             .map((_, i) => i + minIndex)
             .map((wordIndex) => [poolAddress, wordIndex])
         : [],
-    [minIndex, maxIndex, poolAddress],
+    [minIndex, maxIndex, poolAddress]
   )
 
   const tickLens = useTickLens()
@@ -90,7 +92,7 @@ function useTicksFromTickLens(
     tickLensArgs.length > 0 ? tickLens : undefined,
     'getPopulatedTicksInWord',
     tickLensArgs,
-    REFRESH_FREQUENCY,
+    REFRESH_FREQUENCY
   )
 
   const isError = useMemo(() => callStates.some(({ error }) => error), [callStates])
@@ -112,9 +114,9 @@ function useTicksFromTickLens(
               }
             }) ?? []),
           ],
-          [],
+          []
         ),
-    [callStates],
+    [callStates]
   )
 
   // reset on input change
@@ -137,7 +139,7 @@ function useTicksFromTickLens(
       isValid,
       tickData: tickDataLatestSynced,
     }),
-    [isLoading, IsSyncing, isError, isValid, tickDataLatestSynced],
+    [isLoading, IsSyncing, isError, isValid, tickDataLatestSynced]
   )
 }
 
@@ -145,7 +147,7 @@ function useTicksFromSubgraph(
   currencyA: Currency | undefined,
   currencyB: Currency | undefined,
   feeAmount: FeeAmount | undefined,
-  skip = 0,
+  skip = 0
 ) {
   const { chainId } = useWeb3React()
   const poolAddress =
@@ -155,7 +157,7 @@ function useTicksFromSubgraph(
           currencyB?.wrapped,
           feeAmount,
           undefined,
-          chainId ? V3_CORE_FACTORY_ADDRESSES[chainId] : undefined,
+          chainId ? V3_CORE_FACTORY_ADDRESSES[chainId] : undefined
         )
       : undefined
 
@@ -167,7 +169,7 @@ const MAX_THE_GRAPH_TICK_FETCH_VALUE = 1000
 function useAllV3Ticks(
   currencyA: Currency | undefined,
   currencyB: Currency | undefined,
-  feeAmount: FeeAmount | undefined,
+  feeAmount: FeeAmount | undefined
 ): {
   isLoading: boolean
   error: unknown
@@ -183,7 +185,7 @@ function useAllV3Ticks(
     useSubgraph ? currencyA : undefined,
     currencyB,
     feeAmount,
-    skipNumber,
+    skipNumber
   )
 
   useEffect(() => {
@@ -196,7 +198,9 @@ function useAllV3Ticks(
   }, [data?.ticks])
 
   return {
-    isLoading: useSubgraph ? isLoading || data?.ticks.length === MAX_THE_GRAPH_TICK_FETCH_VALUE : tickLensTickData.isLoading,
+    isLoading: useSubgraph
+      ? isLoading || data?.ticks.length === MAX_THE_GRAPH_TICK_FETCH_VALUE
+      : tickLensTickData.isLoading,
     error: useSubgraph ? error : tickLensTickData.isError,
     ticks: useSubgraph ? subgraphTickData : tickLensTickData.tickData,
   }
@@ -205,7 +209,7 @@ function useAllV3Ticks(
 export function usePoolActiveLiquidity(
   currencyA: Currency | undefined,
   currencyB: Currency | undefined,
-  feeAmount: FeeAmount | undefined,
+  feeAmount: FeeAmount | undefined
 ): {
   isLoading: boolean
   error: any

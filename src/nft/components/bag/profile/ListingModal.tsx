@@ -60,7 +60,7 @@ const ListingModal = () => {
       collectionsRequiringApproval,
       listings,
     }),
-    shallow,
+    shallow
   )
   const signer = provider?.getSigner()
   const [openIndex, setOpenIndex] = useState(0)
@@ -97,7 +97,7 @@ const ListingModal = () => {
   useEffect(() => {
     collectionsRequiringApproval?.length &&
       setAllCollectionsApproved(
-        collectionsRequiringApproval.every((collection: CollectionRow) => collection.status === ListingStatus.APPROVED),
+        collectionsRequiringApproval.every((collection: CollectionRow) => collection.status === ListingStatus.APPROVED)
       )
     if (
       allCollectionsApproved &&
@@ -115,16 +115,16 @@ const ListingModal = () => {
     () =>
       collectionsRequiringApproval.every(
         (collection: CollectionRow) =>
-          collection.status === ListingStatus.APPROVED || collection.status === ListingStatus.PAUSED,
+          collection.status === ListingStatus.APPROVED || collection.status === ListingStatus.PAUSED
       ),
-    [collectionsRequiringApproval],
+    [collectionsRequiringApproval]
   )
   const allListingsApprovedOrPaused = useMemo(
     () =>
       listings.every(
-        (listing: ListingRow) => listing.status === ListingStatus.APPROVED || listing.status === ListingStatus.PAUSED,
+        (listing: ListingRow) => listing.status === ListingStatus.APPROVED || listing.status === ListingStatus.PAUSED
       ),
-    [listings],
+    [listings]
   )
 
   // go back to a ready state after a successful retry
@@ -173,7 +173,7 @@ const ListingModal = () => {
           getLooksRareNonce,
           setLooksRareNonce,
           setListingStatusAndCallback,
-          pauseAllRows,
+          pauseAllRows
         ))
     }
     const allListingsSigned = listings.every((listing: ListingRow) => listing.status === ListingStatus.APPROVED)
@@ -270,7 +270,7 @@ const ListingModal = () => {
             <>
               <ListingSection
                 sectionTitle={`Approve ${collectionsRequiringApproval.length} collection${pluralize(
-                  collectionsRequiringApproval.length,
+                  collectionsRequiringApproval.length
                 )}`}
                 title="COLLECTIONS"
                 rows={collectionsRequiringApproval}

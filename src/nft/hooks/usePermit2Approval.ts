@@ -10,13 +10,13 @@ import invariant from 'tiny-invariant'
 export default function usePermit2Approval(
   amount?: CurrencyAmount<Token>,
   maximumAmount?: CurrencyAmount<Token>,
-  enabled?: boolean,
+  enabled?: boolean
 ) {
   const { chainId } = useWeb3React()
 
   const allowance = usePermit2Allowance(
     enabled ? maximumAmount ?? (amount?.currency.isToken ? (amount as CurrencyAmount<Token>) : undefined) : undefined,
-    enabled && chainId ? UNIVERSAL_ROUTER_ADDRESS(chainId) : undefined,
+    enabled && chainId ? UNIVERSAL_ROUTER_ADDRESS(chainId) : undefined
   )
   const isApprovalLoading = allowance.state === AllowanceState.REQUIRED && allowance.isApprovalLoading
   const [isAllowancePending, setIsAllowancePending] = useState(false)

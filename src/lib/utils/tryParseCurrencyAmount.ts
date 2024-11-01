@@ -8,7 +8,7 @@ import JSBI from 'jsbi'
  */
 export default function tryParseCurrencyAmount<T extends Currency>(
   value?: string,
-  currency?: T,
+  currency?: T
 ): CurrencyAmount<T> | undefined {
   if (!value || !currency) {
     return undefined

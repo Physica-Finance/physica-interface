@@ -21,7 +21,7 @@ export function useSwapCallback(
   allowedSlippage: Percent, // in bips
   recipientAddressOrName: string | null, // the ENS name or address of the recipient of the trade, or null if swap should be returned to sender
   signatureData: SignatureData | undefined | null,
-  permitSignature: PermitSignature | undefined,
+  permitSignature: PermitSignature | undefined
 ): {
   state: SwapCallbackState
   callback: null | (() => Promise<string>)
@@ -79,7 +79,7 @@ export function useSwapCallback(
                 outputCurrencyId: currencyId(trade.outputAmount.currency),
                 outputCurrencyAmountRaw: trade.outputAmount.quotient.toString(),
                 expectedInputCurrencyAmountRaw: trade.inputAmount.quotient.toString(),
-              },
+              }
         )
         return response.hash
       })

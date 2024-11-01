@@ -44,7 +44,7 @@ const ArrowWrapper = styled.div`
 const formatAnalyticsEventProperties = (
   trade: InterfaceTrade<Currency, Currency, TradeType>,
   priceUpdate: number | undefined,
-  response: SwapPriceUpdateUserResponse,
+  response: SwapPriceUpdateUserResponse
 ) => ({
   chain_id:
     trade.inputAmount.currency.chainId === trade.outputAmount.currency.chainId
@@ -92,7 +92,7 @@ export default function SwapModalHeader({
     if (shouldLogModalCloseEvent && showAcceptChanges)
       sendAnalyticsEvent(
         SwapEventName.SWAP_PRICE_UPDATE_ACKNOWLEDGED,
-        formatAnalyticsEventProperties(trade, priceUpdate, SwapPriceUpdateUserResponse.REJECTED),
+        formatAnalyticsEventProperties(trade, priceUpdate, SwapPriceUpdateUserResponse.REJECTED)
       )
     setShouldLogModalCloseEvent(false)
   }, [shouldLogModalCloseEvent, showAcceptChanges, setShouldLogModalCloseEvent, trade, priceUpdate])
@@ -208,7 +208,8 @@ export default function SwapModalHeader({
         <AutoColumn justify="flex-start" gap="sm" style={{ padding: '12px 0 0 0px' }}>
           <ThemedText.DeprecatedMain>
             <Trans>
-              Output will be sent to <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient) : recipient}</b>
+              Output will be sent to{' '}
+              <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient) : recipient}</b>
             </Trans>
           </ThemedText.DeprecatedMain>
         </AutoColumn>

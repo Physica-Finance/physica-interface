@@ -177,7 +177,15 @@ interface CardProps {
   onClick?: () => void
 }
 
-const Container = ({ asset, selected, addAssetToBag, removeAssetFromBag, children, isDisabled, onClick }: CardProps) => {
+const Container = ({
+  asset,
+  selected,
+  addAssetToBag,
+  removeAssetFromBag,
+  children,
+  isDisabled,
+  onClick,
+}: CardProps) => {
   const [hovered, toggleHovered] = useReducer((s) => !s, false)
   const [href, setHref] = useState(baseHref(asset))
 
@@ -192,7 +200,7 @@ const Container = ({ asset, selected, addAssetToBag, removeAssetFromBag, childre
       addAssetToBag,
       removeAssetFromBag,
     }),
-    [asset, hovered, selected, href, addAssetToBag, removeAssetFromBag],
+    [asset, hovered, selected, href, addAssetToBag, removeAssetFromBag]
   )
 
   const assetRef = useRef<HTMLDivElement>(null)
@@ -238,7 +246,7 @@ const handleUniformAspectRatio = (
   e: React.SyntheticEvent<HTMLElement, Event>,
   setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void,
   renderedHeight?: number,
-  setRenderedHeight?: (renderedHeight: number | undefined) => void,
+  setRenderedHeight?: (renderedHeight: number | undefined) => void
 ) => {
   if (uniformAspectRatio !== UniformAspectRatios.square && setUniformAspectRatio) {
     const height = e.currentTarget.clientHeight
@@ -316,7 +324,7 @@ const Image = ({
 
 function getMediaAspectRatio(
   uniformAspectRatio: UniformAspectRatio,
-  setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void,
+  setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void
 ): string {
   return uniformAspectRatio === UniformAspectRatios.square || !setUniformAspectRatio ? '1' : 'auto'
 }
@@ -394,7 +402,9 @@ const Video = ({
               ref={vidRef}
               width="full"
               style={{
-                aspectRatio: `${uniformAspectRatio === UniformAspectRatios.square || !setUniformAspectRatio ? '1' : 'auto'}`,
+                aspectRatio: `${
+                  uniformAspectRatio === UniformAspectRatios.square || !setUniformAspectRatio ? '1' : 'auto'
+                }`,
               }}
               onEnded={(e) => {
                 e.preventDefault()
@@ -692,7 +702,12 @@ const Erc1155Controls = ({ quantity }: Erc1155ControlsInterface) => {
 
 const MarketplaceIcon = ({ marketplace }: { marketplace: string }) => {
   return (
-    <Box as="img" alt={marketplace} src={`/nft/svgs/marketplaces/${marketplace}.svg`} className={styles.marketplaceIcon} />
+    <Box
+      as="img"
+      alt={marketplace}
+      src={`/nft/svgs/marketplaces/${marketplace}.svg`}
+      className={styles.marketplaceIcon}
+    />
   )
 }
 

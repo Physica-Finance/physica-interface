@@ -20,6 +20,6 @@ export const useProfilePageState = create<profilePageState>()(
           state: newState,
         })),
     }),
-    { name: 'useProfilePageState' },
-  ),
+    { name: 'useProfilePageState' }
+  )
 )

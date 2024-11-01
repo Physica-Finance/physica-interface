@@ -39,6 +39,6 @@ export default function useAllV3TicksQuery(poolAddress: string | undefined, skip
       isLoading,
       data,
     }),
-    [data, error, isLoading],
+    [data, error, isLoading]
   )
 }

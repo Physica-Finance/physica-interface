@@ -249,7 +249,7 @@ export function getChainInfo(chainId: SupportedL1ChainId): L1ChainInfo
 export function getChainInfo(chainId: SupportedL2ChainId): L2ChainInfo
 export function getChainInfo(chainId: SupportedChainId): L1ChainInfo | L2ChainInfo
 export function getChainInfo(
-  chainId: SupportedChainId | SupportedL1ChainId | SupportedL2ChainId | number | undefined,
+  chainId: SupportedChainId | SupportedL1ChainId | SupportedL2ChainId | number | undefined
 ): L1ChainInfo | L2ChainInfo | undefined
 
 /**

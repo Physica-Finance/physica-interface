@@ -65,7 +65,11 @@ type PositionListProps = React.PropsWithChildren<{
   userHideClosedPositions: boolean
 }>
 
-export default function PositionList({ positions, setUserHideClosedPositions, userHideClosedPositions }: PositionListProps) {
+export default function PositionList({
+  positions,
+  setUserHideClosedPositions,
+  userHideClosedPositions,
+}: PositionListProps) {
   return (
     <>
       <DesktopHeader>

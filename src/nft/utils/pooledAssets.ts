@@ -49,7 +49,11 @@ const calcSudoSwapExponentialBondingCurve = (currentPrice: BigNumber, delta: Big
   return currentPrice
 }
 
-const calcSudoSwapXykBondingCurve = (currentPrice: BigNumber, sudoSwapPool: Pool, position = 0): BigNumber | undefined => {
+const calcSudoSwapXykBondingCurve = (
+  currentPrice: BigNumber,
+  sudoSwapPool: Pool,
+  position = 0
+): BigNumber | undefined => {
   let virtualTokenBalance = BigNumber.from(sudoSwapPool.spotPrice)
   let virtualNFTBalance = BigNumber.from(sudoSwapPool.delta)
 
@@ -79,7 +83,8 @@ export const calcSudoSwapPrice = (asset: GenieAsset, position = 0): string | und
   const sudoSwapParameters = asset.sellorders[0].protocolParameters
   const sudoSwapPool = getPoolParameters(sudoSwapParameters)
 
-  if (!sudoSwapPool.fee || !sudoSwapPool.delta || !sudoSwapPool.spotPrice || !sudoSwapPool.bondingCurve) return undefined
+  if (!sudoSwapPool.fee || !sudoSwapPool.delta || !sudoSwapPool.spotPrice || !sudoSwapPool.bondingCurve)
+    return undefined
 
   let currentPrice = BigNumber.from(sudoSwapPool.spotPrice)
   const delta = BigNumber.from(sudoSwapPool.delta)
@@ -141,7 +146,7 @@ const calcAmmBasedPoolprice = (asset: GenieAsset, position = 0): string => {
       >
     )?.poolMetadata?.ethReserves?.toLocaleString('fullwide', {
       useGrouping: false,
-    }) ?? 1,
+    }) ?? 1
   )
   const tokenReserves = BigNumber.from(
     (
@@ -153,7 +158,7 @@ const calcAmmBasedPoolprice = (asset: GenieAsset, position = 0): string => {
       >
     )?.poolMetadata?.tokenReserves?.toLocaleString('fullwide', {
       useGrouping: false,
-    }) ?? 1,
+    }) ?? 1
   )
   const numerator = ethReserves.mul(amountToBuy).mul(1000)
   const denominator = tokenReserves.sub(amountToBuy).mul(997)
@@ -191,14 +196,16 @@ export const calcAvgGroupPoolPrice = (asset: GenieAsset, numberOfAssets: number)
 }
 
 const recalculatePooledAssetPrice = (asset: GenieAsset, position: number): string => {
-  return asset.marketplace === Markets.Sudoswap ? calcSudoSwapPrice(asset, position) ?? '' : calcPoolPrice(asset, position)
+  return asset.marketplace === Markets.Sudoswap
+    ? calcSudoSwapPrice(asset, position) ?? ''
+    : calcPoolPrice(asset, position)
 }
 
 export const recalculateBagUsingPooledAssets = (uncheckedItemsInBag: BagItem[]) => {
   if (
     !uncheckedItemsInBag.some((item) => item.asset.marketplace && isPooledMarket(item.asset.marketplace)) ||
     uncheckedItemsInBag.every(
-      (item) => item.status === BagItemStatus.REVIEWED || item.status === BagItemStatus.REVIEWING_PRICE_CHANGE,
+      (item) => item.status === BagItemStatus.REVIEWED || item.status === BagItemStatus.REVIEWING_PRICE_CHANGE
     )
   )
     return uncheckedItemsInBag
@@ -218,7 +225,7 @@ export const recalculateBagUsingPooledAssets = (uncheckedItemsInBag: BagItem[]) 
           ? calcAvgGroupPoolPrice(asset, itemsInPool.length)
           : recalculatePooledAssetPrice(
               asset,
-              itemsInPool.findIndex((itemInPool) => itemInPool.asset.tokenId === asset.tokenId),
+              itemsInPool.findIndex((itemInPool) => itemInPool.asset.tokenId === asset.tokenId)
             )
 
         if (isPriceChangedAsset && item.asset.updatedPriceInfo)

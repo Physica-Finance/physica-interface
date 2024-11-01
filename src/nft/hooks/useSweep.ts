@@ -25,13 +25,13 @@ export const useSweep = create<SweepState>()(
           const assetsCopy = [...sweepAssets]
           assetsCopy.splice(
             sweepAssets.findIndex((n) => n.tokenId === asset.tokenId && n.address === asset.address),
-            1,
+            1
           )
           return { sweepAssets: assetsCopy }
         })
       },
       reset: () => set(() => ({ sweepAssets: [] })),
     })),
-    { name: 'useSweep' },
-  ),
+    { name: 'useSweep' }
+  )
 )

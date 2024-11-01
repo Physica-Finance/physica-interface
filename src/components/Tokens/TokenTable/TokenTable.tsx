@@ -111,7 +111,7 @@ export default function TokenTable() {
                   sparklineMap={sparklines}
                   sortRank={tokenSortRank[token.address]}
                 />
-              ),
+              )
           )}
         </TokenDataContainer>
       </GridContainer>

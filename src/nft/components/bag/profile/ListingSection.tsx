@@ -113,7 +113,8 @@ export const ListingSection = ({
                       whiteSpace="nowrap"
                       maxWidth={{
                         sm: 'max',
-                        md: row.status === ListingStatus.REJECTED || row.status === ListingStatus.FAILED ? '120' : 'full',
+                        md:
+                          row.status === ListingStatus.REJECTED || row.status === ListingStatus.FAILED ? '120' : 'full',
                       }}
                       className={bodySmall}
                     >

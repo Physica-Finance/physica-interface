@@ -26,7 +26,7 @@ export default function useENSName(address?: string): {
   const resolverAddressResult = resolverAddress.result?.[0]
   const resolverContract = useENSResolverContract(
     resolverAddressResult && !isZero(resolverAddressResult) ? resolverAddressResult : undefined,
-    false,
+    false
   )
   const nameCallRes = useSingleCallResult(resolverContract, 'name', ensNodeArgument)
   const name = nameCallRes.result?.[0]
@@ -44,6 +44,6 @@ export default function useENSName(address?: string): {
       ENSName: changed ? null : checkedName,
       loading: changed || resolverAddress.loading || nameCallRes.loading,
     }),
-    [changed, nameCallRes.loading, checkedName, resolverAddress.loading],
+    [changed, nameCallRes.loading, checkedName, resolverAddress.loading]
   )
 }

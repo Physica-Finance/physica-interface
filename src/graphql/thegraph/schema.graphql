@@ -1280,9 +1280,27 @@ type Pool {
     orderDirection: OrderDirection
     where: PoolDayData_filter
   ): [PoolDayData!]!
-  mints(skip: Int = 0, first: Int = 100, orderBy: Mint_orderBy, orderDirection: OrderDirection, where: Mint_filter): [Mint!]!
-  burns(skip: Int = 0, first: Int = 100, orderBy: Burn_orderBy, orderDirection: OrderDirection, where: Burn_filter): [Burn!]!
-  swaps(skip: Int = 0, first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, where: Swap_filter): [Swap!]!
+  mints(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Mint_orderBy
+    orderDirection: OrderDirection
+    where: Mint_filter
+  ): [Mint!]!
+  burns(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Burn_orderBy
+    orderDirection: OrderDirection
+    where: Burn_filter
+  ): [Burn!]!
+  swaps(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Swap_orderBy
+    orderDirection: OrderDirection
+    where: Swap_filter
+  ): [Swap!]!
   collects(
     skip: Int = 0
     first: Int = 100
@@ -1290,7 +1308,13 @@ type Pool {
     orderDirection: OrderDirection
     where: Collect_filter
   ): [Collect!]!
-  ticks(skip: Int = 0, first: Int = 100, orderBy: Tick_orderBy, orderDirection: OrderDirection, where: Tick_filter): [Tick!]!
+  ticks(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Tick_orderBy
+    orderDirection: OrderDirection
+    where: Tick_filter
+  ): [Tick!]!
 }
 
 input Pool_filter {
@@ -5943,9 +5967,27 @@ type Transaction {
   timestamp: BigInt!
   gasUsed: BigInt!
   gasPrice: BigInt!
-  mints(skip: Int = 0, first: Int = 100, orderBy: Mint_orderBy, orderDirection: OrderDirection, where: Mint_filter): [Mint]!
-  burns(skip: Int = 0, first: Int = 100, orderBy: Burn_orderBy, orderDirection: OrderDirection, where: Burn_filter): [Burn]!
-  swaps(skip: Int = 0, first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, where: Swap_filter): [Swap]!
+  mints(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Mint_orderBy
+    orderDirection: OrderDirection
+    where: Mint_filter
+  ): [Mint]!
+  burns(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Burn_orderBy
+    orderDirection: OrderDirection
+    where: Burn_filter
+  ): [Burn]!
+  swaps(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Swap_orderBy
+    orderDirection: OrderDirection
+    where: Swap_filter
+  ): [Swap]!
   flashed(
     skip: Int = 0
     first: Int = 100

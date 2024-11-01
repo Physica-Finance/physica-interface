@@ -96,12 +96,20 @@ interface InputSliderProps {
   size?: number
 }
 
-export default function Slider({ value, onChange, min = 0, step = 1, max = 100, size = 28, ...rest }: InputSliderProps) {
+export default function Slider({
+  value,
+  onChange,
+  min = 0,
+  step = 1,
+  max = 100,
+  size = 28,
+  ...rest
+}: InputSliderProps) {
   const changeCallback = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       onChange(parseInt(e.target.value))
     },
-    [onChange],
+    [onChange]
   )
 
   return (

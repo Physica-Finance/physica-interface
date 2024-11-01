@@ -180,7 +180,7 @@ export const NFTListingsGrid = ({ selectedMarkets }: { selectedMarkets: ListingM
         },
       },
     ],
-    [globalPriceMethod],
+    [globalPriceMethod]
   )
 
   let prompt

@@ -57,10 +57,10 @@ export function useV3MintActionHandlers(noLiquidity: boolean | undefined): {
           field: Field.CURRENCY_A,
           typedValue,
           noLiquidity: noLiquidity === true,
-        }),
+        })
       )
     },
-    [dispatch, noLiquidity],
+    [dispatch, noLiquidity]
   )
 
   const onFieldBInput = useCallback(
@@ -70,10 +70,10 @@ export function useV3MintActionHandlers(noLiquidity: boolean | undefined): {
           field: Field.CURRENCY_B,
           typedValue,
           noLiquidity: noLiquidity === true,
-        }),
+        })
       )
     },
-    [dispatch, noLiquidity],
+    [dispatch, noLiquidity]
   )
 
   const { search } = useLocation()
@@ -83,7 +83,7 @@ export function useV3MintActionHandlers(noLiquidity: boolean | undefined): {
       dispatch(typeLeftRangeInput({ typedValue }))
       navigate({ search: replaceURLParam(search, 'minPrice', typedValue) }, { replace: true })
     },
-    [dispatch, navigate, search],
+    [dispatch, navigate, search]
   )
 
   const onRightRangeInput = useCallback(
@@ -91,14 +91,14 @@ export function useV3MintActionHandlers(noLiquidity: boolean | undefined): {
       dispatch(typeRightRangeInput({ typedValue }))
       navigate({ search: replaceURLParam(search, 'maxPrice', typedValue) }, { replace: true })
     },
-    [dispatch, navigate, search],
+    [dispatch, navigate, search]
   )
 
   const onStartPriceInput = useCallback(
     (typedValue: string) => {
       dispatch(typeStartPriceInput({ typedValue }))
     },
-    [dispatch],
+    [dispatch]
   )
 
   return {
@@ -116,7 +116,7 @@ export function useV3DerivedMintInfo(
   feeAmount?: FeeAmount,
   baseCurrency?: Currency,
   // override for existing position
-  existingPosition?: Position,
+  existingPosition?: Position
 ): {
   pool?: Pool | null
   poolState: PoolState
@@ -142,7 +142,8 @@ export function useV3DerivedMintInfo(
 } {
   const { account } = useWeb3React()
 
-  const { independentField, typedValue, leftRangeTypedValue, rightRangeTypedValue, startPriceTypedValue } = useV3MintState()
+  const { independentField, typedValue, leftRangeTypedValue, rightRangeTypedValue, startPriceTypedValue } =
+    useV3MintState()
 
   const dependentField = independentField === Field.CURRENCY_A ? Field.CURRENCY_B : Field.CURRENCY_A
 
@@ -152,24 +153,25 @@ export function useV3DerivedMintInfo(
       [Field.CURRENCY_A]: currencyA,
       [Field.CURRENCY_B]: currencyB,
     }),
-    [currencyA, currencyB],
+    [currencyA, currencyB]
   )
 
   // formatted with tokens
   const [tokenA, tokenB, baseToken] = useMemo(
     () => [currencyA?.wrapped, currencyB?.wrapped, baseCurrency?.wrapped],
-    [currencyA, currencyB, baseCurrency],
+    [currencyA, currencyB, baseCurrency]
   )
 
   const [token0, token1] = useMemo(
-    () => (tokenA && tokenB ? (tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA]) : [undefined, undefined]),
-    [tokenA, tokenB],
+    () =>
+      tokenA && tokenB ? (tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA]) : [undefined, undefined],
+    [tokenA, tokenB]
   )
 
   // balances
   const balances = useCurrencyBalances(
     account ?? undefined,
-    useMemo(() => [currencies[Field.CURRENCY_A], currencies[Field.CURRENCY_B]], [currencies]),
+    useMemo(() => [currencies[Field.CURRENCY_A], currencies[Field.CURRENCY_B]], [currencies])
   )
   const currencyBalances: { [field in Field]?: CurrencyAmount<Currency> } = {
     [Field.CURRENCY_A]: balances[0],
@@ -192,7 +194,12 @@ export function useV3DerivedMintInfo(
         const baseAmount = tryParseCurrencyAmount('1', invertPrice ? token1 : token0)
         const price =
           baseAmount && parsedQuoteAmount
-            ? new Price(baseAmount.currency, parsedQuoteAmount.currency, baseAmount.quotient, parsedQuoteAmount.quotient)
+            ? new Price(
+                baseAmount.currency,
+                parsedQuoteAmount.currency,
+                baseAmount.quotient,
+                parsedQuoteAmount.quotient
+              )
             : undefined
         return (invertPrice ? price?.invert() : price) ?? undefined
       }
@@ -238,7 +245,7 @@ export function useV3DerivedMintInfo(
       [Bound.LOWER]: feeAmount ? nearestUsableTick(TickMath.MIN_TICK, TICK_SPACINGS[feeAmount]) : undefined,
       [Bound.UPPER]: feeAmount ? nearestUsableTick(TickMath.MAX_TICK, TICK_SPACINGS[feeAmount]) : undefined,
     }),
-    [feeAmount],
+    [feeAmount]
   )
 
   // parse typed range values and determine closest ticks
@@ -266,7 +273,16 @@ export function useV3DerivedMintInfo(
           ? tryParseTick(token1, token0, feeAmount, leftRangeTypedValue.toString())
           : tryParseTick(token0, token1, feeAmount, rightRangeTypedValue.toString()),
     }
-  }, [existingPosition, feeAmount, invertPrice, leftRangeTypedValue, rightRangeTypedValue, token0, token1, tickSpaceLimits])
+  }, [
+    existingPosition,
+    feeAmount,
+    invertPrice,
+    leftRangeTypedValue,
+    rightRangeTypedValue,
+    token0,
+    token1,
+    tickSpaceLimits,
+  ])
 
   const { [Bound.LOWER]: tickLower, [Bound.UPPER]: tickUpper } = ticks || {}
 
@@ -276,7 +292,7 @@ export function useV3DerivedMintInfo(
       [Bound.LOWER]: feeAmount && tickLower === tickSpaceLimits.LOWER,
       [Bound.UPPER]: feeAmount && tickUpper === tickSpaceLimits.UPPER,
     }),
-    [tickSpaceLimits, tickLower, tickUpper, feeAmount],
+    [tickSpaceLimits, tickLower, tickUpper, feeAmount]
   )
 
   // mark invalid range
@@ -293,13 +309,13 @@ export function useV3DerivedMintInfo(
 
   // liquidity range warning
   const outOfRange = Boolean(
-    !invalidRange && price && lowerPrice && upperPrice && (price.lessThan(lowerPrice) || price.greaterThan(upperPrice)),
+    !invalidRange && price && lowerPrice && upperPrice && (price.lessThan(lowerPrice) || price.greaterThan(upperPrice))
   )
 
   // amounts
   const independentAmount: CurrencyAmount<Currency> | undefined = tryParseCurrencyAmount(
     typedValue,
-    currencies[independentField],
+    currencies[independentField]
   )
 
   const dependentAmount: CurrencyAmount<Currency> | undefined = useMemo(() => {
@@ -363,10 +379,10 @@ export function useV3DerivedMintInfo(
 
   // single deposit only if price is out of range
   const deposit0Disabled = Boolean(
-    typeof tickUpper === 'number' && poolForPosition && poolForPosition.tickCurrent >= tickUpper,
+    typeof tickUpper === 'number' && poolForPosition && poolForPosition.tickCurrent >= tickUpper
   )
   const deposit1Disabled = Boolean(
-    typeof tickLower === 'number' && poolForPosition && poolForPosition.tickCurrent <= tickLower,
+    typeof tickLower === 'number' && poolForPosition && poolForPosition.tickCurrent <= tickLower
   )
 
   // sorted for token order
@@ -374,13 +390,13 @@ export function useV3DerivedMintInfo(
     invalidRange ||
     Boolean(
       (deposit0Disabled && poolForPosition && tokenA && poolForPosition.token0.equals(tokenA)) ||
-        (deposit1Disabled && poolForPosition && tokenA && poolForPosition.token1.equals(tokenA)),
+        (deposit1Disabled && poolForPosition && tokenA && poolForPosition.token1.equals(tokenA))
     )
   const depositBDisabled =
     invalidRange ||
     Boolean(
       (deposit0Disabled && poolForPosition && tokenB && poolForPosition.token0.equals(tokenB)) ||
-        (deposit1Disabled && poolForPosition && tokenB && poolForPosition.token1.equals(tokenB)),
+        (deposit1Disabled && poolForPosition && tokenB && poolForPosition.token1.equals(tokenB))
     )
 
   // create position entity based on users selection
@@ -441,7 +457,10 @@ export function useV3DerivedMintInfo(
     errorMessage = errorMessage ?? <Trans>Invalid price input</Trans>
   }
 
-  if ((!parsedAmounts[Field.CURRENCY_A] && !depositADisabled) || (!parsedAmounts[Field.CURRENCY_B] && !depositBDisabled)) {
+  if (
+    (!parsedAmounts[Field.CURRENCY_A] && !depositADisabled) ||
+    (!parsedAmounts[Field.CURRENCY_B] && !depositBDisabled)
+  ) {
     errorMessage = errorMessage ?? <Trans>Enter an amount</Trans>
   }
 
@@ -486,7 +505,7 @@ export function useRangeHopCallbacks(
   feeAmount: FeeAmount | undefined,
   tickLower: number | undefined,
   tickUpper: number | undefined,
-  pool?: Pool | undefined | null,
+  pool?: Pool | undefined | null
 ) {
   const dispatch = useAppDispatch()
 

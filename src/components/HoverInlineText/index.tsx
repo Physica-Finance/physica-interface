@@ -61,7 +61,14 @@ const HoverInlineText = ({
   }
 
   return (
-    <TextWrapper margin={margin} adjustSize={adjustSize} link={link} fontSize={fontSize} textColor={textColor} {...rest}>
+    <TextWrapper
+      margin={margin}
+      adjustSize={adjustSize}
+      link={link}
+      fontSize={fontSize}
+      textColor={textColor}
+      {...rest}
+    >
       {text}
     </TextWrapper>
   )

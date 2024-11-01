@@ -14,7 +14,12 @@ const BASE_PROPS = {
 export function OpenCoinbaseWalletOption() {
   const isActive = coinbaseWalletConnection.hooks.useIsActive()
   return (
-    <Option {...BASE_PROPS} isActive={isActive} link="https://go.cb-w.com/mtUDhEZPy1" header="Open in Coinbase Wallet" />
+    <Option
+      {...BASE_PROPS}
+      isActive={isActive}
+      link="https://go.cb-w.com/mtUDhEZPy1"
+      header="Open in Coinbase Wallet"
+    />
   )
 }
 

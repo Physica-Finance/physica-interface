@@ -88,7 +88,7 @@ export const Activity = ({ contractAddress, rarityVerified, collectionName, chai
             .filter((key) => activeFilters[key as ActivityEventType])
             .map((key) => key as ActivityEventType),
         },
-        pageParam,
+        pageParam
       )
     },
     {
@@ -99,12 +99,12 @@ export const Activity = ({ contractAddress, rarityVerified, collectionName, chai
       refetchIntervalInBackground: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    },
+    }
   )
 
   const events = useMemo(
     () => (isSuccess ? eventsData?.pages.map((page) => page.events).flat() : null),
-    [isSuccess, eventsData],
+    [isSuccess, eventsData]
   )
 
   const itemsInBag = useBag((state) => state.itemsInBag)
@@ -137,7 +137,7 @@ export const Activity = ({ contractAddress, rarityVerified, collectionName, chai
         </FilterBox>
       )
     },
-    [activeFilters, isDarkMode],
+    [activeFilters, isDarkMode]
   )
 
   return (

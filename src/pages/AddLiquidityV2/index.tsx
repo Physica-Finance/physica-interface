@@ -67,7 +67,7 @@ export default function AddLiquidity() {
   const oneCurrencyIsWETH = Boolean(
     chainId &&
       wrappedNativeCurrency &&
-      ((currencyA && currencyA.equals(wrappedNativeCurrency)) || (currencyB && currencyB.equals(wrappedNativeCurrency))),
+      ((currencyA && currencyA.equals(wrappedNativeCurrency)) || (currencyB && currencyB.equals(wrappedNativeCurrency)))
   )
 
   const toggleWalletModal = useToggleWalletModal() // toggle wallet when disconnected
@@ -117,7 +117,7 @@ export default function AddLiquidity() {
         [field]: maxAmountSpend(currencyBalances[field]),
       }
     },
-    {},
+    {}
   )
 
   const atMaxAmounts: { [field in Field]?: CurrencyAmount<Currency> } = [Field.CURRENCY_A, Field.CURRENCY_B].reduce(
@@ -127,7 +127,7 @@ export default function AddLiquidity() {
         [field]: maxAmounts[field]?.equalTo(parsedAmounts[field] ?? '0'),
       }
     },
-    {},
+    {}
   )
 
   const router = useV2RouterContract()
@@ -208,7 +208,7 @@ export default function AddLiquidity() {
             action: 'Add',
             label: [currencies[Field.CURRENCY_A]?.symbol, currencies[Field.CURRENCY_B]?.symbol].join('/'),
           })
-        }),
+        })
       )
       .catch((error) => {
         setAttemptingTxn(false)
@@ -241,7 +241,11 @@ export default function AddLiquidity() {
           <Text fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
             {liquidityMinted?.toSignificant(6)}
           </Text>
-          <DoubleCurrencyLogo currency0={currencies[Field.CURRENCY_A]} currency1={currencies[Field.CURRENCY_B]} size={30} />
+          <DoubleCurrencyLogo
+            currency0={currencies[Field.CURRENCY_A]}
+            currency1={currencies[Field.CURRENCY_B]}
+            size={30}
+          />
         </RowFlat>
         <Row>
           <Text fontSize="24px">
@@ -250,8 +254,8 @@ export default function AddLiquidity() {
         </Row>
         <ThemedText.DeprecatedItalic fontSize={12} textAlign="left" padding="8px 0 0 0 ">
           <Trans>
-            Output is estimated. If the price changes by more than {allowedSlippage.toSignificant(4)}% your transaction will
-            revert.
+            Output is estimated. If the price changes by more than {allowedSlippage.toSignificant(4)}% your transaction
+            will revert.
           </Trans>
         </ThemedText.DeprecatedItalic>
       </AutoColumn>
@@ -287,7 +291,7 @@ export default function AddLiquidity() {
         navigate(`/add/v2/${newCurrencyIdA}/${currencyIdB}`)
       }
     },
-    [currencyIdB, navigate, currencyIdA],
+    [currencyIdB, navigate, currencyIdA]
   )
   const handleCurrencyBSelect = useCallback(
     (currencyB: Currency) => {
@@ -302,7 +306,7 @@ export default function AddLiquidity() {
         navigate(`/add/v2/${currencyIdA ? currencyIdA : 'ETH'}/${newCurrencyIdB}`)
       }
     },
-    [currencyIdA, navigate, currencyIdB],
+    [currencyIdA, navigate, currencyIdB]
   )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -368,7 +372,8 @@ export default function AddLiquidity() {
                             <Trans>Tip:</Trans>
                           </b>{' '}
                           When you add liquidity, you will receive pool tokens representing your position. These tokens
-                          automatically earn fees proportional to your share of the pool, and can be redeemed at any time.
+                          automatically earn fees proportional to your share of the pool, and can be redeemed at any
+                          time.
                         </Trans>
                       </ThemedText.DeprecatedLink>
                     </AutoColumn>
@@ -407,7 +412,11 @@ export default function AddLiquidity() {
                 <LightCard padding="0px" $borderRadius="20px">
                   <RowBetween padding="1rem">
                     <ThemedText.DeprecatedSubHeader fontWeight={500} fontSize={14}>
-                      {noLiquidity ? <Trans>Initial prices and pool share</Trans> : <Trans>Prices and pool share</Trans>}
+                      {noLiquidity ? (
+                        <Trans>Initial prices and pool share</Trans>
+                      ) : (
+                        <Trans>Prices and pool share</Trans>
+                      )}
                     </ThemedText.DeprecatedSubHeader>
                   </RowBetween>{' '}
                   <LightCard padding="1rem" $borderRadius="20px">
@@ -511,7 +520,10 @@ export default function AddLiquidity() {
           </AutoColumn>
         ) : null
       ) : (
-        <UnsupportedCurrencyFooter show={addIsUnsupported} currencies={[currencies.CURRENCY_A, currencies.CURRENCY_B]} />
+        <UnsupportedCurrencyFooter
+          show={addIsUnsupported}
+          currencies={[currencies.CURRENCY_A, currencies.CURRENCY_B]}
+        />
       )}
     </>
   )

@@ -7,7 +7,7 @@ export const buildActivityAsset = (event: ActivityEvent, collectionName: string,
     ? formatEther(
         BigNumber.from(event.price)
           .mul(BigNumber.from(Math.trunc(ethPriceInUSD * 100)))
-          .div(100),
+          .div(100)
       )
     : '0'
 

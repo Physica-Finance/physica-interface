@@ -87,7 +87,7 @@ const TrendingCollections = () => {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchInterval: 5000,
-    },
+    }
   )
 
   const { data: usdPrice } = useQuery(['fetchPrice', {}], () => fetchPrice(), {

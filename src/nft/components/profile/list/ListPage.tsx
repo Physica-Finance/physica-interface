@@ -176,7 +176,7 @@ export const ListPage = () => {
       setGlobalMarketplaces,
       sellAssets,
     }),
-    shallow,
+    shallow
   )
   const {
     listings,
@@ -201,7 +201,7 @@ export const ListPage = () => {
       setLooksRareNonce,
       setCollectionStatusAndCallback,
     }),
-    shallow,
+    shallow
   )
 
   const totalEthListingValue = useMemo(() => getTotalEthValue(sellAssets), [sellAssets])

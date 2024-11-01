@@ -14,6 +14,6 @@ export const useIsNftClaimAvailable = create<NFTClaim>()(
         set(() => ({ isClaimAvailable }))
       },
     }),
-    { name: 'useIsNftClaimAvailable' },
-  ),
+    { name: 'useIsNftClaimAvailable' }
+  )
 )

@@ -94,7 +94,7 @@ describe('list reducer', () => {
             tokenList: STUB_TOKEN_LIST,
             requestId: 'request-id',
             url: 'fake-url',
-          }),
+          })
         )
         expect(store.getState()).toEqual({
           byUrl: {
@@ -115,14 +115,14 @@ describe('list reducer', () => {
             tokenList: STUB_TOKEN_LIST,
             requestId: 'request-id',
             url: 'fake-url',
-          }),
+          })
         )
         store.dispatch(
           fetchTokenList.fulfilled({
             tokenList: STUB_TOKEN_LIST,
             requestId: 'request-id',
             url: 'fake-url',
-          }),
+          })
         )
         expect(store.getState()).toEqual({
           byUrl: {
@@ -143,7 +143,7 @@ describe('list reducer', () => {
             tokenList: STUB_TOKEN_LIST,
             requestId: 'request-id',
             url: 'fake-url',
-          }),
+          })
         )
 
         store.dispatch(
@@ -151,7 +151,7 @@ describe('list reducer', () => {
             tokenList: PATCHED_STUB_LIST,
             requestId: 'request-id',
             url: 'fake-url',
-          }),
+          })
         )
         expect(store.getState()).toEqual({
           byUrl: {
@@ -171,7 +171,7 @@ describe('list reducer', () => {
             tokenList: STUB_TOKEN_LIST,
             requestId: 'request-id',
             url: 'fake-url',
-          }),
+          })
         )
 
         store.dispatch(
@@ -179,7 +179,7 @@ describe('list reducer', () => {
             tokenList: MINOR_UPDATED_STUB_LIST,
             requestId: 'request-id',
             url: 'fake-url',
-          }),
+          })
         )
         expect(store.getState()).toEqual({
           byUrl: {
@@ -199,7 +199,7 @@ describe('list reducer', () => {
             tokenList: STUB_TOKEN_LIST,
             requestId: 'request-id',
             url: 'fake-url',
-          }),
+          })
         )
 
         store.dispatch(
@@ -207,7 +207,7 @@ describe('list reducer', () => {
             tokenList: MAJOR_UPDATED_STUB_LIST,
             requestId: 'request-id',
             url: 'fake-url',
-          }),
+          })
         )
         expect(store.getState()).toEqual({
           byUrl: {
@@ -230,7 +230,7 @@ describe('list reducer', () => {
             requestId: 'request-id',
             errorMessage: 'abcd',
             url: 'fake-url',
-          }),
+          })
         )
         expect(store.getState()).toEqual({
           byUrl: {},
@@ -254,7 +254,7 @@ describe('list reducer', () => {
             requestId: 'request-id',
             errorMessage: 'abcd',
             url: 'fake-url',
-          }),
+          })
         )
         expect(store.getState()).toEqual({
           byUrl: {
@@ -382,7 +382,7 @@ describe('list reducer', () => {
 
       it('clears the current lists', () => {
         expect(
-          store.getState().byUrl['https://unpkg.com/@uniswap/default-token-list@latest/uniswap-default.tokenlist.json'],
+          store.getState().byUrl['https://unpkg.com/@uniswap/default-token-list@latest/uniswap-default.tokenlist.json']
         ).toBeUndefined()
         expect(store.getState().byUrl['https://unpkg.com/@uniswap/default-token-list@latest']).toBeUndefined()
       })
@@ -429,7 +429,7 @@ describe('list reducer', () => {
 
       it('does not remove lists not in last initialized list of lists', () => {
         expect(
-          store.getState().byUrl['https://unpkg.com/@uniswap/default-token-list@latest/uniswap-default.tokenlist.json'],
+          store.getState().byUrl['https://unpkg.com/@uniswap/default-token-list@latest/uniswap-default.tokenlist.json']
         ).toEqual({
           error: null,
           current: STUB_TOKEN_LIST,
@@ -445,7 +445,9 @@ describe('list reducer', () => {
         const byUrl = store.getState().byUrl
         Object.entries(byUrl)
           // We don't expect the Physica default list to be prepopulated
-          .filter(([url]) => url !== 'https://unpkg.com/@uniswap/default-token-list@latest/uniswap-default.tokenlist.json')
+          .filter(
+            ([url]) => url !== 'https://unpkg.com/@uniswap/default-token-list@latest/uniswap-default.tokenlist.json'
+          )
           .forEach(([, state]) => {
             expect(state).toEqual({
               error: null,

@@ -18,7 +18,7 @@ export function transformSwapRouteToGetQuoteResult(
     gasPriceWei,
     methodParameters,
     blockNumber,
-  }: SwapRoute,
+  }: SwapRoute
 ): GetQuoteResult {
   const routeResponse: Array<(V3PoolInRoute | V2PoolInRoute)[]> = []
 

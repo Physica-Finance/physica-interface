@@ -2704,21 +2704,21 @@ export const RecentlySearchedAssetsDocument = gql`
  * });
  */
 export function useRecentlySearchedAssetsQuery(
-  baseOptions: Apollo.QueryHookOptions<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>,
+  baseOptions: Apollo.QueryHookOptions<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>(
     RecentlySearchedAssetsDocument,
-    options,
+    options
   )
 }
 export function useRecentlySearchedAssetsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<RecentlySearchedAssetsQuery, RecentlySearchedAssetsQueryVariables>(
     RecentlySearchedAssetsDocument,
-    options,
+    options
   )
 }
 export type RecentlySearchedAssetsQueryHookResult = ReturnType<typeof useRecentlySearchedAssetsQuery>
@@ -2779,12 +2779,14 @@ export const SearchTokensDocument = gql`
  *   },
  * });
  */
-export function useSearchTokensQuery(baseOptions: Apollo.QueryHookOptions<SearchTokensQuery, SearchTokensQueryVariables>) {
+export function useSearchTokensQuery(
+  baseOptions: Apollo.QueryHookOptions<SearchTokensQuery, SearchTokensQueryVariables>
+) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<SearchTokensQuery, SearchTokensQueryVariables>(SearchTokensDocument, options)
 }
 export function useSearchTokensLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<SearchTokensQuery, SearchTokensQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<SearchTokensQuery, SearchTokensQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<SearchTokensQuery, SearchTokensQueryVariables>(SearchTokensDocument, options)
@@ -2917,7 +2919,7 @@ export function useTokenPriceQuery(baseOptions: Apollo.QueryHookOptions<TokenPri
   return Apollo.useQuery<TokenPriceQuery, TokenPriceQueryVariables>(TokenPriceDocument, options)
 }
 export function useTokenPriceLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<TokenPriceQuery, TokenPriceQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<TokenPriceQuery, TokenPriceQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<TokenPriceQuery, TokenPriceQueryVariables>(TokenPriceDocument, options)
@@ -2982,12 +2984,14 @@ export const TopTokens100Document = gql`
  *   },
  * });
  */
-export function useTopTokens100Query(baseOptions: Apollo.QueryHookOptions<TopTokens100Query, TopTokens100QueryVariables>) {
+export function useTopTokens100Query(
+  baseOptions: Apollo.QueryHookOptions<TopTokens100Query, TopTokens100QueryVariables>
+) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<TopTokens100Query, TopTokens100QueryVariables>(TopTokens100Document, options)
 }
 export function useTopTokens100LazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<TopTokens100Query, TopTokens100QueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<TopTokens100Query, TopTokens100QueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<TopTokens100Query, TopTokens100QueryVariables>(TopTokens100Document, options)
@@ -3031,20 +3035,26 @@ export const TopTokensSparklineDocument = gql`
  * });
  */
 export function useTopTokensSparklineQuery(
-  baseOptions: Apollo.QueryHookOptions<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>,
+  baseOptions: Apollo.QueryHookOptions<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>(TopTokensSparklineDocument, options)
 }
 export function useTopTokensSparklineLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>(TopTokensSparklineDocument, options)
+  return Apollo.useLazyQuery<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>(
+    TopTokensSparklineDocument,
+    options
+  )
 }
 export type TopTokensSparklineQueryHookResult = ReturnType<typeof useTopTokensSparklineQuery>
 export type TopTokensSparklineLazyQueryHookResult = ReturnType<typeof useTopTokensSparklineLazyQuery>
-export type TopTokensSparklineQueryResult = Apollo.QueryResult<TopTokensSparklineQuery, TopTokensSparklineQueryVariables>
+export type TopTokensSparklineQueryResult = Apollo.QueryResult<
+  TopTokensSparklineQuery,
+  TopTokensSparklineQueryVariables
+>
 export const TrendingTokensDocument = gql`
   query TrendingTokens($chain: Chain!) {
     topTokens(pageSize: 4, page: 1, chain: $chain, orderBy: VOLUME) {
@@ -3098,13 +3108,13 @@ export const TrendingTokensDocument = gql`
  * });
  */
 export function useTrendingTokensQuery(
-  baseOptions: Apollo.QueryHookOptions<TrendingTokensQuery, TrendingTokensQueryVariables>,
+  baseOptions: Apollo.QueryHookOptions<TrendingTokensQuery, TrendingTokensQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<TrendingTokensQuery, TrendingTokensQueryVariables>(TrendingTokensDocument, options)
 }
 export function useTrendingTokensLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<TrendingTokensQuery, TrendingTokensQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<TrendingTokensQuery, TrendingTokensQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<TrendingTokensQuery, TrendingTokensQueryVariables>(TrendingTokensDocument, options)
@@ -3352,7 +3362,7 @@ export function useCollectionQuery(baseOptions: Apollo.QueryHookOptions<Collecti
   return Apollo.useQuery<CollectionQuery, CollectionQueryVariables>(CollectionDocument, options)
 }
 export function useCollectionLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<CollectionQuery, CollectionQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<CollectionQuery, CollectionQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<CollectionQuery, CollectionQueryVariables>(CollectionDocument, options)
@@ -3483,7 +3493,14 @@ export const NftBalanceDocument = gql`
     $last: Int
     $before: String
   ) {
-    nftBalances(ownerAddress: $ownerAddress, filter: $filter, first: $first, after: $after, last: $last, before: $before) {
+    nftBalances(
+      ownerAddress: $ownerAddress
+      filter: $filter
+      first: $first
+      after: $after
+      last: $last
+      before: $before
+    ) {
       edges {
         node {
           ownedAsset {
@@ -3590,7 +3607,7 @@ export function useNftBalanceQuery(baseOptions: Apollo.QueryHookOptions<NftBalan
   return Apollo.useQuery<NftBalanceQuery, NftBalanceQueryVariables>(NftBalanceDocument, options)
 }
 export function useNftBalanceLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<NftBalanceQuery, NftBalanceQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<NftBalanceQuery, NftBalanceQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<NftBalanceQuery, NftBalanceQueryVariables>(NftBalanceDocument, options)

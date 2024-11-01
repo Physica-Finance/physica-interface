@@ -48,17 +48,17 @@ export function useTokenFromActiveNetwork(tokenAddress: string | undefined): Tok
 
   const isLoading = useMemo(
     () => decimals.loading || symbol.loading || tokenName.loading,
-    [decimals.loading, symbol.loading, tokenName.loading],
+    [decimals.loading, symbol.loading, tokenName.loading]
   )
   const parsedDecimals = useMemo(() => decimals?.result?.[0] ?? DEFAULT_ERC20_DECIMALS, [decimals.result])
 
   const parsedSymbol = useMemo(
     () => parseStringOrBytes32(symbol.result?.[0], symbolBytes32.result?.[0], UNKNOWN_TOKEN_SYMBOL),
-    [symbol.result, symbolBytes32.result],
+    [symbol.result, symbolBytes32.result]
   )
   const parsedName = useMemo(
     () => parseStringOrBytes32(tokenName.result?.[0], tokenNameBytes32.result?.[0], UNKNOWN_TOKEN_NAME),
-    [tokenName.result, tokenNameBytes32.result],
+    [tokenName.result, tokenNameBytes32.result]
   )
 
   return useMemo(() => {

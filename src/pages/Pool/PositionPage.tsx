@@ -212,7 +212,11 @@ function LinkedCurrency({ chainId, currency }: { chainId?: number; currency?: Cu
   )
 }
 
-function getRatio(lower: Price<Currency, Currency>, current: Price<Currency, Currency>, upper: Price<Currency, Currency>) {
+function getRatio(
+  lower: Price<Currency, Currency>,
+  current: Price<Currency, Currency>,
+  upper: Price<Currency, Currency>
+) {
   try {
     if (!current.greaterThan(lower)) {
       return 100
@@ -388,7 +392,11 @@ export function PositionPage() {
 
   const ratio = useMemo(() => {
     return priceLower && pool && priceUpper
-      ? getRatio(inverted ? priceUpper.invert() : priceLower, pool.token0Price, inverted ? priceLower.invert() : priceUpper)
+      ? getRatio(
+          inverted ? priceUpper.invert() : priceLower,
+          pool.token0Price,
+          inverted ? priceLower.invert() : priceUpper
+        )
       : undefined
   }, [inverted, pool, priceLower, priceUpper])
 
@@ -560,7 +568,7 @@ export function PositionPage() {
       currency0 &&
       currency1 &&
       (currency0.isNative || currency1.isNative) &&
-      !collectMigrationHash,
+      !collectMigrationHash
   )
 
   return loading || poolState === PoolState.LOADING || !feeAmount ? (
@@ -759,7 +767,11 @@ export function PositionPage() {
                             <Trans>Unclaimed fees</Trans>
                           </Label>
                           {fiatValueOfFees?.greaterThan(new Fraction(1, 100)) ? (
-                            <ThemedText.DeprecatedLargeHeader color={theme.accentSuccess} fontSize="36px" fontWeight={500}>
+                            <ThemedText.DeprecatedLargeHeader
+                              color={theme.accentSuccess}
+                              fontSize="36px"
+                              fontWeight={500}
+                            >
                               <Trans>
                                 $
                                 {fiatValueOfFees.toFixed(2, {
@@ -768,12 +780,17 @@ export function PositionPage() {
                               </Trans>
                             </ThemedText.DeprecatedLargeHeader>
                           ) : (
-                            <ThemedText.DeprecatedLargeHeader color={theme.textPrimary} fontSize="36px" fontWeight={500}>
+                            <ThemedText.DeprecatedLargeHeader
+                              color={theme.textPrimary}
+                              fontSize="36px"
+                              fontWeight={500}
+                            >
                               <Trans>$-</Trans>
                             </ThemedText.DeprecatedLargeHeader>
                           )}
                         </AutoColumn>
-                        {ownsNFT && (feeValue0?.greaterThan(0) || feeValue1?.greaterThan(0) || !!collectMigrationHash) ? (
+                        {ownsNFT &&
+                        (feeValue0?.greaterThan(0) || feeValue1?.greaterThan(0) || !!collectMigrationHash) ? (
                           <ResponsiveButtonConfirmed
                             disabled={collecting || !!collectMigrationHash}
                             confirmed={!!collectMigrationHash && !isCollectPending}
@@ -808,7 +825,11 @@ export function PositionPage() {
                       <AutoColumn gap="md">
                         <RowBetween>
                           <RowFixed>
-                            <CurrencyLogo currency={feeValueUpper?.currency} size="20px" style={{ marginRight: '0.5rem' }} />
+                            <CurrencyLogo
+                              currency={feeValueUpper?.currency}
+                              size="20px"
+                              style={{ marginRight: '0.5rem' }}
+                            />
                             <ThemedText.DeprecatedMain>{feeValueUpper?.currency?.symbol}</ThemedText.DeprecatedMain>
                           </RowFixed>
                           <RowFixed>
@@ -819,7 +840,11 @@ export function PositionPage() {
                         </RowBetween>
                         <RowBetween>
                           <RowFixed>
-                            <CurrencyLogo currency={feeValueLower?.currency} size="20px" style={{ marginRight: '0.5rem' }} />
+                            <CurrencyLogo
+                              currency={feeValueLower?.currency}
+                              size="20px"
+                              style={{ marginRight: '0.5rem' }}
+                            />
                             <ThemedText.DeprecatedMain>{feeValueLower?.currency?.symbol}</ThemedText.DeprecatedMain>
                           </RowFixed>
                           <RowFixed>

@@ -109,9 +109,18 @@ export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
     `https://lb.nodies.app/v1/d7f35384b3fc49c68edebaf888b8edb0`,
     ...FALLBACK_URLS[SupportedChainId.PLANQ],
   ],
-  [SupportedChainId.MAINNET]: [`https://mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.MAINNET]],
-  [SupportedChainId.RINKEBY]: [`https://rinkeby.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.RINKEBY]],
-  [SupportedChainId.ROPSTEN]: [`https://ropsten.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.ROPSTEN]],
+  [SupportedChainId.MAINNET]: [
+    `https://mainnet.infura.io/v3/${INFURA_KEY}`,
+    ...FALLBACK_URLS[SupportedChainId.MAINNET],
+  ],
+  [SupportedChainId.RINKEBY]: [
+    `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
+    ...FALLBACK_URLS[SupportedChainId.RINKEBY],
+  ],
+  [SupportedChainId.ROPSTEN]: [
+    `https://ropsten.infura.io/v3/${INFURA_KEY}`,
+    ...FALLBACK_URLS[SupportedChainId.ROPSTEN],
+  ],
   [SupportedChainId.GOERLI]: [`https://goerli.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.GOERLI]],
   [SupportedChainId.KOVAN]: [`https://kovan.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[SupportedChainId.KOVAN]],
   [SupportedChainId.OPTIMISM]: [

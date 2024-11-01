@@ -62,7 +62,7 @@ export const CollectionAsset = ({
 
   const { isSelected } = useMemo(() => {
     const matchingItems = itemsInBag.filter(
-      (item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address,
+      (item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address
     )
 
     const isSelected = matchingItems.length > 0
@@ -79,7 +79,9 @@ export const CollectionAsset = ({
 
   const { provider, rarityLogo } = useMemo(() => {
     return {
-      provider: asset?.rarity?.providers?.find(({ provider: _provider }) => _provider === asset.rarity?.primaryProvider),
+      provider: asset?.rarity?.providers?.find(
+        ({ provider: _provider }) => _provider === asset.rarity?.primaryProvider
+      ),
       rarityLogo: rarityProviderLogo[asset.rarity?.primaryProvider ?? 0] ?? '',
     }
   }, [asset])

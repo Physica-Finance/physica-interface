@@ -12,7 +12,10 @@ describe('#calculateSlippageAmount', () => {
       '100',
       '100',
     ])
-    expect(calculateSlippageAmount(tokenAmount, new Percent(5, 100)).map((bound) => bound.toString())).toEqual(['95', '105'])
+    expect(calculateSlippageAmount(tokenAmount, new Percent(5, 100)).map((bound) => bound.toString())).toEqual([
+      '95',
+      '105',
+    ])
     expect(calculateSlippageAmount(tokenAmount, new Percent(100, 10_000)).map((bound) => bound.toString())).toEqual([
       '99',
       '101',
@@ -34,7 +37,10 @@ describe('#calculateSlippageAmount', () => {
       '100',
       '100',
     ])
-    expect(calculateSlippageAmount(tokenAmount, new Percent(5, 100)).map((bound) => bound.toString())).toEqual(['95', '105'])
+    expect(calculateSlippageAmount(tokenAmount, new Percent(5, 100)).map((bound) => bound.toString())).toEqual([
+      '95',
+      '105',
+    ])
     expect(calculateSlippageAmount(tokenAmount, new Percent(100, 10_000)).map((bound) => bound.toString())).toEqual([
       '99',
       '101',

@@ -161,22 +161,22 @@ export default function App() {
     getCLS(({ delta }: Metric) =>
       sendAnalyticsEvent(SharedEventName.WEB_VITALS, {
         cumulative_layout_shift: delta,
-      }),
+      })
     )
     getFCP(({ delta }: Metric) =>
       sendAnalyticsEvent(SharedEventName.WEB_VITALS, {
         first_contentful_paint_ms: delta,
-      }),
+      })
     )
     getFID(({ delta }: Metric) =>
       sendAnalyticsEvent(SharedEventName.WEB_VITALS, {
         first_input_delay_ms: delta,
-      }),
+      })
     )
     getLCP(({ delta }: Metric) =>
       sendAnalyticsEvent(SharedEventName.WEB_VITALS, {
         largest_contentful_paint_ms: delta,
-      }),
+      })
     )
   }, [])
 

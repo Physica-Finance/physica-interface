@@ -62,7 +62,7 @@ export const SearchBar = () => {
       refetchOnMount: false,
       refetchOnReconnect: false,
       enabled: !!debouncedSearchValue.length,
-    },
+    }
   )
 
   const { chainId } = useWeb3React()
@@ -120,7 +120,7 @@ export const SearchBar = () => {
         !isOpen && toggleOpen()
       }
     },
-    [isOpen],
+    [isOpen]
   )
 
   useEffect(() => {
@@ -152,7 +152,7 @@ export const SearchBar = () => {
           className={clsx(
             styles.nftSearchBar,
             !isOpen && !isMobile && magicalGradientOnHover,
-            isMobileOrTablet && (isOpen ? styles.visible : styles.hidden),
+            isMobileOrTablet && (isOpen ? styles.visible : styles.hidden)
           )}
           borderRadius={isOpen || isMobileOrTablet ? undefined : '12'}
           borderTopRightRadius={isOpen && !isMobile ? '12' : undefined}
@@ -187,7 +187,9 @@ export const SearchBar = () => {
                     !isOpen && toggleOpen()
                     setSearchValue(event.target.value)
                   }}
-                  onBlur={() => sendAnalyticsEvent(InterfaceEventName.NAVBAR_SEARCH_EXITED, navbarSearchEventProperties)}
+                  onBlur={() =>
+                    sendAnalyticsEvent(InterfaceEventName.NAVBAR_SEARCH_EXITED, navbarSearchEventProperties)
+                  }
                   className={`${styles.searchBarInput} ${styles.searchContentLeftAlign}`}
                   value={searchValue}
                   ref={inputRef}

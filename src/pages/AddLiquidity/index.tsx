@@ -14,7 +14,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Text } from 'rebass'
-import { useRangeHopCallbacks, useV3DerivedMintInfo, useV3MintActionHandlers, useV3MintState } from 'state/mint/v3/hooks'
+import {
+  useRangeHopCallbacks,
+  useV3DerivedMintInfo,
+  useV3MintActionHandlers,
+  useV3MintState,
+} from 'state/mint/v3/hooks'
 import { useTheme } from 'styled-components/macro'
 
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonText, ButtonYellow } from '../../components/Button'
@@ -97,7 +102,7 @@ export default function AddLiquidity() {
 
   // check for existing position if tokenId in url
   const { position: existingPositionDetails, loading: positionLoading } = useV3PositionFromTokenId(
-    tokenId ? BigNumber.from(tokenId) : undefined,
+    tokenId ? BigNumber.from(tokenId) : undefined
   )
   const hasExistingPosition = !!existingPositionDetails && !positionLoading
   const { position: existingPosition } = useDerivedPositionInfo(existingPositionDetails)
@@ -111,10 +116,12 @@ export default function AddLiquidity() {
   const baseCurrency = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
   // prevent an error if they input ETH/WETH
-  const quoteCurrency = baseCurrency && currencyB && baseCurrency.wrapped.equals(currencyB.wrapped) ? undefined : currencyB
+  const quoteCurrency =
+    baseCurrency && currencyB && baseCurrency.wrapped.equals(currencyB.wrapped) ? undefined : currencyB
 
   // mint state
-  const { independentField, typedValue, startPriceTypedValue, rightRangeTypedValue, leftRangeTypedValue } = useV3MintState()
+  const { independentField, typedValue, startPriceTypedValue, rightRangeTypedValue, leftRangeTypedValue } =
+    useV3MintState()
 
   const {
     pool,
@@ -140,7 +147,7 @@ export default function AddLiquidity() {
     quoteCurrency ?? undefined,
     feeAmount,
     baseCurrency ?? undefined,
-    existingPosition,
+    existingPosition
   )
 
   const { onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput, onStartPriceInput } =
@@ -201,7 +208,7 @@ export default function AddLiquidity() {
         [field]: maxAmountSpend(currencyBalances[field]),
       }
     },
-    {},
+    {}
   )
 
   const atMaxAmounts: { [field in Field]?: CurrencyAmount<Currency> } = [Field.CURRENCY_A, Field.CURRENCY_B].reduce(
@@ -211,7 +218,7 @@ export default function AddLiquidity() {
         [field]: maxAmounts[field]?.equalTo(parsedAmounts[field] ?? '0'),
       }
     },
-    {},
+    {}
   )
 
   const argentWalletContract = useArgentWalletContract()
@@ -219,15 +226,15 @@ export default function AddLiquidity() {
   // check whether the user has approved the router on the tokens
   const [approvalA, approveACallback] = useApproveCallback(
     argentWalletContract ? undefined : parsedAmounts[Field.CURRENCY_A],
-    chainId ? NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId] : undefined,
+    chainId ? NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId] : undefined
   )
   const [approvalB, approveBCallback] = useApproveCallback(
     argentWalletContract ? undefined : parsedAmounts[Field.CURRENCY_B],
-    chainId ? NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId] : undefined,
+    chainId ? NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId] : undefined
   )
 
   const allowedSlippage = useUserSlippageToleranceWithDefault(
-    outOfRange ? ZERO_PERCENT : DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE,
+    outOfRange ? ZERO_PERCENT : DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE
   )
 
   async function onAdd() {
@@ -343,7 +350,8 @@ export default function AddLiquidity() {
       } else {
         // prevent weth + eth
         const isETHOrWETHNew =
-          currencyIdNew === 'ETH' || (chainId !== undefined && currencyIdNew === WRAPPED_NATIVE_CURRENCY[chainId]?.address)
+          currencyIdNew === 'ETH' ||
+          (chainId !== undefined && currencyIdNew === WRAPPED_NATIVE_CURRENCY[chainId]?.address)
         const isETHOrWETHOther =
           currencyIdOther !== undefined &&
           (currencyIdOther === 'ETH' ||
@@ -356,7 +364,7 @@ export default function AddLiquidity() {
         }
       }
     },
-    [chainId],
+    [chainId]
   )
 
   const handleCurrencyASelect = useCallback(
@@ -368,7 +376,7 @@ export default function AddLiquidity() {
         navigate(`/add/${idA}/${idB}`)
       }
     },
-    [handleCurrencySelect, currencyIdB, navigate],
+    [handleCurrencySelect, currencyIdB, navigate]
   )
 
   const handleCurrencyBSelect = useCallback(
@@ -380,7 +388,7 @@ export default function AddLiquidity() {
         navigate(`/add/${idA}/${idB}`)
       }
     },
-    [handleCurrencySelect, currencyIdA, navigate],
+    [handleCurrencySelect, currencyIdA, navigate]
   )
 
   const handleFeePoolSelect = useCallback(
@@ -389,7 +397,7 @@ export default function AddLiquidity() {
       onRightRangeInput('')
       navigate(`/add/${currencyIdA}/${currencyIdB}/${newFeeAmount}`)
     },
-    [currencyIdA, currencyIdB, navigate, onLeftRangeInput, onRightRangeInput],
+    [currencyIdA, currencyIdB, navigate, onLeftRangeInput, onRightRangeInput]
   )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -421,8 +429,10 @@ export default function AddLiquidity() {
     useRangeHopCallbacks(baseCurrency ?? undefined, quoteCurrency ?? undefined, feeAmount, tickLower, tickUpper, pool)
 
   // we need an existence check on parsed amounts for single-asset deposits
-  const showApprovalA = !argentWalletContract && approvalA !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_A]
-  const showApprovalB = !argentWalletContract && approvalB !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_B]
+  const showApprovalA =
+    !argentWalletContract && approvalA !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_A]
+  const showApprovalB =
+    !argentWalletContract && approvalB !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_B]
 
   const pendingText = `Supplying ${!depositADisabled ? parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) : ''} ${
     !depositADisabled ? currencies[Field.CURRENCY_A]?.symbol : ''
@@ -565,7 +575,9 @@ export default function AddLiquidity() {
                         onRightRangeInput((invertPrice ? priceUpper : priceLower?.invert())?.toSignificant(6) ?? '')
                         onFieldAInput(formattedAmounts[Field.CURRENCY_B] ?? '')
                       }
-                      navigate(`/add/${currencyIdB as string}/${currencyIdA as string}${feeAmount ? '/' + feeAmount : ''}`)
+                      navigate(
+                        `/add/${currencyIdB as string}/${currencyIdA as string}${feeAmount ? '/' + feeAmount : ''}`
+                      )
                     }}
                   />
                 ) : null}
@@ -635,7 +647,9 @@ export default function AddLiquidity() {
                 )}
               </AutoColumn>
               <div>
-                <DynamicSection disabled={tickLower === undefined || tickUpper === undefined || invalidPool || invalidRange}>
+                <DynamicSection
+                  disabled={tickLower === undefined || tickUpper === undefined || invalidPool || invalidRange}
+                >
                   <AutoColumn gap="md">
                     <ThemedText.DeprecatedLabel>
                       {hasExistingPosition ? <Trans>Add more liquidity</Trans> : <Trans>Deposit Amounts</Trans>}
@@ -690,10 +704,20 @@ export default function AddLiquidity() {
                           {price && baseCurrency && quoteCurrency && !noLiquidity && (
                             <AutoRow gap="4px" justify="center" style={{ marginTop: '0.5rem' }}>
                               <Trans>
-                                <ThemedText.DeprecatedMain fontWeight={500} textAlign="center" fontSize={12} color="text1">
+                                <ThemedText.DeprecatedMain
+                                  fontWeight={500}
+                                  textAlign="center"
+                                  fontSize={12}
+                                  color="text1"
+                                >
                                   Current Price:
                                 </ThemedText.DeprecatedMain>
-                                <ThemedText.DeprecatedBody fontWeight={500} textAlign="center" fontSize={12} color="text1">
+                                <ThemedText.DeprecatedBody
+                                  fontWeight={500}
+                                  textAlign="center"
+                                  fontSize={12}
+                                  color="text1"
+                                >
                                   <HoverInlineText
                                     maxCharacters={20}
                                     text={invertPrice ? price.invert().toSignificant(6) : price.toSignificant(6)}
@@ -711,7 +735,9 @@ export default function AddLiquidity() {
                             currencyB={quoteCurrency ?? undefined}
                             feeAmount={feeAmount}
                             ticksAtLimit={ticksAtLimit}
-                            price={price ? parseFloat((invertPrice ? price.invert() : price).toSignificant(8)) : undefined}
+                            price={
+                              price ? parseFloat((invertPrice ? price.invert() : price).toSignificant(8)) : undefined
+                            }
                             priceLower={priceLower}
                             priceUpper={priceUpper}
                             onLeftRangeInput={onLeftRangeInput}
@@ -743,8 +769,8 @@ export default function AddLiquidity() {
                               >
                                 <Trans>
                                   This pool must be initialized before you can add liquidity. To initialize, select a
-                                  starting price for the pool. Then, enter your liquidity price range and deposit amount. Gas
-                                  fees will be higher than usual due to the initialization transaction.
+                                  starting price for the pool. Then, enter your liquidity price range and deposit
+                                  amount. Gas fees will be higher than usual due to the initialization transaction.
                                 </Trans>
                               </ThemedText.DeprecatedBody>
                             </BlueCard>
@@ -786,7 +812,10 @@ export default function AddLiquidity() {
                       )}
                     </DynamicSection>
 
-                    <DynamicSection gap="md" disabled={!feeAmount || invalidPool || (noLiquidity && !startPriceTypedValue)}>
+                    <DynamicSection
+                      gap="md"
+                      disabled={!feeAmount || invalidPool || (noLiquidity && !startPriceTypedValue)}
+                    >
                       <StackedContainer>
                         <StackedItem
                           style={{
@@ -888,8 +917,8 @@ export default function AddLiquidity() {
                             <AlertTriangle stroke={theme.deprecated_yellow3} size="16px" />
                             <ThemedText.DeprecatedYellow ml="12px" fontSize="12px">
                               <Trans>
-                                Your position will not earn fees or be used in trades until the market price moves into your
-                                range.
+                                Your position will not earn fees or be used in trades until the market price moves into
+                                your range.
                               </Trans>
                             </ThemedText.DeprecatedYellow>
                           </RowBetween>
@@ -920,7 +949,10 @@ export default function AddLiquidity() {
           </Wrapper>
         </PageWrapper>
         {addIsUnsupported && (
-          <UnsupportedCurrencyFooter show={addIsUnsupported} currencies={[currencies.CURRENCY_A, currencies.CURRENCY_B]} />
+          <UnsupportedCurrencyFooter
+            show={addIsUnsupported}
+            currencies={[currencies.CURRENCY_A, currencies.CURRENCY_B]}
+          />
         )}
       </ScrollablePage>
       <SwitchLocaleLink />

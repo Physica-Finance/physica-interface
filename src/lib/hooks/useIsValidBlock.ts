@@ -22,7 +22,7 @@ function useGetIsValidBlock(maxBlockAge = DEFAULT_MAX_BLOCK_AGE): (block: number
       if (currentBlock < oldestBlock) return false
       return true
     },
-    [currentBlock, maxBlockAge, oldestBlock],
+    [currentBlock, maxBlockAge, oldestBlock]
   )
 }
 

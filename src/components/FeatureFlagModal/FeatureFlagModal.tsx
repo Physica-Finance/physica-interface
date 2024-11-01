@@ -134,7 +134,7 @@ function FeatureFlagGroup({ name, children }: PropsWithChildren<{ name: string }
   const togglableOptions = Children.toArray(children)
     .filter<ReactElement<FeatureFlagProps>>(
       (child): child is ReactElement<FeatureFlagProps> =>
-        child instanceof Object && 'type' in child && child.type === FeatureFlagOption,
+        child instanceof Object && 'type' in child && child.type === FeatureFlagOption
     )
     .map(({ props }) => props)
     .filter(({ variant }) => {
@@ -152,7 +152,7 @@ function FeatureFlagGroup({ name, children }: PropsWithChildren<{ name: string }
           ...flags,
           [featureFlag]: allEnabled ? BaseVariant.Control : BaseVariant.Enabled,
         }),
-        {},
+        {}
       ),
     }))
   }, [allEnabled, setFeatureFlags, togglableOptions])

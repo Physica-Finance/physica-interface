@@ -8,7 +8,14 @@ import { Column, Row } from 'nft/components/Flex'
 import { CrossIcon } from 'nft/components/icons'
 import { FilterSidebar } from 'nft/components/profile/view/FilterSidebar'
 import { subhead } from 'nft/css/common.css'
-import { useBag, useFiltersExpanded, useIsMobile, useSellAsset, useWalletBalance, useWalletCollections } from 'nft/hooks'
+import {
+  useBag,
+  useFiltersExpanded,
+  useIsMobile,
+  useSellAsset,
+  useWalletBalance,
+  useWalletCollections,
+} from 'nft/hooks'
 import { ScreenBreakpointsPaddings } from 'nft/pages/collection/index.css'
 import { OSCollectionsFetcher } from 'nft/queries'
 import { WalletCollection } from 'nft/types'
@@ -56,7 +63,7 @@ export const ProfilePage = () => {
     ({ reset }) => ({
       resetSellAssets: reset,
     }),
-    shallow,
+    shallow
   )
   const sellAssets = useSellAsset((state) => state.sellAssets)
   const toggleBag = useBag((state) => state.toggleBag)
@@ -93,7 +100,7 @@ export const ProfilePage = () => {
 
   const ownerCollections = useMemo(
     () => (isSuccess ? ownerCollectionsData?.pages.map((page) => page.data).flat() : null),
-    [isSuccess, ownerCollectionsData],
+    [isSuccess, ownerCollectionsData]
   )
 
   useEffect(() => {
@@ -221,7 +228,7 @@ const ProfilePageNfts = ({
           position={isMobile && isBagExpanded ? 'fixed' : 'static'}
           style={{
             transform: gridX.to(
-              (x) => `translate(${Number(x) - (!isMobile && isFiltersExpanded ? FILTER_SIDEBAR_WIDTH : -PADDING)}px)`,
+              (x) => `translate(${Number(x) - (!isMobile && isFiltersExpanded ? FILTER_SIDEBAR_WIDTH : -PADDING)}px)`
             ),
           }}
           paddingY="20"
@@ -244,7 +251,9 @@ const ProfilePageNfts = ({
           <InfiniteScroll
             next={loadMore}
             hasMore={hasNext ?? false}
-            loader={Boolean(hasNext && ownerAssets?.length) && <LoadingAssets count={DEFAULT_WALLET_ASSET_QUERY_AMOUNT} />}
+            loader={
+              Boolean(hasNext && ownerAssets?.length) && <LoadingAssets count={DEFAULT_WALLET_ASSET_QUERY_AMOUNT} />
+            }
             dataLength={ownerAssets?.length ?? 0}
             className={ownerAssets?.length ? assetList : undefined}
             style={{ overflow: 'unset' }}

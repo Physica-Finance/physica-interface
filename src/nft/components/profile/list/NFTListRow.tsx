@@ -104,7 +104,13 @@ interface NFTListRowProps {
  * NFTListRow is the outermost row wrapper for an NFT Listing, which shows either the composite of multiple marketplaces listings
  * or can be expanded to show listings per marketplace
  */
-export const NFTListRow = ({ asset, globalPriceMethod, globalPrice, setGlobalPrice, selectedMarkets }: NFTListRowProps) => {
+export const NFTListRow = ({
+  asset,
+  globalPriceMethod,
+  globalPrice,
+  setGlobalPrice,
+  selectedMarkets,
+}: NFTListRowProps) => {
   const [expandMarketplaceRows, toggleExpandMarketplaceRows] = useReducer((s) => !s, false)
   const removeAsset = useSellAsset((state) => state.removeSellAsset)
   const [localMarkets, setLocalMarkets] = useState<ListingMarket[]>([])

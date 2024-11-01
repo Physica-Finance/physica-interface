@@ -26,6 +26,6 @@ export const useTraitsOpen = create<TraitsOpenState>()(
         }))
       },
     }),
-    { name: 'useTraitsOpen' },
-  ),
+    { name: 'useTraitsOpen' }
+  )
 )

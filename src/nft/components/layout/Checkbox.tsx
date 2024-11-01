@@ -12,7 +12,15 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const Checkbox: React.FC<CheckboxProps> = ({ hovered, children, ...props }: CheckboxProps) => {
   return (
-    <Box as="label" display="flex" alignItems="center" position="relative" overflow="hidden" cursor="pointer" lineHeight="1">
+    <Box
+      as="label"
+      display="flex"
+      alignItems="center"
+      position="relative"
+      overflow="hidden"
+      cursor="pointer"
+      lineHeight="1"
+    >
       {children}
       <Box
         as="span"

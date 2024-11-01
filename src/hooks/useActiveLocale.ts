@@ -13,7 +13,7 @@ function parseLocale(maybeSupportedLocale: unknown): SupportedLocale | undefined
   if (typeof maybeSupportedLocale !== 'string') return undefined
   const lowerMaybeSupportedLocale = maybeSupportedLocale.toLowerCase()
   return SUPPORTED_LOCALES.find(
-    (locale) => locale.toLowerCase() === lowerMaybeSupportedLocale || locale.split('-')[0] === lowerMaybeSupportedLocale,
+    (locale) => locale.toLowerCase() === lowerMaybeSupportedLocale || locale.split('-')[0] === lowerMaybeSupportedLocale
   )
 }
 
@@ -36,7 +36,8 @@ function storeLocale(): SupportedLocale | undefined {
   return store.getState().user.userLocale ?? undefined
 }
 
-export const initialLocale = parseLocale(parsedQueryString().lng) ?? storeLocale() ?? navigatorLocale() ?? DEFAULT_LOCALE
+export const initialLocale =
+  parseLocale(parsedQueryString().lng) ?? storeLocale() ?? navigatorLocale() ?? DEFAULT_LOCALE
 
 function useUrlLocale() {
   const parsed = useParsedQueryString()

@@ -45,7 +45,7 @@ export const SortDropdown = ({
 
   const reversable = useMemo(
     () => dropDownOptions[selectedIndex].reverseOnClick || dropDownOptions[selectedIndex].reverseIndex,
-    [selectedIndex, dropDownOptions],
+    [selectedIndex, dropDownOptions]
   )
 
   const width = isCollectionStatsLoading ? 220 : inFilters ? 'full' : mini ? 'min' : maxWidth ? maxWidth : '300px'
@@ -97,7 +97,8 @@ export const SortDropdown = ({
                     }
                   }}
                 >
-                  {dropDownOptions[selectedIndex].reverseOnClick && (isReversed ? <ArrowsIcon /> : <ReversedArrowsIcon />)}
+                  {dropDownOptions[selectedIndex].reverseOnClick &&
+                    (isReversed ? <ArrowsIcon /> : <ReversedArrowsIcon />)}
                   {dropDownOptions[selectedIndex].reverseIndex &&
                     (selectedIndex > (dropDownOptions[selectedIndex].reverseIndex ?? 1) - 1 ? (
                       <ArrowsIcon />

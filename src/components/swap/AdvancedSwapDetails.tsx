@@ -70,8 +70,8 @@ export function AdvancedSwapDetails({
             <MouseoverTooltip
               text={
                 <Trans>
-                  The amount you expect to receive at the current market price. You may receive less or more if the market
-                  price changes while your transaction is pending.
+                  The amount you expect to receive at the current market price. You may receive less or more if the
+                  market price changes while your transaction is pending.
                 </Trans>
               }
               disableHover={hideInfoTooltips}
@@ -112,14 +112,18 @@ export function AdvancedSwapDetails({
             <MouseoverTooltip
               text={
                 <Trans>
-                  The minimum amount you are guaranteed to receive. If the price slips any further, your transaction will
-                  revert.
+                  The minimum amount you are guaranteed to receive. If the price slips any further, your transaction
+                  will revert.
                 </Trans>
               }
               disableHover={hideInfoTooltips}
             >
               <ThemedText.DeprecatedSubHeader color={theme.textTertiary}>
-                {trade.tradeType === TradeType.EXACT_INPUT ? <Trans>Minimum received</Trans> : <Trans>Maximum sent</Trans>}{' '}
+                {trade.tradeType === TradeType.EXACT_INPUT ? (
+                  <Trans>Minimum received</Trans>
+                ) : (
+                  <Trans>Maximum sent</Trans>
+                )}{' '}
                 <Trans>after slippage</Trans> ({allowedSlippage.toFixed(2)}%)
               </ThemedText.DeprecatedSubHeader>
             </MouseoverTooltip>

@@ -163,7 +163,12 @@ function WrapSummary({ info: { chainId, currencyAmountRaw, unwrapped } }: { info
     return (
       <Trans>
         Wrap{' '}
-        <FormattedCurrencyAmount rawAmount={currencyAmountRaw} symbol={native?.symbol ?? 'ETH'} decimals={18} sigFigs={6} />{' '}
+        <FormattedCurrencyAmount
+          rawAmount={currencyAmountRaw}
+          symbol={native?.symbol ?? 'ETH'}
+          decimals={18}
+          sigFigs={6}
+        />{' '}
         to {native?.wrapped?.symbol ?? 'WETH'}
       </Trans>
     )
@@ -224,7 +229,8 @@ function RemoveLiquidityV3Summary({
 }) {
   return (
     <Trans>
-      Remove <FormattedCurrencyAmountManaged rawAmount={expectedAmountBaseRaw} currencyId={baseCurrencyId} sigFigs={3} /> and{' '}
+      Remove{' '}
+      <FormattedCurrencyAmountManaged rawAmount={expectedAmountBaseRaw} currencyId={baseCurrencyId} sigFigs={3} /> and{' '}
       <FormattedCurrencyAmountManaged rawAmount={expectedAmountQuoteRaw} currencyId={quoteCurrencyId} sigFigs={3} />
     </Trans>
   )
@@ -256,9 +262,9 @@ function AddLiquidityV2PoolSummary({
 }) {
   return (
     <Trans>
-      Add <FormattedCurrencyAmountManaged rawAmount={expectedAmountBaseRaw} currencyId={baseCurrencyId} sigFigs={3} /> and{' '}
-      <FormattedCurrencyAmountManaged rawAmount={expectedAmountQuoteRaw} currencyId={quoteCurrencyId} sigFigs={3} /> to
-      Physica V2
+      Add <FormattedCurrencyAmountManaged rawAmount={expectedAmountBaseRaw} currencyId={baseCurrencyId} sigFigs={3} />{' '}
+      and <FormattedCurrencyAmountManaged rawAmount={expectedAmountQuoteRaw} currencyId={quoteCurrencyId} sigFigs={3} />{' '}
+      to Physica V2
     </Trans>
   )
 }

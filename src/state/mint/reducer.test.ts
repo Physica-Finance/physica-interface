@@ -17,7 +17,7 @@ describe('mint reducer', () => {
           field: Field.CURRENCY_A,
           typedValue: '1.0',
           noLiquidity: false,
-        }),
+        })
       )
       expect(store.getState()).toEqual({
         ...initialState,
@@ -32,14 +32,14 @@ describe('mint reducer', () => {
           field: Field.CURRENCY_A,
           typedValue: '1.0',
           noLiquidity: false,
-        }),
+        })
       )
       store.dispatch(
         typeInput({
           field: Field.CURRENCY_B,
           typedValue: '1.0',
           noLiquidity: false,
-        }),
+        })
       )
       expect(store.getState()).toEqual({
         ...initialState,

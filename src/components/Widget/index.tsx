@@ -76,7 +76,7 @@ export default function Widget({
   const onSwitchChain = useCallback(
     // TODO(WEB-1757): Widget should not break if this rejects - upstream the catch to ignore it.
     ({ chainId }: AddEthereumChainParameter) => switchChain(connector, Number(chainId)).catch(() => undefined),
-    [connector],
+    [connector]
   )
 
   const trace = useTrace({ section: InterfaceSectionName.WIDGET })
@@ -89,13 +89,13 @@ export default function Widget({
         ...formatSwapQuoteReceivedEventProperties(
           trade,
           /* gasUseEstimateUSD= */ undefined,
-          /* fetchingSwapQuoteStartTime= */ undefined,
+          /* fetchingSwapQuoteStartTime= */ undefined
         ),
         ...trace,
       }
       sendAnalyticsEvent(SwapEventName.SWAP_QUOTE_RECEIVED, eventProperties)
     },
-    [trace],
+    [trace]
   )
   const onApproveToken = useCallback(() => {
     const input = inputs.value.INPUT
@@ -123,7 +123,7 @@ export default function Widget({
       }
       sendAnalyticsEvent(SwapEventName.SWAP_PRICE_UPDATE_ACKNOWLEDGED, eventProperties)
     },
-    [trace],
+    [trace]
   )
   const onSubmitSwapClick = useCallback(
     (trade: Trade<Currency, Currency, TradeType>) => {
@@ -150,7 +150,7 @@ export default function Widget({
       }
       sendAnalyticsEvent(SwapEventName.SWAP_SUBMITTED_BUTTON_CLICKED, eventProperties)
     },
-    [initialQuoteDate, trace],
+    [initialQuoteDate, trace]
   )
 
   const permit2Enabled = usePermit2Enabled()

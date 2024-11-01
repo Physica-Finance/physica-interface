@@ -40,7 +40,7 @@ export default function useSendSwapTransaction(
   chainId: number | undefined,
   provider: JsonRpcProvider | undefined,
   trade: Trade<Currency, Currency, TradeType> | undefined, // trade to execute, required
-  swapCalls: SwapCall[],
+  swapCalls: SwapCall[]
 ): { callback: null | (() => Promise<TransactionResponse>) } {
   return useMemo(() => {
     if (!trade || !provider || !account || !chainId) {
@@ -90,13 +90,13 @@ export default function useSendSwapTransaction(
                     }
                   })
               })
-          }),
+          })
         )
 
         // a successful estimation is a bignumber gas estimate and the next call is also a bignumber gas estimate
         let bestCallOption: SuccessfulCall | SwapCallEstimate | undefined = estimatedCalls.find(
           (el, ix, list): el is SuccessfulCall =>
-            'gasEstimate' in el && (ix === list.length - 1 || 'gasEstimate' in list[ix + 1]),
+            'gasEstimate' in el && (ix === list.length - 1 || 'gasEstimate' in list[ix + 1])
         )
 
         // check if any calls errored with a recognizable error
@@ -104,7 +104,7 @@ export default function useSendSwapTransaction(
           const errorCalls = estimatedCalls.filter((call): call is FailedCall => 'error' in call)
           if (errorCalls.length > 0) throw errorCalls[errorCalls.length - 1].error
           const firstNoErrorCall = estimatedCalls.find<SwapCallEstimate>(
-            (call): call is SwapCallEstimate => !('error' in call),
+            (call): call is SwapCallEstimate => !('error' in call)
           )
           if (!firstNoErrorCall) throw new Error(t`Unexpected error. Could not estimate gas for the swap.`)
           bestCallOption = firstNoErrorCall
@@ -130,14 +130,14 @@ export default function useSendSwapTransaction(
               formatSwapSignedAnalyticsEventProperties({
                 trade,
                 txHash: response.hash,
-              }),
+              })
             )
             if (calldata !== response.data) {
               sendAnalyticsEvent(SwapEventName.SWAP_MODIFIED_IN_WALLET, {
                 txHash: response.hash,
               })
               throw new InvalidSwapError(
-                t`Your swap was modified through your wallet. If this was a mistake, please cancel immediately or risk losing your funds.`,
+                t`Your swap was modified through your wallet. If this was a mistake, please cancel immediately or risk losing your funds.`
               )
             }
             return response

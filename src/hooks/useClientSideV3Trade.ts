@@ -32,7 +32,7 @@ const DEFAULT_GAS_QUOTE = 2_000_000
 export function useClientSideV3Trade<TTradeType extends TradeType>(
   tradeType: TTradeType,
   amountSpecified?: CurrencyAmount<Currency>,
-  otherCurrency?: Currency,
+  otherCurrency?: Currency
 ): {
   state: TradeState
   trade: InterfaceTrade<Currency, Currency, TTradeType> | undefined
@@ -50,9 +50,11 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
   const callData = useMemo(
     () =>
       amountSpecified
-        ? routes.map((route) => SwapQuoter.quoteCallParameters(route, amountSpecified, tradeType, { useQuoterV2 }).calldata)
+        ? routes.map(
+            (route) => SwapQuoter.quoteCallParameters(route, amountSpecified, tradeType, { useQuoterV2 }).calldata
+          )
         : [],
-    [amountSpecified, routes, tradeType, useQuoterV2],
+    [amountSpecified, routes, tradeType, useQuoterV2]
   )
 
   const quotesResults = useSingleContractWithCallData(quoter, callData, {
@@ -91,7 +93,7 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
           amountOut: CurrencyAmount<Currency> | null
         },
         { result },
-        i,
+        i
       ) => {
         if (!result) return currentBest
 
@@ -122,7 +124,7 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
         bestRoute: null,
         amountIn: null,
         amountOut: null,
-      },
+      }
     )
 
     if (!bestRoute || !amountIn || !amountOut) {

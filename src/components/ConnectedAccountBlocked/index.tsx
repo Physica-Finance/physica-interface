@@ -36,7 +36,8 @@ export default function ConnectedAccountBlocked(props: ConnectedAccountBlockedPr
         </ThemedText.DeprecatedDarkGray>
         <ThemedText.DeprecatedMain fontSize={14} marginBottom={12}>
           <Trans>
-            This address is blocked on the Physica interface because it is associated with one or more blocked activities
+            This address is blocked on the Physica interface because it is associated with one or more blocked
+            activities
           </Trans>{' '}
           .
         </ThemedText.DeprecatedMain>

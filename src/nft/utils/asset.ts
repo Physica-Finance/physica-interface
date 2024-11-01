@@ -1,6 +1,10 @@
 import { DetailsOrigin, GenieAsset, Listing, UpdatedGenieAsset, WalletAsset } from 'nft/types'
 
-export function getRarityStatus(rarityStatusCache: Map<string, boolean>, id: string, assets?: (GenieAsset | undefined)[]) {
+export function getRarityStatus(
+  rarityStatusCache: Map<string, boolean>,
+  id: string,
+  assets?: (GenieAsset | undefined)[]
+) {
   if (rarityStatusCache.has(id)) {
     return rarityStatusCache.get(id)
   }
@@ -62,13 +66,17 @@ export const generateTweetForList = (assets: WalletAsset[]): string => {
   const tweetText =
     assets.length == 1
       ? `I just listed ${
-          assets[0].collection?.twitterUrl ? `${assets[0].collection?.twitterUrl} ` : `${assets[0].collection?.name} ` ?? ''
+          assets[0].collection?.twitterUrl
+            ? `${assets[0].collection?.twitterUrl} `
+            : `${assets[0].collection?.name} ` ?? ''
         }${assets[0].name} for ${getMinListingPrice(assets[0].newListings ?? [])} ETH on ${assets[0].marketplaces
           ?.map((market) => market.name)
           .join(', ')}. Buy it on @Physica at https://app.physica.finance/#${getAssetHref(assets[0])}`
       : `I just listed ${
           assets.length
-        } items on @Physica at https://app.physica.finance/#/nfts/profile\n\nCollections: ${mapAssetsToCollections(assets)
+        } items on @Physica at https://app.physica.finance/#/nfts/profile\n\nCollections: ${mapAssetsToCollections(
+          assets
+        )
           .map(({ collection, items }) => `${collection} ${items.map((item) => item).join(', ')}`)
           .join(', ')} \n\nMarketplaces: ${assets[0].marketplaces?.map((market) => market.name).join(', ')}`
   return `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`

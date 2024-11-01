@@ -19,7 +19,7 @@ import useIsWindowVisible from './useIsWindowVisible'
 export function useBestTrade(
   tradeType: TradeType,
   amountSpecified?: CurrencyAmount<Currency>,
-  otherCurrency?: Currency,
+  otherCurrency?: Currency
 ): {
   state: TradeState
   trade: InterfaceTrade<Currency, Currency, TradeType> | undefined
@@ -29,7 +29,7 @@ export function useBestTrade(
 
   const [debouncedAmount, debouncedOtherCurrency] = useDebounce(
     useMemo(() => [amountSpecified, otherCurrency], [amountSpecified, otherCurrency]),
-    200,
+    200
   )
 
   const [clientSideRouter] = useClientSideRouter()
@@ -37,7 +37,7 @@ export function useBestTrade(
     tradeType,
     autoRouterSupported && isWindowVisible ? debouncedAmount : undefined,
     debouncedOtherCurrency,
-    RouterPreference.CLIENT,
+    RouterPreference.CLIENT
   )
 
   const isLoading = routingAPITrade.state === TradeState.LOADING
@@ -47,7 +47,7 @@ export function useBestTrade(
   const bestV3Trade = useClientSideV3Trade(
     tradeType,
     useFallback ? debouncedAmount : undefined,
-    useFallback ? debouncedOtherCurrency : undefined,
+    useFallback ? debouncedOtherCurrency : undefined
   )
 
   // only return gas estimate from api if routing api trade is used
@@ -56,6 +56,6 @@ export function useBestTrade(
       ...(useFallback ? bestV3Trade : routingAPITrade),
       ...(isLoading ? { state: TradeState.LOADING } : {}),
     }),
-    [bestV3Trade, isLoading, routingAPITrade, useFallback],
+    [bestV3Trade, isLoading, routingAPITrade, useFallback]
   )
 }

@@ -147,7 +147,11 @@ export function CurrencyRow({
         dim={isBlockedToken}
       >
         <Column>
-          <CurrencyLogo currency={currency} size="36px" style={{ opacity: isBlockedToken ? blockedTokenOpacity : '1' }} />
+          <CurrencyLogo
+            currency={currency}
+            size="36px"
+            style={{ opacity: isBlockedToken ? blockedTokenOpacity : '1' }}
+          />
         </Column>
         <AutoColumn style={{ opacity: isBlockedToken ? blockedTokenOpacity : '1' }}>
           <Row>
@@ -193,7 +197,7 @@ export const formatAnalyticsEventProperties = (
   index: number,
   data: any[],
   searchQuery: string,
-  isAddressSearch: string | false,
+  isAddressSearch: string | false
 ) => ({
   token_symbol: token?.symbol,
   token_address: token?.address,
@@ -277,7 +281,7 @@ export default function CurrencyList({
         return null
       }
     },
-    [onCurrencySelect, otherCurrency, selectedCurrency, showCurrencyAmount, isLoading, isAddressSearch, searchQuery],
+    [onCurrencySelect, otherCurrency, selectedCurrency, showCurrencyAmount, isLoading, isAddressSearch, searchQuery]
   )
 
   const itemKey = useCallback((index: number, data: typeof itemData) => {

@@ -27,7 +27,7 @@ interface SwapOptions {
 
 export function useUniversalRouterSwapCallback(
   trade: Trade<Currency, Currency, TradeType> | undefined,
-  options: SwapOptions,
+  options: SwapOptions
 ) {
   const { account, chainId, provider } = useWeb3React()
 
@@ -69,14 +69,14 @@ export function useUniversalRouterSwapCallback(
             formatSwapSignedAnalyticsEventProperties({
               trade,
               txHash: response.hash,
-            }),
+            })
           )
           if (tx.data !== response.data) {
             sendAnalyticsEvent(SwapEventName.SWAP_MODIFIED_IN_WALLET, {
               txHash: response.hash,
             })
             throw new InvalidSwapError(
-              t`Your swap was modified through your wallet. If this was a mistake, please cancel immediately or risk losing your funds.`,
+              t`Your swap was modified through your wallet. If this was a mistake, please cancel immediately or risk losing your funds.`
             )
           }
           return response
@@ -86,5 +86,14 @@ export function useUniversalRouterSwapCallback(
       if (swapError instanceof InvalidSwapError) throw swapError
       throw new Error(swapErrorToUserReadableMessage(swapError))
     }
-  }, [account, chainId, options.deadline, options.feeOptions, options.permit, options.slippageTolerance, provider, trade])
+  }, [
+    account,
+    chainId,
+    options.deadline,
+    options.feeOptions,
+    options.permit,
+    options.slippageTolerance,
+    provider,
+    trade,
+  ])
 }

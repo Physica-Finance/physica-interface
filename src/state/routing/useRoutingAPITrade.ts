@@ -23,7 +23,7 @@ export function useRoutingAPITrade<TTradeType extends TradeType>(
   tradeType: TTradeType,
   amountSpecified: CurrencyAmount<Currency> | undefined,
   otherCurrency: Currency | undefined,
-  routerPreference: RouterPreference,
+  routerPreference: RouterPreference
 ): {
   state: TradeState
   trade: InterfaceTrade<Currency, Currency, TTradeType> | undefined
@@ -33,7 +33,7 @@ export function useRoutingAPITrade<TTradeType extends TradeType>(
       tradeType === TradeType.EXACT_INPUT
         ? [amountSpecified?.currency, otherCurrency]
         : [otherCurrency, amountSpecified?.currency],
-    [amountSpecified, otherCurrency, tradeType],
+    [amountSpecified, otherCurrency, tradeType]
   )
 
   const queryArgs = useRoutingAPIArguments({
@@ -53,7 +53,7 @@ export function useRoutingAPITrade<TTradeType extends TradeType>(
 
   const route = useMemo(
     () => computeRoutes(currencyIn, currencyOut, tradeType, quoteResult),
-    [currencyIn, currencyOut, quoteResult, tradeType],
+    [currencyIn, currencyOut, quoteResult, tradeType]
   )
 
   // get USD gas cost of trade in active chains stablecoin amount
@@ -105,7 +105,18 @@ export function useRoutingAPITrade<TTradeType extends TradeType>(
     } catch (e) {
       return { state: TradeState.INVALID, trade: undefined }
     }
-  }, [currencyIn, currencyOut, quoteResult, isLoading, tradeType, isError, route, queryArgs, gasUseEstimateUSD, isSyncing])
+  }, [
+    currencyIn,
+    currencyOut,
+    quoteResult,
+    isLoading,
+    tradeType,
+    isError,
+    route,
+    queryArgs,
+    gasUseEstimateUSD,
+    isSyncing,
+  ])
 }
 
 // only want to enable this when app hook called

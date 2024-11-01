@@ -20,6 +20,6 @@ export const useTokenInput = create<TokenInputState>()(
       clearInputCurrency: () => set(() => ({ inputCurrency: undefined })),
       setTokenTradeInput: (tokenTradeInput) => set(() => ({ tokenTradeInput })),
     }),
-    { name: 'useTokenInput' },
-  ),
+    { name: 'useTokenInput' }
+  )
 )

@@ -93,7 +93,9 @@ export const CollectionTitleCell = ({ value }: CellProps) => {
   )
 }
 
-export const DiscreteNumberCell = ({ value }: CellProps) => <span>{value.value ? volumeFormatter(value.value) : '-'}</span>
+export const DiscreteNumberCell = ({ value }: CellProps) => (
+  <span>{value.value ? volumeFormatter(value.value) : '-'}</span>
+)
 
 const getDenominatedValue = (denomination: Denomination, inWei: boolean, value?: number, usdPrice?: number) => {
   if (denomination === Denomination.ETH) return value

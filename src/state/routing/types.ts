@@ -68,11 +68,11 @@ export interface GetQuoteResult {
   routeString: string
 }
 
-export class InterfaceTrade<TInput extends Currency, TOutput extends Currency, TTradeType extends TradeType> extends Trade<
-  TInput,
-  TOutput,
-  TTradeType
-> {
+export class InterfaceTrade<
+  TInput extends Currency,
+  TOutput extends Currency,
+  TTradeType extends TradeType
+> extends Trade<TInput, TOutput, TTradeType> {
   gasUseEstimateUSD: CurrencyAmount<Token> | null | undefined
   blockNumber: string | null | undefined
 

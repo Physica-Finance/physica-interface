@@ -265,7 +265,9 @@ const ReadMore = styled.span`
   margin-left: 4px;
 `
 
-const CollectionDescriptionLoading = () => <Box marginTop={{ sm: '12', md: '16' }} className={styles.descriptionLoading} />
+const CollectionDescriptionLoading = () => (
+  <Box marginTop={{ sm: '12', md: '16' }} className={styles.descriptionLoading} />
+)
 
 const CollectionDescription = ({ description }: { description: string }) => {
   const [showReadMore, setShowReadMore] = useState(false)

@@ -50,7 +50,7 @@ export default function useAssetLogoSource(
   address?: string | null,
   chainId?: number | null,
   isNative?: boolean,
-  backupImg?: string | null,
+  backupImg?: string | null
 ): [string | undefined, () => void] {
   const [current, setCurrent] = useState<string | undefined>(getInitialUrl(address, chainId, isNative))
   const [fallbackSrcs, setFallbackSrcs] = useState<string[] | undefined>(undefined)

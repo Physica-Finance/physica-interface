@@ -269,7 +269,15 @@ export const vars = createGlobalTheme(':root', {
   },
 })
 
-const flexAlignment = ['flex-start', 'center', 'flex-end', 'stretch', 'baseline', 'space-around', 'space-between'] as const
+const flexAlignment = [
+  'flex-start',
+  'center',
+  'flex-end',
+  'stretch',
+  'baseline',
+  'space-around',
+  'space-between',
+] as const
 
 const overflow = ['hidden', 'inherit', 'scroll', 'visible', 'auto'] as const
 

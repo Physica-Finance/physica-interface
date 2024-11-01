@@ -19,7 +19,7 @@ jest.mock(
   'components/Logo/CurrencyLogo',
   () =>
     ({ currency }: { currency: Currency }) =>
-      `CurrencyLogo currency=${currency.symbol}`,
+      `CurrencyLogo currency=${currency.symbol}`
 )
 
 jest.mock('@web3-react/core', () => {
@@ -54,7 +54,7 @@ it('renders loading rows when isLoading is true', () => {
       isLoading={true}
       searchQuery=""
       isAddressSearch=""
-    />,
+    />
   )
   expect(asFragment()).toMatchSnapshot()
 })
@@ -72,7 +72,7 @@ it('renders currency rows correctly when currencies list is non-empty', () => {
       isLoading={false}
       searchQuery=""
       isAddressSearch=""
-    />,
+    />
   )
   expect(asFragment()).toMatchSnapshot()
 })

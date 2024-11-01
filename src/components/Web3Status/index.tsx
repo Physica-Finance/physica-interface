@@ -19,7 +19,12 @@ import { colors } from 'theme/colors'
 import { flexRowNoWrap } from 'theme/styles'
 
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { useCloseModal, useModalIsOpen, useToggleWalletDropdown, useToggleWalletModal } from '../../state/application/hooks'
+import {
+  useCloseModal,
+  useModalIsOpen,
+  useToggleWalletDropdown,
+  useToggleWalletModal,
+} from '../../state/application/hooks'
 import { ApplicationModal } from '../../state/application/reducer'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
 import { TransactionDetails } from '../../state/transactions/types'
@@ -107,7 +112,8 @@ const Web3StatusConnected = styled(Web3StatusGeneric)<{
 
     :focus {
       border: 1px solid
-        ${({ pending, theme }) => (pending ? darken(0.1, theme.accentAction) : darken(0.1, theme.backgroundInteractive))};
+        ${({ pending, theme }) =>
+          pending ? darken(0.1, theme.accentAction) : darken(0.1, theme.backgroundInteractive)};
     }
   }
 

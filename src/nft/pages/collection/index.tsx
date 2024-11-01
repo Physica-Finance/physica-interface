@@ -138,7 +138,8 @@ const Collection = () => {
   const { data: collectionStats, loading } = useCollection(contractAddress as string)
 
   const { CollectionContainerWidthChange } = useSpring({
-    CollectionContainerWidthChange: isBagExpanded && !isMobile ? (screenSize['xxxl'] ? XXXL_BAG_WIDTH : BAG_WIDTH) + 16 : 0,
+    CollectionContainerWidthChange:
+      isBagExpanded && !isMobile ? (screenSize['xxxl'] ? XXXL_BAG_WIDTH : BAG_WIDTH) + 16 : 0,
     config: {
       duration: TRANSITION_DURATIONS.medium,
       easing: easings.easeOutSine,
@@ -198,7 +199,9 @@ const Collection = () => {
             <>
               <BannerWrapper>
                 <Banner
-                  src={collectionStats?.bannerImageUrl ? `${collectionStats.bannerImageUrl}?w=${window.innerWidth}` : ''}
+                  src={
+                    collectionStats?.bannerImageUrl ? `${collectionStats.bannerImageUrl}?w=${window.innerWidth}` : ''
+                  }
                 />
               </BannerWrapper>
               <CollectionDescriptionSection>

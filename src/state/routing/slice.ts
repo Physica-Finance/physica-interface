@@ -99,7 +99,7 @@ export const routingApi = createApi({
             router,
             // TODO(zzmp): Use PRICE_PARAMS for RouterPreference.PRICE.
             // This change is intentionally being deferred to first see what effect router caching has.
-            routerPreference === RouterPreference.PRICE ? PRICE_PARAMS : CLIENT_PARAMS,
+            routerPreference === RouterPreference.PRICE ? PRICE_PARAMS : CLIENT_PARAMS
           )
 
           return { data: result.data as GetQuoteResult }

@@ -6,7 +6,7 @@ import { InterfaceTrade, TradeState } from 'state/routing/types'
 
 export default function useDerivedPayWithAnyTokenSwapInfo(
   inputCurrency?: Currency,
-  parsedOutputAmount?: CurrencyAmount<NativeCurrency | Token>,
+  parsedOutputAmount?: CurrencyAmount<NativeCurrency | Token>
 ): {
   state: TradeState
   trade: InterfaceTrade<Currency, Currency, TradeType> | undefined

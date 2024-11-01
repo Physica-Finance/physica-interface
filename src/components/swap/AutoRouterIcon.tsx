@@ -8,7 +8,14 @@ export default function AutoRouterIcon({ className, id }: { className?: string; 
   const componentId = `AutoRouterIconGradient${componentIdRef.current}`
 
   return (
-    <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <svg
+      width="23"
+      height="20"
+      viewBox="0 0 23 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
       <defs>
         <linearGradient id={componentId} x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(95)">
           <stop id="stop1" offset="0" stopColor="#2274E2" />

@@ -4,10 +4,12 @@ export const ActivityFetcher = async (
   contractAddress: string,
   filters?: ActivityFilter,
   cursor?: string,
-  limit?: string,
+  limit?: string
 ): Promise<ActivityEventResponse> => {
   const filterParam =
-    filters && filters.eventTypes ? `&event_types=${filters.eventTypes?.map((eventType) => `${eventType}`).join(',')}` : ''
+    filters && filters.eventTypes
+      ? `&event_types=${filters.eventTypes?.map((eventType) => `${eventType}`).join(',')}`
+      : ''
 
   const tokenId = filters?.token_id ? `&token_id=${filters?.token_id}` : ''
 

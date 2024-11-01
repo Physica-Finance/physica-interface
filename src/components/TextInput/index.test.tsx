@@ -11,7 +11,7 @@ describe('TextInput', () => {
         onUserInput={() => null}
         placeholder="Test Placeholder"
         fontSize="12"
-      />,
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })
@@ -19,7 +19,13 @@ describe('TextInput', () => {
   it('calls the handler on user input', () => {
     const onUserInputSpy = jest.fn()
     render(
-      <TextInput className="testing" value="" onUserInput={onUserInputSpy} placeholder="Test Placeholder" fontSize="12" />,
+      <TextInput
+        className="testing"
+        value=""
+        onUserInput={onUserInputSpy}
+        placeholder="Test Placeholder"
+        fontSize="12"
+      />
     )
 
     fireEvent.change(screen.getByPlaceholderText('Test Placeholder'), {
@@ -40,7 +46,7 @@ describe('ResizableTextArea', () => {
         onUserInput={() => null}
         placeholder="Test Placeholder"
         fontSize="12"
-      />,
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })
@@ -54,7 +60,7 @@ describe('ResizableTextArea', () => {
         onUserInput={onUserInputSpy}
         placeholder="Test Placeholder"
         fontSize="12"
-      />,
+      />
     )
 
     fireEvent.change(screen.getByPlaceholderText('Test Placeholder'), {

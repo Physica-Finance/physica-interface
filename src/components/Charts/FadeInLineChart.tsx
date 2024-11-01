@@ -16,7 +16,16 @@ const config = {
 
 // code reference: https://airbnb.io/visx/lineradial
 
-function FadedInLineChart<T>({ data, getX, getY, marginTop, curve, color, strokeWidth, dashed }: FadedInLineChartProps<T>) {
+function FadedInLineChart<T>({
+  data,
+  getX,
+  getY,
+  marginTop,
+  curve,
+  color,
+  strokeWidth,
+  dashed,
+}: FadedInLineChartProps<T>) {
   const lineRef = useRef<SVGPathElement>(null)
   const [lineLength, setLineLength] = useState(0)
   const [shouldAnimate, setShouldAnimate] = useState(false)

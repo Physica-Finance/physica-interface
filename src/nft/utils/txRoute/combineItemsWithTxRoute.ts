@@ -1,5 +1,10 @@
 import { BuyItem, GenieAsset, isPooledMarket, Markets, PriceInfo, RoutingItem, UpdatedGenieAsset } from 'nft/types'
-import { calcAvgGroupPoolPrice, formatWeiToDecimal, isInSameMarketplaceCollection, isInSameSudoSwapPool } from 'nft/utils'
+import {
+  calcAvgGroupPoolPrice,
+  formatWeiToDecimal,
+  isInSameMarketplaceCollection,
+  isInSameSudoSwapPool,
+} from 'nft/utils'
 
 const isTheSame = (item: GenieAsset, routeAsset: BuyItem | PriceInfo) => {
   // if route asset has id, match by id
@@ -18,7 +23,11 @@ const isPriceDiff = (oldPrice: string, newPrice: string) => {
   return formatWeiToDecimal(oldPrice) !== formatWeiToDecimal(newPrice)
 }
 
-const isAveragePriceOfPooledAssets = (asset: GenieAsset, numberOfAssetsInPool: number, expectedPrice: string): boolean => {
+const isAveragePriceOfPooledAssets = (
+  asset: GenieAsset,
+  numberOfAssetsInPool: number,
+  expectedPrice: string
+): boolean => {
   return !isPriceDiff(calcAvgGroupPoolPrice(asset, numberOfAssetsInPool), expectedPrice)
 }
 
@@ -26,7 +35,7 @@ const isAveragedPrice = (
   item: UpdatedGenieAsset,
   items: UpdatedGenieAsset[],
   route: RoutingItem,
-  txRoute?: RoutingItem[],
+  txRoute?: RoutingItem[]
 ): boolean => {
   if (!(route && 'priceInfo' in route.assetOut)) return false
 
@@ -36,7 +45,7 @@ const isAveragedPrice = (
     isAveragePriceOfPooledAssets(
       item,
       items.filter((routeItem) => itemInRouteAndSamePool(item, routeItem, txRoute)).length,
-      route.assetOut.priceInfo.basePrice,
+      route.assetOut.priceInfo.basePrice
     )
   )
 }
@@ -49,7 +58,11 @@ const itemHasRoute = (item: UpdatedGenieAsset, txRoute?: RoutingItem[]): boolean
   return !!getRouteForItem(item, txRoute)
 }
 
-const itemInRouteAndSamePool = (item: UpdatedGenieAsset, routeItem: UpdatedGenieAsset, txRoute?: RoutingItem[]): boolean => {
+const itemInRouteAndSamePool = (
+  item: UpdatedGenieAsset,
+  routeItem: UpdatedGenieAsset,
+  txRoute?: RoutingItem[]
+): boolean => {
   return (
     itemHasRoute(routeItem, txRoute) &&
     (item.marketplace === Markets.Sudoswap
@@ -58,7 +71,10 @@ const itemInRouteAndSamePool = (item: UpdatedGenieAsset, routeItem: UpdatedGenie
   )
 }
 
-export const combineBuyItemsWithTxRoute = (items: UpdatedGenieAsset[], txRoute?: RoutingItem[]): UpdatedGenieAsset[] => {
+export const combineBuyItemsWithTxRoute = (
+  items: UpdatedGenieAsset[],
+  txRoute?: RoutingItem[]
+): UpdatedGenieAsset[] => {
   return items.map((item) => {
     const route = getRouteForItem(item, txRoute)
 

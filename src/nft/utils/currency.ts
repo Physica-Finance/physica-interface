@@ -33,7 +33,8 @@ export const formatEthPrice = (price: string | undefined) => {
 
   const formattedPrice = parseFloat(formatEther(String(price)))
   return (
-    Math.round(formattedPrice * (formattedPrice >= 1 ? 100 : 1000) + Number.EPSILON) / (formattedPrice >= 1 ? 100 : 1000)
+    Math.round(formattedPrice * (formattedPrice >= 1 ? 100 : 1000) + Number.EPSILON) /
+    (formattedPrice >= 1 ? 100 : 1000)
   )
 }
 
@@ -46,7 +47,7 @@ export const ethNumberStandardFormatter = (
   amount: string | number | undefined,
   includeDollarSign = false,
   removeZeroes = false,
-  roundToNearestWholeNumber = false,
+  roundToNearestWholeNumber = false
 ): string => {
   if (!amount) return '-'
 
@@ -75,5 +76,8 @@ export const formatWeiToDecimal = (amount: string, removeZeroes = false) => {
 
 // prevent BigNumber overflow by properly handling scientific notation and comma delimited values
 export function wrapScientificNotation(value: string | number): string {
-  return parseFloat(value.toString()).toLocaleString('fullwide', { useGrouping: false }).replace(',', '.').replace(' ', '')
+  return parseFloat(value.toString())
+    .toLocaleString('fullwide', { useGrouping: false })
+    .replace(',', '.')
+    .replace(' ', '')
 }

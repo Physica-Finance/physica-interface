@@ -27,17 +27,28 @@ interface ListingButtonProps {
 }
 
 export const ListingButton = ({ onClick, buttonText, showWarningOverride = false }: ListingButtonProps) => {
-  const { addMarketplaceWarning, sellAssets, removeAllMarketplaceWarnings, showResolveIssues, toggleShowResolveIssues } =
-    useSellAsset(
-      ({ addMarketplaceWarning, sellAssets, removeAllMarketplaceWarnings, showResolveIssues, toggleShowResolveIssues }) => ({
-        addMarketplaceWarning,
-        sellAssets,
-        removeAllMarketplaceWarnings,
-        showResolveIssues,
-        toggleShowResolveIssues,
-      }),
-      shallow,
-    )
+  const {
+    addMarketplaceWarning,
+    sellAssets,
+    removeAllMarketplaceWarnings,
+    showResolveIssues,
+    toggleShowResolveIssues,
+  } = useSellAsset(
+    ({
+      addMarketplaceWarning,
+      sellAssets,
+      removeAllMarketplaceWarnings,
+      showResolveIssues,
+      toggleShowResolveIssues,
+    }) => ({
+      addMarketplaceWarning,
+      sellAssets,
+      removeAllMarketplaceWarnings,
+      showResolveIssues,
+      toggleShowResolveIssues,
+    }),
+    shallow
+  )
   const { listingStatus, setListingStatus, setListings, setCollectionsRequiringApproval } = useNFTList(
     ({ listingStatus, setListingStatus, setListings, setCollectionsRequiringApproval }) => ({
       listingStatus,
@@ -45,7 +56,7 @@ export const ListingButton = ({ onClick, buttonText, showWarningOverride = false
       setListings,
       setCollectionsRequiringApproval,
     }),
-    shallow,
+    shallow
   )
 
   const isNftListV2 = useNftListV2Flag() === NftListV2Variant.Enabled
@@ -95,7 +106,10 @@ export const ListingButton = ({ onClick, buttonText, showWarningOverride = false
         for (const listing of asset.newListings) {
           if (!listing.price) listingsMissingPrice.push([asset, listing])
           else if (isNaN(listing.price) || listing.price < 0) invalidPrices.push([asset, listing])
-          else if (listing.price < (asset?.floorPrice ?? 0) * BELOW_FLOOR_PRICE_THRESHOLD && !listing.overrideFloorPrice)
+          else if (
+            listing.price < (asset?.floorPrice ?? 0) * BELOW_FLOOR_PRICE_THRESHOLD &&
+            !listing.overrideFloorPrice
+          )
             listingsBelowFloor.push([asset, listing])
           else if (asset.floor_sell_order_price && listing.price >= asset.floor_sell_order_price)
             listingsAboveSellOrderFloor.push([asset, listing])

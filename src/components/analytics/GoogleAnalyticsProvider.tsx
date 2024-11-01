@@ -17,7 +17,7 @@ export default class GoogleAnalyticsProvider {
       testMode?: boolean
       gaOptions?: GaOptions | any
       gtagOptions?: any
-    },
+    }
   ) {
     ReactGA.initialize(GA_MEASUREMENT_ID, options)
   }
@@ -32,7 +32,7 @@ export default class GoogleAnalyticsProvider {
     }: {
       label: string
     },
-    hitCallback: () => unknown,
+    hitCallback: () => unknown
   ) {
     ReactGA.outboundLink({ label }, hitCallback)
   }

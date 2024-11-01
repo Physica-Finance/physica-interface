@@ -10,7 +10,7 @@ import { calculateGasMargin } from 'utils/calculateGasMargin'
 export function useTokenAllowance(
   token?: Token,
   owner?: string,
-  spender?: string,
+  spender?: string
 ): {
   tokenAllowance: CurrencyAmount<Token> | undefined
   isSyncing: boolean
@@ -29,7 +29,7 @@ export function useTokenAllowance(
   const rawAmount = result?.toString() // convert to a string before using in a hook, to avoid spurious rerenders
   const allowance = useMemo(
     () => (token && rawAmount ? CurrencyAmount.fromRawAmount(token, rawAmount) : undefined),
-    [token, rawAmount],
+    [token, rawAmount]
   )
   useEffect(() => setBlocksPerFetch(allowance?.equalTo(0) ? 1 : undefined), [allowance])
 
@@ -38,7 +38,7 @@ export function useTokenAllowance(
 
 export function useUpdateTokenAllowance(
   amount: CurrencyAmount<Token> | undefined,
-  spender: string,
+  spender: string
 ): () => Promise<{
   response: ContractTransaction
   info: ApproveTransactionInfo

@@ -150,14 +150,14 @@ function getDateFromBlock(
   targetBlock: number | undefined,
   currentBlock: number | undefined,
   averageBlockTimeInSeconds: number | undefined,
-  currentTimestamp: BigNumber | undefined,
+  currentTimestamp: BigNumber | undefined
 ): Date | undefined {
   if (targetBlock && currentBlock && averageBlockTimeInSeconds && currentTimestamp) {
     const date = new Date()
     date.setTime(
       currentTimestamp
         .add(BigNumber.from(averageBlockTimeInSeconds).mul(BigNumber.from(targetBlock - currentBlock)))
-        .toNumber() * ms`1 second`,
+        .toNumber() * ms`1 second`
     )
     return date
   }
@@ -205,13 +205,13 @@ export default function VotePage() {
     proposalData?.startBlock,
     currentBlock,
     (chainId && AVERAGE_BLOCK_TIME_IN_SECS[chainId]) ?? DEFAULT_AVERAGE_BLOCK_TIME_IN_SECS,
-    currentTimestamp,
+    currentTimestamp
   )
   const endDate = getDateFromBlock(
     proposalData?.endBlock,
     currentBlock,
     (chainId && AVERAGE_BLOCK_TIME_IN_SECS[chainId]) ?? DEFAULT_AVERAGE_BLOCK_TIME_IN_SECS,
-    currentTimestamp,
+    currentTimestamp
   )
   const now = new Date()
   const locale = useActiveLocale()
@@ -251,13 +251,13 @@ export default function VotePage() {
 
   const uniBalance: CurrencyAmount<Token> | undefined = useTokenBalance(
     account ?? undefined,
-    chainId ? UNI[chainId] : undefined,
+    chainId ? UNI[chainId] : undefined
   )
   const userDelegatee: string | undefined = useUserDelegatee()
 
   // in blurb link to home page if they are able to unlock
   const showLinkForUnlock = Boolean(
-    uniBalance && JSBI.notEqual(uniBalance.quotient, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS,
+    uniBalance && JSBI.notEqual(uniBalance.quotient, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS
   )
 
   // show links in propsoal details if content is an address
@@ -265,7 +265,9 @@ export default function VotePage() {
   const linkIfAddress = (content: string) => {
     if (isAddress(content) && chainId) {
       const commonName = COMMON_CONTRACT_NAMES[chainId]?.[content] ?? content
-      return <ExternalLink href={getExplorerLink(chainId, content, ExplorerDataType.ADDRESS)}>{commonName}</ExternalLink>
+      return (
+        <ExternalLink href={getExplorerLink(chainId, content, ExplorerDataType.ADDRESS)}>{commonName}</ExternalLink>
+      )
     }
     return <span>{content}</span>
   }
@@ -284,7 +286,11 @@ export default function VotePage() {
             proposalId={proposalData?.id}
             voteOption={voteOption}
           />
-          <DelegateModal isOpen={showDelegateModal} onDismiss={toggleDelegateModal} title={<Trans>Unlock Votes</Trans>} />
+          <DelegateModal
+            isOpen={showDelegateModal}
+            onDismiss={toggleDelegateModal}
+            title={<Trans>Unlock Votes</Trans>}
+          />
           <QueueModal isOpen={showQueueModal} onDismiss={toggleQueueModal} proposalId={proposalData?.id} />
           <ExecuteModal isOpen={showExecuteModal} onDismiss={toggleExecuteModal} proposalId={proposalData?.id} />
           <ProposalInfo gap="lg" justify="start">
@@ -327,7 +333,8 @@ export default function VotePage() {
                     {showLinkForUnlock && (
                       <span>
                         <Trans>
-                          <StyledInternalLink to="/vote">Unlock voting</StyledInternalLink> to prepare for the next proposal.
+                          <StyledInternalLink to="/vote">Unlock voting</StyledInternalLink> to prepare for the next
+                          proposal.
                         </Trans>
                       </span>
                     )}
@@ -421,7 +428,9 @@ export default function VotePage() {
                   <ProgressWrapper>
                     <Progress
                       status="for"
-                      percentageString={proposalData?.forCount.greaterThan(0) ? `${forPercentage?.toFixed(0) ?? 0}%` : '0%'}
+                      percentageString={
+                        proposalData?.forCount.greaterThan(0) ? `${forPercentage?.toFixed(0) ?? 0}%` : '0%'
+                      }
                     />
                   </ProgressWrapper>
                 </CardSection>

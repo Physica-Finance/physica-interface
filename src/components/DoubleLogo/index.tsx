@@ -25,7 +25,12 @@ const CoveredLogoWapper = styled.div<{ sizeraw: number }>`
   left: ${({ sizeraw }) => '-' + (sizeraw / 2).toString() + 'px'} !important;
 `
 
-export default function DoubleCurrencyLogo({ currency0, currency1, size = 16, margin = false }: DoubleCurrencyLogoProps) {
+export default function DoubleCurrencyLogo({
+  currency0,
+  currency1,
+  size = 16,
+  margin = false,
+}: DoubleCurrencyLogoProps) {
   return (
     <Wrapper sizeraw={size} margin={margin}>
       {currency0 && (

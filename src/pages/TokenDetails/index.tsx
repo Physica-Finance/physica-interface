@@ -23,7 +23,7 @@ export default function TokenDetailsPage() {
     /* tokenAddress will always be defined in the path for for this page to render, but useParams will always
       return optional arguments; nullish coalescing operator is present here to appease typechecker */
     () => [isNative ? getNativeTokenDBAddress(chain) : tokenAddress ?? '', toHistoryDuration(timePeriod)],
-    [chain, isNative, timePeriod, tokenAddress],
+    [chain, isNative, timePeriod, tokenAddress]
   )
 
   const { data: tokenQuery } = useTokenQuery({

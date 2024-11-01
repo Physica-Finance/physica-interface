@@ -5338,7 +5338,7 @@ export function useAllV3TicksQuery(baseOptions: Apollo.QueryHookOptions<AllV3Tic
   return Apollo.useQuery<AllV3TicksQuery, AllV3TicksQueryVariables>(AllV3TicksDocument, options)
 }
 export function useAllV3TicksLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<AllV3TicksQuery, AllV3TicksQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<AllV3TicksQuery, AllV3TicksQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<AllV3TicksQuery, AllV3TicksQueryVariables>(AllV3TicksDocument, options)
@@ -5353,12 +5353,20 @@ export const FeeTierDistributionDocument = gql`
         number
       }
     }
-    asToken0: pools(orderBy: totalValueLockedToken0, orderDirection: desc, where: { token0: $token0, token1: $token1 }) {
+    asToken0: pools(
+      orderBy: totalValueLockedToken0
+      orderDirection: desc
+      where: { token0: $token0, token1: $token1 }
+    ) {
       feeTier
       totalValueLockedToken0
       totalValueLockedToken1
     }
-    asToken1: pools(orderBy: totalValueLockedToken0, orderDirection: desc, where: { token0: $token1, token1: $token0 }) {
+    asToken1: pools(
+      orderBy: totalValueLockedToken0
+      orderDirection: desc
+      where: { token0: $token1, token1: $token0 }
+    ) {
       feeTier
       totalValueLockedToken0
       totalValueLockedToken1
@@ -5384,20 +5392,26 @@ export const FeeTierDistributionDocument = gql`
  * });
  */
 export function useFeeTierDistributionQuery(
-  baseOptions: Apollo.QueryHookOptions<FeeTierDistributionQuery, FeeTierDistributionQueryVariables>,
+  baseOptions: Apollo.QueryHookOptions<FeeTierDistributionQuery, FeeTierDistributionQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<FeeTierDistributionQuery, FeeTierDistributionQueryVariables>(FeeTierDistributionDocument, options)
+  return Apollo.useQuery<FeeTierDistributionQuery, FeeTierDistributionQueryVariables>(
+    FeeTierDistributionDocument,
+    options
+  )
 }
 export function useFeeTierDistributionLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<FeeTierDistributionQuery, FeeTierDistributionQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<FeeTierDistributionQuery, FeeTierDistributionQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<FeeTierDistributionQuery, FeeTierDistributionQueryVariables>(
     FeeTierDistributionDocument,
-    options,
+    options
   )
 }
 export type FeeTierDistributionQueryHookResult = ReturnType<typeof useFeeTierDistributionQuery>
 export type FeeTierDistributionLazyQueryHookResult = ReturnType<typeof useFeeTierDistributionLazyQuery>
-export type FeeTierDistributionQueryResult = Apollo.QueryResult<FeeTierDistributionQuery, FeeTierDistributionQueryVariables>
+export type FeeTierDistributionQueryResult = Apollo.QueryResult<
+  FeeTierDistributionQuery,
+  FeeTierDistributionQueryVariables
+>

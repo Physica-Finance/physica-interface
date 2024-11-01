@@ -45,7 +45,14 @@ export function useSwapCallback({
 }: UseSwapCallbackArgs): UseSwapCallbackReturns {
   const { account, chainId, provider } = useWeb3React()
 
-  const swapCalls = useSwapCallArguments(trade, allowedSlippage, recipientAddressOrName, signatureData, deadline, feeOptions)
+  const swapCalls = useSwapCallArguments(
+    trade,
+    allowedSlippage,
+    recipientAddressOrName,
+    signatureData,
+    deadline,
+    feeOptions
+  )
   const { callback } = useSendSwapTransaction(account, chainId, provider, trade, swapCalls)
 
   const { address: recipientAddress } = useENS(recipientAddressOrName)

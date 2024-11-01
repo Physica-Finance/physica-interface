@@ -72,7 +72,7 @@ export default function usePermit2Allowance(amount?: CurrencyAmount<Token>, spen
   const [now, setNow] = useState(Date.now() + AVERAGE_L1_BLOCK_TIME)
   useInterval(
     useCallback(() => setNow((Date.now() + AVERAGE_L1_BLOCK_TIME) / 1000), []),
-    AVERAGE_L1_BLOCK_TIME,
+    AVERAGE_L1_BLOCK_TIME
   )
 
   const [signature, setSignature] = useState<PermitSignature>()

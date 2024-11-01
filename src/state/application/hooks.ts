@@ -5,7 +5,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 
 import { AppState } from '../index'
-import { addPopup, ApplicationModal, PopupContent, removePopup, setFiatOnrampAvailability, setOpenModal } from './reducer'
+import {
+  addPopup,
+  ApplicationModal,
+  PopupContent,
+  removePopup,
+  setFiatOnrampAvailability,
+  setOpenModal,
+} from './reducer'
 
 export function useModalIsOpen(modal: ApplicationModal): boolean {
   const openModal = useAppSelector((state: AppState) => state.application.openModal)
@@ -152,10 +159,10 @@ export function useAddPopup(): (content: PopupContent, key?: string, removeAfter
           content,
           key,
           removeAfterMs: removeAfterMs ?? DEFAULT_TXN_DISMISS_MS,
-        }),
+        })
       )
     },
-    [dispatch],
+    [dispatch]
   )
 }
 
@@ -166,7 +173,7 @@ export function useRemovePopup(): (key: string) => void {
     (key: string) => {
       dispatch(removePopup({ key }))
     },
-    [dispatch],
+    [dispatch]
   )
 }
 

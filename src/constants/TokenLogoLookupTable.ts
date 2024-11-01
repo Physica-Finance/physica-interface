@@ -20,7 +20,7 @@ class TokenLogoLookupTable {
             dict[lowercaseAddress + ':' + token.chainId] = [token.logoURI]
           }
         }
-      }),
+      })
     )
     this.dict = dict
     this.initialized = true

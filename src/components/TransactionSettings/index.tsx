@@ -178,7 +178,9 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
             <Trans>Slippage tolerance</Trans>
           </ThemedText.DeprecatedBlack>
           <QuestionHelper
-            text={<Trans>Your transaction will revert if the price changes unfavorably by more than this percentage.</Trans>}
+            text={
+              <Trans>Your transaction will revert if the price changes unfavorably by more than this percentage.</Trans>
+            }
           />
         </RowFixed>
         <RowBetween>

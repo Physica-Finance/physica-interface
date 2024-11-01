@@ -109,7 +109,7 @@ export default function Popover({
         { name: 'preventOverflow', options: { padding: 8 } },
       ],
     }),
-    [arrowElement, offsetX, offsetY, placement],
+    [arrowElement, offsetX, offsetY, placement]
   )
 
   const { styles, update, attributes } = usePopper(referenceElement, popperElement, options)

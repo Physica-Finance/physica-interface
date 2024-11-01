@@ -208,12 +208,12 @@ export default function Pool() {
       acc[p.liquidity?.isZero() ? 1 : 0].push(p)
       return acc
     },
-    [[], []],
+    [[], []]
   ) ?? [[], []]
 
   const filteredPositions = useMemo(
     () => [...openPositions, ...(userHideClosedPositions ? [] : closedPositions)],
-    [closedPositions, openPositions, userHideClosedPositions],
+    [closedPositions, openPositions, userHideClosedPositions]
   )
 
   if (!isSupportedChain(chainId)) {

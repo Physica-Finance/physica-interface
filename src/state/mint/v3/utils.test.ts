@@ -26,12 +26,14 @@ describe('hooks', () => {
       expect(tryParsePrice(baseToken, quoteToken, '0.123456789')?.toSignificant(6)).toEqual('0.123457')
       expect(tryParsePrice(baseToken, quoteToken, '.123456789')?.toSignificant(6)).toEqual('0.123457')
       expect(
-        tryParsePrice(baseToken, quoteToken, (2 ** 128).toLocaleString('fullwide', { useGrouping: false }))?.toSignificant(
-          6,
-        ),
+        tryParsePrice(
+          baseToken,
+          quoteToken,
+          (2 ** 128).toLocaleString('fullwide', { useGrouping: false })
+        )?.toSignificant(6)
       ).toEqual('340282000000000000000000000000000000000')
       expect(
-        tryParsePrice(baseToken, quoteToken, /* ~2^-128 */ '0.000000000000000000000000000587747')?.toSignificant(6),
+        tryParsePrice(baseToken, quoteToken, /* ~2^-128 */ '0.000000000000000000000000000587747')?.toSignificant(6)
       ).toEqual('0.000000000000000000000000000587747')
     })
 
@@ -45,12 +47,14 @@ describe('hooks', () => {
       expect(tryParsePrice(baseToken, quoteToken, '0.123456789')?.toSignificant(6)).toEqual('0.123457')
       expect(tryParsePrice(baseToken, quoteToken, '.123456789')?.toSignificant(6)).toEqual('0.123457')
       expect(
-        tryParsePrice(baseToken, quoteToken, (2 ** 128).toLocaleString('fullwide', { useGrouping: false }))?.toSignificant(
-          6,
-        ),
+        tryParsePrice(
+          baseToken,
+          quoteToken,
+          (2 ** 128).toLocaleString('fullwide', { useGrouping: false })
+        )?.toSignificant(6)
       ).toEqual('340282000000000000000000000000000000000')
       expect(
-        tryParsePrice(baseToken, quoteToken, /* ~2^-128 */ '0.000000000000000000000000000587747')?.toSignificant(6),
+        tryParsePrice(baseToken, quoteToken, /* ~2^-128 */ '0.000000000000000000000000000587747')?.toSignificant(6)
       ).toEqual('0.000000000000000000000000000587747')
     })
   })

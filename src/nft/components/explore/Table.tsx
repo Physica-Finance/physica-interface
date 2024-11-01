@@ -106,22 +106,23 @@ export function Table<D extends Record<string, unknown>>({
   const { width } = useWindowSize()
   const isMobile = useIsMobile()
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, setHiddenColumns, visibleColumns } = useTable(
-    {
-      columns,
-      data,
-      initialState: {
-        sortBy: [
-          {
-            desc: true,
-            id: ColumnHeaders.Volume,
-          },
-        ],
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, setHiddenColumns, visibleColumns } =
+    useTable(
+      {
+        columns,
+        data,
+        initialState: {
+          sortBy: [
+            {
+              desc: true,
+              id: ColumnHeaders.Volume,
+            },
+          ],
+        },
+        ...props,
       },
-      ...props,
-    },
-    useSortBy,
-  )
+      useSortBy
+    )
 
   const navigate = useNavigate()
 

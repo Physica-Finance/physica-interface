@@ -222,9 +222,9 @@ export default function PositionListItem({
     () =>
       [token0?.name, token0?.symbol, token1?.name, token1?.symbol].reduce(
         (acc, testString) => acc || Boolean(testString && hasURL(testString)),
-        false,
+        false
       ),
-    [token0?.name, token0?.symbol, token1?.name, token1?.symbol],
+    [token0?.name, token0?.symbol, token1?.name, token1?.symbol]
   )
 
   if (containsURL) {

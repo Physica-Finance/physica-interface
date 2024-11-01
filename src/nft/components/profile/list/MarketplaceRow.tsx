@@ -176,7 +176,8 @@ export const MarketplaceRow = ({
   }, [globalPriceMethod])
 
   useEffect(() => {
-    if (selectedMarkets.length) for (const marketplace of selectedMarkets) setAssetListPrice(asset, listPrice, marketplace)
+    if (selectedMarkets.length)
+      for (const marketplace of selectedMarkets) setAssetListPrice(asset, listPrice, marketplace)
     else setAssetListPrice(asset, listPrice)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listPrice])
@@ -309,7 +310,9 @@ const EthPriceDisplay = ({ ethPrice = 0 }: { ethPrice?: number }) => {
         {ethPrice !== 0 ? (
           <Column>
             <span>{formatEth(ethPrice)} ETH</span>
-            <ThemedText.BodyPrimary color="textSecondary">{formatUsdPrice(ethPrice * ethConversion)}</ThemedText.BodyPrimary>
+            <ThemedText.BodyPrimary color="textSecondary">
+              {formatUsdPrice(ethPrice * ethConversion)}
+            </ThemedText.BodyPrimary>
           </Column>
         ) : (
           '- ETH'

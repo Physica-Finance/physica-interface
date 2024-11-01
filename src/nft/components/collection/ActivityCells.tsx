@@ -95,7 +95,7 @@ export const BuyCell = ({
 }: BuyCellProps) => {
   const asset = useMemo(
     () => buildActivityAsset(event, collectionName, ethPriceInUSD),
-    [event, collectionName, ethPriceInUSD],
+    [event, collectionName, ethPriceInUSD]
   )
   const isSelected = useMemo(() => {
     return itemsInBag.some((item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address)
@@ -168,7 +168,12 @@ export const AddressCell = ({ address, desktopLBreakpoint, chainId }: AddressCel
 
 export const MarketplaceIcon = ({ marketplace }: { marketplace: Markets }) => {
   return (
-    <Box as="img" alt={marketplace} src={`/nft/svgs/marketplaces/${marketplace}.svg`} className={styles.marketplaceIcon} />
+    <Box
+      as="img"
+      alt={marketplace}
+      src={`/nft/svgs/marketplaces/${marketplace}.svg`}
+      className={styles.marketplaceIcon}
+    />
   )
 }
 
@@ -381,7 +386,11 @@ export const ItemCell = ({ event, rarityVerified, collectionName, eventTimestamp
       <Column height="full" justifyContent="center" overflow="hidden" whiteSpace="nowrap" marginRight="24">
         <Box className={styles.detailsName}>{event.tokenMetadata?.name || event.tokenId}</Box>
         {event.tokenMetadata?.rarity && !isMobile && (
-          <Ranking rarity={event.tokenMetadata?.rarity} rarityVerified={rarityVerified} collectionName={collectionName} />
+          <Ranking
+            rarity={event.tokenMetadata?.rarity}
+            rarityVerified={rarityVerified}
+            collectionName={collectionName}
+          />
         )}
         {isMobile && eventTimestamp && isValidDate(eventTimestamp) && getTimeDifference(eventTimestamp.toString())}
       </Column>

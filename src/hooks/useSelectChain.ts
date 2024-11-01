@@ -28,10 +28,10 @@ export default function useSelectChain() {
           addPopup({
             content: { failedSwitchNetwork: targetChain },
             key: `failed-network-switch`,
-          }),
+          })
         )
       }
     },
-    [connector, dispatch],
+    [connector, dispatch]
   )
 }

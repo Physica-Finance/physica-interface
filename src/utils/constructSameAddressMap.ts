@@ -10,7 +10,7 @@ const DEFAULT_NETWORKS = [
 
 export function constructSameAddressMap<T extends string>(
   address: T,
-  additionalNetworks: SupportedChainId[] = [],
+  additionalNetworks: SupportedChainId[] = []
 ): { [chainId: number]: T } {
   return DEFAULT_NETWORKS.concat(additionalNetworks).reduce<{
     [chainId: number]: T

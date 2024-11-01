@@ -30,7 +30,7 @@ export function usePermitAllowance(token?: Token, owner?: string, spender?: stri
   const rawAmount = result?.amount.toString() // convert to a string before using in a hook, to avoid spurious rerenders
   const allowance = useMemo(
     () => (token && rawAmount ? CurrencyAmount.fromRawAmount(token, rawAmount) : undefined),
-    [token, rawAmount],
+    [token, rawAmount]
   )
   useEffect(() => setBlocksPerFetch(allowance?.equalTo(0) ? 1 : undefined), [allowance])
 
@@ -40,7 +40,7 @@ export function usePermitAllowance(token?: Token, owner?: string, spender?: stri
       expiration: result?.expiration,
       nonce: result?.nonce,
     }),
-    [allowance, result?.expiration, result?.nonce],
+    [allowance, result?.expiration, result?.nonce]
   )
 }
 
@@ -56,7 +56,7 @@ export function useUpdatePermitAllowance(
   token: Token | undefined,
   spender: string | undefined,
   nonce: number | undefined,
-  onPermitSignature: (signature: PermitSignature) => void,
+  onPermitSignature: (signature: PermitSignature) => void
 ) {
   const { account, chainId, provider } = useWeb3React()
 

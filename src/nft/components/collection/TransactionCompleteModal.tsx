@@ -97,7 +97,7 @@ const TxCompleteModal = () => {
       'newwindow',
       `left=${(window.screen.width - TWITTER_WIDTH) / 2}, top=${
         (window.screen.height - TWITTER_HEIGHT) / 2
-      }, width=${TWITTER_WIDTH}, height=${TWITTER_HEIGHT}`,
+      }, width=${TWITTER_WIDTH}, height=${TWITTER_HEIGHT}`
     )
   }
 
@@ -141,7 +141,10 @@ const TxCompleteModal = () => {
                   >
                     {[...nftsPurchased].map((nft, index) => (
                       <img
-                        className={clsx(styles.successAssetImage, nftsPurchased.length > 1 && styles.successAssetImageGrid)}
+                        className={clsx(
+                          styles.successAssetImage,
+                          nftsPurchased.length > 1 && styles.successAssetImageGrid
+                        )}
                         style={{
                           maxHeight: `${getSuccessfulImageSize(nftsPurchased.length, isMobile)}px`,
                           maxWidth: `${getSuccessfulImageSize(nftsPurchased.length, isMobile)}px`,
@@ -208,8 +211,8 @@ const TxCompleteModal = () => {
                       <p className={styles.subtitle}>Instant Refund</p>
                       <p className={styles.interStd}>
                         Physica returned{' '}
-                        <span style={{ fontWeight: '700' }}>{formatEthPrice(totalRefundValue.toString())} ETH</span> back to
-                        your wallet for unavailable items.
+                        <span style={{ fontWeight: '700' }}>{formatEthPrice(totalRefundValue.toString())} ETH</span>{' '}
+                        back to your wallet for unavailable items.
                       </p>
                       <Box
                         display="flex"
@@ -238,7 +241,12 @@ const TxCompleteModal = () => {
                           width={{ sm: 'half', md: 'auto' }}
                         >
                           <a href={txHashUrl} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-                            <Box fontWeight="normal" marginTop="16" color="textSecondary" className={styles.totalEthCost}>
+                            <Box
+                              fontWeight="normal"
+                              marginTop="16"
+                              color="textSecondary"
+                              className={styles.totalEthCost}
+                            >
                               View on Etherscan
                             </Box>
                           </a>
@@ -302,7 +310,10 @@ const TxCompleteModal = () => {
                               ))}
                             </Box>
                           )}
-                          <Box color={showUnavailable ? 'textPrimary' : 'textSecondary'} className={styles.unavailableText}>
+                          <Box
+                            color={showUnavailable ? 'textPrimary' : 'textSecondary'}
+                            className={styles.unavailableText}
+                          >
                             Unavailable
                             <Box className={styles.unavailableItems}>
                               {nftsNotPurchased.length} item
@@ -329,7 +340,7 @@ const TxCompleteModal = () => {
                               <Box marginLeft="4" width="full" display="flex">
                                 <p className={styles.totalEthCost} style={{ marginBottom: '2px' }}>
                                   {formatEthPrice(
-                                    asset.updatedPriceInfo ? asset.updatedPriceInfo.ETHPrice : asset.priceInfo.ETHPrice,
+                                    asset.updatedPriceInfo ? asset.updatedPriceInfo.ETHPrice : asset.priceInfo.ETHPrice
                                   )}{' '}
                                   ETH
                                 </p>

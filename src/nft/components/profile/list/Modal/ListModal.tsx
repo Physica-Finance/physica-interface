@@ -69,13 +69,13 @@ export const ListModal = ({ overlayClick }: { overlayClick: () => void }) => {
       collectionsRequiringApproval,
       listings,
     }),
-    shallow,
+    shallow
   )
 
   const totalEthListingValue = useMemo(() => getTotalEthValue(sellAssets), [sellAssets])
   const [openSection, toggleOpenSection] = useReducer(
     (s) => (s === Section.APPROVE ? Section.SIGN : Section.APPROVE),
-    Section.APPROVE,
+    Section.APPROVE
   )
   const [ethPriceInUSD, setEthPriceInUSD] = useState(0)
 
@@ -87,7 +87,7 @@ export const ListModal = ({ overlayClick }: { overlayClick: () => void }) => {
 
   const allCollectionsApproved = useMemo(
     () => collectionsRequiringApproval.every((collection) => collection.status === ListingStatus.APPROVED),
-    [collectionsRequiringApproval],
+    [collectionsRequiringApproval]
   )
 
   const signListings = async () => {

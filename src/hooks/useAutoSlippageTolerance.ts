@@ -73,7 +73,9 @@ const MAX_AUTO_SLIPPAGE_TOLERANCE = new Percent(25, 100) // 25%
 /**
  * Returns slippage tolerance based on values from current trade, gas estimates from api, and active network.
  */
-export default function useAutoSlippageTolerance(trade: InterfaceTrade<Currency, Currency, TradeType> | undefined): Percent {
+export default function useAutoSlippageTolerance(
+  trade: InterfaceTrade<Currency, Currency, TradeType> | undefined
+): Percent {
   const { chainId } = useWeb3React()
   const onL2 = chainId && L2_CHAIN_IDS.includes(chainId)
   const outputDollarValue = useStablecoinValue(trade?.outputAmount)
@@ -87,7 +89,9 @@ export default function useAutoSlippageTolerance(trade: InterfaceTrade<Currency,
     if (!trade || onL2) return DEFAULT_AUTO_SLIPPAGE
 
     const nativeGasCost =
-      nativeGasPrice && typeof gasEstimate === 'number' ? JSBI.multiply(nativeGasPrice, JSBI.BigInt(gasEstimate)) : undefined
+      nativeGasPrice && typeof gasEstimate === 'number'
+        ? JSBI.multiply(nativeGasPrice, JSBI.BigInt(gasEstimate))
+        : undefined
     const dollarGasCost =
       nativeCurrency && nativeGasCost && nativeCurrencyPrice
         ? nativeCurrencyPrice.quote(CurrencyAmount.fromRawAmount(nativeCurrency, nativeGasCost))

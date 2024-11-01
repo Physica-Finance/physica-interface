@@ -35,7 +35,7 @@ export function useUpdateFlag() {
         [featureFlag]: option,
       }))
     },
-    [setFeatureFlags],
+    [setFeatureFlags]
   )
 }
 

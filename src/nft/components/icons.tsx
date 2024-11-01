@@ -8,7 +8,9 @@ import logo from '../../assets/images/logo.png'
 // ESLint reports `fill` is missing, whereas it exists on an SVGProps type
 type SVGProps = React.SVGProps<SVGSVGElement> & { fill?: string }
 
-export const UniIcon = (props: SVGProps) => <LogoImage size="" radius="0%" width="100%" height="64px" src={logo}></LogoImage>
+export const UniIcon = (props: SVGProps) => (
+  <LogoImage size="" radius="0%" width="100%" height="64px" src={logo}></LogoImage>
+)
 
 export const ChevronUpIcon = ({
   secondaryColor,
@@ -363,7 +365,14 @@ export const MagnifyingGlassIcon = (props: SVGProps) => (
 )
 
 export const NavMagnifyingGlassIcon = () => (
-  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" data-cy="magnifying-icon">
+  <svg
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    data-cy="magnifying-icon"
+  >
     <path
       d="M10.5 18C14.6421 18 18 14.6421 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18Z"
       stroke="currentColor"
@@ -679,13 +688,25 @@ export const CloseTimerIcon = (props: SVGProps) => (
 
 export const ChevronDownBagIcon = (props: SVGProps) => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M5 7.5L10 12.5L15 7.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 )
 
 export const ChevronUpBagIcon = (props: SVGProps) => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M5 12.5L10 7.5L15 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M5 12.5L10 7.5L15 12.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 )
 

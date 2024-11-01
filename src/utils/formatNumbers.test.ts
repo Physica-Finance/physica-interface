@@ -1,7 +1,12 @@
 import { CurrencyAmount, Price } from '@uniswap/sdk-core'
 import { renBTC, USDC_MAINNET } from 'constants/tokens'
 
-import { currencyAmountToPreciseFloat, formatDollar, formatTransactionAmount, priceToPreciseFloat } from './formatNumbers'
+import {
+  currencyAmountToPreciseFloat,
+  formatDollar,
+  formatTransactionAmount,
+  priceToPreciseFloat,
+} from './formatNumbers'
 
 describe('currencyAmountToPreciseFloat', () => {
   it('small number', () => {
@@ -118,7 +123,7 @@ describe('formatDollar for a price', () => {
         num: 1.0000001,
         isPrice,
         lessPreciseStablecoinValues: true,
-      }),
+      })
     ).toEqual('$1.00')
   })
   it('number is greater than 1 million', () => {

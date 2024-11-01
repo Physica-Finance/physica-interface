@@ -7,7 +7,11 @@ import { addressesByNetwork, MakerOrder, signMakerOrder, SupportedChainId } from
 import { Seaport } from '@opensea/seaport-js'
 import { ItemType } from '@opensea/seaport-js/lib/constants'
 import { ConsiderationInputItem } from '@opensea/seaport-js/lib/types'
-import { OPENSEA_DEFAULT_CROSS_CHAIN_CONDUIT_KEY, OPENSEA_DEFAULT_ZONE, OPENSEA_KEY_TO_CONDUIT } from 'nft/queries/openSea'
+import {
+  OPENSEA_DEFAULT_CROSS_CHAIN_CONDUIT_KEY,
+  OPENSEA_DEFAULT_ZONE,
+  OPENSEA_KEY_TO_CONDUIT,
+} from 'nft/queries/openSea'
 
 import ERC721 from '../../abis/erc721.json'
 import {
@@ -51,7 +55,7 @@ const createConsiderationItem = (basisPoints: string, recipient: string): Consid
 const getConsiderationItems = (
   asset: WalletAsset,
   price: BigNumber,
-  signerAddress: string,
+  signerAddress: string
 ): {
   sellerFee: ConsiderationInputItem
   openseaFee: ConsiderationInputItem
@@ -62,7 +66,10 @@ const getConsiderationItems = (
   const sellerBasisPoints = INVERSE_BASIS_POINTS - openSeaBasisPoints - creatorFeeBasisPoints
 
   const openseaFee = price.mul(BigNumber.from(openSeaBasisPoints)).div(BigNumber.from(INVERSE_BASIS_POINTS)).toString()
-  const creatorFee = price.mul(BigNumber.from(creatorFeeBasisPoints)).div(BigNumber.from(INVERSE_BASIS_POINTS)).toString()
+  const creatorFee = price
+    .mul(BigNumber.from(creatorFeeBasisPoints))
+    .div(BigNumber.from(INVERSE_BASIS_POINTS))
+    .toString()
   const sellerFee = price.mul(BigNumber.from(sellerBasisPoints)).div(BigNumber.from(INVERSE_BASIS_POINTS)).toString()
 
   return {
@@ -79,7 +86,7 @@ export async function approveCollection(
   operator: string,
   collectionAddress: string,
   signer: Signer,
-  setStatus: (newStatus: ListingStatus) => void,
+  setStatus: (newStatus: ListingStatus) => void
 ): Promise<void> {
   // This will work for both 721s & 1155s because they both have the
   // setApprovalForAll() method
@@ -112,7 +119,7 @@ export async function signListing(
   signer: JsonRpcSigner,
   provider: Web3Provider,
   looksRareNonce = 0,
-  setStatus: (newStatus: ListingStatus) => void,
+  setStatus: (newStatus: ListingStatus) => void
 ): Promise<boolean> {
   const seaport = new Seaport(provider, {
     conduitKeyToConduit: OPENSEA_KEY_TO_CONDUIT,
@@ -130,7 +137,7 @@ export async function signListing(
         const listingInWei = parseEther(`${listingPrice}`)
         const { sellerFee, openseaFee, creatorFee } = getConsiderationItems(asset, listingInWei, signerAddress)
         const considerationItems = [sellerFee, openseaFee, creatorFee].filter(
-          (item): item is ConsiderationInputItem => item !== undefined,
+          (item): item is ConsiderationInputItem => item !== undefined
         )
 
         const { executeAllActions } = await seaport.createOrder(
@@ -149,7 +156,7 @@ export async function signListing(
             restrictedByZone: true,
             allowPartialFills: true,
           },
-          signerAddress,
+          signerAddress
         )
 
         const order = await executeAllActions()
@@ -202,7 +209,7 @@ export async function signListing(
           signer,
           SupportedChainId.MAINNET,
           makerOrder,
-          LOOKSRARE_MARKETPLACE_CONTRACT,
+          LOOKSRARE_MARKETPLACE_CONTRACT
         )
         setStatus(ListingStatus.PENDING)
         const payload = {

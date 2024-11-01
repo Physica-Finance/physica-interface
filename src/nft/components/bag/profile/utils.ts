@@ -30,8 +30,12 @@ const updateStatus = ({
 export async function approveCollectionRow(
   collectionRow: CollectionRow,
   signer: JsonRpcSigner,
-  setCollectionStatusAndCallback: (collection: CollectionRow, status: ListingStatus, callback?: () => Promise<void>) => void,
-  pauseAllRows?: () => void,
+  setCollectionStatusAndCallback: (
+    collection: CollectionRow,
+    status: ListingStatus,
+    callback?: () => Promise<void>
+  ) => void,
+  pauseAllRows?: () => void
 ) {
   const callback = () => approveCollectionRow(collectionRow, signer, setCollectionStatusAndCallback, pauseAllRows)
   setCollectionStatusAndCallback(collectionRow, ListingStatus.SIGNING, callback)
@@ -47,9 +51,12 @@ export async function approveCollectionRow(
       : addresses.TRANSFER_MANAGER_ERC721
   !!collectionAddress &&
     (await approveCollection(spender, collectionAddress, signer, (newStatus: ListingStatus) =>
-      setCollectionStatusAndCallback(collectionRow, newStatus, callback),
+      setCollectionStatusAndCallback(collectionRow, newStatus, callback)
     ))
-  if ((collectionRow.status === ListingStatus.REJECTED || collectionRow.status === ListingStatus.FAILED) && pauseAllRows)
+  if (
+    (collectionRow.status === ListingStatus.REJECTED || collectionRow.status === ListingStatus.FAILED) &&
+    pauseAllRows
+  )
     pauseAllRows()
 }
 
@@ -60,7 +67,7 @@ export async function signListingRow(
   getLooksRareNonce: () => number,
   setLooksRareNonce: (nonce: number) => void,
   setListingStatusAndCallback: (listing: ListingRow, status: ListingStatus, callback?: () => Promise<void>) => void,
-  pauseAllRows?: () => void,
+  pauseAllRows?: () => void
 ) {
   const looksRareNonce = getLooksRareNonce()
   const callback = () => {
@@ -71,13 +78,13 @@ export async function signListingRow(
       getLooksRareNonce,
       setLooksRareNonce,
       setListingStatusAndCallback,
-      pauseAllRows,
+      pauseAllRows
     )
   }
   setListingStatusAndCallback(listing, ListingStatus.SIGNING, callback)
   const { asset, marketplace } = listing
   const res = await signListing(marketplace, asset, signer, provider, looksRareNonce, (newStatus: ListingStatus) =>
-    setListingStatusAndCallback(listing, newStatus, callback),
+    setListingStatusAndCallback(listing, newStatus, callback)
   )
   if (listing.status === ListingStatus.REJECTED && pauseAllRows) {
     pauseAllRows()
@@ -120,7 +127,7 @@ export const getListings = (sellAssets: WalletAsset[]): [CollectionRow[], Listin
         !newCollectionsToApprove.some(
           (collectionRow: CollectionRow) =>
             collectionRow.collectionAddress === asset.asset_contract.address &&
-            collectionRow.marketplace.name === marketplace.name,
+            collectionRow.marketplace.name === marketplace.name
         )
       ) {
         const newCollectionRow = {
@@ -150,7 +157,10 @@ type ListingState = {
   anyPaused: boolean
 }
 
-export const getListingState = (collectionsRequiringApproval: CollectionRow[], listings: ListingRow[]): ListingState => {
+export const getListingState = (
+  collectionsRequiringApproval: CollectionRow[],
+  listings: ListingRow[]
+): ListingState => {
   let allListingsPending = true
   let allListingsDefined = true
   let allListingsApproved = true
@@ -213,7 +223,11 @@ export const pauseRow = (row: AssetRow, rows: AssetRow[], setRows: Dispatch<Asse
 }
 
 export const resetRow = (row: AssetRow, rows: AssetRow[], setRows: Dispatch<AssetRow[]>) => {
-  if (row.status === ListingStatus.PAUSED || row.status === ListingStatus.FAILED || row.status === ListingStatus.REJECTED)
+  if (
+    row.status === ListingStatus.PAUSED ||
+    row.status === ListingStatus.FAILED ||
+    row.status === ListingStatus.REJECTED
+  )
     updateStatus({
       listing: row,
       newStatus: ListingStatus.DEFINED,

@@ -200,7 +200,10 @@ const MarketplaceRow = ({ marketplace, floorInEth, listings }: MarketplaceRowPro
   return (
     <>
       <TableElement>
-        <MarketplaceIcon src={`/nft/svgs/marketplaces/${marketplace.toLowerCase()}-grey.svg`} alt={`${marketplace} icon`} />
+        <MarketplaceIcon
+          src={`/nft/svgs/marketplaces/${marketplace.toLowerCase()}-grey.svg`}
+          alt={`${marketplace} icon`}
+        />
         <FirstColumnTextWrapper>
           <ThemedText.BodySmall color="textSecondary">{marketplace}</ThemedText.BodySmall>
         </FirstColumnTextWrapper>
@@ -259,7 +262,9 @@ export const CarouselCard = ({ collection, onClick }: CarouselCardProps) => {
               </ThemedText.SubHeaderSmall>
             </TableElement>
             {MARKETS_TO_CHECK.map((market) => {
-              const marketplace = gqlCollection.marketplaceCount?.find((marketplace) => marketplace.marketplace === market)
+              const marketplace = gqlCollection.marketplaceCount?.find(
+                (marketplace) => marketplace.marketplace === market
+              )
               if (!marketplace) {
                 return null
               }

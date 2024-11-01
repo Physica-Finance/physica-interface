@@ -59,7 +59,7 @@ export function useSyncWidgetInputs({
       setType(field === Field.INPUT ? TradeType.EXACT_INPUT : TradeType.EXACT_OUTPUT)
       setAmount(amount)
     },
-    [trace],
+    [trace]
   )
 
   const onSwitchTokens = useCallback(() => {
@@ -110,7 +110,7 @@ export function useSyncWidgetInputs({
       }
       setTokens(update)
     },
-    [onDefaultTokenChange, selectingField, tokens],
+    [onDefaultTokenChange, selectingField, tokens]
   )
 
   const tokenSelector = (
@@ -132,11 +132,11 @@ export function useSyncWidgetInputs({
       // this resets the widget - avoiding rendering stale state - because with no tokens the skeleton will be rendered.
       ...(tokens[Field.INPUT] || tokens[Field.OUTPUT] ? tokens : undefined),
     }),
-    [amount, tokens, type],
+    [amount, tokens, type]
   )
   const valueHandlers: SwapEventHandlers = useMemo(
     () => ({ onAmountChange, onSwitchTokens, onTokenSelectorClick }),
-    [onAmountChange, onSwitchTokens, onTokenSelectorClick],
+    [onAmountChange, onSwitchTokens, onTokenSelectorClick]
   )
   return { inputs: { value, ...valueHandlers }, tokenSelector }
 }

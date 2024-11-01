@@ -7,7 +7,13 @@ import { sendEvent } from 'components/analytics'
 import { AutoColumn } from 'components/Column'
 import { AutoRow } from 'components/Row'
 import { networkConnection } from 'connection'
-import { getConnection, getConnectionName, getIsCoinbaseWallet, getIsInjected, getIsMetaMaskWallet } from 'connection/utils'
+import {
+  getConnection,
+  getConnectionName,
+  getIsCoinbaseWallet,
+  getIsInjected,
+  getIsMetaMaskWallet,
+} from 'connection/utils'
 import usePrevious from 'hooks/usePrevious'
 import { useCallback, useEffect, useState } from 'react'
 import { ArrowLeft } from 'react-feather'
@@ -123,7 +129,7 @@ const sendAnalyticsEventAndUserInfo = (
   account: string,
   walletType: string,
   chainId: number | undefined,
-  isReconnect: boolean,
+  isReconnect: boolean
 ) => {
   sendAnalyticsEvent(InterfaceEventName.WALLET_CONNECT_TXN_COMPLETED, {
     result: WalletConnectionResult.SUCCEEDED,
@@ -162,7 +168,7 @@ export default function WalletModal({
 
   const [pendingConnector, setPendingConnector] = useState<Connector | undefined>()
   const pendingError = useAppSelector((state) =>
-    pendingConnector ? state.connection.errorByConnectionType[getConnection(pendingConnector).type] : undefined,
+    pendingConnector ? state.connection.errorByConnectionType[getConnection(pendingConnector).type] : undefined
   )
 
   const walletModalOpen = useModalIsOpen(ApplicationModal.WALLET)
@@ -245,7 +251,7 @@ export default function WalletModal({
         })
       }
     },
-    [dispatch],
+    [dispatch]
   )
 
   function getOptions() {
@@ -327,8 +333,8 @@ export default function WalletModal({
       const content = (
         <Trans>
           By connecting a wallet, you agree to Physica Labs’{' '}
-          <ExternalLink href="https://physica.finance/terms-of-service/">Terms of Service</ExternalLink> and consent to its{' '}
-          <ExternalLink href="https://physica.finance/privacy-policy">Privacy Policy</ExternalLink>.
+          <ExternalLink href="https://physica.finance/terms-of-service/">Terms of Service</ExternalLink> and consent to
+          its <ExternalLink href="https://physica.finance/privacy-policy">Privacy Policy</ExternalLink>.
         </Trans>
       )
       return (

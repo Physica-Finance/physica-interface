@@ -128,12 +128,12 @@ const Banner = () => {
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    },
+    }
   )
 
   const collections = useMemo(
     () => data?.filter((collection) => !EXCLUDED_COLLECTIONS.includes(collection.address)).slice(0, 5),
-    [data],
+    [data]
   )
 
   const [activeCollectionIdx, setActiveCollectionIdx] = useState(0)
@@ -142,7 +142,7 @@ const Banner = () => {
       if (!collections) return
       setActiveCollectionIdx((idx) => calculateCardIndex(idx + direction, collections.length))
     },
-    [collections],
+    [collections]
   )
 
   const activeCollection = collections?.[activeCollectionIdx]

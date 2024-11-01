@@ -24,7 +24,13 @@ const ActiveDot = styled.span`
   margin-right: 4px;
 `
 
-export default function RangeBadge({ removed, inRange }: { removed: boolean | undefined; inRange: boolean | undefined }) {
+export default function RangeBadge({
+  removed,
+  inRange,
+}: {
+  removed: boolean | undefined
+  inRange: boolean | undefined
+}) {
   return (
     <BadgeWrapper>
       {removed ? (
@@ -40,7 +46,9 @@ export default function RangeBadge({ removed, inRange }: { removed: boolean | un
       ) : inRange ? (
         <MouseoverTooltip
           text={
-            <Trans>The price of this pool is within your selected range. Your position is currently earning fees.</Trans>
+            <Trans>
+              The price of this pool is within your selected range. Your position is currently earning fees.
+            </Trans>
           }
         >
           <Badge variant={BadgeVariant.DEFAULT}>

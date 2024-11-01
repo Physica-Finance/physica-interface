@@ -49,6 +49,6 @@ export default function useTrendingTokens(chainId?: number) {
       data: data?.topTokens?.map((token) => unwrapToken(chainId ?? 1, token)),
       loading,
     }),
-    [chainId, data?.topTokens, loading],
+    [chainId, data?.topTokens, loading]
   )
 }

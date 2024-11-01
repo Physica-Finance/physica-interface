@@ -5,7 +5,10 @@ import { animated } from 'react-spring'
 import { Atoms, atoms } from '../css/atoms'
 import { sprinkles } from '../css/sprinkles.css'
 
-type HTMLProperties<T = HTMLElement> = Omit<React.AllHTMLAttributes<T>, 'as' | 'className' | 'color' | 'height' | 'width'>
+type HTMLProperties<T = HTMLElement> = Omit<
+  React.AllHTMLAttributes<T>,
+  'as' | 'className' | 'color' | 'height' | 'width'
+>
 
 type Props = Atoms &
   HTMLProperties & {

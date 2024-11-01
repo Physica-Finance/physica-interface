@@ -37,7 +37,7 @@ const computeSushiPairAddress = ({ tokenA, tokenB }: { tokenA: Token; tokenB: To
   return getCreate2Address(
     '0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac',
     keccak256(['bytes'], [pack(['address', 'address'], [token0.address, token1.address])]),
-    '0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303',
+    '0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303'
   )
 }
 
@@ -71,7 +71,7 @@ export default function MigrateV2() {
           tokens,
         }
       }),
-    [trackedTokenPairs, chainId, v2FactoryAddress],
+    [trackedTokenPairs, chainId, v2FactoryAddress]
   )
 
   //  get pair liquidity token addresses for balance-fetching purposes
@@ -85,7 +85,10 @@ export default function MigrateV2() {
   }, [tokenPairsWithLiquidityTokens])
 
   // fetch pair balances
-  const [pairBalances, fetchingPairBalances] = useTokenBalancesWithLoadingIndicator(account ?? undefined, allLiquidityTokens)
+  const [pairBalances, fetchingPairBalances] = useTokenBalancesWithLoadingIndicator(
+    account ?? undefined,
+    allLiquidityTokens
+  )
 
   // filter for v2 liquidity tokens that the user has a balance in
   const tokenPairsWithV2Balance = useMemo(() => {
@@ -101,7 +104,7 @@ export default function MigrateV2() {
     if (fetchingPairBalances) return []
 
     return tokenPairsWithLiquidityTokens.filter(
-      ({ sushiLiquidityToken }) => !!sushiLiquidityToken && pairBalances[sushiLiquidityToken.address]?.greaterThan(0),
+      ({ sushiLiquidityToken }) => !!sushiLiquidityToken && pairBalances[sushiLiquidityToken.address]?.greaterThan(0)
     )
   }, [fetchingPairBalances, tokenPairsWithLiquidityTokens, pairBalances])
 
@@ -124,8 +127,8 @@ export default function MigrateV2() {
 
           <ThemedText.DeprecatedBody style={{ marginBottom: 8, fontWeight: 400 }}>
             <Trans>
-              For each pool shown below, click migrate to remove your liquidity from Physica V2 and deposit it into Physica
-              V3.
+              For each pool shown below, click migrate to remove your liquidity from Physica V2 and deposit it into
+              Physica V3.
             </Trans>
           </ThemedText.DeprecatedBody>
 

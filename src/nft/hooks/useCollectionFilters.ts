@@ -124,6 +124,6 @@ export const useCollectionFilters = create<CollectionFilters>()(
           showFullTraitName: { shouldShow, trait_value, trait_type },
         })),
     }),
-    { name: 'useCollectionTraits' },
-  ),
+    { name: 'useCollectionTraits' }
+  )
 )

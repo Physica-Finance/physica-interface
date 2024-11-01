@@ -27,7 +27,12 @@ export function Review({
     <Wrapper>
       <AutoColumn gap="lg">
         {position ? (
-          <PositionPreview position={position} inRange={!outOfRange} ticksAtLimit={ticksAtLimit} title="Selected Range" />
+          <PositionPreview
+            position={position}
+            inRange={!outOfRange}
+            ticksAtLimit={ticksAtLimit}
+            title="Selected Range"
+          />
         ) : null}
       </AutoColumn>
     </Wrapper>

@@ -46,8 +46,8 @@ function withVesting(before: JSBI, time: BigNumber, amount: number, start: numbe
           before,
           JSBI.divide(
             JSBI.multiply(JSBI.BigInt(amount), JSBI.BigInt(time.sub(start).toString())),
-            JSBI.subtract(JSBI.BigInt(end), JSBI.BigInt(start)),
-          ),
+            JSBI.subtract(JSBI.BigInt(end), JSBI.BigInt(start))
+          )
         )
       }
     }
@@ -58,7 +58,7 @@ function withVesting(before: JSBI, time: BigNumber, amount: number, start: numbe
 export function computeUniCirculation(
   uni: Token,
   blockTimestamp: BigNumber,
-  unclaimedUni: CurrencyAmount<Token> | undefined,
+  unclaimedUni: CurrencyAmount<Token> | undefined
 ): CurrencyAmount<Token> {
   let wholeAmount = JSBI.BigInt(USERS_AMOUNT)
 
@@ -72,11 +72,29 @@ export function computeUniCirculation(
     TREASURY_YEAR_1_AMOUNT,
     TREASURY_BEGIN_YEAR_1,
     TREASURY_END_YEAR_1,
-    TREASURY_CLIFF_YEAR_1,
+    TREASURY_CLIFF_YEAR_1
   )
-  wholeAmount = withVesting(wholeAmount, blockTimestamp, TREASURY_YEAR_2_AMOUNT, TREASURY_BEGIN_YEAR_2, TREASURY_END_YEAR_2)
-  wholeAmount = withVesting(wholeAmount, blockTimestamp, TREASURY_YEAR_3_AMOUNT, TREASURY_BEGIN_YEAR_3, TREASURY_END_YEAR_3)
-  wholeAmount = withVesting(wholeAmount, blockTimestamp, TREASURY_YEAR_4_AMOUNT, TREASURY_BEGIN_YEAR_4, TREASURY_END_YEAR_4)
+  wholeAmount = withVesting(
+    wholeAmount,
+    blockTimestamp,
+    TREASURY_YEAR_2_AMOUNT,
+    TREASURY_BEGIN_YEAR_2,
+    TREASURY_END_YEAR_2
+  )
+  wholeAmount = withVesting(
+    wholeAmount,
+    blockTimestamp,
+    TREASURY_YEAR_3_AMOUNT,
+    TREASURY_BEGIN_YEAR_3,
+    TREASURY_END_YEAR_3
+  )
+  wholeAmount = withVesting(
+    wholeAmount,
+    blockTimestamp,
+    TREASURY_YEAR_4_AMOUNT,
+    TREASURY_BEGIN_YEAR_4,
+    TREASURY_END_YEAR_4
+  )
 
   // team
   wholeAmount = withVesting(
@@ -85,7 +103,7 @@ export function computeUniCirculation(
     TEAM_YEAR_1_AMOUNT,
     TREASURY_BEGIN_YEAR_1,
     TREASURY_END_YEAR_1,
-    TREASURY_CLIFF_YEAR_1,
+    TREASURY_CLIFF_YEAR_1
   )
   wholeAmount = withVesting(wholeAmount, blockTimestamp, TEAM_YEAR_2_AMOUNT, TREASURY_BEGIN_YEAR_2, TREASURY_END_YEAR_2)
   wholeAmount = withVesting(wholeAmount, blockTimestamp, TEAM_YEAR_3_AMOUNT, TREASURY_BEGIN_YEAR_3, TREASURY_END_YEAR_3)
@@ -93,7 +111,7 @@ export function computeUniCirculation(
 
   const total = CurrencyAmount.fromRawAmount(
     uni,
-    JSBI.multiply(wholeAmount, JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))),
+    JSBI.multiply(wholeAmount, JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18)))
   )
   return unclaimedUni ? total.subtract(unclaimedUni) : total
 }

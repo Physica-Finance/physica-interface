@@ -225,7 +225,7 @@ const OwnerContainer = ({ asset }: { asset: WalletAsset }) => {
 
   const USDPrice = useMemo(
     () => (USDValue && asset.floor_sell_order_price ? USDValue * asset.floor_sell_order_price : undefined),
-    [USDValue, asset.floor_sell_order_price],
+    [USDValue, asset.floor_sell_order_price]
   )
   const trace = useTrace()
 
@@ -339,7 +339,9 @@ export const AssetPriceDetails = ({ asset, collection }: AssetPriceDetailsProps)
 
   const { assetInBag } = useMemo(() => {
     return {
-      assetInBag: itemsInBag.some((item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address),
+      assetInBag: itemsInBag.some(
+        (item) => asset.tokenId === item.asset.tokenId && asset.address === item.asset.address
+      ),
     }
   }, [asset, itemsInBag])
 
@@ -349,7 +351,7 @@ export const AssetPriceDetails = ({ asset, collection }: AssetPriceDetailsProps)
       'newwindow',
       `left=${(window.screen.width - TWITTER_WIDTH) / 2}, top=${
         (window.screen.height - TWITTER_HEIGHT) / 2
-      }, width=${TWITTER_WIDTH}, height=${TWITTER_HEIGHT}`,
+      }, width=${TWITTER_WIDTH}, height=${TWITTER_HEIGHT}`
     )
   }
 
@@ -427,7 +429,11 @@ export const AssetPriceDetails = ({ asset, collection }: AssetPriceDetailsProps)
               Seller:
             </ThemedText.BodySmall>
           )}
-          <OwnerText target="_blank" href={`https://etherscan.io/address/${asset.ownerAddress}`} rel="noopener noreferrer">
+          <OwnerText
+            target="_blank"
+            href={`https://etherscan.io/address/${asset.ownerAddress}`}
+            rel="noopener noreferrer"
+          >
             {asset.tokenType === 'ERC1155' ? (
               ''
             ) : (

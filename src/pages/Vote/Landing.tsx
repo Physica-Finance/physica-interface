@@ -135,13 +135,13 @@ export default function Landing() {
   const { loading: loadingAvailableVotes, votes: availableVotes } = useUserVotes()
   const uniBalance: CurrencyAmount<Token> | undefined = useTokenBalance(
     account ?? undefined,
-    chainId ? UNI[chainId] : undefined,
+    chainId ? UNI[chainId] : undefined
   )
   const userDelegatee: string | undefined = useUserDelegatee()
 
   // show delegation option if they have have a balance, but have not delegated
   const showUnlockVoting = Boolean(
-    uniBalance && JSBI.notEqual(uniBalance.quotient, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS,
+    uniBalance && JSBI.notEqual(uniBalance.quotient, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS
   )
   return (
     <>
@@ -166,8 +166,8 @@ export default function Landing() {
                   <RowBetween>
                     <ThemedText.DeprecatedWhite fontSize={14}>
                       <Trans>
-                        UNI tokens represent voting shares in Physica governance. You can vote on each proposal yourself or
-                        delegate your votes to a third party.
+                        UNI tokens represent voting shares in Physica governance. You can vote on each proposal yourself
+                        or delegate your votes to a third party.
                       </Trans>
                     </ThemedText.DeprecatedWhite>
                   </RowBetween>
@@ -268,7 +268,10 @@ export default function Landing() {
                   <ThemedText.DeprecatedMain>
                     <Trans>Show Cancelled</Trans>
                   </ThemedText.DeprecatedMain>
-                  <Toggle isActive={!hideCancelled} toggle={() => setHideCancelled((hideCancelled) => !hideCancelled)} />
+                  <Toggle
+                    isActive={!hideCancelled}
+                    toggle={() => setHideCancelled((hideCancelled) => !hideCancelled)}
+                  />
                 </RowBetween>
               </AutoColumn>
             )}

@@ -50,7 +50,7 @@ export const ChainSelector = ({ leftAlign }: ChainSelectorProps) => {
       setPendingChainId(undefined)
       setIsOpen(false)
     },
-    [selectChain, setIsOpen],
+    [selectChain, setIsOpen]
   )
 
   if (!chainId) {

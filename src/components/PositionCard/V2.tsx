@@ -56,7 +56,9 @@ export default function V2PositionCard({ pair, border, stakedBalance }: Position
   const userPoolBalance = stakedBalance ? userDefaultPoolBalance?.add(stakedBalance) : userDefaultPoolBalance
 
   const poolTokenPercentage =
-    !!userPoolBalance && !!totalPoolTokens && JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
+    !!userPoolBalance &&
+    !!totalPoolTokens &&
+    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
       ? new Percent(userPoolBalance.quotient, totalPoolTokens.quotient)
       : undefined
 
@@ -92,7 +94,12 @@ export default function V2PositionCard({ pair, border, stakedBalance }: Position
             </Text>
           </AutoRow>
           <RowFixed gap="8px">
-            <ButtonEmpty padding="6px 8px" $borderRadius="12px" width="fit-content" onClick={() => setShowMore(!showMore)}>
+            <ButtonEmpty
+              padding="6px 8px"
+              $borderRadius="12px"
+              width="fit-content"
+              onClick={() => setShowMore(!showMore)}
+            >
               {showMore ? (
                 <>
                   <Trans>Manage</Trans>

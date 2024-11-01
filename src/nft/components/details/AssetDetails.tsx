@@ -215,7 +215,9 @@ const AssetView = ({
     case MediaType.Video:
       return <video src={asset.animationUrl} className={styles.image} autoPlay controls muted loop style={style} />
     case MediaType.Image:
-      return <img className={styles.image} src={asset.imageUrl} alt={asset.name || asset.collectionName} style={style} />
+      return (
+        <img className={styles.image} src={asset.imageUrl} alt={asset.name || asset.collectionName} style={style} />
+      )
     case MediaType.Audio:
       return <AudioPlayer {...asset} dominantColor={dominantColor} />
     case MediaType.Embed:
@@ -251,11 +253,11 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
       asset.rarity
         ? {
             rarityProvider: asset?.rarity?.providers?.find(
-              ({ provider: _provider }) => _provider === asset.rarity?.primaryProvider,
+              ({ provider: _provider }) => _provider === asset.rarity?.primaryProvider
             ),
           }
         : {},
-    [asset.rarity],
+    [asset.rarity]
   )
 
   const assetMediaType = useMemo(() => {
@@ -286,7 +288,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
           eventTypes: [ActivityEventType.Sale],
         },
         pageParam,
-        '1',
+        '1'
       )
     },
     {
@@ -297,7 +299,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
       refetchIntervalInBackground: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    },
+    }
   )
 
   const lastSalePrice = priceData?.events[0]?.price ?? null
@@ -323,7 +325,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
         </FilterBox>
       )
     },
-    [activeFilters],
+    [activeFilters]
   )
 
   const {
@@ -351,7 +353,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
             .map((key) => key as ActivityEventType)
             .filter((key) => activeFilters[key]),
         },
-        pageParam,
+        pageParam
       )
     },
     {
@@ -362,7 +364,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
       refetchIntervalInBackground: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
-    },
+    }
   )
 
   const rarity = asset?.rarity?.providers?.length ? asset?.rarity?.providers?.[0] : undefined
@@ -370,7 +372,7 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
   const rarityProviderLogo = getRarityProviderLogo(rarity?.provider)
   const events = useMemo(
     () => (isSuccess ? eventsData?.pages.map((page) => page.events).flat() : null),
-    [isSuccess, eventsData],
+    [isSuccess, eventsData]
   )
 
   return (
@@ -462,7 +464,12 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
           )}
         </>
       </InfoContainer>
-      <InfoContainer primaryHeader="Description" defaultOpen secondaryHeader={null} data-testid="nft-details-description">
+      <InfoContainer
+        primaryHeader="Description"
+        defaultOpen
+        secondaryHeader={null}
+        data-testid="nft-details-description"
+      >
         <>
           <ByText>By </ByText>
           {asset?.creator && asset.creator?.address && (
@@ -475,7 +482,9 @@ export const AssetDetails = ({ asset, collection }: AssetDetailsProps) => {
             </AddressTextLink>
           )}
 
-          <DescriptionText data-testid="nft-details-description-text">{collection.collectionDescription}</DescriptionText>
+          <DescriptionText data-testid="nft-details-description-text">
+            {collection.collectionDescription}
+          </DescriptionText>
           <SocialsContainer>
             {collection.externalUrl && <Resource name="Website" link={`${collection.externalUrl}`} />}
             {collection.twitterUrl && <Resource name="Twitter" link={`https://twitter.com/${collection.twitterUrl}`} />}

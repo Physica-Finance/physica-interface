@@ -92,7 +92,11 @@ const DetailsContainer = ({ asset, collection }: { asset: GenieAsset; collection
         header="Creator"
         body={
           creator?.address && (
-            <CreatorLink href={`https://etherscan.io/address/${creator.address}`} rel="noopener noreferrer" target="_blank">
+            <CreatorLink
+              href={`https://etherscan.io/address/${creator.address}`}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               {shortenAddress(creator.address, 2, 4)}
             </CreatorLink>
           )

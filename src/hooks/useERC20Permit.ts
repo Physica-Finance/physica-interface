@@ -134,7 +134,7 @@ export function useERC20Permit(
   currencyAmount: CurrencyAmount<Currency> | null | undefined,
   spender: string | null | undefined,
   transactionDeadline: BigNumber | undefined,
-  overridePermitInfo: PermitInfo | undefined | null,
+  overridePermitInfo: PermitInfo | undefined | null
 ): {
   signatureData: SignatureData | null
   state: UseERC20PermitState
@@ -188,7 +188,8 @@ export function useERC20Permit(
       signatureData.tokenAddress === tokenAddress &&
       signatureData.nonce === nonceNumber &&
       signatureData.spender === spender &&
-      ('allowed' in signatureData || JSBI.greaterThanOrEqual(JSBI.BigInt(signatureData.amount), currencyAmount.quotient))
+      ('allowed' in signatureData ||
+        JSBI.greaterThanOrEqual(JSBI.BigInt(signatureData.amount), currencyAmount.quotient))
 
     return {
       state: isSignatureDataValid ? UseERC20PermitState.SIGNED : UseERC20PermitState.NOT_SIGNED,
@@ -276,13 +277,13 @@ export function useERC20Permit(
 export function useERC20PermitFromTrade(
   trade: Trade<Currency, Currency, TradeType> | undefined,
   allowedSlippage: Percent,
-  transactionDeadline: BigNumber | undefined,
+  transactionDeadline: BigNumber | undefined
 ) {
   const { chainId } = useWeb3React()
   const swapRouterAddress = chainId ? SWAP_ROUTER_ADDRESSES[chainId] : undefined
   const amountToApprove = useMemo(
     () => (trade ? trade.maximumAmountIn(allowedSlippage) : undefined),
-    [trade, allowedSlippage],
+    [trade, allowedSlippage]
   )
 
   return useERC20Permit(amountToApprove, swapRouterAddress, transactionDeadline, null)

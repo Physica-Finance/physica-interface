@@ -24,7 +24,7 @@ interface ViewMyNftsAssetProps {
 const getNftDisplayComponent = (
   assetMediaType: AssetMediaType,
   mediaShouldBePlaying: boolean,
-  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void,
+  setCurrentTokenPlayingMedia: (tokenId: string | undefined) => void
 ) => {
   switch (assetMediaType) {
     case AssetMediaType.Image:
@@ -61,7 +61,7 @@ export const ViewMyNftsAsset = ({
 
   const isSelected = useMemo(() => {
     return sellAssets.some(
-      (item) => item.tokenId === asset.tokenId && item.asset_contract.address === asset.asset_contract.address,
+      (item) => item.tokenId === asset.tokenId && item.asset_contract.address === asset.asset_contract.address
     )
   }, [asset, sellAssets])
 
@@ -83,7 +83,9 @@ export const ViewMyNftsAsset = ({
     }
     if (
       !cartExpanded &&
-      !sellAssets.find((x) => x.tokenId === asset.tokenId && x.asset_contract.address === asset.asset_contract.address) &&
+      !sellAssets.find(
+        (x) => x.tokenId === asset.tokenId && x.asset_contract.address === asset.asset_contract.address
+      ) &&
       !isMobile
     )
       toggleCart()

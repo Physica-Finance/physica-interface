@@ -143,17 +143,17 @@ function V2PairMigration({
     () =>
       CurrencyAmount.fromRawAmount(
         token0,
-        JSBI.divide(JSBI.multiply(pairBalance.quotient, reserve0.quotient), totalSupply.quotient),
+        JSBI.divide(JSBI.multiply(pairBalance.quotient, reserve0.quotient), totalSupply.quotient)
       ),
-    [token0, pairBalance, reserve0, totalSupply],
+    [token0, pairBalance, reserve0, totalSupply]
   )
   const token1Value = useMemo(
     () =>
       CurrencyAmount.fromRawAmount(
         token1,
-        JSBI.divide(JSBI.multiply(pairBalance.quotient, reserve1.quotient), totalSupply.quotient),
+        JSBI.divide(JSBI.multiply(pairBalance.quotient, reserve1.quotient), totalSupply.quotient)
       ),
-    [token1, pairBalance, reserve1, totalSupply],
+    [token1, pairBalance, reserve1, totalSupply]
   )
 
   // set up v3 pool
@@ -164,7 +164,7 @@ function V2PairMigration({
   // get spot prices + price difference
   const v2SpotPrice = useMemo(
     () => new Price(token0, token1, reserve0.quotient, reserve1.quotient),
-    [token0, token1, reserve0, reserve1],
+    [token0, token1, reserve0, reserve1]
   )
   const v3SpotPrice = poolState === PoolState.EXISTS ? pool?.token0Price : undefined
 
@@ -182,7 +182,7 @@ function V2PairMigration({
     token0,
     token1,
     feeAmount,
-    baseToken,
+    baseToken
   )
 
   // get value and prices at ticks
@@ -194,7 +194,7 @@ function V2PairMigration({
     baseToken.equals(token0) ? token1 : token0,
     feeAmount,
     tickLower,
-    tickUpper,
+    tickUpper
   )
 
   const { onLeftRangeInput, onRightRangeInput } = useV3MintActionHandlers(noLiquidity)
@@ -217,16 +217,18 @@ function V2PairMigration({
 
   const { amount0: v3Amount0Min, amount1: v3Amount1Min } = useMemo(
     () => (position ? position.mintAmountsWithSlippage(allowedSlippage) : { amount0: undefined, amount1: undefined }),
-    [position, allowedSlippage],
+    [position, allowedSlippage]
   )
 
   const refund0 = useMemo(
-    () => position && CurrencyAmount.fromRawAmount(token0, JSBI.subtract(token0Value.quotient, position.amount0.quotient)),
-    [token0Value, position, token0],
+    () =>
+      position && CurrencyAmount.fromRawAmount(token0, JSBI.subtract(token0Value.quotient, position.amount0.quotient)),
+    [token0Value, position, token0]
   )
   const refund1 = useMemo(
-    () => position && CurrencyAmount.fromRawAmount(token1, JSBI.subtract(token1Value.quotient, position.amount1.quotient)),
-    [token1Value, position, token1],
+    () =>
+      position && CurrencyAmount.fromRawAmount(token1, JSBI.subtract(token1Value.quotient, position.amount1.quotient)),
+    [token1Value, position, token1]
   )
 
   const [confirmingMigration, setConfirmingMigration] = useState<boolean>(false)
@@ -289,7 +291,7 @@ function V2PairMigration({
           signatureData.v,
           signatureData.r,
           signatureData.s,
-        ]),
+        ])
       )
     }
 
@@ -301,7 +303,7 @@ function V2PairMigration({
           token1.address,
           feeAmount,
           `0x${sqrtPrice.toString(16)}`,
-        ]),
+        ])
       )
     }
 
@@ -323,7 +325,7 @@ function V2PairMigration({
           deadline: deadlineToUse,
           refundAsETH: true, // hard-code this for now
         },
-      ]),
+      ])
     )
 
     setConfirmingMigration(true)
@@ -382,8 +384,8 @@ function V2PairMigration({
     <AutoColumn gap="20px">
       <ThemedText.DeprecatedBody my={9} style={{ fontWeight: 400 }}>
         <Trans>
-          This tool will safely migrate your {isNotUniswap ? 'SushiSwap' : 'V2'} liquidity to V3. The process is completely
-          trustless thanks to the{' '}
+          This tool will safely migrate your {isNotUniswap ? 'SushiSwap' : 'V2'} liquidity to V3. The process is
+          completely trustless thanks to the{' '}
         </Trans>
         {chainId && migrator && (
           <ExternalLink href={getExplorerLink(chainId, migrator.address, ExplorerDataType.ADDRESS)}>
@@ -446,8 +448,8 @@ function V2PairMigration({
                 textAlign="center"
               >
                 <Trans>
-                  You are the first liquidity provider for this Physica V3 pool. Your liquidity will migrate at the current{' '}
-                  {isNotUniswap ? 'SushiSwap' : 'V2'} price.
+                  You are the first liquidity provider for this Physica V3 pool. Your liquidity will migrate at the
+                  current {isNotUniswap ? 'SushiSwap' : 'V2'} price.
                 </Trans>
               </ThemedText.DeprecatedBody>
 
@@ -516,8 +518,8 @@ function V2PairMigration({
               <ThemedText.DeprecatedBody fontSize={14} style={{ marginTop: 8, fontWeight: 400 }}>
                 <Trans>
                   You should only deposit liquidity into Physica V3 at a price you believe is correct. <br />
-                  If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do
-                  so.
+                  If the price seems incorrect, you can either make a swap to move the price or wait for someone else to
+                  do so.
                 </Trans>
               </ThemedText.DeprecatedBody>
             </YellowCard>
@@ -598,8 +600,8 @@ function V2PairMigration({
                       At least {formatCurrencyAmount(refund0, 4)}{' '}
                       {chainId && WRAPPED_NATIVE_CURRENCY[chainId]?.equals(token0) ? 'ETH' : token0.symbol} and{' '}
                       {formatCurrencyAmount(refund1, 4)}{' '}
-                      {chainId && WRAPPED_NATIVE_CURRENCY[chainId]?.equals(token1) ? 'ETH' : token1.symbol} will be refunded
-                      to your wallet due to selected price range.
+                      {chainId && WRAPPED_NATIVE_CURRENCY[chainId]?.equals(token1) ? 'ETH' : token1.symbol} will be
+                      refunded to your wallet due to selected price range.
                     </Trans>
                   </ThemedText.DeprecatedBlack>
                 ) : null}
@@ -695,7 +697,7 @@ export default function MigrateV2Pair() {
   // get liquidity token balance
   const liquidityToken: Token | undefined = useMemo(
     () => (chainId && validatedAddress ? new Token(chainId, validatedAddress, 18) : undefined),
-    [chainId, validatedAddress],
+    [chainId, validatedAddress]
   )
 
   // get data required for V2 pair migration
@@ -704,11 +706,11 @@ export default function MigrateV2Pair() {
   const [reserve0Raw, reserve1Raw] = useSingleCallResult(pair, 'getReserves')?.result ?? []
   const reserve0 = useMemo(
     () => (token0 && reserve0Raw ? CurrencyAmount.fromRawAmount(token0, reserve0Raw) : undefined),
-    [token0, reserve0Raw],
+    [token0, reserve0Raw]
   )
   const reserve1 = useMemo(
     () => (token1 && reserve1Raw ? CurrencyAmount.fromRawAmount(token1, reserve1Raw) : undefined),
-    [token1, reserve1Raw],
+    [token1, reserve1Raw]
   )
 
   // redirect for invalid url params

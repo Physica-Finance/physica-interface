@@ -54,7 +54,15 @@ const PrimaryMenuRowText = ({ children }: { children: ReactNode }) => {
 
 PrimaryMenuRow.Text = PrimaryMenuRowText
 
-const SecondaryLinkedText = ({ href, onClick, children }: { href?: string; onClick?: () => void; children: ReactNode }) => {
+const SecondaryLinkedText = ({
+  href,
+  onClick,
+  children,
+}: {
+  href?: string
+  onClick?: () => void
+  children: ReactNode
+}) => {
   return (
     <Box
       as={href ? 'a' : 'div'}
@@ -153,13 +161,28 @@ export const MenuDropdown = () => {
               </Box>
               <IconRow>
                 <Icon href="https://discord.com/invite/planq-network">
-                  <DiscordIconMenu className={styles.hover} width={24} height={24} color={themeVars.colors.textSecondary} />
+                  <DiscordIconMenu
+                    className={styles.hover}
+                    width={24}
+                    height={24}
+                    color={themeVars.colors.textSecondary}
+                  />
                 </Icon>
                 <Icon href="https://twitter.com/PlanqFoundation">
-                  <TwitterIconMenu className={styles.hover} width={24} height={24} color={themeVars.colors.textSecondary} />
+                  <TwitterIconMenu
+                    className={styles.hover}
+                    width={24}
+                    height={24}
+                    color={themeVars.colors.textSecondary}
+                  />
                 </Icon>
                 <Icon href="https://github.com/Physica-Finance">
-                  <GithubIconMenu className={styles.hover} width={24} height={24} color={themeVars.colors.textSecondary} />
+                  <GithubIconMenu
+                    className={styles.hover}
+                    width={24}
+                    height={24}
+                    color={themeVars.colors.textSecondary}
+                  />
                 </Icon>
               </IconRow>
             </Column>

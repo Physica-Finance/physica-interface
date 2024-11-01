@@ -289,7 +289,9 @@ const AirdropModal = () => {
                   <RewardsDetailsContainer>
                     <RewardsText>Genie NFT holder rewards</RewardsText>{' '}
                     <CurrencyText>
-                      {totalAmount !== RewardAmounts.tradingRewardAmount ? `${RewardAmounts.holderRewardAmount} USDC` : '0'}
+                      {totalAmount !== RewardAmounts.tradingRewardAmount
+                        ? `${RewardAmounts.holderRewardAmount} USDC`
+                        : '0'}
                     </CurrencyText>
                   </RewardsDetailsContainer>
                 </TextContainer>

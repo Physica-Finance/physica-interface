@@ -135,7 +135,7 @@ export const TraitSelect = ({ traits, type, index }: { traits: Trait[]; type: st
 
   const searchedTraits = useMemo(
     () => traits.filter((t) => t.trait_value?.toString().toLowerCase().includes(debouncedSearch.toLowerCase())),
-    [debouncedSearch, traits],
+    [debouncedSearch, traits]
   )
 
   const Row = useCallback(
@@ -144,11 +144,11 @@ export const TraitSelect = ({ traits, type, index }: { traits: Trait[]; type: st
 
       const isTraitSelected = selectedTraits.find(
         ({ trait_type, trait_value }) =>
-          trait_type === trait.trait_type && String(trait_value) === String(trait.trait_value),
+          trait_type === trait.trait_type && String(trait_value) === String(trait.trait_value)
       )
       return <TraitItem style={style} isTraitSelected={!!isTraitSelected} {...{ trait, addTrait, removeTrait }} />
     },
-    [selectedTraits, addTrait, removeTrait],
+    [selectedTraits, addTrait, removeTrait]
   )
 
   const itemKey = useCallback((index: number, data: Trait[]) => {

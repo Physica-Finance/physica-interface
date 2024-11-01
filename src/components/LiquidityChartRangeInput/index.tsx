@@ -128,7 +128,7 @@ export default function LiquidityChartRangeInput({
         }
       })
     },
-    [isSorted, onLeftRangeInput, onRightRangeInput, ticksAtLimit],
+    [isSorted, onLeftRangeInput, onRightRangeInput, ticksAtLimit]
   )
 
   interactive = interactive && Boolean(formattedData?.length)
@@ -153,7 +153,7 @@ export default function LiquidityChartRangeInput({
 
       return price ? `${format(Math.abs(percent) > 1 ? '.2~s' : '.2~f')(percent)}%` : ''
     },
-    [isSorted, price, ticksAtLimit],
+    [isSorted, price, ticksAtLimit]
   )
 
   if (error) {

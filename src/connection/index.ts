@@ -30,7 +30,7 @@ function onError(error: Error) {
 }
 
 const [web3Network, web3NetworkHooks] = initializeConnector<Network>(
-  (actions) => new Network({ actions, urlMap: RPC_PROVIDERS, defaultChainId: 1 }),
+  (actions) => new Network({ actions, urlMap: RPC_PROVIDERS, defaultChainId: 1 })
 )
 export const networkConnection: Connection = {
   connector: web3Network,
@@ -60,7 +60,7 @@ const [web3WalletConnect, web3WalletConnectHooks] = initializeConnector<WalletCo
       ...map,
       [chainId]: urls[0],
     }),
-    {},
+    {}
   )
   return new WalletConnect({
     actions,
@@ -88,7 +88,7 @@ const [web3CoinbaseWallet, web3CoinbaseWalletHooks] = initializeConnector<Coinba
         reloadOnDisconnect: false,
       },
       onError,
-    }),
+    })
 )
 export const coinbaseWalletConnection: Connection = {
   connector: web3CoinbaseWallet,

@@ -266,7 +266,7 @@ const AuthenticatedHeader = () => {
     }
   }, [fiatOnrampAvailabilityChecked, fiatOnrampAvailable, openFoRModalWithAnalytics])
   const disableBuyCryptoButton = Boolean(
-    error || (!fiatOnrampAvailable && fiatOnrampAvailabilityChecked) || fiatOnrampAvailabilityLoading,
+    error || (!fiatOnrampAvailable && fiatOnrampAvailabilityChecked) || fiatOnrampAvailabilityLoading
   )
   const [showFiatOnrampUnavailableTooltip, setShow] = useState<boolean>(false)
   const openFiatOnrampUnavailableTooltip = useCallback(() => setShow(true), [setShow])
