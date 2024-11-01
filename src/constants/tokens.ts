@@ -26,13 +26,7 @@ const USDC_ROPSTEN = new Token(
   'USD//C'
 )
 
-const USDC_PLANQ = new Token(
-  SupportedChainId.PLANQ,
-  '0xecEEEfCEE421D8062EF8d6b4D814efe4dc898265',
-  6,
-  'USDC',
-  'USD//C'
-)
+const USDC_PLANQ = new Token(SupportedChainId.PLANQ, '0xecEEEfCEE421D8062EF8d6b4D814efe4dc898265', 6, 'USDC', 'USD//C')
 
 export const USDCBSC_PLANQ = new Token(
   SupportedChainId.PLANQ,
