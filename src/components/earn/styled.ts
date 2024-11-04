@@ -17,7 +17,7 @@ export const DataCard = styled(AutoColumn)<{ disabled?: boolean }>`
   width: 100%;
   position: relative;
   overflow: hidden;
-  background-color: ${({ theme }) => theme.blue4};
+  background-color: ${({ theme }) => theme.deprecated_blue4};
 `
 
 export const CardBGImage = styled.span<{ desaturate?: boolean }>`

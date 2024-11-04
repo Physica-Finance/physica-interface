@@ -71,8 +71,8 @@ const RangeLineItem = styled(DataLineItem)`
   margin-top: 4px;
   width: 100%;
 
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  background-color: ${({ theme }) => theme.bg2};
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+  background-color: ${({ theme }) => theme.deprecated_bg3};
     border-radius: 12px;
     padding: 8px 0;
 `};

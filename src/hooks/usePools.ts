@@ -5,22 +5,17 @@ import { computePoolAddress } from '@uniswap/v3-sdk'
 import { FeeAmount, Pool } from '@uniswap/v3-sdk'
 import { useWeb3React } from '@web3-react/core'
 import JSBI from 'jsbi'
-import { useMultipleContractSingleData } from 'lib/hooks/multicall'
+import { NEVER_RELOAD, useMultipleContractSingleData } from 'lib/hooks/multicall'
 import { useMemo } from 'react'
 
 import { V3_CORE_FACTORY_ADDRESSES } from '../constants/addresses'
 import { IUniswapV3PoolStateInterface } from '../types/v3/IUniswapV3PoolState'
 import { IUniswapV3PoolImmutablesInterface } from '../types/v3/IUniswapV3PoolImmutables'
-import { Token, Currency } from '@uniswap/sdk-core'
-import { useMemo } from 'react'
-import { useAllTokens } from './Tokens'
-import { useActiveWeb3React } from './web3'
-import { NEVER_RELOAD, useMultipleContractSingleData } from '../state/multicall/hooks'
 
-import { Pool, FeeAmount } from '@uniswap/v3-sdk'
-import { abi as IUniswapV3PoolStateABI } from '@uniswap/v3-core/artifacts/contracts/interfaces/pool/IUniswapV3PoolState.sol/IUniswapV3PoolState.json'
+import { useAllTokens } from './Tokens'
+
 import { abi as IUniswapV3PoolImmutablesABI } from '@uniswap/v3-core/artifacts/contracts/interfaces/pool/IUniswapV3PoolImmutables.sol/IUniswapV3PoolImmutables.json'
-import { Interface } from '@ethersproject/abi'
+
 
 const POOL_STATE_INTERFACE = new Interface(IUniswapV3PoolStateABI) as IUniswapV3PoolStateInterface
 const POOL_IMMUTABLES_INTERFACE = new Interface(IUniswapV3PoolImmutablesABI) as IUniswapV3PoolImmutablesInterface

@@ -166,8 +166,8 @@ export const ButtonGray = styled(BaseButton)`
 `
 export const ButtonGreySmall = styled(ButtonGray)`
   width: fit-content;
-  background-color: ${({ theme }) => theme.bg2};
-  color: ${({ theme }) => theme.text1};
+  background-color: ${({ theme }) => theme.deprecated_bg1};
+  color: ${({ theme }) => theme.textPrimary};
   padding: 8px;
   border-radius: 8px;
   font-size: 14px;

@@ -1,7 +1,7 @@
 import { AddressZero } from '@ethersproject/constants'
 import { CallStateResult } from '@uniswap/redux-multicall'
 import { useMemo } from 'react'
-import { useSingleCallResult, useSingleContractMultipleData } from 'state/multicall/hooks'
+import { useSingleCallResult, useSingleContractMultipleData } from 'lib/hooks/multicall'
 import { PositionDetails } from 'types/position'
 
 import { Incentive, useAllIncentives } from './incentives/useAllIncentives'
