@@ -25,6 +25,21 @@ import {
   usePollQueryWhileMounted,
 } from './util'
 
+// tokenDayDatas(orderBy: volumeUSD, orderDirection: desc) {
+//     priceUSD
+//     open
+//     high
+//     close
+//     token {
+//       name
+//       symbol
+//       derivedETH
+//       decimals
+//       id
+//     }
+//     volumeUSD
+//   }
+
 gql`
   query TopTokens100($duration: HistoryDuration!, $chain: Chain!) {
     topTokens(pageSize: 100, page: 1, chain: $chain, orderBy: VOLUME) {
