@@ -113,6 +113,7 @@ export function useSearchInactiveTokenLists(search: string | undefined, minResul
   const inactiveUrls = DEFAULT_INACTIVE_LIST_URLS
   const { chainId } = useWeb3React()
   const activeTokens = useAllTokens()
+
   return useMemo(() => {
     if (!search || search.trim().length === 0) return []
     const tokenFilter = getTokenFilter(search)
