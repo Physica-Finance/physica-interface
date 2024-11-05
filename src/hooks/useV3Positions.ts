@@ -212,29 +212,35 @@ export function useV3PositionsForPool(
 ): PositionsForPoolResults {
   const { positions, loading: positionsLoading } = useV3Positions(account)
 
-  if (!positions || !pool || !positionsLoading) {
+
+  if ((!positions || !pool) && !positionsLoading) {
     return {
       loading: false,
       inRangePositions: undefined,
       outOfRangePositions: undefined,
     }
   }
-
-  const relevantPositions = positions.filter((p) =>
-    Boolean(p.token0 === pool.token0.address && p.token1 == pool.token1.address && p.fee === pool.fee)
+  if(!positions) {
+    return {
+      loading: true,
+      inRangePositions: undefined,
+      outOfRangePositions: undefined,
+    }
+  }
+  const relevantPositions = positions!.filter((p) =>
+    Boolean(p.token0 === pool!.token0.address && p.token1 == pool!.token1.address && p.fee === pool!.fee)
   )
-
   const inRangePositions = relevantPositions.filter((p) => {
     // check if price is within range
-    const below = typeof p.tickLower === 'number' ? pool.tickCurrent < p.tickLower : undefined
-    const above = typeof p.tickUpper === 'number' ? pool.tickCurrent >= p.tickUpper : undefined
+    const below = typeof p.tickLower === 'number' ? pool!.tickCurrent < p.tickLower : undefined
+    const above = typeof p.tickUpper === 'number' ? pool!.tickCurrent >= p.tickUpper : undefined
     return typeof below === 'boolean' && typeof above === 'boolean' ? !below && !above : false
   })
 
   const outOfRangePositions = relevantPositions.filter((p) => {
     // check if price is within range
-    const below = typeof p.tickLower === 'number' ? pool.tickCurrent < p.tickLower : undefined
-    const above = typeof p.tickUpper === 'number' ? pool.tickCurrent >= p.tickUpper : undefined
+    const below = typeof p.tickLower === 'number' ? pool!.tickCurrent < p.tickLower : undefined
+    const above = typeof p.tickUpper === 'number' ? pool!.tickCurrent >= p.tickUpper : undefined
     return !(typeof below === 'boolean' && typeof above === 'boolean' ? !below && !above : false)
   })
 

@@ -127,9 +127,8 @@ export const QUOTER_ADDRESSES: AddressMap = {
   [SupportedChainId.PLANQ]: PLANQ_QUOTER_ADDRESSES,
 }
 
-export const V3_STAKER_ADDRESSES: AddressMap = constructSameAddressMap('0x1f98407aaB862CdDeF78Ed252D6f557aA5b0f00d', [
-  SupportedChainId.ARBITRUM_ONE,
-  SupportedChainId.ARBITRUM_RINKEBY,
+export const V3_STAKER_ADDRESSES: AddressMap = constructSameAddressMap('0x7150Fb99a6247d92977c4c2c601c2599fFF5054a', [
+  SupportedChainId.PLANQ
 ])
 
 export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = {

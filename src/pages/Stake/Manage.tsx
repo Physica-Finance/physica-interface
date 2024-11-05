@@ -10,7 +10,7 @@ import PositionManageCard from 'components/earn/PositionManageCard'
 import Loader from 'components/Loader'
 import { RowBetween, RowFixed } from 'components/Row'
 import { useIncentivesForPool } from 'hooks/incentives/useAllIncentives'
-import { usePoolsByAddresses } from 'hooks/usePools'
+import { PoolState, usePoolsByAddresses } from 'hooks/usePools'
 import { useV3PositionsForPool } from 'hooks/useV3Positions'
 import { LoadingRows } from 'pages/Pool/styleds'
 import { AlertCircle } from 'react-feather'
@@ -31,17 +31,22 @@ export default function Manage() {
   const theme = useTheme()
   const { account, chainId } = useWeb3React()
 
-  const [, pool] = usePoolsByAddresses([poolAddress])[0]
-
+  const pools = usePoolsByAddresses([poolAddress])
+  const [state, pool] = pools[0]
+  console.log(pools)
   const currency0 = pool ? unwrappedToken(pool.token0) : undefined
   const currency1 = pool ? unwrappedToken(pool.token1) : undefined
 
   // all incentive programs for this pool
   const { loading, incentives } = useIncentivesForPool(poolAddress)
-
+  console.log(loading)
+  console.log(pool)
+  console.log(currency0)
+  console.log(currency1)
   // all users positions for this pool
   const { loading: loadingPositions, inRangePositions } = useV3PositionsForPool(account, pool!)
-
+  console.log(loadingPositions)
+  console.log(inRangePositions)
   if (!pool || !currency0 || !currency1 || loading) {
     return (
       <Wrapper>

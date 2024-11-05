@@ -11,6 +11,8 @@ import ProgramCard from '../../components/earn/ProgramCard'
 import Loader from 'components/Loader'
 import { ButtonGreySmall } from 'components/Button'
 import { ThemedText } from 'theme'
+import { Link } from 'react-router-dom'
+import { currencyId } from '../../utils/currencyId'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 840px;
@@ -44,7 +46,8 @@ export default function Stake() {
           </ThemedText.DeprecatedBody>
           <AutoRow gap="6px" width="fit-content">
             <ButtonGreySmall>Find Program</ButtonGreySmall>
-            <ButtonGreySmall>New Program</ButtonGreySmall>
+            <ButtonGreySmall as={Link}
+                             to={`/program`}>New Program</ButtonGreySmall>
           </AutoRow>
         </RowBetween>
         <DataCard>

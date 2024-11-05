@@ -190,8 +190,8 @@ export function usePoolsByAddresses(poolAddresses: (string | undefined)[]): [Poo
 
       if (!slot0.sqrtPriceX96 || slot0.sqrtPriceX96.eq(0)) return [PoolState.NOT_EXISTS, null]
 
-      const token0 = allTokens[token0Result[0]]
-      const token1 = allTokens[token1Result[0]]
+      const token0 = new Token(7070, token0Result[0], 0,); //allTokens[token0Result[0]]
+      const token1 = new Token(7070, token1Result[0], 0,);//allTokens[token1Result[0]]
 
       // todo: return pools for which token0 and token1 are not in the current set of active token lists
       if (!token0 || !token1) return [PoolState.INVALID, null]

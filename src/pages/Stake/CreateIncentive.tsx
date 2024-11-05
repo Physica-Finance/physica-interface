@@ -109,7 +109,7 @@ export default function CreateIncentive() {
           value=""
           currency={currencyA}
           onUserInput={() => null}
-          hideInput={true}
+          hideInput={false}
           showMaxButton={false}
           onCurrencySelect={(currency) => {
             setCurrencyA(currency)
@@ -123,7 +123,7 @@ export default function CreateIncentive() {
           value=""
           currency={currencyB}
           onUserInput={() => null}
-          hideInput={true}
+          hideInput={false}
           showMaxButton={false}
           onCurrencySelect={(currency) => {
             setCurrencyB(currency)

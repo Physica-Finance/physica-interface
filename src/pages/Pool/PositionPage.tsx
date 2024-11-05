@@ -6,7 +6,14 @@ import { NonfungiblePositionManager, Pool, Position } from '@uniswap/v3-sdk'
 import { useWeb3React } from '@web3-react/core'
 import { sendEvent } from 'components/analytics'
 import Badge from 'components/Badge'
-import { ButtonConfirmed, ButtonGray, ButtonPrimary, ButtonSmall } from 'components/Button'
+import {
+  ButtonConfirmed,
+  ButtonGray,
+  ButtonPrimary,
+  ButtonSecondary,
+  ButtonSmall,
+  SmallButtonPrimary
+} from 'components/Button'
 import { DarkCard, LightCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
@@ -561,9 +568,9 @@ export function PositionPage() {
         <ThemedText.DeprecatedItalic>
           <Trans>Collecting fees will withdraw currently available fees for you.</Trans>
         </ThemedText.DeprecatedItalic>
-        <ButtonPrimary onClick={collect}>
+        <SmallButtonPrimary onClick={collect}>
           <Trans>Collect</Trans>
-        </ButtonPrimary>
+        </SmallButtonPrimary>
       </AutoColumn>
     )
   }
@@ -645,7 +652,7 @@ export function PositionPage() {
                   ) : null}
                   {tokenId && !removed ? (
                     <DynamicSpan disabled={depositedInStaker}>
-                      <ButtonPrimary
+                      <SmallButtonPrimary
                         as={Link}
                         to={`/remove/${tokenId}`}
                         width="fit-content"
@@ -653,7 +660,7 @@ export function PositionPage() {
                         $borderRadius="12px"
                       >
                         <Trans>Remove Liquidity</Trans>
-                      </ButtonPrimary>
+                      </SmallButtonPrimary>
                     </DynamicSpan>
                   ) : null}
                 </RowFixed>
