@@ -2,21 +2,20 @@ import { Trans } from '@lingui/macro'
 import Badge from 'components/Badge'
 import { ButtonSmall } from 'components/Button'
 import { AutoColumn } from 'components/Column'
-import CurrencyLogo from 'components/CurrencyLogo'
+import CurrencyLogo from 'components/Logo/CurrencyLogo'
 import { AutoRow, RowBetween, RowFixed } from 'components/Row'
 import { BIG_INT_ZERO } from 'constants/misc'
 import { Incentive } from 'hooks/incentives/useAllIncentives'
-import useTheme from 'hooks/useTheme'
 import { useMemo, useState } from 'react'
 import { Zap } from 'react-feather'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components/macro'
-import { TYPE } from 'theme'
+import styled, { useTheme } from 'styled-components/macro'
 import { PositionDetails } from 'types/position'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
 import StakingModal, { ClaimModal, UnstakeModal } from './StakingModal'
 import RangeStatus from 'components/RangeStatus'
-import { BigNumber } from 'ethers'
+import { BigNumber } from '@ethersproject/bignumber'
+import { ThemedText } from 'theme'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,7 +23,7 @@ const Wrapper = styled.div`
 
 const PositionWrapper = styled.div<{ staked?: boolean }>`
   width: 100%;
-  border: 1px solid ${({ theme, staked }) => (staked ? theme.blue3 : theme.bg3)};
+  border: 1px solid ${({ theme, staked }) => (staked ? theme.deprecated_blue4 : theme.deprecated_bg3)};
   border-radius: 12px;
   padding: 16px;
 `
@@ -70,10 +69,10 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
               {isPositionPage ? (
                 <RowBetween>
                   <RowFixed>
-                    <Zap strokeWidth="3px" color={theme.blue3} size="16px" />
-                    <TYPE.body ml="8px" fontWeight={500} color={theme.blue3}>
+                    <Zap strokeWidth="3px" color={theme.deprecated_blue4} size="16px" />
+                    <ThemedText.DeprecatedBody ml="8px" fontWeight={500} color={theme.deprecated_blue4}>
                       Position is Staked
-                    </TYPE.body>
+                    </ThemedText.DeprecatedBody>
                   </RowFixed>
                   <ButtonSmall as={Link} to={'/stake/' + incentive.poolAddress}>
                     <Trans>Manage</Trans>
@@ -81,23 +80,23 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
                 </RowBetween>
               ) : null}
               {isPositionPage ? null : <RangeStatus positionDetails={positionDetails} />}
-              <TYPE.body fontSize="11px" color={theme.text3}>
+              <ThemedText.DeprecatedBody fontSize="11px" color={theme.textTertiary}>
                 <Trans>UNCLAIMED REWARDS</Trans>
-              </TYPE.body>
+              </ThemedText.DeprecatedBody>
               <RowBetween>
                 <RowFixed>
-                  <TYPE.body fontSize="24px" color={theme.green1} fontWeight={500}>
+                  <ThemedText.DeprecatedBody fontSize="24px" color={theme.deprecated_yellow2} fontWeight={500}>
                     <Trans>
                       {totalUnclaimedUSD
                         ? '$' + totalUnclaimedUSD
                         : `${formatCurrencyAmount(availableClaim, 5)} ${rewardCurrency.symbol}`}
                     </Trans>
-                  </TYPE.body>
+                  </ThemedText.DeprecatedBody>
                   <Badge style={{ margin: '0 12px' }}>
                     <CurrencyLogo currency={rewardCurrency} size="20px" />
-                    <TYPE.body m="0 12px" fontSize="15px" fontWeight={500}>
+                    <ThemedText.DeprecatedBody m="0 12px" fontSize="15px" fontWeight={500}>
                       {`~ ${formatCurrencyAmount(weeklyRewards, 5)} ${rewardCurrency.symbol} / Week `}
-                    </TYPE.body>
+                    </ThemedText.DeprecatedBody>
                   </Badge>
                 </RowFixed>
                 <AutoRow gap="8px" width="fit-content">

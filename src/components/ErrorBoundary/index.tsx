@@ -7,8 +7,9 @@ import React, { PropsWithChildren, useState } from 'react'
 import { Copy } from 'react-feather'
 import styled from 'styled-components/macro'
 import { isSentryEnabled } from 'utils/env'
+import { CopyToClipboard } from 'theme/components/index'
 
-import { CopyToClipboard, ExternalLink, ThemedText } from '../../theme'
+import { ExternalLink, ThemedText } from '../../theme'
 import { Column } from '../Column'
 
 const FallbackWrapper = styled.div`

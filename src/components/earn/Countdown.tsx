@@ -1,16 +1,16 @@
 import { transparentize } from 'polished'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
-import { TYPE } from '../../theme'
+import { ThemedText } from '../../theme'
 
 const MINUTE = 60
 const HOUR = MINUTE * 60
 const DAY = HOUR * 24
 
-const MonoFront = styled(TYPE.body)<{ faded?: boolean; ended?: boolean }>`
+const MonoFront = styled(ThemedText.DeprecatedBody)<{ faded?: boolean; ended?: boolean }>`
   font-variant-numeric: tabular-nums;
-  background-color: ${({ theme, ended }) => (ended ? theme.bg2 : transparentize(0.7, theme.bg3))};
-  color: ${({ theme, ended }) => (ended ? theme.text3 : theme.text1)};
+  background-color: ${({ theme, ended }) => (ended ? theme.deprecated_bg1 : transparentize(0.7, theme.deprecated_bg3))};
+  color: ${({ theme, ended }) => (ended ? theme.textTertiary : theme.textPrimary)};
   padding: 6px 8px;
   border-radius: 12px;
   display: flex;

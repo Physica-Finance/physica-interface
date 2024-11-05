@@ -18,7 +18,8 @@ import { Plus } from 'react-feather'
 import { InterfaceTrade } from 'state/routing/types'
 import { useDarkModeManager } from 'state/user/hooks'
 import styled from 'styled-components/macro'
-import { Separator, ThemedText } from 'theme'
+import { ThemedText } from 'theme'
+import { Separator } from 'theme/components/index'
 
 import { AutoRouterLabel, AutoRouterLogo } from './RouterLabel'
 

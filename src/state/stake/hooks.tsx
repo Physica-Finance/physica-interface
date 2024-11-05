@@ -41,7 +41,7 @@ const STAKING_REWARDS_INFO: {
   ],
 }
 
-interface StakingInfo {
+export interface StakingInfo {
   // the address of the reward contract
   stakingRewardAddress: string
   // the tokens involved in this pair

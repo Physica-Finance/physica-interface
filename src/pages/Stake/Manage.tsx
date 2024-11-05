@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/macro'
+import { useWeb3React } from '@web3-react/core'
 import Badge from 'components/Badge'
 import { ButtonGreySmall } from 'components/Button'
-import { DarkGreyCard } from 'components/Card'
+import { DarkGrayCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import IncentiveInfoBar from 'components/earn/IncentiveInfoBar'
@@ -10,14 +11,12 @@ import Loader from 'components/Loader'
 import { RowBetween, RowFixed } from 'components/Row'
 import { useIncentivesForPool } from 'hooks/incentives/useAllIncentives'
 import { usePoolsByAddresses } from 'hooks/usePools'
-import useTheme from 'hooks/useTheme'
 import { useV3PositionsForPool } from 'hooks/useV3Positions'
-import { useActiveWeb3React } from 'hooks/web3'
 import { LoadingRows } from 'pages/Pool/styleds'
 import { AlertCircle } from 'react-feather'
-import { Link, RouteComponentProps } from 'react-router-dom'
-import styled from 'styled-components/macro'
-import { HoverText, TYPE } from 'theme'
+import { Link, useParams } from 'react-router-dom'
+import styled, { useTheme } from 'styled-components/macro'
+import { HoverText, ThemedText } from 'theme'
 import { formattedFeeAmount } from 'utils'
 import { currencyId } from 'utils/currencyId'
 import { unwrappedToken } from 'utils/unwrappedToken'
@@ -26,14 +25,11 @@ const Wrapper = styled.div`
   max-width: 840px;
   width: 100%;
 `
+export default function Manage() {
+  const { poolAddress } = useParams<{ poolAddress?: string }>()
 
-export default function Manage({
-  match: {
-    params: { poolAddress },
-  },
-}: RouteComponentProps<{ poolAddress: string }>) {
   const theme = useTheme()
-  const { account, chainId } = useActiveWeb3React()
+  const { account, chainId } = useWeb3React()
 
   const [, pool] = usePoolsByAddresses([poolAddress])[0]
 
@@ -44,7 +40,7 @@ export default function Manage({
   const { loading, incentives } = useIncentivesForPool(poolAddress)
 
   // all users positions for this pool
-  const { loading: loadingPositions, positions } = useV3PositionsForPool(account, pool)
+  const { loading: loadingPositions, inRangePositions } = useV3PositionsForPool(account, pool!)
 
   if (!pool || !currency0 || !currency1 || loading) {
     return (
@@ -62,23 +58,23 @@ export default function Manage({
     <Wrapper>
       <AutoColumn gap="24px">
         <RowFixed>
-          <TYPE.body color={theme.text3} mr="4px" fontWeight={500}>
+          <ThemedText.DeprecatedBody color={theme.textTertiary} mr="4px" fontWeight={500}>
             <Link style={{ textDecoration: 'none' }} to="/stake">
-              <HoverText color={theme.text3}>
+              <HoverText color={theme.textTertiary}>
                 <Trans>Stake</Trans>
               </HoverText>
             </Link>
-          </TYPE.body>
-          <TYPE.body color={theme.text3} fontWeight={500}>
+          </ThemedText.DeprecatedBody>
+          <ThemedText.DeprecatedBody color={theme.textTertiary} fontWeight={500}>
             {` >  ${currency0.symbol} / ${currency1.symbol} ${formattedFeeAmount(pool.fee)}%`}
-          </TYPE.body>
+          </ThemedText.DeprecatedBody>
         </RowFixed>
         <RowBetween>
           <RowFixed>
             <DoubleCurrencyLogo margin={true} currency0={currency0} currency1={currency1} size={24} />
-            <TYPE.body fontWeight={600} fontSize="24px" m="0 8px">
+            <ThemedText.DeprecatedBody fontWeight={600} fontSize="24px" m="0 8px">
               {`${currency0.symbol} / ${currency1.symbol} Pool`}
-            </TYPE.body>
+            </ThemedText.DeprecatedBody>
             <Badge>{formattedFeeAmount(pool.fee)}%</Badge>
           </RowFixed>
           <RowFixed>
@@ -97,38 +93,38 @@ export default function Manage({
           </RowFixed>
         </RowBetween>
         {!incentives ? (
-          <TYPE.body>No incentives on this pool yet </TYPE.body>
+          <ThemedText.DeprecatedBody>No incentives on this pool yet </ThemedText.DeprecatedBody>
         ) : (
           incentives.slice(0, 1).map((incentive) => (
-            <DarkGreyCard key={incentive.poolAddress} padding="24px">
+            <DarkGrayCard key={incentive.poolAddress} padding="24px">
               <IncentiveInfoBar incentive={incentive} expanded={true} />
-            </DarkGreyCard>
+            </DarkGrayCard>
           ))
         )}
         <AutoColumn gap="16px">
-          <TYPE.body fontWeight={600} fontSize="18px">
+          <ThemedText.DeprecatedBody fontWeight={600} fontSize="18px">
             <Trans>Your Positions</Trans>
-          </TYPE.body>
+          </ThemedText.DeprecatedBody>
           {loadingPositions ? (
             <Loader />
-          ) : !positions ? (
-            <TYPE.body>No positions on this pool</TYPE.body>
+          ) : !inRangePositions ? (
+            <ThemedText.DeprecatedBody>No positions on this pool</ThemedText.DeprecatedBody>
           ) : (
-            positions.map((p, i) => <PositionManageCard key={'position-manage-' + i} positionDetails={p} />)
+            inRangePositions.map((p, i) => <PositionManageCard key={'position-manage-' + i} positionDetails={p} />)
           )}
         </AutoColumn>
-        <DarkGreyCard>
+        <DarkGrayCard>
           <RowBetween>
             <AlertCircle size={32} />
-            <TYPE.body ml="8px" fontSize="12px">
+            <ThemedText.DeprecatedBody ml="8px" fontSize="12px">
               <Trans>
                 Boosting liquidity deposits your liquidity in the Uniswap Liquidity mining contracts. When boosted, your
                 liquidity will continue to earn fees while in range. You must remove boosts to be able to claim fees or
                 withdraw liquidity.
               </Trans>
-            </TYPE.body>
+            </ThemedText.DeprecatedBody>
           </RowBetween>
-        </DarkGreyCard>
+        </DarkGrayCard>
       </AutoColumn>
     </Wrapper>
   )

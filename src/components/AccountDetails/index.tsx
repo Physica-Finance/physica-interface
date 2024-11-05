@@ -12,7 +12,9 @@ import { isMobile } from 'utils/userAgent'
 
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { clearAllTransactions } from '../../state/transactions/reducer'
-import { CopyHelper, ExternalLink, LinkStyledButton, ThemedText } from '../../theme'
+import { ExternalLink, LinkStyledButton, ThemedText } from '../../theme'
+import { CopyHelper } from 'theme/components/index'
+
 import { shortenAddress } from '../../utils'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
 import { ButtonSecondary } from '../Button'

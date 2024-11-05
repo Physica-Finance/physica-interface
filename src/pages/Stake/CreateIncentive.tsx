@@ -1,25 +1,27 @@
+import { TransactionResponse } from '@ethersproject/providers'
+import { Currency } from '@uniswap/sdk-core'
+import { computePoolAddress, FeeAmount, toHex } from '@uniswap/v3-sdk'
+import { useWeb3React } from '@web3-react/core'
+import { ButtonPrimary } from 'components/Button'
+import { BlueCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import CurrencyInputPanel from 'components/CurrencyInputPanel'
-import { useV3Staker } from 'hooks/useContract'
-import { ChangeEventHandler, useCallback, useMemo, useState } from 'react'
-import { Currency } from '@uniswap/sdk-core'
-import { BlueCard } from 'components/Card'
-import { tryParseAmount } from 'state/swap/hooks'
-import { useActiveWeb3React } from 'hooks/web3'
-import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
-import { ButtonPrimary } from 'components/Button'
-import { computePoolAddress, FeeAmount, toHex } from '@uniswap/v3-sdk'
 import FeeSelector from 'components/FeeSelector'
 import { V3_CORE_FACTORY_ADDRESSES } from 'constants/addresses'
-import { TransactionResponse } from '@ethersproject/providers'
+import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
+import { useV3Staker } from 'hooks/useContract'
+import tryParseCurrencyAmount from 'lib/utils/tryParseCurrencyAmount'
+import { ChangeEventHandler, useCallback, useMemo, useState } from 'react'
 import { useTransactionAdder } from 'state/transactions/hooks'
+
+import { TransactionType } from '../../state/transactions/types'
 
 function dateTimeToUnixSeconds(dateTimeString: string): number {
   return Math.floor(new Date(dateTimeString).getTime() / 1000)
 }
 
 export default function CreateIncentive() {
-  const { account, chainId } = useActiveWeb3React()
+  const { account, chainId } = useWeb3React()
 
   const staker = useV3Staker()
 
@@ -30,7 +32,7 @@ export default function CreateIncentive() {
 
   const [currencyC, setCurrencyC] = useState<Currency | undefined>(undefined)
   const [rewardTyped, setRewardTyped] = useState<string>('')
-  const rewardAmount = tryParseAmount(rewardTyped, currencyC)
+  const rewardAmount = tryParseCurrencyAmount(rewardTyped, currencyC)
 
   const [approval, approveCallback] = useApproveCallback(rewardAmount, staker?.address)
 
@@ -80,7 +82,9 @@ export default function CreateIncentive() {
         )
         .then((response: TransactionResponse) => {
           addTransaction(response, {
-            summary: 'Create incentive',
+            type: TransactionType.DEPOSIT_LIQUIDITY_STAKING,
+            token0Address: currencyA.wrapped.address,
+            token1Address: currencyB.wrapped.address,
           })
         })
         .catch((error: any) => {

@@ -18,8 +18,9 @@ import { useUserHideClosedPositions } from 'state/user/hooks'
 import styled, { css, useTheme } from 'styled-components/macro'
 import { HideSmall, ThemedText } from 'theme'
 import { PositionDetails } from 'types/position'
-import { useAllIncentives } from '../../hooks/incentives/useAllIncentives'
+
 import { V2_FACTORY_ADDRESSES } from '../../constants/addresses'
+import { useAllIncentives } from '../../hooks/incentives/useAllIncentives'
 import CTACards from './CTACards'
 import { LoadingRows } from './styleds'
 

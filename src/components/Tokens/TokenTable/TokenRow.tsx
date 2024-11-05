@@ -14,7 +14,7 @@ import { CSSProperties, ReactNode } from 'react'
 import { ArrowDown, ArrowUp, Info } from 'react-feather'
 import { Link, useParams } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components/macro'
-import { ClickableStyle } from 'theme'
+import { ClickableStyle } from 'theme/components/index'
 
 import {
   LARGE_MEDIA_BREAKPOINT,

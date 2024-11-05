@@ -1,19 +1,19 @@
-import RangeBadge from 'components/Badge/RangeBadge'
-import { RowFixed } from 'components/Row'
-import React, { useMemo } from 'react'
-import styled from 'styled-components/macro'
 import { Trans } from '@lingui/macro'
+import { Position } from '@uniswap/v3-sdk'
+import RangeBadge from 'components/Badge/RangeBadge'
 import HoverInlineText from 'components/HoverInlineText'
-import { formatTickPrice } from 'utils/formatTickPrice'
+import { getPriceOrderingFromPositionForUI } from 'components/PositionListItem'
+import { RowFixed } from 'components/Row'
+import { useToken } from 'hooks/Tokens'
+import useIsTickAtLimit from 'hooks/useIsTickAtLimit'
+import { usePool } from 'hooks/usePools'
+import React, { useMemo } from 'react'
+import { Bound } from 'state/mint/v3/actions'
+import styled from 'styled-components/macro'
 import { HideSmall, SmallOnly } from 'theme'
 import { PositionDetails } from 'types/position'
-import { useToken } from 'hooks/Tokens'
+import { formatTickPrice } from 'utils/formatTickPrice'
 import { unwrappedToken } from 'utils/unwrappedToken'
-import { usePool } from 'hooks/usePools'
-import { Position } from '@uniswap/v3-sdk'
-import { getPriceOrderingFromPositionForUI } from 'components/PositionListItem'
-import useIsTickAtLimit from 'hooks/useIsTickAtLimit'
-import { Bound } from 'state/mint/v3/actions'
 
 const DataLineItem = styled.div`
   font-size: 14px;
@@ -26,17 +26,17 @@ const RangeLineItem = styled(DataLineItem)`
   width: 100%;
   user-select: none;
 
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    background-color: ${({ theme }) => theme.bg2};
-    border-radius: 12px;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    background-color: ${({ theme }) => theme.deprecated_bg3};
+    border-radius: 12px; 
     padding: 8px 0;
 `};
 `
 
 const DoubleArrow = styled.span`
   margin: 0 2px;
-  color: ${({ theme }) => theme.text3};
-  ${({ theme }) => theme.mediaWidth.upToSmall`
+  color: ${({ theme }) => theme.textTertiary};
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     margin: 4px;
     padding: 20px;
   `};
@@ -50,10 +50,10 @@ const RangeText = styled.span<{ small?: boolean }>`
 `
 
 const ExtentsText = styled.span`
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.textTertiary};
   font-size: 14px;
   margin-right: 4px;
-  ${({ theme }) => theme.mediaWidth.upToLarge`
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToLarge`
     display: none;
   `};
 `
@@ -105,8 +105,8 @@ export default function RangeStatus({ positionDetails, small }: RangeStatusProps
             <Trans>Min: </Trans>
           </ExtentsText>
           <Trans>
-            {formatTickPrice(priceLower, tickAtLimit, Bound.LOWER)} <HoverInlineText text={currencyQuote?.symbol} /> per{' '}
-            <HoverInlineText text={currencyBase?.symbol ?? ''} />
+            {formatTickPrice({ price: priceLower, atLimit: tickAtLimit, direction: Bound.LOWER })}{' '}
+            <HoverInlineText text={currencyQuote?.symbol} /> per <HoverInlineText text={currencyBase?.symbol ?? ''} />
           </Trans>
         </RangeText>{' '}
         <HideSmall>
@@ -120,7 +120,8 @@ export default function RangeStatus({ positionDetails, small }: RangeStatusProps
             <Trans>Max:</Trans>
           </ExtentsText>
           <Trans>
-            {formatTickPrice(priceUpper, tickAtLimit, Bound.UPPER)} <HoverInlineText text={currencyQuote?.symbol} /> per{' '}
+            {formatTickPrice({ price: priceUpper, atLimit: tickAtLimit, direction: Bound.UPPER })}{' '}
+            <HoverInlineText text={currencyQuote?.symbol} /> per{' '}
             <HoverInlineText maxCharacters={10} text={currencyBase?.symbol} />
           </Trans>
         </RangeText>

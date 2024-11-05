@@ -1,17 +1,16 @@
 import { AutoColumn } from '../../components/Column'
-import styled from 'styled-components/macro'
-import { TYPE } from '../../theme'
+import styled, { useTheme } from 'styled-components/macro'
 import { AutoRow, RowBetween, RowFixed } from '../../components/Row'
 import { CardSection, DataCard, CardBGImage, OverviewGrid } from '../../components/earn/styled'
 import { DarkCard } from '../../components/Card'
 import { Trans } from '@lingui/macro'
-import useTheme from 'hooks/useTheme'
 import { GenericBadge } from 'components/Badge'
 import { Zap } from 'react-feather'
 import { useAllIncentivesByPool } from '../../hooks/incentives/useAllIncentives'
 import ProgramCard from '../../components/earn/ProgramCard'
 import Loader from 'components/Loader'
 import { ButtonGreySmall } from 'components/Button'
+import { ThemedText } from 'theme'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 840px;
@@ -40,9 +39,9 @@ export default function Stake() {
     <PageWrapper gap="lg" justify="center">
       <TopSection gap="md">
         <RowBetween>
-          <TYPE.body style={{ marginTop: '0.5rem' }} fontSize="20px" color={theme.text3}>
+          <ThemedText.DeprecatedBody style={{ marginTop: '0.5rem' }} fontSize="20px" color={theme.textTertiary}>
             <Trans>Boosted Pools</Trans>
-          </TYPE.body>
+          </ThemedText.DeprecatedBody>
           <AutoRow gap="6px" width="fit-content">
             <ButtonGreySmall>Find Program</ButtonGreySmall>
             <ButtonGreySmall>New Program</ButtonGreySmall>
@@ -51,20 +50,20 @@ export default function Stake() {
         <DataCard>
           <CardSection>
             <AutoColumn gap="md">
-              <GenericBadge style={{ backgroundColor: theme.blue4 }}>
+              <GenericBadge style={{ backgroundColor: theme.deprecated_blue4 }}>
                 <RowFixed>
-                  <Zap stroke={theme.blue3} size="16px" strokeWidth={'3px'} />
-                  <TYPE.body fontWeight={700} fontSize="12px" color={theme.blue3} ml="4px">
+                  <Zap stroke={theme.deprecated_blue4} size="16px" strokeWidth={'3px'} />
+                  <ThemedText.DeprecatedBody fontWeight={700} fontSize="12px" color={theme.deprecated_blue4} ml="4px">
                     Liquidity Mining
-                  </TYPE.body>
+                  </ThemedText.DeprecatedBody>
                 </RowFixed>
               </GenericBadge>
-              <TYPE.body fontWeight={600} fontSize="24px" color={theme.blue3}>
+              <ThemedText.DeprecatedBody fontWeight={600} fontSize="24px" color={theme.deprecated_blue4}>
                 <Trans>Earn more with boosts</Trans>
-              </TYPE.body>
-              <TYPE.body color={theme.blue3}>
+              </ThemedText.DeprecatedBody>
+              <ThemedText.DeprecatedBody color={theme.deprecated_blue4}>
                 <Trans>Learn about boosted rewards on your liquidity positions ➞</Trans>
-              </TYPE.body>
+              </ThemedText.DeprecatedBody>
             </AutoColumn>
           </CardSection>
           <CardBGImage />
@@ -73,23 +72,23 @@ export default function Stake() {
       <DarkCard padding="24px">
         <AutoColumn gap="16px">
           <OverviewGrid style={{ padding: '0' }}>
-            <TYPE.body justifySelf="flex-start" fontSize="14px">
+            <ThemedText.DeprecatedBody justifySelf="flex-start" fontSize="14px">
               <Trans>Active Programs</Trans>
-            </TYPE.body>
-            <TYPE.body fontSize="14px" style={{ whiteSpace: 'nowrap' }}>
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontSize="14px" style={{ whiteSpace: 'nowrap' }}>
               <Trans>7D Active Liquidity</Trans>
-            </TYPE.body>
-            <TYPE.body fontSize="14px">
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontSize="14px">
               <Trans>Rewards Rate</Trans>
-            </TYPE.body>
+            </ThemedText.DeprecatedBody>
           </OverviewGrid>
           <ProgramSection>
             {loading ? (
               <Loader />
             ) : !incentives ? (
-              <TYPE.body>
+              <ThemedText.DeprecatedBody>
                 <Trans>Error loading program</Trans>{' '}
-              </TYPE.body>
+              </ThemedText.DeprecatedBody>
             ) : (
               Object.keys(incentives).map((poolAddress) => (
                 <ProgramCard

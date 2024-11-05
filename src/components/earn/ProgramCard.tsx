@@ -1,26 +1,27 @@
-import { RowFixed } from 'components/Row'
-import { TYPE } from 'theme'
-import { Incentive } from '../../hooks/incentives/useAllIncentives'
-import { usePoolsByAddresses } from 'hooks/usePools'
-import DoubleCurrencyLogo from 'components/DoubleLogo'
-import { LoadingRows } from 'pages/Pool/styleds'
-import Badge, { GreenBadge, BlueBadge } from 'components/Badge'
-import { formattedFeeAmount } from 'utils'
-import { CardWrapper } from './styled'
-import { unwrappedToken } from 'utils/unwrappedToken'
 import { Trans } from '@lingui/macro'
-import useTheme from 'hooks/useTheme'
+import { useWeb3React } from '@web3-react/core'
+import Badge, { BlueBadge, GreenBadge } from 'components/Badge'
 import { ButtonSmall } from 'components/Button'
-import { Link } from 'react-router-dom'
-import { useActiveWeb3React } from 'hooks/web3'
-import { useV3PositionsForPool } from 'hooks/useV3Positions'
-import { useMemo } from 'react'
-import { BigNumber } from 'ethers'
-import { OverviewGrid } from './styled'
+import DoubleCurrencyLogo from 'components/DoubleLogo'
+import CurrencyLogo from 'components/Logo/CurrencyLogo'
+import { RowFixed } from 'components/Row'
 import { BIG_INT_SECONDS_IN_WEEK } from 'constants/misc'
-import { useUSDCValue } from 'hooks/useUSDCPrice'
+import { BigNumber } from 'ethers'
+import { usePoolsByAddresses } from 'hooks/usePools'
+import { useStablecoinValue } from 'hooks/useStablecoinPrice'
+import { useV3PositionsForPool } from 'hooks/useV3Positions'
+import { LoadingRows } from 'pages/Pool/styleds'
+import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { useTheme } from 'styled-components/macro'
+import { ThemedText } from 'theme'
+import { formattedFeeAmount } from 'utils'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
-import CurrencyLogo from 'components/CurrencyLogo'
+import { unwrappedToken } from 'utils/unwrappedToken'
+
+import { Incentive } from '../../hooks/incentives/useAllIncentives'
+import { CardWrapper } from './styled'
+import { OverviewGrid } from './styled'
 
 interface ProgramCardProps {
   poolAddress: string
@@ -31,20 +32,20 @@ interface ProgramCardProps {
 // Overview all all incentive programs for a given pool
 export default function ProgramCard({ poolAddress, incentives }: ProgramCardProps) {
   const theme = useTheme()
-  const { account } = useActiveWeb3React()
+  const { account } = useWeb3React()
   const [, pool] = usePoolsByAddresses([poolAddress])[0]
 
   const currency0 = pool ? unwrappedToken(pool.token0) : undefined
   const currency1 = pool ? unwrappedToken(pool.token1) : undefined
 
-  const { positions } = useV3PositionsForPool(account, pool)
+  const { inRangePositions } = useV3PositionsForPool(account, pool!)
 
   const [amountBoosted, amountAvailable] = useMemo(() => {
-    if (!positions) {
+    if (!inRangePositions) {
       return [0, 0]
     }
     // loop through all stakes - count # where liquidity is > 0
-    return positions.reduce(
+    return inRangePositions.reduce(
       (accum, position) => {
         position.stakes.map((stake) => {
           if (incentives.includes(stake.incentive) && stake.liquidity.gt(BigNumber.from(0))) {
@@ -57,14 +58,14 @@ export default function ProgramCard({ poolAddress, incentives }: ProgramCardProp
       },
       [0, 0]
     )
-  }, [incentives, positions])
+  }, [incentives, inRangePositions])
 
   /**
    * @todo
    */
   const rewardCurrency = incentives[0].initialRewardAmount.currency
   const activeLiquidity = incentives[0].initialRewardAmount
-  const activeLiquidityUSD = useUSDCValue(activeLiquidity)
+  const activeLiquidityUSD = useStablecoinValue(activeLiquidity)
   const rewardPerDay = incentives[0].rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
 
   return (
@@ -77,37 +78,37 @@ export default function ProgramCard({ poolAddress, incentives }: ProgramCardProp
         <OverviewGrid>
           <RowFixed justifySelf="flex-start">
             <DoubleCurrencyLogo margin={true} currency0={currency0} currency1={currency1} size={20} />
-            <TYPE.body fontWeight={600} fontSize="20px" m="0 8px">
+            <ThemedText.DeprecatedBody fontWeight={600} fontSize="20px" m="0 8px">
               {`${currency0.symbol} / ${currency1.symbol}`}
-            </TYPE.body>
+            </ThemedText.DeprecatedBody>
             <Badge>{formattedFeeAmount(pool.fee)}%</Badge>
             <RowFixed>
               {amountBoosted > 0 ? (
                 <BlueBadge>
-                  <TYPE.body fontWeight={700} fontSize="12px" color={theme.blue3}>
+                  <ThemedText.DeprecatedBody fontWeight={700} fontSize="12px" color={theme.deprecated_blue4}>
                     {amountBoosted} <Trans>Boosted</Trans>
-                  </TYPE.body>
+                  </ThemedText.DeprecatedBody>
                 </BlueBadge>
               ) : null}
               {amountAvailable > 0 ? (
                 <GreenBadge style={{ marginLeft: '8px' }}>
-                  <TYPE.body fontWeight={700} fontSize="12px" color={theme.green2}>
+                  <ThemedText.DeprecatedBody fontWeight={700} fontSize="12px" color={theme.deprecated_yellow2}>
                     {amountAvailable} <Trans>Available</Trans>
-                  </TYPE.body>
+                  </ThemedText.DeprecatedBody>
                 </GreenBadge>
               ) : null}
             </RowFixed>
           </RowFixed>
-          <TYPE.body fontWeight={600}>
+          <ThemedText.DeprecatedBody fontWeight={600}>
             {activeLiquidityUSD
               ? `$${formatCurrencyAmount(activeLiquidityUSD, 2)}`
               : `${formatCurrencyAmount(activeLiquidity, 4)} ${rewardCurrency.symbol}`}
-          </TYPE.body>
+          </ThemedText.DeprecatedBody>
           <RowFixed>
-            <CurrencyLogo currency={rewardCurrency} size={'16px'} />
-            <TYPE.body fontWeight={600} ml="6px">{`${formatCurrencyAmount(rewardPerDay, 4)} ${
+            <CurrencyLogo currency={rewardCurrency} size="16px" />
+            <ThemedText.DeprecatedBody fontWeight={600} ml="6px">{`${formatCurrencyAmount(rewardPerDay, 4)} ${
               rewardCurrency.symbol
-            } / day`}</TYPE.body>
+            } / day`}</ThemedText.DeprecatedBody>
           </RowFixed>
           <ButtonSmall as={Link} to={'/stake/' + poolAddress}>
             <Trans>Manage</Trans>

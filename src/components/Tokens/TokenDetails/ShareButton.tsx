@@ -8,13 +8,12 @@ import { Twitter } from 'react-feather'
 import { useModalIsOpen, useToggleModal } from 'state/application/hooks'
 import { ApplicationModal } from 'state/application/reducer'
 import styled, { useTheme } from 'styled-components/macro'
-import { ClickableStyle, CopyHelperRefType } from 'theme'
+import { ClickableStyle, CopyHelperRefType, CopyHelper } from 'theme/components/index'
 import { colors } from 'theme/colors'
 import { opacify } from 'theme/utils'
 import { Z_INDEX } from 'theme/zIndex'
 
 import { ReactComponent as ShareIcon } from '../../../assets/svg/share.svg'
-import { CopyHelper } from '../../../theme'
 
 const TWITTER_WIDTH = 560
 const TWITTER_HEIGHT = 480

@@ -81,7 +81,7 @@ export const GenericBadge = styled.div`
 `
 
 export const GreenBadge = styled.div`
-  background-color: ${({ theme }) => transparentize(0.86, theme.green1)};
+  background-color: ${({ theme }) => transparentize(0.86, theme.deprecated_yellow2)};
   padding: 6px 8px;
   border-radius: 6px;
   display: flex;
@@ -92,7 +92,7 @@ export const GreenBadge = styled.div`
 `
 
 export const BlueBadge = styled.div`
-  background-color: ${({ theme }) => transparentize(0.92, theme.blue2)};
+  background-color: ${({ theme }) => transparentize(0.92, theme.deprecated_blue4)};
   padding: 6px 8px;
   border-radius: 6px;
   display: flex;
@@ -103,7 +103,7 @@ export const BlueBadge = styled.div`
 
 // slightly transparent
 export const EmptyBadge = styled.div`
-  background-color: ${({ theme }) => transparentize(0.7, theme.bg3)};
+  background-color: ${({ theme }) => transparentize(0.7, theme.deprecated_bg3)};
   padding: 6px 8px;
   border-radius: 6px;
   display: flex;
