@@ -2,7 +2,6 @@ import { DEFAULT_ERC20_DECIMALS } from 'constants/tokens'
 import gql from 'graphql-tag'
 import { WrappedTokenInfo } from 'state/lists/wrappedTokenInfo'
 
-import { TokenQuery } from './__generated__/types-and-hooks'
 import { CHAIN_NAME_TO_CHAIN_ID } from './util'
 
 /*
@@ -65,20 +64,53 @@ gql`
   }
 `
 
+const TOKEN_QUERY = gql`
+  query Token($id: String!) {
+    token(id: $id) {
+      id
+      name
+      symbol
+      volumeUSD
+      totalValueLockedUSD
+      totalSupply
+      tokenDayData(first: 1, orderDirection: desc, orderBy: date) {
+        priceUSD
+        date
+        id
+      }
+      decimals
+    }
+  }
+`
+export type TokenQuery2 = {
+  __typename?: 'Query'
+  token?: {
+    __typename?: 'Token'
+    id: string
+    decimals?: number
+    name?: string
+    symbol?: string
+    volumeUSD?: string
+    totalValueLockedUSD?: string
+    totalSupply?: string
+    tokenDayData?: { __typename?: 'TokenMarket'; id: string; priceUSD?: string; date: number }
+  }
+}
+
 export type { Chain, TokenQuery } from './__generated__/types-and-hooks'
 
-export type TokenQueryData = TokenQuery['token']
+export type TokenQueryData = TokenQuery2['token']
 
 // TODO: Return a QueryToken from useTokenQuery instead of TokenQueryData to make it more usable in Currency-centric interfaces.
 export class QueryToken extends WrappedTokenInfo {
   constructor(address: string, data: NonNullable<TokenQueryData>, logoSrc?: string) {
     super({
-      chainId: CHAIN_NAME_TO_CHAIN_ID[data.chain],
+      chainId: CHAIN_NAME_TO_CHAIN_ID[7070],
       address,
       decimals: data.decimals ?? DEFAULT_ERC20_DECIMALS,
       symbol: data.symbol ?? '',
       name: data.name ?? '',
-      logoURI: logoSrc ?? data.project?.logoUrl ?? undefined,
+      logoURI: logoSrc ?? undefined,
     })
   }
 }
