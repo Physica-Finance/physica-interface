@@ -203,14 +203,6 @@ export default function TokenDetails({
               priceHigh52W={tokenQueryData?.market?.priceHigh52W?.value}
               priceLow52W={tokenQueryData?.market?.priceLow52W?.value}
             />
-            <Hr />
-            <AboutSection
-              address={address}
-              chainId={pageChainId}
-              description={tokenQueryData?.project?.description}
-              homepageUrl={tokenQueryData?.project?.homepageUrl}
-              twitterName={tokenQueryData?.project?.twitterName}
-            />
             {!token.isNative && <AddressSection address={address} />}
           </LeftPanel>
         ) : (

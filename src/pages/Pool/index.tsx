@@ -24,6 +24,27 @@ import { useAllIncentives } from '../../hooks/incentives/useAllIncentives'
 import CTACards from './CTACards'
 import { LoadingRows } from './styleds'
 
+//  pools(orderBy: liquidity, orderDirection: desc) {
+//     token0 {
+//       decimals
+//       id
+//       name
+//       totalValueLocked
+//       symbol
+//       volumeUSD
+//     }
+//     token1 {
+//       decimals
+//       id
+//       name
+//       symbol
+//       totalValueLocked
+//       volumeUSD
+//     }
+//     liquidity
+//     id
+//   }
+
 const PageWrapper = styled(AutoColumn)`
   padding: 68px 8px 0px;
   max-width: 870px;

@@ -5,8 +5,8 @@ import clsx from 'clsx'
 import QueryTokenLogo from 'components/Logo/QueryTokenLogo'
 import TokenSafetyIcon from 'components/TokenSafety/TokenSafetyIcon'
 import { checkSearchTokenWarning } from 'constants/tokenSafety'
-import { Chain, TokenStandard } from 'graphql/data/__generated__/types-and-hooks'
-import { SearchToken } from 'graphql/data/SearchTokens'
+import { Chain } from 'graphql/data/__generated__/types-and-hooks'
+import { SearchToken } from 'graphql/thegraph/SearchTokens'
 import { getTokenDetailsURL } from 'graphql/data/util'
 import { Box } from 'nft/components/Box'
 import { Column, Row } from 'nft/components/Flex'
@@ -138,14 +138,14 @@ export const TokenRow = ({ token, isHovered, setHoveredIndex, toggleOpen, index,
   const navigate = useNavigate()
 
   const handleClick = useCallback(() => {
-    const address = !token.address && token.standard === TokenStandard.Native ? 'NATIVE' : token.address
-    address && addRecentlySearchedAsset({ address, chain: token.chain })
+    const address = token.id
+    address && addRecentlySearchedAsset({ address, chain: Chain.Planq })
 
     toggleOpen()
     sendAnalyticsEvent(InterfaceEventName.NAVBAR_RESULT_SELECTED, { ...eventProperties })
   }, [addRecentlySearchedAsset, token, toggleOpen, eventProperties])
 
-  const tokenDetailsPath = getTokenDetailsURL(token)
+  const tokenDetailsPath = getTokenDetailsURL({ address: token.id, chain: Chain.Planq })
   // Close the modal on escape
   useEffect(() => {
     const keyDownHandler = (event: KeyboardEvent) => {
@@ -161,7 +161,10 @@ export const TokenRow = ({ token, isHovered, setHoveredIndex, toggleOpen, index,
     }
   }, [toggleOpen, isHovered, token, navigate, handleClick, tokenDetailsPath])
 
-  const arrow = getDeltaArrow(token.market?.pricePercentChange?.value, 18)
+  const arrow = getDeltaArrow(
+    parseFloat(token.tokenDayData?.open ?? '0') - parseFloat(token.tokenDayData?.priceUSD ?? '0'),
+    18
+  )
 
   return (
     <Link
@@ -174,13 +177,7 @@ export const TokenRow = ({ token, isHovered, setHoveredIndex, toggleOpen, index,
       style={{ background: isHovered ? vars.color.lightGrayOverlay : 'none' }}
     >
       <Row style={{ width: '65%' }}>
-        <QueryTokenLogo
-          token={token}
-          symbol={token.symbol}
-          size="36px"
-          backupImg={token.project?.logoUrl}
-          style={{ paddingRight: '8px' }}
-        />
+        <QueryTokenLogo token={token} symbol={token.symbol} size="36px" backupImg="" style={{ paddingRight: '8px' }} />
         <Column className={styles.suggestionPrimaryContainer}>
           <Row gap="4" width="full">
             <Box className={styles.primaryText}>{token.name}</Box>
@@ -191,16 +188,23 @@ export const TokenRow = ({ token, isHovered, setHoveredIndex, toggleOpen, index,
       </Row>
 
       <Column className={styles.suggestionSecondaryContainer}>
-        {token.market?.price?.value && (
+        {token.tokenDayData?.priceUSD && (
           <Row gap="4">
-            <Box className={styles.primaryText}>{formatUSDPrice(token.market.price.value)}</Box>
+            <Box className={styles.primaryText}>{formatUSDPrice(token.tokenDayData?.priceUSD)}</Box>
           </Row>
         )}
-        {token.market?.pricePercentChange?.value && (
+        {parseFloat(token.tokenDayData?.open ?? '0') - parseFloat(token.tokenDayData?.priceUSD ?? '0') && (
           <PriceChangeContainer>
             <ArrowCell>{arrow}</ArrowCell>
-            <PriceChangeText isNegative={token.market.pricePercentChange.value < 0}>
-              {Math.abs(token.market.pricePercentChange.value).toFixed(2)}%
+            <PriceChangeText
+              isNegative={
+                parseFloat(token.tokenDayData?.open ?? '0') - parseFloat(token.tokenDayData?.priceUSD ?? '0') < 0
+              }
+            >
+              {Math.abs(
+                parseFloat(token.tokenDayData?.open ?? '0') - parseFloat(token.tokenDayData?.priceUSD ?? '0')
+              ).toFixed(2)}
+              %
             </PriceChangeText>
           </PriceChangeContainer>
         )}

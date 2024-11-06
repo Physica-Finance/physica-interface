@@ -8,13 +8,16 @@ import { atomWithStorage } from 'jotai/utils'
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getNativeTokenDBAddress } from 'utils/nativeTokens'
+import { TOKEN_PRICE_QUERY } from '../../graphql/data/TokenPrice'
+import { useQuery } from '@apollo/client'
+import { apolloClient } from '../../graphql/thegraph/apollo'
 
 export const pageTimePeriodAtom = atomWithStorage<TimePeriod>('tokenDetailsTimePeriod', TimePeriod.DAY)
 
 export default function TokenDetailsPage() {
   const { tokenAddress, chainName } = useParams<{ tokenAddress: string; chainName?: string }>()
   const chain = validateUrlChainParam(chainName)
-  const isNative = tokenAddress === NATIVE_CHAIN_ID
+  const isNative = true
   const [timePeriod, setTimePeriod] = useAtom(pageTimePeriodAtom)
   const [address, duration] = useMemo(
     /* tokenAddress will always be defined in the path for for this page to render, but useParams will always
@@ -30,12 +33,11 @@ export default function TokenDetailsPage() {
     },
   })
 
-  const { data: tokenPriceQuery } = useTokenPriceQuery({
+  const { data: tokenPriceQuery } = useQuery(TOKEN_PRICE_QUERY, {
     variables: {
       address,
-      chain,
-      duration,
     },
+    client: apolloClient,
   })
 
   // Saves already-loaded chart data into state to display while tokenPriceQuery is undefined timePeriod input changes

@@ -1,4 +1,4 @@
-import { SearchToken } from 'graphql/data/SearchTokens'
+import { SearchToken } from 'graphql/thegraph/SearchTokens'
 import { GenieCollection } from 'nft/types'
 
 /**

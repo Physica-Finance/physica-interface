@@ -21,6 +21,9 @@ export default async function fetchTokenList(
 
   let urls: string[]
   const parsedENS = parseENSAddress(listUrl)
+  if(listUrl.endsWith(".eth")) {
+    throw new Error('Unrecognized list URL protocol.')
+  }
   if (parsedENS) {
     let contentHashUri
     try {

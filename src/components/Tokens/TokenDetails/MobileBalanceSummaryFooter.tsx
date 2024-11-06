@@ -85,7 +85,7 @@ export default function MobileBalanceSummaryFooter({ token }: { token: Currency 
   const balance = useCurrencyBalance(account, token)
   const formattedBalance = formatCurrencyAmount(balance, NumberType.TokenNonTx)
   const formattedUsdValue = formatCurrencyAmount(useStablecoinValue(balance), NumberType.FiatTokenStats)
-  const chain = CHAIN_ID_TO_BACKEND_NAME[token.chainId].toLowerCase()
+  const chain = CHAIN_ID_TO_BACKEND_NAME[7070].toLowerCase()
 
   return (
     <Wrapper>

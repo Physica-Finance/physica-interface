@@ -42,7 +42,7 @@ function _SparklineChart({ width, height, tokenData, pricePercentChange, sparkli
   const widthScale = scaleLinear()
     .domain(
       // the range of possible input values
-      [startingPrice.timestamp, endingPrice.timestamp]
+      [startingPrice.date!, endingPrice.date!]
     )
     .range(
       // the range of possible output values that the inputs should be transformed to (see https://www.d3indepth.com/scales/ for details)
@@ -54,8 +54,8 @@ function _SparklineChart({ width, height, tokenData, pricePercentChange, sparkli
   return (
     <LineChart
       data={pricePoints}
-      getX={(p: PricePoint) => widthScale(p.timestamp)}
-      getY={(p: PricePoint) => rdScale(p.value)}
+      getX={(p: PricePoint) => widthScale(p.date!)}
+      getY={(p: PricePoint) => rdScale(parseFloat(p.priceUSD!))}
       curve={curveCardinal.tension(curveTension)}
       marginTop={5}
       color={pricePercentChange && pricePercentChange < 0 ? theme.accentFailure : theme.accentSuccess}

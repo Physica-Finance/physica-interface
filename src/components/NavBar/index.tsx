@@ -150,7 +150,7 @@ const Navbar = () => {
             </Row>
           </Box>
           <Box className={styles.searchContainer}>
-            {/*<SearchBar />*/}
+            <SearchBar />
           </Box>
           <Box className={styles.rightSideContainer}>
             <Row gap="12">

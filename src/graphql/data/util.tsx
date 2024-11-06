@@ -48,7 +48,7 @@ export function toHistoryDuration(timePeriod: TimePeriod): HistoryDuration {
   }
 }
 
-export type PricePoint = { timestamp: number; value: number }
+export type PricePoint = { date?: number; priceUSD?: string; id?: string }
 
 export function isPricePoint(p: PricePoint | null): p is PricePoint {
   return p !== null

@@ -2363,41 +2363,16 @@ export type TokenPriceQueryHookResult = ReturnType<typeof useTokenPriceQuery>;
 export type TokenPriceLazyQueryHookResult = ReturnType<typeof useTokenPriceLazyQuery>;
 export type TokenPriceQueryResult = Apollo.QueryResult<TokenPriceQuery, TokenPriceQueryVariables>;
 export const TopTokens100Document = gql`
-    query TopTokens100($duration: HistoryDuration!, $chain: Chain!) {
-  topTokens(pageSize: 100, page: 1, chain: $chain, orderBy: VOLUME) {
-    id
-    name
-    chain
-    address
-    symbol
-    standard
-    market(currency: USD) {
+    query TopTokens100($duration: HistoryDuration!) {
+  tokens(first: 100, orderBy: volumeUSD, orderDirection: desc) {
       id
-      totalValueLocked {
-        id
-        value
-        currency
-      }
-      price {
-        id
-        value
-        currency
-      }
-      pricePercentChange(duration: $duration) {
-        id
-        currency
-        value
-      }
-      volume(duration: $duration) {
-        id
-        value
-        currency
-      }
-    }
-    project {
-      id
-      logoUrl
-    }
+      symbol
+      name
+      volumeUSD
+      derivedETH
+      totalSupply
+      totalValueLockedUSD
+      txCount    
   }
 }
     `;

@@ -25,10 +25,10 @@ import {
 } from 'utils/formatChartTimes'
 import { formatDollar } from 'utils/formatNumbers'
 
-const DATA_EMPTY = { value: 0, timestamp: 0 }
+const DATA_EMPTY = { priceUSD: "", date: 0 }
 
 export function getPriceBounds(pricePoints: PricePoint[]): [number, number] {
-  const prices = pricePoints.map((x) => x.value)
+  const prices = pricePoints.map((x) => parseFloat(x.priceUSD ?? "0"))
   const min = Math.min(...prices)
   const max = Math.max(...prices)
   return [min, max]
@@ -102,9 +102,9 @@ function fixChart(prices: PricePoint[] | undefined | null) {
   const blanks: PricePoint[][] = []
   let lastValue: PricePoint | undefined = undefined
   for (let i = 0; i < prices.length; i++) {
-    if (prices[i].value !== 0) {
+    if (parseFloat(prices[i].priceUSD ?? '0') !== 0) {
       if (fixedChart.length === 0 && i !== 0) {
-        blanks.push([{ ...prices[0], value: prices[i].value }, prices[i]])
+        blanks.push([{ ...prices[0], priceUSD: prices[i].priceUSD }, prices[i]])
       }
       lastValue = prices[i]
       fixedChart.push(prices[i])
@@ -112,7 +112,7 @@ function fixChart(prices: PricePoint[] | undefined | null) {
   }
 
   if (lastValue && lastValue !== prices[prices.length - 1]) {
-    blanks.push([lastValue, { ...prices[prices.length - 1], value: lastValue.value }])
+    blanks.push([lastValue, { ...prices[prices.length - 1], priceUSD: lastValue.priceUSD }])
   }
 
   return { prices: fixedChart, blanks }
@@ -166,7 +166,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
   // Defining scales
   // x scale
   const timeScale = useMemo(
-    () => scaleLinear().domain([startingPrice.timestamp, endingPrice.timestamp]).range([0, width]),
+    () => scaleLinear().domain([startingPrice.date ?? 0, endingPrice.date ?? 0]).range([0, width]),
     [startingPrice, endingPrice, width]
   )
   // y scale
@@ -182,9 +182,9 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
     timePeriod: TimePeriod,
     locale: string
   ): [TickFormatter<NumberValue>, (v: number) => string, NumberValue[]] {
-    const offsetTime = (endingPrice.timestamp.valueOf() - startingPrice.timestamp.valueOf()) / 24
-    const startDateWithOffset = new Date((startingPrice.timestamp.valueOf() + offsetTime) * 1000)
-    const endDateWithOffset = new Date((endingPrice.timestamp.valueOf() - offsetTime) * 1000)
+    const offsetTime = ((endingPrice.date ?? 0).valueOf() - (startingPrice.date ?? 0).valueOf()) / 24
+    const startDateWithOffset = new Date(((startingPrice.date??0).valueOf() + offsetTime) * 1000)
+    const endDateWithOffset = new Date(((endingPrice.date??0).valueOf() - offsetTime) * 1000)
     switch (timePeriod) {
       case TimePeriod.HOUR:
         return [
@@ -228,7 +228,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
       const { x } = localPoint(event) || { x: 0 }
       const x0 = timeScale.invert(x) // get timestamp from the scalexw
       const index = bisect(
-        prices.map((x) => x.timestamp),
+        prices.map((x) => x.date ?? 0),
         x0,
         1
       )
@@ -237,13 +237,13 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
       const d1 = prices[index]
       let pricePoint = d0
 
-      const hasPreviousData = d1 && d1.timestamp
+      const hasPreviousData = d1 && d1.date
       if (hasPreviousData) {
-        pricePoint = x0.valueOf() - d0.timestamp.valueOf() > d1.timestamp.valueOf() - x0.valueOf() ? d1 : d0
+        pricePoint = x0.valueOf() - (d0.date ?? 0).valueOf() > (d1.date ?? 0).valueOf() - x0.valueOf() ? d1 : d0
       }
 
       if (pricePoint) {
-        setCrosshair(timeScale(pricePoint.timestamp))
+        setCrosshair(timeScale(pricePoint.date ?? 0))
         setDisplayPrice(pricePoint)
       }
     },
@@ -256,7 +256,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
   }, [setCrosshair, setDisplayPrice, endingPrice])
 
   const [tickFormatter, crosshairDateFormatter, ticks] = tickFormat(timePeriod, locale)
-  const delta = calculateDelta(startingPrice.value, displayPrice.value)
+  const delta = calculateDelta(parseFloat(startingPrice.priceUSD ?? '0'), parseFloat(displayPrice.priceUSD ?? '0'))
   const formattedDelta = formatDelta(delta)
   const arrow = getDeltaArrow(delta)
   const crosshairEdgeMax = width * 0.85
@@ -269,16 +269,16 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
    */
   const curveTension = timePeriod === TimePeriod.HOUR ? 1 : 0.9
 
-  const getX = useMemo(() => (p: PricePoint) => timeScale(p.timestamp), [timeScale])
-  const getY = useMemo(() => (p: PricePoint) => rdScale(p.value), [rdScale])
+  const getX = useMemo(() => (p: PricePoint) => timeScale(p.date ?? 0), [timeScale])
+  const getY = useMemo(() => (p: PricePoint) => rdScale(parseFloat(p.priceUSD ?? '0')), [rdScale])
   const curve = useMemo(() => curveCardinal.tension(curveTension), [curveTension])
 
   return (
     <>
       <ChartHeader data-cy="chart-header">
-        {displayPrice.value ? (
+        {displayPrice.priceUSD ? (
           <>
-            <TokenPrice>{formatDollar({ num: displayPrice.value, isPrice: true })}</TokenPrice>
+            <TokenPrice>{formatDollar({ num: parseFloat(displayPrice.priceUSD ?? '0'), isPrice: true })}</TokenPrice>
             <DeltaContainer>
               {formattedDelta}
               <ArrowCell>{arrow}</ArrowCell>
@@ -292,7 +292,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
         )}
       </ChartHeader>
       {!chartAvailable ? (
-        <MissingPriceChart width={width} height={graphHeight} message={!!displayPrice.value && missingPricesMessage} />
+        <MissingPriceChart width={width} height={graphHeight} message={!!parseFloat(displayPrice.priceUSD ?? '0') && missingPricesMessage} />
       ) : (
         <svg data-cy="price-chart" width={width} height={graphHeight} style={{ minWidth: '100%' }}>
           <AnimatedInLineChart
@@ -342,7 +342,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
                 fontSize={12}
                 fill={theme.textSecondary}
               >
-                {crosshairDateFormatter(displayPrice.timestamp)}
+                {crosshairDateFormatter(displayPrice.date ?? 0)}
               </text>
               <Line
                 from={{ x: crosshair, y: margin.crosshair }}
@@ -354,7 +354,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
               />
               <GlyphCircle
                 left={crosshair}
-                top={rdScale(displayPrice.value) + margin.top}
+                top={rdScale(parseFloat(displayPrice.priceUSD ?? '0')) + margin.top}
                 size={50}
                 fill={theme.accentAction}
                 stroke={theme.backgroundOutline}

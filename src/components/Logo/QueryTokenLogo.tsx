@@ -1,6 +1,6 @@
 import { NATIVE_CHAIN_ID } from 'constants/tokens'
 import { TokenStandard } from 'graphql/data/__generated__/types-and-hooks'
-import { SearchToken } from 'graphql/data/SearchTokens'
+import { SearchToken } from 'graphql/thegraph/SearchTokens'
 import { TokenQueryData } from 'graphql/data/Token'
 import { TopToken } from 'graphql/data/TopTokens'
 import { CHAIN_NAME_TO_CHAIN_ID } from 'graphql/data/util'
@@ -12,15 +12,15 @@ export default function QueryTokenLogo(
     token?: TopToken | TokenQueryData | SearchToken
   }
 ) {
-  const chainId = props.token?.chain ? CHAIN_NAME_TO_CHAIN_ID[props.token?.chain] : undefined
+  const chainId = 7070
 
   return (
     <AssetLogo
-      isNative={props.token?.standard === TokenStandard.Native || props.token?.address === NATIVE_CHAIN_ID}
+      isNative={true}
       chainId={chainId}
-      address={props.token?.address}
+      address={props.token?.id}
       symbol={props.token?.symbol}
-      backupImg={props.token?.project?.logoUrl}
+      backupImg={''}
       {...props}
     />
   )
