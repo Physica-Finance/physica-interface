@@ -79,7 +79,7 @@ export default function StakingModal({ isOpen, onDismiss, incentive }: StakingMo
           </DarkerGreyCard>
           <ThemedText.DeprecatedBody fontSize="11px" fontWeight={500}>
             <Trans>
-              Boosting liquidity deposits your liquidity in the Uniswap Liquidity mining contracts. When boosted, your
+              Boosting liquidity deposits your liquidity in the Physica Liquidity mining contracts. When boosted, your
               liquidity will continue to earn fees while in range. You must remove boosts to be able to claim fees or
               withdraw liquidity.
             </Trans>

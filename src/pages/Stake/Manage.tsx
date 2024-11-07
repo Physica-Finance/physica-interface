@@ -20,6 +20,7 @@ import { HoverText, ThemedText } from 'theme'
 import { formattedFeeAmount } from 'utils'
 import { currencyId } from 'utils/currencyId'
 import { unwrappedToken } from 'utils/unwrappedToken'
+import { useCurrency } from '../../hooks/Tokens'
 
 const Wrapper = styled.div`
   max-width: 840px;
@@ -33,20 +34,16 @@ export default function Manage() {
 
   const pools = usePoolsByAddresses([poolAddress])
   const [state, pool] = pools[0]
-  console.log(pools)
-  const currency0 = pool ? unwrappedToken(pool.token0) : undefined
-  const currency1 = pool ? unwrappedToken(pool.token1) : undefined
+
+  const currency0 = pool ? useCurrency(pool.token0.address) : undefined
+  const currency1 = pool ? useCurrency(pool.token1.address) : undefined
 
   // all incentive programs for this pool
   const { loading, incentives } = useIncentivesForPool(poolAddress)
-  console.log(loading)
-  console.log(pool)
-  console.log(currency0)
-  console.log(currency1)
+
   // all users positions for this pool
   const { loading: loadingPositions, inRangePositions } = useV3PositionsForPool(account, pool!)
-  console.log(loadingPositions)
-  console.log(inRangePositions)
+
   if (!pool || !currency0 || !currency1 || loading) {
     return (
       <Wrapper>
@@ -123,7 +120,7 @@ export default function Manage() {
             <AlertCircle size={32} />
             <ThemedText.DeprecatedBody ml="8px" fontSize="12px">
               <Trans>
-                Boosting liquidity deposits your liquidity in the Uniswap Liquidity mining contracts. When boosted, your
+                Boosting liquidity deposits your liquidity in the Physica Liquidity mining contracts. When boosted, your
                 liquidity will continue to earn fees while in range. You must remove boosts to be able to claim fees or
                 withdraw liquidity.
               </Trans>

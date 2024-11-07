@@ -134,7 +134,7 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
                 </RowFixed>
               ) : (
                 <BarWrapper>
-                  <Bar percent={percentageRemaining} color={theme.textPrimary}>
+                  <Bar percent={percentageRemaining} color={theme.textTertiary}>
                     <RowFixed>
                       <WrappedLogo currency={rewardCurrency} size="14px" />
                       <ThemedText.DeprecatedBody fontSize="12px" fontWeight={600} ml="8px" mt="-2px">

@@ -639,7 +639,7 @@ export function PositionPage() {
               {ownsNFT && (
                 <RowFixed>
                   {currency0 && currency1 && feeAmount && tokenId ? (
-                    <ButtonGray
+                    <SmallButtonPrimary
                       as={Link}
                       to={`/increase/${currencyId(currency0)}/${currencyId(currency1)}/${feeAmount}/${tokenId}`}
                       width="fit-content"
@@ -648,11 +648,11 @@ export function PositionPage() {
                       style={{ marginRight: '8px' }}
                     >
                       <Trans>Increase Liquidity</Trans>
-                    </ButtonGray>
+                    </SmallButtonPrimary>
                   ) : null}
                   {tokenId && !removed ? (
                     <DynamicSpan disabled={depositedInStaker}>
-                      <SmallButtonPrimary
+                      <ButtonGray
                         as={Link}
                         to={`/remove/${tokenId}`}
                         width="fit-content"
@@ -660,7 +660,7 @@ export function PositionPage() {
                         $borderRadius="12px"
                       >
                         <Trans>Remove Liquidity</Trans>
-                      </SmallButtonPrimary>
+                      </ButtonGray>
                     </DynamicSpan>
                   ) : null}
                 </RowFixed>
@@ -679,7 +679,7 @@ export function PositionPage() {
                     />
                   ))}
                   <ThemedText.DeprecatedBody ml="8px" fontWeight={500}>
-                    <Trans>Stake this position to earn UNI with liquidity mining</Trans>
+                    <Trans>Stake this position to earn rewards with liquidity mining</Trans>
                   </ThemedText.DeprecatedBody>
                 </RowFixed>
                 <RowFixed>
