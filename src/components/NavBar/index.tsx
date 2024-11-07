@@ -94,10 +94,13 @@ export const PageTabs = () => {
         <Trans>Swap</Trans>
       </MenuItem>
       <MenuItem href={`/stake`} isActive={pathname.startsWith('/stake')}>
-        <Trans>Pools+</Trans>
+        <Trans>Stake</Trans>
       </MenuItem>
       <MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
         <Trans>Tokens</Trans>
+      </MenuItem>
+      <MenuItem href="/pool" id="pool-nav-link" isActive={isPoolActive}>
+        <Trans>Positions</Trans>
       </MenuItem>
       {/*<MenuItem dataTestId="nft-nav" href="/nfts" isActive={isNftPage}>
         <Trans>NFTs</Trans>
@@ -105,12 +108,6 @@ export const PageTabs = () => {
       <ExternalMenuItem href="https://swap.deltaswap.io/#/transfer">
         <Trans>Bridge</Trans>
       </ExternalMenuItem>
-      <ExternalMenuItem href="https://restake.app/">
-        <Trans>Stake</Trans>
-      </ExternalMenuItem>
-      <MenuItem href="/pool" id="pool-nav-link" isActive={isPoolActive}>
-        <Trans>Pool</Trans>
-      </MenuItem>
     </>
   )
 }

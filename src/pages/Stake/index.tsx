@@ -50,9 +50,6 @@ export default function Stake() {
           <ThemedText.DeprecatedBody style={{ marginTop: '0.5rem' }} fontSize="20px" color={theme.textTertiary}>
             <Trans>Boosted Pools</Trans>
           </ThemedText.DeprecatedBody>
-          <AutoRow gap="6px" width="fit-content">
-            <ButtonGreySmall as={Link} to={`/program`}>New Program</ButtonGreySmall>
-          </AutoRow>
         </RowBetween>
         <DataCard>
           <CardSection>
