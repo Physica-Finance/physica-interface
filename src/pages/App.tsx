@@ -223,7 +223,7 @@ export default function App() {
                 <Route path="/stake" element={<Stake />} />
                 <Route path="/stake/:poolAddress" element={<Manage />} />
 
-                <Route path="/program" element={<CreateIncentive />} />
+                <Route path="program" element={<CreateIncentive />} />
                 <Route path="send" element={<RedirectPathToSwapOnly />} />
                 <Route path="swap" element={<Swap />} />
 

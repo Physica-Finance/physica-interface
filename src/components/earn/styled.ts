@@ -12,6 +12,13 @@ export const CardWrapper = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.1);
 `
 
+export const LightCardWrapper = styled.div`
+    padding: 16px;
+    background: radial-gradient(76.02% 75.41% at 1.84% 0%, rgb(226, 207, 207) 0%, rgb(178, 194, 255) 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+`
+
 export const DataCard = styled(AutoColumn)<{ disabled?: boolean }>`
   border-radius: 20px;
   width: 100%;

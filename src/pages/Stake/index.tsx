@@ -80,7 +80,7 @@ export default function Stake() {
               <Trans>Active Programs</Trans>
             </ThemedText.DeprecatedBody>
             <ThemedText.DeprecatedBody fontSize="14px" style={{ whiteSpace: 'nowrap' }}>
-              <Trans>7D Active Liquidity</Trans>
+              <Trans>Active Reward Amount</Trans>
             </ThemedText.DeprecatedBody>
             <ThemedText.DeprecatedBody fontSize="14px">
               <Trans>Rewards Rate</Trans>

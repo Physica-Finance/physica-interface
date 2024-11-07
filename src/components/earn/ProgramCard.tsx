@@ -13,30 +13,40 @@ import { useV3PositionsForPool } from 'hooks/useV3Positions'
 import { LoadingRows } from 'pages/Pool/styleds'
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { useTheme } from 'styled-components/macro'
+import styled, { useTheme } from 'styled-components/macro'
 import { ThemedText } from 'theme'
 import { formattedFeeAmount } from 'utils'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
 import { unwrappedToken } from 'utils/unwrappedToken'
 
 import { Incentive } from '../../hooks/incentives/useAllIncentives'
-import { CardWrapper } from './styled'
+import { CardNoise, CardWrapper, LightCardWrapper } from './styled'
 import { OverviewGrid } from './styled'
+import { useCurrency } from '../../hooks/Tokens'
 
 interface ProgramCardProps {
   poolAddress: string
   incentives: Incentive[] // will be set at 1 incentive while UNI incentives only
   hideStake?: boolean // hide stake button on manage page
 }
-
+const ExtentsText = styled.span`
+  color: ${({ theme }) => theme.textPrimary};
+  font-size: 14px;
+  margin-right: 4px;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    display: none;
+  `};
+`
 // Overview all all incentive programs for a given pool
 export default function ProgramCard({ poolAddress, incentives }: ProgramCardProps) {
   const theme = useTheme()
   const { account } = useWeb3React()
   const [, pool] = usePoolsByAddresses([poolAddress])[0]
 
-  const currency0 = pool ? unwrappedToken(pool.token0) : undefined
-  const currency1 = pool ? unwrappedToken(pool.token1) : undefined
+  const currency0 = pool ? useCurrency(pool.token0.address) : undefined
+  const currency1 = pool ? useCurrency(pool.token1.address) : undefined
+  console.log(currency0)
+  console.log(currency1)
 
   const { inRangePositions } = useV3PositionsForPool(account, pool!)
 
@@ -69,7 +79,8 @@ export default function ProgramCard({ poolAddress, incentives }: ProgramCardProp
   const rewardPerDay = incentives[0].rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
 
   return (
-    <CardWrapper>
+    <LightCardWrapper>
+    <CardNoise />
       {!pool || !currency0 || !currency1 ? (
         <LoadingRows>
           <div />
@@ -99,22 +110,22 @@ export default function ProgramCard({ poolAddress, incentives }: ProgramCardProp
               ) : null}
             </RowFixed>
           </RowFixed>
-          <ThemedText.DeprecatedBody fontWeight={600}>
+          <ExtentsText>
             {activeLiquidityUSD
               ? `$${formatCurrencyAmount(activeLiquidityUSD, 2)}`
               : `${formatCurrencyAmount(activeLiquidity, 4)} ${rewardCurrency.symbol}`}
-          </ThemedText.DeprecatedBody>
+          </ExtentsText>
           <RowFixed>
             <CurrencyLogo currency={rewardCurrency} size="16px" />
-            <ThemedText.DeprecatedBody fontWeight={600} ml="6px">{`${formatCurrencyAmount(rewardPerDay, 4)} ${
+            <ExtentsText>{`${formatCurrencyAmount(rewardPerDay, 4)} ${
               rewardCurrency.symbol
-            } / day`}</ThemedText.DeprecatedBody>
+            } / day`}</ExtentsText>
           </RowFixed>
           <ButtonSmall as={Link} to={'/stake/' + poolAddress}>
             <Trans>Manage</Trans>
           </ButtonSmall>
         </OverviewGrid>
       )}
-    </CardWrapper>
+    </LightCardWrapper>
   )
 }

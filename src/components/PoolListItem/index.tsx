@@ -128,10 +128,10 @@ const StyledTokenRow = styled.div<{
   padding-left: 12px;
   padding-right: 12px;
   transition: ${({
-                                                                                                                                                                                                                                   theme: {
-                                                                                                                                                                                                                                     transition: { duration, timing },
-                                                                                                                                                                                                                                   },
-                                                                                                                                                                                                                                 }) => css`background-color ${duration.medium} ${timing.ease}`};
+    theme: {
+    transition: { duration, timing },
+   },
+ }) => css`background-color ${duration.medium} ${timing.ease}`};
   width: 100%;
   transition-duration: ${({ theme }) => theme.transition.duration.fast};
 
@@ -281,7 +281,7 @@ export default function PoolListItem(poolGraphql : any) {
   const [poolState, pool] = usePool(currency0 ?? undefined, currency1 ?? undefined, parseFeeAmount(poolGraphql?.feeTier))
   console.log(pool)
 
-  const positionSummaryLink = '/pool/' + poolGraphql?.id
+  const positionSummaryLink = '/program?pool=' + poolGraphql?.id + '&token0=' + poolGraphql?.token0.id + '&token1=' + poolGraphql?.token1.id + '&fees=' + poolGraphql?.feeTier
 
   const containsURL = useMemo(
     () =>
