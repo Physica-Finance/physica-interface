@@ -27,6 +27,7 @@ query TrendingPool2 {
     totalValueLockedToken1
     totalValueLockedUSD
     volumeUSD
+    feeTier
     id
   }
 }
@@ -43,6 +44,7 @@ export type PoolQuery2 = {
     totalValueLockedToken1: string,
     totalValueLockedUSD: string,
     volumeUSD: string,
+    feeTier: string,
     token0: { __typename?: 'Token'; id: string; decimals: string; name: string; symbole: string; }
     token1: { __typename?: 'Token'; id: string; decimals: string; name: string; symbole: string; }
   }>
@@ -50,12 +52,12 @@ export type PoolQuery2 = {
 
 export type PoolQueryData2 = PoolQuery2['pools']
 
-export default function useTrendingTokens2(chainId?: number) {
+export default function useTrendingPools2(chainId?: number) {
   const chain = chainIdToBackendName(chainId)
   const { data, loading } = useQuery(TRENDING_POOLS_QUERY, { client: apolloClient })
 
   return useMemo(
-    () => ({ data: data?.topTokens?.map((token: any) => unwrapToken(chainId ?? 7070, token)), loading }),
-    [chainId, data?.topTokens, loading]
+    () => ({ data: data?.pools, loading }),
+    [chainId, data?.pools, loading]
   )
 }

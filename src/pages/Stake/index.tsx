@@ -13,6 +13,10 @@ import { ButtonGreySmall } from 'components/Button'
 import { ThemedText } from 'theme'
 import { Link } from 'react-router-dom'
 import { currencyId } from '../../utils/currencyId'
+import useTrendingPools2 from '../../graphql/physica/TrendingPools'
+import PositionListItem from '../../components/PositionListItem'
+import React from 'react'
+import PoolListItem from '../../components/PoolListItem'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 840px;
@@ -37,6 +41,8 @@ export default function Stake() {
 
   const { loading, incentives } = useAllIncentivesByPool()
 
+  const { data: allPools, loading: poolsLoading } = useTrendingPools2()
+
   return (
     <PageWrapper gap="lg" justify="center">
       <TopSection gap="md">
@@ -45,9 +51,7 @@ export default function Stake() {
             <Trans>Boosted Pools</Trans>
           </ThemedText.DeprecatedBody>
           <AutoRow gap="6px" width="fit-content">
-            <ButtonGreySmall>Find Program</ButtonGreySmall>
-            <ButtonGreySmall as={Link}
-                             to={`/program`}>New Program</ButtonGreySmall>
+            <ButtonGreySmall as={Link} to={`/program`}>New Program</ButtonGreySmall>
           </AutoRow>
         </RowBetween>
         <DataCard>
@@ -96,6 +100,31 @@ export default function Stake() {
                   poolAddress={poolAddress}
                   incentives={incentives[poolAddress]}
                 />
+              ))
+            )}
+          </ProgramSection>
+        </AutoColumn>
+      </DarkCard>
+      <DarkCard padding="24px">
+        <AutoColumn gap="16px">
+          <OverviewGrid style={{ padding: '0' }}>
+            <ThemedText.DeprecatedBody justifySelf="flex-start" fontSize="14px">
+              <Trans>Pools</Trans>
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontSize="14px" style={{ whiteSpace: 'nowrap' }}>
+              <Trans>Total Volume USD</Trans>
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontSize="14px">
+              <Trans>TVL USD</Trans>
+            </ThemedText.DeprecatedBody>
+          </OverviewGrid>
+          <ProgramSection>
+            {poolsLoading ? (
+              <Loader />
+            ) : (
+              allPools.map((pool:any) => (
+                <PoolListItem key={pool.id.toString()} {...pool} />
+
               ))
             )}
           </ProgramSection>
