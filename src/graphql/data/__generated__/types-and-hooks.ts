@@ -158,7 +158,7 @@ export enum Chain {
   Worldchain = 'WORLDCHAIN',
   Zksync = 'ZKSYNC',
   Zora = 'ZORA',
-  Planq = 'PLANQ',
+  Planq = 'PLANQ'
 }
 
 export enum CollectionSortableField {
@@ -2363,16 +2363,41 @@ export type TokenPriceQueryHookResult = ReturnType<typeof useTokenPriceQuery>;
 export type TokenPriceLazyQueryHookResult = ReturnType<typeof useTokenPriceLazyQuery>;
 export type TokenPriceQueryResult = Apollo.QueryResult<TokenPriceQuery, TokenPriceQueryVariables>;
 export const TopTokens100Document = gql`
-    query TopTokens100($duration: HistoryDuration!) {
-  tokens(first: 100, orderBy: volumeUSD, orderDirection: desc) {
+    query TopTokens100($duration: HistoryDuration!, $chain: Chain!) {
+  topTokens(pageSize: 100, page: 1, chain: $chain, orderBy: VOLUME) {
+    id
+    name
+    chain
+    address
+    symbol
+    standard
+    market(currency: USD) {
       id
-      symbol
-      name
-      volumeUSD
-      derivedETH
-      totalSupply
-      totalValueLockedUSD
-      txCount    
+      totalValueLocked {
+        id
+        value
+        currency
+      }
+      price {
+        id
+        value
+        currency
+      }
+      pricePercentChange(duration: $duration) {
+        id
+        currency
+        value
+      }
+      volume(duration: $duration) {
+        id
+        value
+        currency
+      }
+    }
+    project {
+      id
+      logoUrl
+    }
   }
 }
     `;

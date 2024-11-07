@@ -1,6 +1,6 @@
 import { ParentSize } from '@visx/responsive'
 import { ChartContainer, LoadingChart } from 'components/Tokens/TokenDetails/Skeleton'
-import { TokenPriceQuery, TokenPriceQuery2 } from 'graphql/data/TokenPrice'
+import { TokenPriceQuery2 } from 'graphql/physica/TokenPrice'
 import { isPricePoint, PricePoint } from 'graphql/data/util'
 import { TimePeriod } from 'graphql/data/util'
 import { useAtomValue } from 'jotai/utils'
@@ -29,7 +29,7 @@ export default function ChartSection({
   tokenPriceQuery,
   onChangeTimePeriod,
 }: {
-  tokenPriceQuery?: TokenPriceQuery
+  tokenPriceQuery?: TokenPriceQuery2
   onChangeTimePeriod: OnChangeTimePeriod
 }) {
   if (!tokenPriceQuery) {
@@ -50,7 +50,7 @@ function Chart({
   tokenPriceQuery,
   onChangeTimePeriod,
 }: {
-  tokenPriceQuery: TokenPriceQuery
+  tokenPriceQuery: TokenPriceQuery2
   onChangeTimePeriod: OnChangeTimePeriod
 }) {
   const prices = usePriceHistory(tokenPriceQuery)

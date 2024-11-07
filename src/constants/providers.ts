@@ -7,6 +7,7 @@ import { isPlain } from '@reduxjs/toolkit'
 import { AVERAGE_L1_BLOCK_TIME } from './chainInfo'
 import { CHAIN_IDS_TO_NAMES, SupportedChainId } from './chains'
 import { RPC_URLS } from './networks'
+import { ENS_REGISTRAR_ADDRESSES } from './addresses'
 
 class AppJsonRpcProvider extends StaticJsonRpcProvider {
   private _blockCache = new Map<string, Promise<any>>()
@@ -21,7 +22,14 @@ class AppJsonRpcProvider extends StaticJsonRpcProvider {
 
   constructor(chainId: SupportedChainId) {
     // Including networkish allows ethers to skip the initial detectNetwork call.
-    super(RPC_URLS[chainId][0], /* networkish= */ { chainId, name: CHAIN_IDS_TO_NAMES[chainId] })
+    super(
+      RPC_URLS[chainId][0],
+      /* networkish= */ {
+        chainId,
+        name: CHAIN_IDS_TO_NAMES[chainId],
+        ensAddress: ENS_REGISTRAR_ADDRESSES[chainId] ?? null,
+      }
+    )
 
     // NB: Third-party providers (eg MetaMask) will have their own polling intervals,
     // which should be left as-is to allow operations (eg transaction confirmation) to resolve faster.

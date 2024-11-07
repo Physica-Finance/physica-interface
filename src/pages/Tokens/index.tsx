@@ -83,15 +83,11 @@ const Tokens = () => {
             placement="bottom"
           >
             <ThemedText.LargeHeader>
-              <Trans>Top tokens on Uniswap</Trans>
+              <Trans>Top tokens on Physica</Trans>
             </ThemedText.LargeHeader>
           </MouseoverTooltip>
         </TitleContainer>
         <FiltersWrapper>
-          <FiltersContainer>
-            <NetworkFilter />
-            <TimeSelector />
-          </FiltersContainer>
           <SearchContainer>
             <SearchBar />
           </SearchContainer>

@@ -4,7 +4,7 @@ import { NATIVE_CHAIN_ID, nativeOnChain, WRAPPED_NATIVE_CURRENCY } from 'constan
 import ms from 'ms.macro'
 import { useEffect } from 'react'
 
-import { Chain, HistoryDuration } from './__generated__/types-and-hooks'
+import { Chain, HistoryDuration } from '../data/__generated__/types-and-hooks'
 
 export enum PollingInterval {
   Slow = ms`5m`,
@@ -80,6 +80,7 @@ const URL_CHAIN_PARAM_TO_BACKEND: { [key: string]: Chain } = {
   celo: Chain.Celo,
   arbitrum: Chain.Arbitrum,
   optimism: Chain.Optimism,
+  planq: Chain.Planq,
 }
 
 export function validateUrlChainParam(chainName: string | undefined) {
@@ -97,18 +98,18 @@ export const CHAIN_NAME_TO_CHAIN_ID: { [key: string]: SupportedChainId } = {
 
 export const BACKEND_CHAIN_NAMES: Chain[] = []
 
-export function getTokenDetailsURL({ address, chain }: { address?: string | null; chain: Chain }) {
-  return `/tokens/${chain.toLowerCase()}/${address ?? NATIVE_CHAIN_ID}`
+export function getTokenDetailsURL({ id }: { id?: string | null }) {
+  return `/tokens/planq/${id ?? NATIVE_CHAIN_ID}`
 }
 
 export function unwrapToken<
   T extends {
-    address?: string | null | undefined
+    id?: string | null | undefined
   } | null
 >(chainId: number, token: T): T {
-  if (!token?.address) return token
+  if (!token?.id) return token
 
-  const address = token.address.toLowerCase()
+  const address = token.id.toLowerCase()
   const nativeAddress = WRAPPED_NATIVE_CURRENCY[chainId]?.address.toLowerCase()
   if (address !== nativeAddress) return token
 

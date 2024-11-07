@@ -26,9 +26,10 @@ import Widget from 'components/Widget'
 import { getChainInfo } from 'constants/chainInfo'
 import { NATIVE_CHAIN_ID, nativeOnChain } from 'constants/tokens'
 import { checkWarning } from 'constants/tokenSafety'
-import { TokenPriceQuery } from 'graphql/data/__generated__/types-and-hooks'
-import { Chain, TokenQuery, TokenQueryData } from 'graphql/data/Token'
-import { QueryToken } from 'graphql/data/Token'
+import { TokenPriceQuery2 } from 'graphql/physica/TokenPrice'
+import { TokenQuery2, TokenQueryData2 } from 'graphql/physica/Token'
+import { Chain } from 'graphql/data/Token'
+import { QueryToken } from 'graphql/physica/Token'
 import { CHAIN_NAME_TO_CHAIN_ID, getTokenDetailsURL } from 'graphql/data/util'
 import { useIsUserAddedTokenOnChain } from 'hooks/Tokens'
 import { useOnGlobalChainSwitch } from 'hooks/useGlobalChainSwitch'
@@ -67,7 +68,7 @@ function useOnChainToken(address: string | undefined, skip: boolean) {
 function useRelevantToken(
   address: string | undefined,
   pageChainId: number,
-  tokenQueryData: TokenQueryData | undefined
+  tokenQueryData: TokenQueryData2 | undefined
 ) {
   const { chainId: activeChainId } = useWeb3React()
   const queryToken = useMemo(() => {
@@ -89,8 +90,8 @@ function useRelevantToken(
 type TokenDetailsProps = {
   urlAddress: string | undefined
   chain: Chain
-  tokenQuery: TokenQuery
-  tokenPriceQuery: TokenPriceQuery | undefined
+  tokenQuery: TokenQuery2
+  tokenPriceQuery: TokenPriceQuery2 | undefined
   onChangeTimePeriod: OnChangeTimePeriod
 }
 export default function TokenDetails({
@@ -111,14 +112,6 @@ export default function TokenDetails({
   const pageChainId = CHAIN_NAME_TO_CHAIN_ID[chain]
 
   const tokenQueryData = tokenQuery.token
-  const crossChainMap = useMemo(
-    () =>
-      tokenQueryData?.project?.tokens.reduce((map, current) => {
-        if (current) map[current.chain] = current.address
-        return map
-      }, {} as { [key: string]: string | undefined }) ?? {},
-    [tokenQueryData]
-  )
 
   const { token, didFetchFromChain } = useRelevantToken(address, pageChainId, tokenQueryData)
 
@@ -131,14 +124,9 @@ export default function TokenDetails({
   const navigateToTokenForChain = useCallback(
     (update: Chain) => {
       if (!address) return
-      const bridgedAddress = crossChainMap[update]
-      if (bridgedAddress) {
-        startTokenTransition(() => navigate(getTokenDetailsURL({ address: bridgedAddress, chain })))
-      } else if (didFetchFromChain || token?.isNative) {
-        startTokenTransition(() => navigate(getTokenDetailsURL({ address, chain })))
-      }
+      startTokenTransition(() => navigate(getTokenDetailsURL({ address, chain })))
     },
-    [address, chain, crossChainMap, didFetchFromChain, navigate, token?.isNative]
+    [address, chain, didFetchFromChain, navigate, token?.isNative]
   )
   useOnGlobalChainSwitch(navigateToTokenForChain)
 
@@ -198,10 +186,10 @@ export default function TokenDetails({
             </TokenInfoContainer>
             <ChartSection tokenPriceQuery={tokenPriceQuery} onChangeTimePeriod={onChangeTimePeriod} />
             <StatsSection
-              TVL={tokenQueryData?.market?.totalValueLocked?.value}
-              volume24H={tokenQueryData?.market?.volume24H?.value}
-              priceHigh52W={tokenQueryData?.market?.priceHigh52W?.value}
-              priceLow52W={tokenQueryData?.market?.priceLow52W?.value}
+              TVL={parseFloat(tokenQueryData?.totalValueLockedUSD ?? '0')}
+              volume24H={parseFloat(tokenQueryData?.volumeUSD ?? '0')}
+              priceHigh52W={parseFloat(tokenQueryData?.tokenDayData?.priceUSD ?? '0')}
+              priceLow52W={parseFloat(tokenQueryData?.tokenDayData?.priceUSD ?? '0')}
             />
             {!token.isNative && <AddressSection address={address} />}
           </LeftPanel>

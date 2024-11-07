@@ -19,7 +19,7 @@ import { ClockIcon, TrendingArrow } from '../../nft/components/icons'
 import { useRecentlySearchedAssets } from './RecentlySearchedAssets'
 import * as styles from './SearchBar.css'
 import { SkeletonRow, TokenRow } from './SuggestionRow'
-import { SearchToken } from '../../graphql/thegraph/SearchTokens'
+import { SearchToken } from '../../graphql/physica/SearchTokens'
 
 function isCollection(suggestion: GenieCollection | SearchToken | TrendingCollection) {
   return (suggestion as SearchToken).decimals === undefined

@@ -6,8 +6,9 @@ import { ParentSize } from '@visx/responsive'
 import SparklineChart from 'components/Charts/SparklineChart'
 import QueryTokenLogo from 'components/Logo/QueryTokenLogo'
 import { MouseoverTooltip } from 'components/Tooltip'
-import { SparklineMap, TopToken } from 'graphql/data/TopTokens'
-import { CHAIN_NAME_TO_CHAIN_ID, getTokenDetailsURL } from 'graphql/data/util'
+import { SparklineMap } from 'graphql/data/TopTokens'
+import { TopToken } from 'graphql/physica/TopTokens'
+import { CHAIN_NAME_TO_CHAIN_ID, getTokenDetailsURL } from 'graphql/physica/util'
 import { useAtomValue } from 'jotai/utils'
 import { ForwardedRef, forwardRef } from 'react'
 import { CSSProperties, ReactNode } from 'react'
@@ -438,14 +439,14 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const filterNetwork = lowercaseChainName.toUpperCase()
   const chainId = CHAIN_NAME_TO_CHAIN_ID[filterNetwork]
   const timePeriod = useAtomValue(filterTimeAtom)
-  const delta = token.market?.pricePercentChange?.value
+  const delta = (parseFloat(token.tokenDayData![0].open ?? '0') - parseFloat(token.tokenDayData![0].priceUSD ?? '0'))*100
   const arrow = getDeltaArrow(delta)
   const smallArrow = getDeltaArrow(delta, 14)
   const formattedDelta = formatDelta(delta)
 
   const exploreTokenSelectedEventProperties = {
     chain_id: chainId,
-    token_address: token.address,
+    token_address: token.id,
     token_symbol: token.symbol,
     token_list_index: tokenListIndex,
     token_list_rank: sortRank,
@@ -478,7 +479,7 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
           price={
             <ClickableContent>
               <PriceInfoCell>
-                {formatUSDPrice(token.market?.price?.value)}
+                {formatUSDPrice(parseFloat(token.tokenDayData![0].priceUSD ?? '0'))}
                 <PercentChangeInfoCell>
                   <ArrowCell>{smallArrow}</ArrowCell>
                   <DeltaText delta={delta}>{formattedDelta}</DeltaText>
@@ -494,11 +495,13 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
           }
           tvl={
             <ClickableContent>
-              {formatNumber(token.market?.totalValueLocked?.value, NumberType.FiatTokenStats)}
+              {formatNumber(parseFloat(token.totalValueLockedUSD ?? '0'), NumberType.FiatTokenStats)}
             </ClickableContent>
           }
           volume={
-            <ClickableContent>{formatNumber(token.market?.volume?.value, NumberType.FiatTokenStats)}</ClickableContent>
+            <ClickableContent>
+              {formatNumber(parseFloat(token.volumeUSD ?? '0'), NumberType.FiatTokenStats)}
+            </ClickableContent>
           }
           sparkLine={
             <SparkLine>
@@ -509,7 +512,9 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
                       width={width}
                       height={height}
                       tokenData={token}
-                      pricePercentChange={token.market?.pricePercentChange?.value}
+                      pricePercentChange={
+                        (parseFloat(token.tokenDayData![0].open ?? '0') - parseFloat(token.tokenDayData![0].priceUSD ?? '0'))*100
+                      }
                       sparklineMap={props.sparklineMap}
                     />
                   )

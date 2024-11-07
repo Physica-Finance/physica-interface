@@ -1,7 +1,7 @@
 import { SupportedChainId } from 'constants/chains'
 import { NATIVE_CHAIN_ID, nativeOnChain } from 'constants/tokens'
 import { Chain, NftCollection, useRecentlySearchedAssetsQuery } from 'graphql/data/__generated__/types-and-hooks'
-import { SearchToken } from 'graphql/thegraph/SearchTokens'
+import { SearchToken } from 'graphql/physica/SearchTokens'
 import { CHAIN_NAME_TO_CHAIN_ID } from 'graphql/data/util'
 import { useAtom } from 'jotai'
 import { atomWithStorage, useAtomValue } from 'jotai/utils'

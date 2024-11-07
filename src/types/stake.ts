@@ -1,4 +1,4 @@
-import { BigNumber } from 'ethers'
+import { BigNumber } from '@ethersproject/bignumber'
 import { Incentive } from 'hooks/incentives/useAllIncentives'
 
 export default class Stake {

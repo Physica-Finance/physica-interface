@@ -1,6 +1,6 @@
 import { Plural, Trans } from '@lingui/macro'
 import { TokenStandard } from 'graphql/data/__generated__/types-and-hooks'
-import { SearchToken } from 'graphql/thegraph/SearchTokens'
+import { SearchToken } from 'graphql/physica/SearchTokens'
 
 import { ZERO_ADDRESS } from './misc'
 import { NATIVE_CHAIN_ID } from './tokens'
