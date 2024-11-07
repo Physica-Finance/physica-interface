@@ -1,29 +1,31 @@
-import { ParentSize } from '@visx/responsive'
-import { ChartContainer, LoadingChart } from 'components/Tokens/TokenDetails/Skeleton'
-import { TokenPriceQuery2 } from 'graphql/physica/TokenPrice'
-import { isPricePoint, PricePoint } from 'graphql/data/util'
-import { TimePeriod } from 'graphql/data/util'
-import { useAtomValue } from 'jotai/utils'
-import { pageTimePeriodAtom } from 'pages/TokenDetails'
-import { startTransition, Suspense, useMemo } from 'react'
+import { ParentSize } from "@visx/responsive";
+import {
+  ChartContainer,
+  LoadingChart,
+} from "components/Tokens/TokenDetails/Skeleton";
+import { TokenPriceQuery2 } from "graphql/physica/TokenPrice";
+import { isPricePoint, PricePoint, TimePeriod } from "graphql/data/util";
+import { useAtomValue } from "jotai/utils";
+import { pageTimePeriodAtom } from "pages/TokenDetails";
+import { startTransition, Suspense, useMemo } from "react";
 
-import { PriceChart } from './PriceChart'
-import TimePeriodSelector from './TimeSelector'
+import { PriceChart } from "./PriceChart";
+import TimePeriodSelector from "./TimeSelector";
 
-function usePriceHistory(tokenPriceData: TokenPriceQuery2): PricePoint[] | undefined {
+function usePriceHistory(
+  tokenPriceData: TokenPriceQuery2
+): PricePoint[] | undefined {
   // Appends the current price to the end of the priceHistory array
-  const priceHistory = useMemo(() => {
-    const market = tokenPriceData.token?.tokenDayData
-    const priceHistory = market?.filter(isPricePoint)
-    const currentPrice = priceHistory?.[0]?.priceUSD
+  return useMemo(() => {
+    const market = tokenPriceData.token?.tokenDayData;
+    const priceHistory = market?.filter(isPricePoint);
+    const currentPrice = priceHistory?.[0]?.priceUSD;
     if (Array.isArray(priceHistory) && currentPrice !== undefined) {
-      const timestamp = Date.now() / 1000
-      return [...priceHistory, { date: timestamp, priceUSD: currentPrice }]
+      const timestamp = Date.now() / 1000;
+      return [...priceHistory, { date: timestamp, priceUSD: currentPrice }];
     }
-    return priceHistory
-  }, [tokenPriceData])
-
-  return priceHistory
+    return priceHistory;
+  }, [tokenPriceData]);
 }
 export default function ChartSection({
   tokenPriceQuery,

@@ -149,9 +149,9 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
   ) : null
 
   // first price point on the x-axis of the current time period's chart
-  const startingPrice = originalPrices?.[0] ?? DATA_EMPTY
+  const startingPrice = originalPrices?.[originalPrices.length - 1] ?? DATA_EMPTY
   // last price point on the x-axis of the current time period's chart
-  const endingPrice = originalPrices?.[originalPrices.length - 1] ?? DATA_EMPTY
+  const endingPrice = originalPrices?.[0] ?? DATA_EMPTY
   const [displayPrice, setDisplayPrice] = useState(startingPrice)
 
   // set display price to ending price when prices have changed.
@@ -185,6 +185,7 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
     const offsetTime = ((endingPrice.date ?? 0).valueOf() - (startingPrice.date ?? 0).valueOf()) / 24
     const startDateWithOffset = new Date(((startingPrice.date??0).valueOf() + offsetTime) * 1000)
     const endDateWithOffset = new Date(((endingPrice.date??0).valueOf() - offsetTime) * 1000)
+
     switch (timePeriod) {
       case TimePeriod.HOUR:
         return [

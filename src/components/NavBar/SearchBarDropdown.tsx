@@ -20,6 +20,7 @@ import { useRecentlySearchedAssets } from './RecentlySearchedAssets'
 import * as styles from './SearchBar.css'
 import { SkeletonRow, TokenRow } from './SuggestionRow'
 import { SearchToken } from '../../graphql/physica/SearchTokens'
+import useTrendingTokens2 from '../../graphql/physica/TrendingTokens'
 
 function isCollection(suggestion: GenieCollection | SearchToken | TrendingCollection) {
   return (suggestion as SearchToken).decimals === undefined
@@ -135,7 +136,7 @@ export const SearchBarDropdown = ({
     [isNFTPage, trendingCollectionResults]
   )*/
 
-  const { data: trendingTokenData } = useTrendingTokens(useWeb3React().chainId)
+  const { data: trendingTokenData } = useTrendingTokens2(useWeb3React().chainId)
 
   const trendingTokensLength = isTokenPage ? 3 : 2
   const trendingTokens = useMemo(
@@ -225,7 +226,7 @@ export const SearchBarDropdown = ({
         ) : (
           // Recent Searches, Trending Tokens, Trending Collections
           <Column gap="20">
-            {shortenedHistory.length > 0 && (
+            {/*shortenedHistory.length > 0 && (
               <SearchBarDropdownSection
                 hoveredIndex={hoveredIndex}
                 startingIndex={0}
@@ -240,7 +241,7 @@ export const SearchBarDropdown = ({
                 headerIcon={<ClockIcon />}
                 isLoading={!searchHistory}
               />
-            )}
+            )*/}
             {!isNFTPage && (
               <SearchBarDropdownSection
                 hoveredIndex={hoveredIndex}

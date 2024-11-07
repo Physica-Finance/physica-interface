@@ -99,6 +99,27 @@ gql`
   }
 `
 
+export const SPARKLINE_TOKENS_QUERY = gql`
+query SparklineToken2 {
+    tokens(orderBy: volumeUSD) {
+      id
+      name
+      symbol
+      volumeUSD
+      totalValueLockedUSD
+      totalSupply
+      tokenDayData(first: 100, orderDirection: desc, orderBy: date) {
+        priceUSD
+        date
+        id
+        open
+      }
+      decimals
+    }
+  }
+`
+
+
 function useSortedTokens(tokens: TokenQuery2['tokens']) {
   const sortMethod = useAtomValue(sortMethodAtom)
   const sortAscending = useAtomValue(sortAscendingAtom)
@@ -171,20 +192,20 @@ export function useTopTokens2(chain: Chain): UseTopTokensReturnValue {
   const duration = toHistoryDuration(useAtomValue(filterTimeAtom))
 
   const { data: sparklineQuery } = usePollQueryWhileMounted(
-    useTopTokensSparklineQuery({
-      variables: { duration, chain },
-    }),
+    useQuery(SPARKLINE_TOKENS_QUERY, {
+      variables: {  }, client: apolloClient,
+    })as QueryResult<TokenQuery2, {}>,
     PollingInterval.Slow
   )
 
   const sparklines = useMemo(() => {
-    const unwrappedTokens = sparklineQuery?.topTokens?.map((topToken) => unwrapToken(chainId, topToken))
+    const unwrappedTokens = sparklineQuery?.tokens?.map((topToken) => unwrapToken(chainId, topToken))
     const map: SparklineMap = {}
     unwrappedTokens?.forEach(
-      (current) => current?.address && (map[current.address] = current?.market?.priceHistory?.filter(isPricePoint))
+      (current) => current?.id && (map[current.id] = current?.tokenDayData?.filter(isPricePoint))
     )
     return map
-  }, [chainId, sparklineQuery?.topTokens])
+  }, [chainId, sparklineQuery?.tokens])
 
   const { data, loading: loadingTokens } = usePollQueryWhileMounted(
     useQuery(TRENDING_TOKENS_QUERY, {

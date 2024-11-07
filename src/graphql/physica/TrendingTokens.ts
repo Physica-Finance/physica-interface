@@ -7,7 +7,7 @@ import { apolloClient } from '../thegraph/apollo'
 
 export const TRENDING_TOKENS_QUERY = gql`
 query TrendingToken2 {
-    tokens(orderBy: volumeUSD) {
+    tokens(orderBy: volumeUSD, orderDirection: desc) {
       id
       name
       symbol
@@ -46,7 +46,7 @@ export default function useTrendingTokens2(chainId?: number) {
   const { data, loading } = useQuery(TRENDING_TOKENS_QUERY, { client: apolloClient })
 
   return useMemo(
-    () => ({ data: data?.topTokens?.map((token: any) => unwrapToken(chainId ?? 7070, token)), loading }),
-    [chainId, data?.topTokens, loading]
+    () => ({ data: data?.tokens?.map((token: any) => unwrapToken(chainId ?? 7070, token)), loading }),
+    [chainId, data?.tokens, loading]
   )
 }

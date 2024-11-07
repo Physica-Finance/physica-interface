@@ -64,9 +64,6 @@ export default function Stake() {
               <ThemedText.DeprecatedBody fontWeight={600} fontSize="24px" color={theme.deprecated_blue4}>
                 <Trans>Earn more with boosts</Trans>
               </ThemedText.DeprecatedBody>
-              <ThemedText.DeprecatedBody color={theme.deprecated_blue4}>
-                <Trans>Learn about boosted rewards on your liquidity positions ➞</Trans>
-              </ThemedText.DeprecatedBody>
             </AutoColumn>
           </CardSection>
           <CardBGImage />
