@@ -6,8 +6,8 @@ import QueryTokenLogo from 'components/Logo/QueryTokenLogo'
 import TokenSafetyIcon from 'components/TokenSafety/TokenSafetyIcon'
 import { checkSearchTokenWarning } from 'constants/tokenSafety'
 import { Chain } from 'graphql/data/__generated__/types-and-hooks'
-import { SearchToken } from 'graphql/physica/SearchTokens'
 import { getTokenDetailsURL } from 'graphql/data/util'
+import { SearchToken } from 'graphql/physica/SearchTokens'
 import { Box } from 'nft/components/Box'
 import { Column, Row } from 'nft/components/Flex'
 import { VerifiedIcon } from 'nft/components/icons'
@@ -169,7 +169,7 @@ export const TokenRow = ({ token, isHovered, setHoveredIndex, toggleOpen, index,
   return (
     <Link
       data-cy={`searchbar-token-row-${token.symbol}`}
-      to={'/swap?inputCurrency=ETH&outputCurrency='+token.id/*tokenDetailsPath*/}
+      to={'/swap?inputCurrency=ETH&outputCurrency=' + token.id /*tokenDetailsPath*/}
       onClick={handleClick}
       onMouseEnter={() => !isHovered && setHoveredIndex(index)}
       onMouseLeave={() => isHovered && setHoveredIndex(undefined)}
