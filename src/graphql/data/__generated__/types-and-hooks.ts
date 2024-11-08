@@ -158,7 +158,7 @@ export enum Chain {
   Worldchain = 'WORLDCHAIN',
   Zksync = 'ZKSYNC',
   Zora = 'ZORA',
-  Planq = 'Planq'
+  Planq = 'PLANQ'
 }
 
 export enum CollectionSortableField {
