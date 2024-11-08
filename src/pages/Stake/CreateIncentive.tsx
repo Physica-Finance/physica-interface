@@ -120,7 +120,7 @@ export default function CreateIncentive() {
   let currentDate = new Date(Date.now())
   let timezoneOffset = currentDate.getTimezoneOffset() * -60000
   let startDate = new Date(Date.now()+1000*60*10 + timezoneOffset)
-  console.log(timezoneOffset)
+
   const [startTime, setStartTime] = useState<string>(startDate.toISOString().slice(0, -8))
   let endDate = new Date(Date.now()+1000*60*60*24*30+1000*60*10+timezoneOffset)
 

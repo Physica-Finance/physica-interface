@@ -45,8 +45,7 @@ export default function ProgramCard({ poolAddress, incentives }: ProgramCardProp
 
   const currency0 = pool ? useCurrency(pool.token0.address) : undefined
   const currency1 = pool ? useCurrency(pool.token1.address) : undefined
-  console.log(currency0)
-  console.log(currency1)
+
 
   const { inRangePositions } = useV3PositionsForPool(account, pool!)
 

@@ -279,7 +279,7 @@ export default function PoolListItem(poolGraphql : any) {
 
   // construct Position from details returned
   const [poolState, pool] = usePool(currency0 ?? undefined, currency1 ?? undefined, parseFeeAmount(poolGraphql?.feeTier))
-  console.log(pool)
+
 
   const positionSummaryLink = '/program?pool=' + poolGraphql?.id + '&token0=' + poolGraphql?.token0.id + '&token1=' + poolGraphql?.token1.id + '&fees=' + poolGraphql?.feeTier
 

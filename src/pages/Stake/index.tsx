@@ -116,7 +116,7 @@ export default function Stake() {
             </ThemedText.DeprecatedBody>
           </OverviewGrid>
           <ProgramSection>
-            {poolsLoading ? (
+            {poolsLoading || !allPools ? (
               <Loader />
             ) : (
               allPools.map((pool:any) => (

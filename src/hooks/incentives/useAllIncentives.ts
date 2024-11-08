@@ -1,12 +1,13 @@
 import { CurrencyAmount, Token } from '@uniswap/sdk-core'
 import { Pool } from '@uniswap/v3-sdk'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useLogs } from '../../state/logs/hooks'
 import { useSingleContractMultipleData } from 'lib/hooks/multicall'
-import { useAllTokens } from '../Tokens'
+import { useAllTokens, useCurrency, useToken } from '../Tokens'
 import { useV3Staker } from '../useContract'
 import { PoolState, usePoolsByAddresses } from '../usePools'
 import { incentiveKeyToIncentiveId } from './incentiveKeyToIncentiveId'
+import useAllIncentivesSubgraph from '../../graphql/physica/Incentives'
 
 export interface Incentive {
   id: string
@@ -25,20 +26,36 @@ export function useAllIncentives(): {
   incentives?: Incentive[]
 } {
   const staker = useV3Staker()
-  const filter = useMemo(() => staker?.filters?.IncentiveCreated(), [staker])
+  const { loading: loading, data: subgraphIncentives } = useAllIncentivesSubgraph()
+  const [incentiveIds, setIncentiveIds] = useState<string[][]>([])
+  const [poolAddresses, setPoolAddresses] = useState<string[]>([])
+  const [tokenAddresses, setTokenAddresses] = useState<string[]>([])
+
+  useMemo(() => {
+    if (!loading && subgraphIncentives) {
+      for (let i = 0; i < subgraphIncentives.length; i++) {
+        setIncentiveIds([...incentiveIds, [subgraphIncentives[i].id]])
+        setPoolAddresses([...poolAddresses, subgraphIncentives[i].pool])
+        setTokenAddresses([...tokenAddresses, subgraphIncentives[i].rewardToken])
+      }
+    }
+  }, [loading, subgraphIncentives])
+
+  /*const filter = useMemo(() => staker?.filters?.IncentiveCreated(), [staker])
   const { logs } = useLogs(filter)
 
   const parsedLogs = useMemo(() => {
-    if (!staker) return undefined
+    if (!staker || !subgraphIncentives) return undefined
     const fragment = staker.interface.events['IncentiveCreated(address,address,uint256,uint256,address,uint256)']
     return logs?.map((logs) => staker.interface.decodeEventLog(fragment, logs.data, logs.topics))
-  }, [logs, staker])
+  }, [logs, staker, subgraphIncentives])*/
 
-  const incentiveIds = useMemo(() => {
+  /*const incentiveIds = useMemo(() => {
     return parsedLogs?.map((log) => [incentiveKeyToIncentiveId(log)]) ?? []
-  }, [parsedLogs])
+  }, [parsedLogs])*/
 
   const incentiveStates = useSingleContractMultipleData(staker, 'incentives', incentiveIds)
+
 
   // returns all the token addresses for which there are incentives
   // const tokenAddresses = useMemo(() => {
@@ -50,14 +67,14 @@ export function useAllIncentives(): {
   //   )
   // }, [parsedLogs])
 
-  const poolAddresses = useMemo(() => {
+  /*const poolAddresses = useMemo(() => {
     return Object.keys(
       parsedLogs?.reduce<{ [poolAddress: string]: true }>((memo, value) => {
         if (value.pool) memo[value.pool] = true
         return memo
       }, {}) ?? {}
     )
-  }, [parsedLogs])
+  }, [parsedLogs])*/
 
   const pools = usePoolsByAddresses(poolAddresses)
 
@@ -66,30 +83,34 @@ export function useAllIncentives(): {
       memo[address] = pools[ix]
       return memo
     }, {})
-  }, [poolAddresses, pools])
-
-  // todo: get the tokens not in the active token lists
+  }, [subgraphIncentives, pools])
   const allTokens = useAllTokens()
 
   return useMemo(() => {
-    if (!parsedLogs || incentiveStates.some((s) => s.loading)) return { loading: true }
+    if (loading || !pools || !subgraphIncentives || incentiveStates.some((s) => s.loading)) return { loading: true }
+
 
     return {
       loading: false,
-      incentives: parsedLogs
-        .map((result, ix): Incentive | null => {
-          const token = allTokens[result.rewardToken]
+      incentives: subgraphIncentives
+        .map((result: any, ix: number): Incentive | null => {
+          let token = new Token(7070, result.rewardToken, 18, result.rewardToken.slice(0, 6)+"..."+result.rewardToken.slice(-4))
+          if(allTokens[result.rewardToken]) {
+            token = allTokens[result.rewardToken]
+          }
+
           const state = incentiveStates[ix]?.result
           // todo: currently we filter out any incentives for tokens not on the active token lists
           if (!token || !state) return null
           const [, pool] = poolMap[result.pool]
           // todo: currently we filter out any incentives for pools not containing tokens on the active lists
           if (!pool) return null
+          console.log(result.reward)
+          console.log(token)
+          const initialRewardAmount = CurrencyAmount.fromRawAmount(token, result.reward)
+          const rewardAmountRemaining = CurrencyAmount.fromRawAmount(token, state.totalRewardUnclaimed)
 
-          const initialRewardAmount = CurrencyAmount.fromRawAmount(token, result.reward.toString())
-          const rewardAmountRemaining = CurrencyAmount.fromRawAmount(token, state.totalRewardUnclaimed.toString())
-
-          const [startTime, endTime] = [result.startTime.toNumber(), result.endTime.toNumber()]
+          const [startTime, endTime] = [parseInt(result.startTime), parseInt(result.endTime)]
 
           const rewardRatePerSecond = initialRewardAmount.divide(endTime - startTime)
 
@@ -115,9 +136,9 @@ export function useAllIncentives(): {
             refundee,
           }
         })
-        .filter((x): x is Incentive => x !== null),
+        .filter((x:any): x is Incentive => x !== null),
     }
-  }, [allTokens, incentiveStates, parsedLogs, poolMap])
+  }, [incentiveStates, poolMap])
 }
 
 /**
@@ -130,7 +151,7 @@ export function useAllIncentivesByPool(): {
   }
 } {
   const { loading, incentives } = useAllIncentives()
-
+  console.log(incentives)
   return useMemo(() => {
     if (loading) {
       return {

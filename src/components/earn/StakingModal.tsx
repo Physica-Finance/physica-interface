@@ -1,4 +1,7 @@
-import { Trans } from '@lingui/macro'
+import { BigNumber } from '@ethersproject/bignumber'
+import { t, Trans } from '@lingui/macro'
+import { CurrencyAmount } from '@uniswap/sdk-core'
+import { useWeb3React } from '@web3-react/core'
 import { GreenBadge } from 'components/Badge'
 import { ButtonPrimary } from 'components/Button'
 import Card from 'components/Card'
@@ -9,11 +12,17 @@ import { AutoRow, RowBetween, RowFixed } from 'components/Row'
 import { BIG_INT_SECONDS_IN_WEEK } from 'constants/misc'
 import { Incentive } from 'hooks/incentives/useAllIncentives'
 import { useStablecoinValue } from 'hooks/useStablecoinPrice'
+import { useState } from 'react'
 import { AlertCircle } from 'react-feather'
 import styled, { useTheme } from 'styled-components/macro'
 import { CloseIcon, ThemedText } from 'theme'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
+
+import { useV3Staker } from '../../hooks/useContract'
+import { useTransactionAdder } from '../../state/transactions/hooks'
+import { TransactionType } from '../../state/transactions/types'
 import Countdown from './Countdown'
+import Loader from '../Loader'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -31,22 +40,72 @@ interface StakingModalProps {
 }
 
 export default function StakingModal({ isOpen, onDismiss, incentive }: StakingModalProps) {
+  const { account } = useWeb3React()
   const theme = useTheme()
   const startDate = new Date(incentive.startTime * 1000)
   const endDate = new Date(incentive.endTime * 1000)
-
+  // monitor call to help UI loading state
+  const addTransaction = useTransactionAdder()
+  const [hash, setHash] = useState<string | undefined>()
+  const [attempting, setAttempting] = useState(false)
+  const [positionDeposited, setPositionDeposited] = useState(false)
   const weeklyRewards = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
   const weeklyRewardsUSD = useStablecoinValue(weeklyRewards)
 
+  function wrappedOnDismiss() {
+    setHash(undefined)
+    setAttempting(false)
+    onDismiss()
+  }
+
+  const stakingContract = useV3Staker()
+
+  /*async function fetchDepositedPosition() {
+    if (stakingContract && incentive && account) {
+      await stakingContract
+        .deposits(incentive.rewardAmountRemaining.currency.address, account!)
+        .then((response: BigNumber) => {
+          setPositionDeposited(response.gt(0))
+        })
+        .catch((error: any) => {
+          console.log(error)
+        })
+    }
+  }
+
+  async function onClaimReward() {
+    if (stakingContract && incentive && account) {
+      setAttempting(true)
+      await stakingContract
+        .stakeToken(incentive.rewardAmountRemaining.currency.address, account!, { gasLimit: 350000 })
+        .then((response: BigNumber) => {
+          addTransaction(response, { type: TransactionType.CLAIM, recipient: account! })
+          setHash(response.hash)
+        })
+        .catch((error: any) => {
+          setAttempting(false)
+          console.log(error)
+        })
+    }
+  }
+
+  let error: string | undefined
+  if (!account) {
+    error = t`Connect wallet`
+  }
+  if (!stakingInfo?.stakedAmount) {
+    error = error ?? t`Enter an amount`
+  }*/
+
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss}>
+    <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss}>
       <Wrapper>
         <AutoColumn gap="lg">
           <RowBetween>
             <ThemedText.DeprecatedBody fontSize="20px" fontWeight={600}>
               <Trans>Review Position Staking</Trans>
             </ThemedText.DeprecatedBody>
-            <CloseIcon onClick={onDismiss} />
+            <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           <DarkerGreyCard>
             <AutoColumn gap="md">
@@ -67,7 +126,10 @@ export default function StakingModal({ isOpen, onDismiss, incentive }: StakingMo
                 {weeklyRewardsUSD ? (
                   <span>
                     <ThemedText.DeprecatedBody>{`$${weeklyRewardsUSD.toFixed(2)} per week`}</ThemedText.DeprecatedBody>
-                    <ThemedText.DeprecatedBody>{`~(${formatCurrencyAmount(weeklyRewards, 4)})`}</ThemedText.DeprecatedBody>
+                    <ThemedText.DeprecatedBody>{`~(${formatCurrencyAmount(
+                      weeklyRewards,
+                      4
+                    )})`}</ThemedText.DeprecatedBody>
                   </span>
                 ) : (
                   <ThemedText.DeprecatedBody>{`${formatCurrencyAmount(weeklyRewards, 4)} ${
@@ -100,12 +162,55 @@ interface ClaimModalProps {
 }
 
 export function ClaimModal({ incentives, isOpen, onDismiss }: ClaimModalProps) {
-  /**
-   * @TODO
-   * real claim amounts
-   */
+  const { account } = useWeb3React()
+  const addTransaction = useTransactionAdder()
+  const [hash, setHash] = useState<string | undefined>()
+  const [attempting, setAttempting] = useState(false)
+  const [rewards, setRewards] = useState<BigNumber[] | undefined>([])
 
-  return (
+  function wrappedOnDismiss() {
+    setHash(undefined)
+    setAttempting(false)
+    onDismiss()
+  }
+
+  const stakingContract = useV3Staker()
+
+  async function fetchRewards() {
+    if (stakingContract && incentives && account) {
+      incentives.map(async (incentive) => {
+        await stakingContract
+          .rewards(incentive.rewardAmountRemaining.currency.address, account!, { gasLimit: 350000 })
+          .then((response: BigNumber) => {
+            setRewards([...rewards!, response])
+          })
+          .catch((error: any) => {
+            console.log(error)
+          })
+      })
+      /*setAttempting(true)
+      await stakingContract
+        .rewards(incentive.rewardAmountRemaining.currency.address, account!,{ gasLimit: 350000 })
+        .then((response: BigNumber) => {
+          addTransaction(response, { type: TransactionType.CLAIM, recipient: account! })
+          setHash(response.hash)
+        })
+        .catch((error: any) => {
+          setAttempting(false)
+          console.log(error)
+        })*/
+    }
+  }
+  fetchRewards()
+  let error: string | undefined
+  if (!account) {
+    error = t`Connect wallet`
+  }
+  /*if (!stakingInfo?.stakedAmount) {
+    error = error ?? t`Enter an amount`
+  }*/
+
+  return !rewards ? (<Loader />) : (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <Wrapper>
         <AutoColumn gap="md">
@@ -124,7 +229,10 @@ export function ClaimModal({ incentives, isOpen, onDismiss }: ClaimModalProps) {
                 <AutoRow gap="8px" key={'reward-row' + i} width="fit-content">
                   <CurrencyLogo currency={incentive.initialRewardAmount.currency} size="24px" />
                   <ThemedText.DeprecatedBody fontSize="20px" fontWeight={500}>
-                    {formatCurrencyAmount(incentive.initialRewardAmount, 5)}
+                    {formatCurrencyAmount(
+                      CurrencyAmount.fromRawAmount(incentive.initialRewardAmount.currency, rewards![i]!.toString()),
+                      5
+                    )}
                   </ThemedText.DeprecatedBody>
                   <ThemedText.DeprecatedBody fontSize="20px" fontWeight={500}>
                     {incentive.initialRewardAmount.currency.symbol}
@@ -178,7 +286,12 @@ export function UnstakeModal({ incentives, isOpen, onDismiss }: UnstakeModalProp
           <GreenBadge style={{ padding: '16px' }}>
             <AutoColumn gap="sm" justify="center">
               <AlertCircle size={20} />
-              <ThemedText.DeprecatedBody fontWeight={500} fontSize="14px" style={{ whiteSpace: 'normal' }} textAlign="center">
+              <ThemedText.DeprecatedBody
+                fontWeight={500}
+                fontSize="14px"
+                style={{ whiteSpace: 'normal' }}
+                textAlign="center"
+              >
                 <Trans>
                   You are unstaking your liquidty! You can now remove your position or claim regular liquidity provider
                   fees.
