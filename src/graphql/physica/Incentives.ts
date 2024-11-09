@@ -34,6 +34,20 @@ const ALL_INCENTIVES_BY_POOL_QUERY = gql`
     }
 `
 
+const STAKED_POSTISIONS_QUERY = gql`
+  query StakedPositions($owner: String!) {
+    positions(where: {owner: $owner, and: {staked: true}}) {
+      tokenId
+      staked
+      owner
+      id
+      liquidity
+      oldOwner
+    }
+  }
+`
+
+
 export type AllIncentivesQuery2 = {
   __typename?: 'Query'
   incentives?: Array<{
@@ -49,7 +63,30 @@ export type AllIncentivesQuery2 = {
   }>
 }
 
+export type StakedPositionsQuery2 = {
+  __typename?: 'Query'
+  positions?: Array<{
+    __typename?: 'Incentive'
+    tokenId: string
+    staked: boolean
+    owner: string
+    id: string
+    liquidity: string
+    oldOwner?: string
+  }>
+}
+
 export type AllIncentivesData2 = AllIncentivesQuery2['incentives']
+export type StakedPositionsData2 = StakedPositionsQuery2['positions']
+
+export function useStakedPositionsSubgraph(owner: string) {
+  const { data, loading } = useQuery(STAKED_POSTISIONS_QUERY, { client: apolloClient, variables: { owner } })
+
+  return useMemo(
+    () => ({ data: data?.positions, loading }),
+    [data?.positions, loading]
+  )
+}
 
 export default function useAllIncentivesSubgraph(poolId?: string) {
   if(poolId) {

@@ -11,7 +11,7 @@ import Loader from 'components/Loader'
 import { RowBetween, RowFixed } from 'components/Row'
 import { useIncentivesForPool } from 'hooks/incentives/useAllIncentives'
 import { PoolState, usePoolsByAddresses } from 'hooks/usePools'
-import { useV3PositionsForPool } from 'hooks/useV3Positions'
+import { useV3PositionsForPool, useV3StakerPositionsForPool } from 'hooks/useV3Positions'
 import { LoadingRows } from 'pages/Pool/styleds'
 import { AlertCircle } from 'react-feather'
 import { Link, useParams } from 'react-router-dom'
@@ -20,7 +20,10 @@ import { HoverText, ThemedText } from 'theme'
 import { formattedFeeAmount } from 'utils'
 import { currencyId } from 'utils/currencyId'
 import { unwrappedToken } from 'utils/unwrappedToken'
-import { useCurrency } from '../../hooks/Tokens'
+import { useCurrency, useToken } from '../../hooks/Tokens'
+import { useEffect } from 'react'
+import { useV3Staker } from '../../hooks/useContract'
+import { useStakedPositionsSubgraph } from '../../graphql/physica/Incentives'
 
 const Wrapper = styled.div`
   max-width: 840px;
@@ -34,17 +37,19 @@ export default function Manage() {
 
   const pools = usePoolsByAddresses([poolAddress])
   const [state, pool] = pools[0]
-
-  const currency0 = pool ? useCurrency(pool.token0.address) : undefined
-  const currency1 = pool ? useCurrency(pool.token1.address) : undefined
+  const staker = useV3Staker()
+  const currency0 = useToken(pool ? pool?.token0.address : '0x0')
+  const currency1 = useToken(pool ? pool?.token1.address : '0x0')
 
   // all incentive programs for this pool
   const { loading, incentives } = useIncentivesForPool(poolAddress)
+  //const { loading: subgraphPositionsLoading, data: subgraphPositions} = useStakedPositionsSubgraph(account ?? "")
 
   // all users positions for this pool
   const { loading: loadingPositions, inRangePositions } = useV3PositionsForPool(account, pool!)
+  const { loading: loadingStakerPositions, inRangePositions: inRangeStakerPositions } = useV3StakerPositionsForPool(staker?.address, pool!, account)
 
-  if (!pool || !currency0 || !currency1 || loading) {
+  if (!pool || !currency0 || !currency1 || loading || loadingStakerPositions) {
     return (
       <Wrapper>
         <LoadingRows>
@@ -55,7 +60,7 @@ export default function Manage() {
       </Wrapper>
     )
   }
-
+  console.log(inRangeStakerPositions)
   return (
     <Wrapper>
       <AutoColumn gap="24px">
@@ -114,6 +119,14 @@ export default function Manage() {
           ) : (
             inRangePositions.map((p, i) => <PositionManageCard key={'position-manage-' + i} positionDetails={p} />)
           )}
+          {loadingStakerPositions ? (
+            <Loader />
+          ) : !inRangeStakerPositions ? (
+            <ThemedText.DeprecatedBody>No positions on this pool</ThemedText.DeprecatedBody>
+          ) : (
+            inRangeStakerPositions.map((p, i) => <PositionManageCard key={'position-manage-' + i} positionDetails={p} />)
+          )}
+
         </AutoColumn>
         <DarkGrayCard>
           <RowBetween>

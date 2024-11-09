@@ -4,7 +4,7 @@ import { ButtonSmall } from 'components/Button'
 import { AutoColumn } from 'components/Column'
 import CurrencyLogo from 'components/Logo/CurrencyLogo'
 import { AutoRow, RowBetween, RowFixed } from 'components/Row'
-import { BIG_INT_ZERO } from 'constants/misc'
+import { BIG_INT_SECONDS_IN_WEEK, BIG_INT_ZERO } from 'constants/misc'
 import { Incentive } from 'hooks/incentives/useAllIncentives'
 import { useMemo, useState } from 'react'
 import { Zap } from 'react-feather'
@@ -12,10 +12,13 @@ import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components/macro'
 import { PositionDetails } from 'types/position'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
-import StakingModal, { ClaimModal, UnstakeModal } from './StakingModal'
+import StakingModal, { ClaimModal, UnstakeModal, WithdrawModal } from './StakingModal'
 import RangeStatus from 'components/RangeStatus'
 import { BigNumber } from '@ethersproject/bignumber'
 import { ThemedText } from 'theme'
+import { useV3Staker } from '../../hooks/useContract'
+import { useWeb3React } from '@web3-react/core'
+import { CurrencyAmount } from '@uniswap/sdk-core'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -37,28 +40,58 @@ interface BoostStatusRowProps {
 
 function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }: BoostStatusRowProps) {
   const theme = useTheme()
+  const { account } = useWeb3React()
 
   const rewardCurrency = incentive.initialRewardAmount.currency
+  const stakingContract = useV3Staker()
 
-  const availableClaim = incentive.initialRewardAmount
-  const weeklyRewards = incentive.initialRewardAmount
+  const weeklyRewards = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
   const totalUnclaimedUSD = 0
 
   const [showStakingModal, setShowStakingModal] = useState(false)
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false)
   const [showClaimModal, setShowClaimModal] = useState(false)
   const [showUnstakeModal, setShowUnstakeModal] = useState(false)
+  const [rewards, setRewards] = useState<BigNumber | undefined>()
+
+  if (stakingContract && incentive && account && !rewards) {
+
+    stakingContract
+      .getRewardInfo(
+        {
+          rewardToken: incentive.initialRewardAmount.currency.address,
+          pool: incentive.poolAddress,
+          startTime: incentive.startTime,
+          endTime: incentive.endTime,
+          refundee: incentive.refundee,
+        },
+        positionDetails.tokenId,
+        { gasLimit: 350000 }
+      )
+      .then((response: [BigNumber, BigNumber]) => {
+        setRewards(response[0])
+      })
+      .catch((error: any) => {
+        setRewards(BigNumber.from(0))
+        console.log(error)
+      })
+  }
 
   return (
     <>
-      <StakingModal isOpen={showStakingModal} onDismiss={() => setShowStakingModal(false)} incentive={incentive} />
-      <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} incentives={[incentive]} />
-      <UnstakeModal isOpen={showUnstakeModal} onDismiss={() => setShowUnstakeModal(false)} incentives={[incentive]} />
+      <StakingModal isOpen={showStakingModal} onDismiss={() => setShowStakingModal(false)} incentive={incentive} positionDetails={positionDetails}/>
+      <WithdrawModal isOpen={showWithdrawModal} onDismiss={() => setShowWithdrawModal(false)} incentive={incentive} positionDetails={positionDetails}/>
+      <ClaimModal isOpen={showClaimModal} onDismiss={() => setShowClaimModal(false)} incentive={incentive} positionDetails={positionDetails}/>
+      <UnstakeModal isOpen={showUnstakeModal} onDismiss={() => setShowUnstakeModal(false)} incentive={incentive} positionDetails={positionDetails}/>
       {unstaked ? (
         <PositionWrapper>
           <RowBetween>
             <RangeStatus positionDetails={positionDetails} />
             <ButtonSmall onClick={() => setShowStakingModal(true)}>
               <Trans>Stake Position</Trans>
+            </ButtonSmall>
+            <ButtonSmall onClick={() => setShowWithdrawModal(true)}>
+              <Trans>Withdraw from Staker</Trans>
             </ButtonSmall>
           </RowBetween>
         </PositionWrapper>
@@ -89,7 +122,13 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
                     <Trans>
                       {totalUnclaimedUSD
                         ? '$' + totalUnclaimedUSD
-                        : `${formatCurrencyAmount(availableClaim, 5)} ${rewardCurrency.symbol}`}
+                        : `${formatCurrencyAmount(
+                            CurrencyAmount.fromRawAmount(
+                              incentive.initialRewardAmount.currency,
+                              (rewards ?? 0).toString()
+                            ),
+                            5
+                          )} ${rewardCurrency.symbol}`}
                     </Trans>
                   </ThemedText.DeprecatedBody>
                   <Badge style={{ margin: '0 12px' }}>
@@ -100,7 +139,7 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
                   </Badge>
                 </RowFixed>
                 <AutoRow gap="8px" width="fit-content">
-                  {availableClaim.greaterThan(BIG_INT_ZERO) ? (
+                  {rewards?.gt(BigNumber.from(0)) ? (
                     <ButtonSmall onClick={() => setShowClaimModal(true)}>
                       <Trans>Claim</Trans>
                     </ButtonSmall>

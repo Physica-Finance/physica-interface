@@ -1,22 +1,19 @@
-import { AutoColumn } from '../../components/Column'
-import styled, { useTheme } from 'styled-components/macro'
-import { AutoRow, RowBetween, RowFixed } from '../../components/Row'
-import { CardSection, DataCard, CardBGImage, OverviewGrid } from '../../components/earn/styled'
-import { DarkCard } from '../../components/Card'
 import { Trans } from '@lingui/macro'
 import { GenericBadge } from 'components/Badge'
-import { Zap } from 'react-feather'
-import { useAllIncentivesByPool } from '../../hooks/incentives/useAllIncentives'
-import ProgramCard from '../../components/earn/ProgramCard'
 import Loader from 'components/Loader'
-import { ButtonGreySmall } from 'components/Button'
-import { ThemedText } from 'theme'
-import { Link } from 'react-router-dom'
-import { currencyId } from '../../utils/currencyId'
-import useTrendingPools2 from '../../graphql/physica/TrendingPools'
-import PositionListItem from '../../components/PositionListItem'
 import React from 'react'
+import { Zap } from 'react-feather'
+import styled, { useTheme } from 'styled-components/macro'
+import { ThemedText } from 'theme'
+
+import { DarkCard } from '../../components/Card'
+import { AutoColumn } from '../../components/Column'
+import ProgramCard from '../../components/earn/ProgramCard'
+import { CardBGImage, CardSection, DataCard, OverviewGrid } from '../../components/earn/styled'
 import PoolListItem from '../../components/PoolListItem'
+import { RowBetween, RowFixed } from '../../components/Row'
+import useTrendingPools2 from '../../graphql/physica/TrendingPools'
+import { useAllIncentivesByPool } from '../../hooks/incentives/useAllIncentives'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 840px;
@@ -56,7 +53,7 @@ export default function Stake() {
             <AutoColumn gap="md">
               <GenericBadge style={{ backgroundColor: theme.deprecated_blue4 }}>
                 <RowFixed>
-                  <Zap stroke={theme.deprecated_blue4} size="16px" strokeWidth={'3px'} />
+                  <Zap stroke={theme.deprecated_blue4} size="16px" strokeWidth="3px" />
                   <ThemedText.DeprecatedBody fontWeight={700} fontSize="12px" color={theme.deprecated_blue4} ml="4px">
                     Liquidity Mining
                   </ThemedText.DeprecatedBody>
@@ -119,10 +116,7 @@ export default function Stake() {
             {poolsLoading || !allPools ? (
               <Loader />
             ) : (
-              allPools.map((pool:any) => (
-                <PoolListItem key={pool.id.toString()} {...pool} />
-
-              ))
+              allPools.map((pool: any) => <PoolListItem key={pool.id.toString()} {...pool} />)
             )}
           </ProgramSection>
         </AutoColumn>

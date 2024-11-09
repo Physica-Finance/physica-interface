@@ -1,13 +1,13 @@
 import { CurrencyAmount, Token } from '@uniswap/sdk-core'
 import { Pool } from '@uniswap/v3-sdk'
-import { useMemo, useState } from 'react'
-import { useLogs } from '../../state/logs/hooks'
 import { useSingleContractMultipleData } from 'lib/hooks/multicall'
-import { useAllTokens, useCurrency, useToken } from '../Tokens'
+import { useMemo, useRef, useState } from 'react'
+
+import useAllIncentivesSubgraph from '../../graphql/physica/Incentives'
+import { useAllTokens, useToken } from '../Tokens'
 import { useV3Staker } from '../useContract'
 import { PoolState, usePoolsByAddresses } from '../usePools'
 import { incentiveKeyToIncentiveId } from './incentiveKeyToIncentiveId'
-import useAllIncentivesSubgraph from '../../graphql/physica/Incentives'
 
 export interface Incentive {
   id: string
@@ -56,7 +56,6 @@ export function useAllIncentives(): {
 
   const incentiveStates = useSingleContractMultipleData(staker, 'incentives', incentiveIds)
 
-
   // returns all the token addresses for which there are incentives
   // const tokenAddresses = useMemo(() => {
   //   return Object.keys(
@@ -84,18 +83,24 @@ export function useAllIncentives(): {
       return memo
     }, {})
   }, [subgraphIncentives, pools])
+
   const allTokens = useAllTokens()
 
   return useMemo(() => {
     if (loading || !pools || !subgraphIncentives || incentiveStates.some((s) => s.loading)) return { loading: true }
 
-
     return {
       loading: false,
       incentives: subgraphIncentives
         .map((result: any, ix: number): Incentive | null => {
-          let token = new Token(7070, result.rewardToken, 18, result.rewardToken.slice(0, 6)+"..."+result.rewardToken.slice(-4))
-          if(allTokens[result.rewardToken]) {
+          let token = new Token(
+            7070,
+            result.rewardToken,
+            18,
+            result.rewardToken.slice(0, 6) + '...' + result.rewardToken.slice(-4)
+          )
+
+          if (allTokens[result.rewardToken]) {
             token = allTokens[result.rewardToken]
           }
 
@@ -105,8 +110,7 @@ export function useAllIncentives(): {
           const [, pool] = poolMap[result.pool]
           // todo: currently we filter out any incentives for pools not containing tokens on the active lists
           if (!pool) return null
-          console.log(result.reward)
-          console.log(token)
+
           const initialRewardAmount = CurrencyAmount.fromRawAmount(token, result.reward)
           const rewardAmountRemaining = CurrencyAmount.fromRawAmount(token, state.totalRewardUnclaimed)
 
@@ -136,7 +140,7 @@ export function useAllIncentives(): {
             refundee,
           }
         })
-        .filter((x:any): x is Incentive => x !== null),
+        .filter((x: any): x is Incentive => x !== null),
     }
   }, [incentiveStates, poolMap])
 }
