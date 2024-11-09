@@ -25,6 +25,7 @@ import { TransactionType } from '../../state/transactions/types'
 import { PositionDetails } from '../../types/position'
 import Loader from '../Loader'
 import Countdown from './Countdown'
+import { useToken } from '../../hooks/Tokens'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -225,6 +226,7 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
   const [positionDeposited, setPositionDeposited] = useState(false)
   const weeklyRewards = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
   const weeklyRewardsUSD = useStablecoinValue(weeklyRewards)
+  const rewardCurrency = useToken(incentive.initialRewardAmount.currency.address)
 
   console.log(positionDetails)
   function wrappedOnDismiss() {
@@ -296,6 +298,7 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
 
   return (
     <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss}>
+      {!rewardCurrency ? (<Loader/>) : (
       <Wrapper>
         <AutoColumn gap="lg">
           <RowBetween>
@@ -308,11 +311,11 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
             <AutoColumn gap="md">
               <RowBetween>
                 <RowFixed>
-                  <CurrencyLogo currency={incentive.initialRewardAmount.currency} />
+                  <CurrencyLogo currency={rewardCurrency} />
                   <ThemedText.DeprecatedBody
                     m="0 12px"
                     fontSize="16px"
-                  >{`${incentive.initialRewardAmount.currency.symbol} Boost`}</ThemedText.DeprecatedBody>
+                  >{`${rewardCurrency.symbol} Boost`}</ThemedText.DeprecatedBody>
                 </RowFixed>
                 <Countdown exactEnd={endDate} exactStart={startDate} />
               </RowBetween>
@@ -330,7 +333,7 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
                   </span>
                 ) : (
                   <ThemedText.DeprecatedBody>{`${formatCurrencyAmount(weeklyRewards, 4)} ${
-                    weeklyRewards.currency.symbol
+                    rewardCurrency.symbol
                   } per week`}</ThemedText.DeprecatedBody>
                 )}
               </AutoColumn>
@@ -359,6 +362,7 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
           ) : (<Loader/>)}
         </AutoColumn>
       </Wrapper>
+      )}
     </Modal>
   )
 }

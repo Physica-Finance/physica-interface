@@ -1,28 +1,20 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Trans } from '@lingui/macro'
 import { Percent, Price, Token } from '@uniswap/sdk-core'
+import { parseFeeAmount } from '@uniswap/smart-order-router'
 import { FeeAmount, Position } from '@uniswap/v3-sdk'
 import Badge from 'components/Badge'
-import RangeBadge from 'components/Badge/RangeBadge'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
-import HoverInlineText from 'components/HoverInlineText'
-import Loader from 'components/Loader'
-import { RowBetween } from 'components/Row'
 import { useToken } from 'hooks/Tokens'
-import useIsTickAtLimit from 'hooks/useIsTickAtLimit'
 import { usePool } from 'hooks/usePools'
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { Bound } from 'state/mint/v3/actions'
 import styled, { css } from 'styled-components/macro'
-import { HideSmall, MEDIA_WIDTHS, SmallOnly } from 'theme'
-import { formatTickPrice } from 'utils/formatTickPrice'
+import { MEDIA_WIDTHS } from 'theme'
 import { unwrappedToken } from 'utils/unwrappedToken'
 import { hasURL } from 'utils/urlChecks'
 
 import { DAI, USDC_MAINNET, USDT, WBTC, WRAPPED_NATIVE_CURRENCY } from '../../constants/tokens'
-import { PoolQuery2 } from '../../graphql/physica/TrendingPools'
-import { parseFeeAmount } from '@uniswap/smart-order-router'
 import {
   LARGE_MEDIA_BREAKPOINT,
   MAX_WIDTH_MEDIA_BREAKPOINT,
@@ -30,22 +22,23 @@ import {
   SMALL_MEDIA_BREAKPOINT,
 } from '../Tokens/constants'
 
-
 const Cell = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `
-
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
 const DataCell = styled(Cell)<{ sortable: boolean }>`
   justify-content: flex-end;
   min-width: 80px;
   user-select: ${({ sortable }) => (sortable ? 'none' : 'unset')};
   transition: ${({
-   theme: {
-     transition: { duration, timing },
-   },
- }) => css`background-color ${duration.medium} ${timing.ease}`};
+    theme: {
+      transition: { duration, timing },
+    },
+  }) => css`background-color ${duration.medium} ${timing.ease}`};
 `
 
 const NameCell = styled(Cell)`
@@ -73,6 +66,7 @@ const LinkRow = styled(Link)`
   cursor: pointer;
   user-select: none;
   display: flex;
+  z-index: 1;
   flex-direction: column;
   justify-content: space-between;
   color: ${({ theme }) => theme.textPrimary};
@@ -129,25 +123,27 @@ const StyledTokenRow = styled.div<{
   padding-right: 12px;
   transition: ${({
     theme: {
-    transition: { duration, timing },
-   },
- }) => css`background-color ${duration.medium} ${timing.ease}`};
+      transition: { duration, timing },
+    },
+  }) => css`background-color ${duration.medium} ${timing.ease}`};
   width: 100%;
   transition-duration: ${({ theme }) => theme.transition.duration.fast};
 
- 
-
   @media only screen and (max-width: ${MAX_WIDTH_MEDIA_BREAKPOINT}) {
-      grid-template-columns: 1fr 4fr 4fr;  }
+    grid-template-columns: 1fr 4fr 4fr;
+  }
 
   @media only screen and (max-width: ${LARGE_MEDIA_BREAKPOINT}) {
-      grid-template-columns: 1fr 4fr 4fr;  }
+    grid-template-columns: 1fr 4fr 4fr;
+  }
 
   @media only screen and (max-width: ${MEDIUM_MEDIA_BREAKPOINT}) {
-      grid-template-columns: 1fr 4fr 4fr;  }
+    grid-template-columns: 1fr 4fr 4fr;
+  }
 
   @media only screen and (max-width: ${SMALL_MEDIA_BREAKPOINT}) {
-      grid-template-columns: 1fr 4fr 4fr;    min-width: unset;
+    grid-template-columns: 1fr 4fr 4fr;
+    min-width: unset;
     border-bottom: 0.5px solid ${({ theme }) => theme.backgroundModule};
 
     :last-of-type {
@@ -270,7 +266,7 @@ export function getPriceOrderingFromPositionForUI(position?: Position): {
   }
 }
 
-export default function PoolListItem(poolGraphql : any) {
+export default function PoolListItem(poolGraphql: any) {
   const token0 = useToken(poolGraphql?.token0.id)
   const token1 = useToken(poolGraphql?.token1.id)
 
@@ -278,10 +274,21 @@ export default function PoolListItem(poolGraphql : any) {
   const currency1 = token1 ? unwrappedToken(token1) : undefined
 
   // construct Position from details returned
-  const [poolState, pool] = usePool(currency0 ?? undefined, currency1 ?? undefined, parseFeeAmount(poolGraphql?.feeTier))
+  const [poolState, pool] = usePool(
+    currency0 ?? undefined,
+    currency1 ?? undefined,
+    parseFeeAmount(poolGraphql?.feeTier)
+  )
 
-
-  const positionSummaryLink = '/program?pool=' + poolGraphql?.id + '&token0=' + poolGraphql?.token0.id + '&token1=' + poolGraphql?.token1.id + '&fees=' + poolGraphql?.feeTier
+  const positionSummaryLink =
+    '/program?pool=' +
+    poolGraphql?.id +
+    '&token0=' +
+    poolGraphql?.token0.id +
+    '&token1=' +
+    poolGraphql?.token1.id +
+    '&fees=' +
+    poolGraphql?.feeTier
 
   const containsURL = useMemo(
     () =>
@@ -298,9 +305,9 @@ export default function PoolListItem(poolGraphql : any) {
 
   return (
     <LinkRow to={positionSummaryLink}>
-        <StyledTokenRow><>
+      <StyledTokenRow>
         <NameCell data-testid="tvsl-cell">
-          <DoubleCurrencyLogo currency0={pool?.token0} currency1={pool?.token1} size={18} margin />
+          <DoubleCurrencyLogo currency0={pool?.token0} currency1={pool?.token1} size={18} />
           <DataText>
             &nbsp;{pool?.token0?.symbol}&nbsp;/&nbsp;{pool?.token1?.symbol}
           </DataText>
@@ -312,18 +319,13 @@ export default function PoolListItem(poolGraphql : any) {
           </Badge>
         </NameCell>
 
-          <VolumeCell data-testid="tfvl-cell" sortable={false}>
-            ${parseFloat(poolGraphql?.volumeUSD).toFixed(2)}
-          </VolumeCell>
-          <TvlCell data-testid="tvl-cell" sortable={false}>
-            ${parseFloat(poolGraphql?.totalValueLockedUSD).toFixed(2)}
-          </TvlCell>
-        </>
-        </StyledTokenRow>
-
-
-
-
+        <VolumeCell data-testid="tfvl-cell" sortable={false}>
+          ${parseFloat(poolGraphql?.volumeUSD).toFixed(2)}
+        </VolumeCell>
+        <TvlCell data-testid="tvl-cell" sortable={false}>
+          ${parseFloat(poolGraphql?.totalValueLockedUSD).toFixed(2)}
+        </TvlCell>
+      </StyledTokenRow>
     </LinkRow>
   )
 }

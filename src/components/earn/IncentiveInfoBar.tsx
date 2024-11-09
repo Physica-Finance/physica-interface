@@ -1,18 +1,20 @@
-import Row, { RowBetween, RowFixed } from 'components/Row'
-import CurrencyLogo from 'components/Logo/CurrencyLogo'
-import { Incentive } from 'hooks/incentives/useAllIncentives'
-import styled, { useTheme } from 'styled-components/macro'
-import { darken, transparentize } from 'polished'
-import { useStablecoinValue } from 'hooks/useStablecoinPrice'
-import { BIG_INT_SECONDS_IN_WEEK } from 'constants/misc'
-import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
-import { unwrappedToken } from 'utils/unwrappedToken'
-import { EmptyBadge, GreenBadge } from 'components/Badge'
-import useCountdownTime from 'hooks/useCountdownTime'
-import { AutoColumn } from 'components/Column'
 import { Trans } from '@lingui/macro'
-import Countdown from './Countdown'
+import { EmptyBadge, GreenBadge } from 'components/Badge'
+import { AutoColumn } from 'components/Column'
+import CurrencyLogo from 'components/Logo/CurrencyLogo'
+import Row, { RowBetween, RowFixed } from 'components/Row'
+import { BIG_INT_SECONDS_IN_WEEK } from 'constants/misc'
+import { Incentive } from 'hooks/incentives/useAllIncentives'
+import useCountdownTime from 'hooks/useCountdownTime'
+import { useStablecoinValue } from 'hooks/useStablecoinPrice'
+import { darken, transparentize } from 'polished'
+import styled, { useTheme } from 'styled-components/macro'
+import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
+
+import { useToken } from '../../hooks/Tokens'
+import { LoadingRows } from '../../pages/Pool/styleds'
 import { ThemedText } from '../../theme'
+import Countdown from './Countdown'
 
 const Wrapper = styled.div`
   display: flex;
@@ -71,8 +73,7 @@ interface IncentiveInfoBarProps {
 export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoBarProps) {
   const theme = useTheme()
 
-  const rewardToken = incentive.initialRewardAmount.currency
-  const rewardCurrency = unwrappedToken(rewardToken)
+  const rewardCurrency = useToken(incentive.initialRewardAmount.currency.address)
 
   const rewardTokensPerWeek = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
 
@@ -90,77 +91,83 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
 
   return (
     <Wrapper>
-      <AutoColumn gap="24px" style={{ width: '100%' }}>
-        {!expanded ? null : (
-          <RowBetween>
-            <RowFixed>
-              <CurrencyLogo currency={rewardToken} size="24px" />
-              <ThemedText.DeprecatedBody fontWeight={500} fontSize="20px" m="0 8px">
-                {`${rewardCurrency.symbol} Boost`}
-              </ThemedText.DeprecatedBody>
-            </RowFixed>
-            <Countdown exactEnd={endDate} exactStart={startDate} />
-          </RowBetween>
-        )}
-        <Row width="100%">
-          {expanded ? null : (
-            <LogoSquare>
-              <CurrencyLogo currency={rewardToken} size="24px" />
-            </LogoSquare>
+      {!rewardCurrency ? (
+        <LoadingRows>
+          <div />
+        </LoadingRows>
+      ) : (
+        <AutoColumn gap="24px" style={{ width: '100%' }}>
+          {!expanded ? null : (
+            <RowBetween>
+              <RowFixed>
+                <CurrencyLogo currency={rewardCurrency} size="24px" />
+                <ThemedText.DeprecatedBody fontWeight={500} fontSize="20px" m="0 8px">
+                  {`${rewardCurrency.symbol} Boost`}
+                </ThemedText.DeprecatedBody>
+              </RowFixed>
+              <Countdown exactEnd={endDate} exactStart={startDate} />
+            </RowBetween>
           )}
-          <AutoColumn gap="8px" style={{ width: '100%' }}>
-            <TitleGrid>
-              <ThemedText.DeprecatedBody fontSize="11px" fontWeight={400} color={theme.textTertiary}>
-                <Trans>REWARDS REMAINING</Trans>
-              </ThemedText.DeprecatedBody>
-              <ThemedText.DeprecatedBody fontSize="11px" fontWeight={400} color={theme.textTertiary}>
-                <Trans>TOTAL DEPOSITS</Trans>
-              </ThemedText.DeprecatedBody>
-              <ThemedText.DeprecatedBody fontSize="11px" fontWeight={400} color={theme.textTertiary}>
-                <Trans>REWARDS</Trans>
-              </ThemedText.DeprecatedBody>
-            </TitleGrid>
-            <TitleGrid>
-              {beginsInFuture ? (
-                <RowFixed>
-                  <GreenBadge>
-                    <ThemedText.DeprecatedBody fontWeight={700} color={theme.deprecated_yellow2} fontSize="12px">
-                      <Trans>NEW</Trans>
-                    </ThemedText.DeprecatedBody>
-                  </GreenBadge>
-                  <ThemedText.DeprecatedMain fontSize="12px" fontStyle="italic" ml="8px">
-                    {countdownTimeText}
-                  </ThemedText.DeprecatedMain>
-                </RowFixed>
-              ) : (
-                <BarWrapper>
-                  <Bar percent={percentageRemaining} color={theme.textTertiary}>
-                    <RowFixed>
-                      <WrappedLogo currency={rewardCurrency} size="14px" />
-                      <ThemedText.DeprecatedBody fontSize="12px" fontWeight={600} ml="8px" mt="-2px">
-                        {percentageRemaining}% remaining
+          <Row width="100%">
+            {expanded ? null : (
+              <LogoSquare>
+                <CurrencyLogo currency={rewardCurrency} size="24px" />
+              </LogoSquare>
+            )}
+            <AutoColumn gap="8px" style={{ width: '100%' }}>
+              <TitleGrid>
+                <ThemedText.DeprecatedBody fontSize="11px" fontWeight={400} color={theme.textTertiary}>
+                  <Trans>REWARDS REMAINING</Trans>
+                </ThemedText.DeprecatedBody>
+                <ThemedText.DeprecatedBody fontSize="11px" fontWeight={400} color={theme.textTertiary}>
+                  <Trans>TOTAL DEPOSITS</Trans>
+                </ThemedText.DeprecatedBody>
+                <ThemedText.DeprecatedBody fontSize="11px" fontWeight={400} color={theme.textTertiary}>
+                  <Trans>REWARDS</Trans>
+                </ThemedText.DeprecatedBody>
+              </TitleGrid>
+              <TitleGrid>
+                {beginsInFuture ? (
+                  <RowFixed>
+                    <GreenBadge>
+                      <ThemedText.DeprecatedBody fontWeight={700} color={theme.deprecated_yellow2} fontSize="12px">
+                        <Trans>NEW</Trans>
                       </ThemedText.DeprecatedBody>
-                    </RowFixed>
-                  </Bar>
-                </BarWrapper>
-              )}
-              <EmptyBadge style={{ borderRadius: '16px' }}>
-                <BadgeText fontWeight={700} fontSize="14px">
-                  $58,022
-                </BadgeText>
-              </EmptyBadge>
-              <EmptyBadge style={{ borderRadius: '16px' }}>
-                <BadgeText fontWeight={700} fontSize="14px">
-                  {usdPerWeek
-                    ? `$${formatCurrencyAmount(usdPerWeek, 2)}`
-                    : `${formatCurrencyAmount(rewardTokensPerWeek, 3)} ${rewardToken.symbol}`}{' '}
-                  Weekly
-                </BadgeText>
-              </EmptyBadge>
-            </TitleGrid>
-          </AutoColumn>
-        </Row>
-      </AutoColumn>
+                    </GreenBadge>
+                    <ThemedText.DeprecatedMain fontSize="12px" fontStyle="italic" ml="8px">
+                      {countdownTimeText}
+                    </ThemedText.DeprecatedMain>
+                  </RowFixed>
+                ) : (
+                  <BarWrapper>
+                    <Bar percent={percentageRemaining} color={theme.textTertiary}>
+                      <RowFixed>
+                        <WrappedLogo currency={rewardCurrency} size="14px" />
+                        <ThemedText.DeprecatedBody fontSize="12px" fontWeight={600} ml="8px" mt="-2px">
+                          {percentageRemaining}% remaining
+                        </ThemedText.DeprecatedBody>
+                      </RowFixed>
+                    </Bar>
+                  </BarWrapper>
+                )}
+                <EmptyBadge style={{ borderRadius: '16px' }}>
+                  <BadgeText fontWeight={700} fontSize="14px">
+                    $58,022
+                  </BadgeText>
+                </EmptyBadge>
+                <EmptyBadge style={{ borderRadius: '16px' }}>
+                  <BadgeText fontWeight={700} fontSize="14px">
+                    {usdPerWeek
+                      ? `$${formatCurrencyAmount(usdPerWeek, 2)}`
+                      : `${formatCurrencyAmount(rewardTokensPerWeek, 3)} ${rewardCurrency.symbol}`}{' '}
+                    Weekly
+                  </BadgeText>
+                </EmptyBadge>
+              </TitleGrid>
+            </AutoColumn>
+          </Row>
+        </AutoColumn>
+      )}
     </Wrapper>
   )
 }

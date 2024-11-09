@@ -1,38 +1,33 @@
 import { TransactionResponse } from '@ethersproject/providers'
-import { Currency, Percent, Token } from '@uniswap/sdk-core'
-import { computePoolAddress, FeeAmount, Pool, toHex } from '@uniswap/v3-sdk'
+import { Trans } from '@lingui/macro'
+import { Currency, Percent } from '@uniswap/sdk-core'
+import { parseFeeAmount } from '@uniswap/smart-order-router'
+import { FeeAmount, toHex } from '@uniswap/v3-sdk'
 import { useWeb3React } from '@web3-react/core'
 import { ButtonPrimary } from 'components/Button'
-import { BlueCard, DarkCard, DarkGrayCard, GrayCard } from 'components/Card'
+import { DarkGrayCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import CurrencyInputPanel from 'components/CurrencyInputPanel'
-import FeeSelector from 'components/FeeSelector'
 import { V3_CORE_FACTORY_ADDRESSES } from 'constants/addresses'
 import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 import { useV3Staker } from 'hooks/useContract'
 import tryParseCurrencyAmount from 'lib/utils/tryParseCurrencyAmount'
+import { ParsedQs } from 'qs'
 import { ChangeEventHandler, useCallback, useMemo, useState } from 'react'
 import { useTransactionAdder } from 'state/transactions/hooks'
-
-import { TransactionType } from '../../state/transactions/types'
-import { queryParametersToSwapState, useDefaultsFromURLSearch } from '../../state/swap/hooks'
-import useParsedQueryString from '../../hooks/useParsedQueryString'
-import { ParsedQs } from 'qs'
-import { SwapState } from '../../state/swap/reducer'
-import { Field } from '../../state/swap/actions'
-import { isAddress } from '../../utils'
-import { TOKEN_SHORTHANDS } from '../../constants/tokens'
-import { usePool, usePools } from '../../hooks/usePools'
-import { parseFeeAmount } from '@uniswap/smart-order-router'
-import DoubleCurrencyLogo from '../../components/DoubleLogo'
-import Badge from '../../components/Badge'
-import { Trans } from '@lingui/macro'
 import styled from 'styled-components/macro'
-import { RowFixed, RowFlat } from '../../components/Row'
-import { useCurrency } from '../../hooks/Tokens'
-import { Text } from 'rebass'
-import { FixedHeightRow, StyledPositionCard } from '../../components/PositionCard'
+
+import Badge from '../../components/Badge'
+import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { CardNoise } from '../../components/earn/styled'
+import { FixedHeightRow, StyledPositionCard } from '../../components/PositionCard'
+import { RowFixed, RowFlat } from '../../components/Row'
+import { TOKEN_SHORTHANDS } from '../../constants/tokens'
+import { useCurrency } from '../../hooks/Tokens'
+import useParsedQueryString from '../../hooks/useParsedQueryString'
+import { usePools } from '../../hooks/usePools'
+import { TransactionType } from '../../state/transactions/types'
+import { isAddress } from '../../utils'
 
 function dateTimeToUnixSeconds(dateTimeString: string, timezoneOffset: number): number {
   return Math.floor((new Date(dateTimeString).getTime() + timezoneOffset) / 1000)
@@ -55,7 +50,6 @@ const BadgeText = styled.div`
   `};
 `
 
-
 function parseCurrencyFromURLParameter(urlParam: ParsedQs[string]): string {
   if (typeof urlParam === 'string') {
     const valid = isAddress(urlParam)
@@ -73,9 +67,9 @@ function parseTokenAmountURLParameter(urlParam: any): string {
 
 function queryParametersToPoolState(parsedQs: ParsedQs) {
   let poolId = parseCurrencyFromURLParameter(parsedQs.pool)
-  let token0 = parseCurrencyFromURLParameter(parsedQs.token0)
-  let token1 = parseCurrencyFromURLParameter(parsedQs.token1)
-  let fees = parseTokenAmountURLParameter(parsedQs.fees)
+  const token0 = parseCurrencyFromURLParameter(parsedQs.token0)
+  const token1 = parseCurrencyFromURLParameter(parsedQs.token1)
+  const fees = parseTokenAmountURLParameter(parsedQs.fees)
 
   if (poolId === '') {
     // Defaults to having the native currency selected
@@ -83,7 +77,10 @@ function queryParametersToPoolState(parsedQs: ParsedQs) {
   }
 
   return {
-    poolId, token0, token1, fees
+    poolId,
+    token0,
+    token1,
+    fees,
   }
 }
 
@@ -92,15 +89,14 @@ export default function CreateIncentive() {
   const parsedPoolState = useMemo(() => {
     return queryParametersToPoolState(parsedQs)
   }, [parsedQs])
-  let poolId = parsedPoolState.poolId
+  const poolId = parsedPoolState.poolId
 
   const { account, chainId } = useWeb3React()
 
   const staker = useV3Staker()
   const currencyA = useCurrency(parsedPoolState.token0)
   const currencyB = useCurrency(parsedPoolState.token1)
-  const [,pool] = usePools([[currencyA!, currencyB!, parseFeeAmount(parsedPoolState.fees)]])[0]
-
+  const [, pool] = usePools([[currencyA!, currencyB!, parseFeeAmount(parsedPoolState.fees)]])[0]
 
   const [refundee, setRefundee] = useState<string | undefined>(account ?? '')
 
@@ -117,13 +113,13 @@ export default function CreateIncentive() {
   const addTransaction = useTransactionAdder()
 
   const poolAddress = parsedPoolState.poolId
-  let currentDate = new Date(Date.now())
-  let timezoneOffset = currentDate.getTimezoneOffset() * -60000
-  let startDate = new Date(Date.now()+1000*60*10 + timezoneOffset)
+  const currentDate = new Date(Date.now())
+  const timezoneOffset = currentDate.getTimezoneOffset() * -60000
+  const startDate = new Date(Date.now() + 1000 * 60 * 10 + timezoneOffset)
 
   const [startTime, setStartTime] = useState<string>(startDate.toISOString().slice(0, -8))
-  let endDate = new Date(Date.now()+1000*60*60*24*30+1000*60*10+timezoneOffset)
-
+  const endDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 + 1000 * 60 * 10 + timezoneOffset)
+  const [attempting, setAttempting] = useState(false)
   const [endTime, setEndTime] = useState<string>(endDate.toISOString().slice(0, -8))
 
   const handleCreate = async () => {
@@ -138,13 +134,14 @@ export default function CreateIncentive() {
       refundee &&
       poolAddress
     ) {
+      setAttempting(true)
       staker
         .createIncentive(
           {
             rewardToken: currencyC.wrapped.address,
             pool: poolAddress,
-            startTime: dateTimeToUnixSeconds(startTime,0),
-            endTime: dateTimeToUnixSeconds(endTime,0),
+            startTime: dateTimeToUnixSeconds(startTime, 0),
+            endTime: dateTimeToUnixSeconds(endTime, 0),
             refundee,
           },
           toHex(rewardAmount.quotient)
@@ -157,6 +154,7 @@ export default function CreateIncentive() {
           })
         })
         .catch((error: any) => {
+          setAttempting(false)
           console.log(error)
         })
     } else {
@@ -173,93 +171,74 @@ export default function CreateIncentive() {
 
   return (
     <AutoColumn gap="lg" justify="center">
-    <StyledPositionCard border={"#FFFFFF"} bgColor={"#FFFFFF"}>
-      <CardNoise />
-    <AutoColumn gap="30px">
-      <FixedHeightRow>
-        <RowFixed>
-          <DataText>
-            <div>Incentivize Pool</div>
-          </DataText>
-        </RowFixed>
-      </FixedHeightRow>
+      <StyledPositionCard border="#FFFFFF" bgColor="#FFFFFF">
+        <CardNoise />
+        <AutoColumn gap="30px">
+          <FixedHeightRow>
+            <RowFixed>
+              <DataText>
+                <div>Incentivize Pool</div>
+              </DataText>
+            </RowFixed>
+          </FixedHeightRow>
 
-      <RowFlat>
-        <DoubleCurrencyLogo
-          currency0={pool?.token0}
-          currency1={pool?.token1}
-          size={18}
-          margin
-        />
-        <DataText>
-          &nbsp;{pool?.token0?.symbol}&nbsp;/&nbsp;{pool?.token1?.symbol}
-        </DataText>
-        &nbsp;
-        <Badge>
-          <BadgeText>
-            <Trans>
-              {new Percent(
-                pool?.fee ?? FeeAmount.LOWEST,
-                1_000_000
-              ).toSignificant()}
-              %
-            </Trans>
-          </BadgeText>
-        </Badge>
-      </RowFlat>
-      <AutoColumn gap="4px">
-        <div>Reward Token</div>
-        <CurrencyInputPanel
-          value={rewardTyped}
-          currency={currencyC ?? null}
-          onUserInput={(val) => {
-            setRewardTyped(val);
-          }}
-          hideInput={false}
-          showMaxButton={false}
-          onCurrencySelect={(currency) => {
-            setCurrencyC(currency);
-          }}
-          id="token-select-b"
-        />
-      </AutoColumn>
-      <DarkGrayCard>
-        <AutoColumn gap="4px">
-          <div>Start time</div>
-          <input
-            type="datetime-local"
-            value={startTime}
-            onChange={handleChangeStartTime}
-            style={{ width: "400px" }}
-          />
+          <RowFlat>
+            <DoubleCurrencyLogo currency0={pool?.token0} currency1={pool?.token1} size={18} margin />
+            <DataText>
+              &nbsp;{pool?.token0?.symbol}&nbsp;/&nbsp;{pool?.token1?.symbol}
+            </DataText>
+            &nbsp;
+            <Badge>
+              <BadgeText>
+                <Trans>{new Percent(pool?.fee ?? FeeAmount.LOWEST, 1_000_000).toSignificant()}%</Trans>
+              </BadgeText>
+            </Badge>
+          </RowFlat>
+          <AutoColumn gap="4px">
+            <div>Reward Token</div>
+            <CurrencyInputPanel
+              value={rewardTyped}
+              currency={currencyC ?? null}
+              onUserInput={(val) => {
+                setRewardTyped(val)
+              }}
+              hideInput={false}
+              showMaxButton={false}
+              onCurrencySelect={(currency) => {
+                setCurrencyC(currency)
+              }}
+              id="token-select-b"
+            />
+          </AutoColumn>
+          <DarkGrayCard>
+            <AutoColumn gap="4px">
+              <div>Start time</div>
+              <input
+                type="datetime-local"
+                value={startTime}
+                onChange={handleChangeStartTime}
+                style={{ width: '400px' }}
+              />
+            </AutoColumn>
+          </DarkGrayCard>
+          <DarkGrayCard>
+            <AutoColumn gap="4px">
+              <div>End time</div>
+              <input type="datetime-local" value={endTime} onChange={handleChangeEndTime} style={{ width: '400px' }} />
+            </AutoColumn>
+          </DarkGrayCard>
+          <AutoColumn gap="4px">
+            <div>Refund Address</div>
+            <input disabled={true} type="text" value={account} onChange={(e) => setRefundee(e.target.value)} />
+          </AutoColumn>
+          {approval === ApprovalState.APPROVED ? null : (
+            <ButtonPrimary onClick={approveCallback}>Approve</ButtonPrimary>
+          )}
+          <ButtonPrimary disabled={approval !== ApprovalState.APPROVED || attempting} onClick={handleCreate}>
+            Create
+          </ButtonPrimary>
         </AutoColumn>
-      </DarkGrayCard>
-      <DarkGrayCard>
-        <AutoColumn gap="4px">
-          <div>End time</div>
-          <input
-            type="datetime-local"
-            value={endTime}
-            onChange={handleChangeEndTime}
-            style={{ width: "400px" }}
-          />
-        </AutoColumn>
-      </DarkGrayCard>
-      <AutoColumn gap="4px">
-        <div>Refund Address</div>
-        <input disabled={true} type={"text"} value={account} onChange={(e) => setRefundee(e.target.value)} />
-      </AutoColumn>
-      {approval === ApprovalState.APPROVED ? null : (
-        <ButtonPrimary onClick={approveCallback}>Approve</ButtonPrimary>
-      )}
-      <ButtonPrimary
-        disabled={approval !== ApprovalState.APPROVED}
-        onClick={handleCreate}
-      >
-        Create
-      </ButtonPrimary>
+      </StyledPositionCard>
     </AutoColumn>
-    </StyledPositionCard>
-    </AutoColumn>
-  );
+  )
 }

@@ -9,21 +9,20 @@ import IncentiveInfoBar from 'components/earn/IncentiveInfoBar'
 import PositionManageCard from 'components/earn/PositionManageCard'
 import Loader from 'components/Loader'
 import { RowBetween, RowFixed } from 'components/Row'
-import { useIncentivesForPool } from 'hooks/incentives/useAllIncentives'
-import { PoolState, usePoolsByAddresses } from 'hooks/usePools'
+import { Incentive, useIncentivesForPool } from 'hooks/incentives/useAllIncentives'
+import { usePoolsByAddresses } from 'hooks/usePools'
 import { useV3PositionsForPool, useV3StakerPositionsForPool } from 'hooks/useV3Positions'
 import { LoadingRows } from 'pages/Pool/styleds'
+import { useMemo, useState } from 'react'
 import { AlertCircle } from 'react-feather'
 import { Link, useParams } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components/macro'
 import { HoverText, ThemedText } from 'theme'
 import { formattedFeeAmount } from 'utils'
 import { currencyId } from 'utils/currencyId'
-import { unwrappedToken } from 'utils/unwrappedToken'
-import { useCurrency, useToken } from '../../hooks/Tokens'
-import { useEffect } from 'react'
+
+import { useToken } from '../../hooks/Tokens'
 import { useV3Staker } from '../../hooks/useContract'
-import { useStakedPositionsSubgraph } from '../../graphql/physica/Incentives'
 
 const Wrapper = styled.div`
   max-width: 840px;
@@ -31,7 +30,8 @@ const Wrapper = styled.div`
 `
 export default function Manage() {
   const { poolAddress } = useParams<{ poolAddress?: string }>()
-
+  const { incentiveId } = useParams<{ incentiveId?: string }>()
+  const [incentive, setIncentive] = useState<Incentive | undefined>()
   const theme = useTheme()
   const { account, chainId } = useWeb3React()
 
@@ -44,10 +44,19 @@ export default function Manage() {
   // all incentive programs for this pool
   const { loading, incentives } = useIncentivesForPool(poolAddress)
   //const { loading: subgraphPositionsLoading, data: subgraphPositions} = useStakedPositionsSubgraph(account ?? "")
+  useMemo(() => {
+    if (incentiveId && incentives) {
+      setIncentive(incentives.find((i) => i.id === incentiveId))
+    }
+  }, [incentiveId, incentives])
 
   // all users positions for this pool
   const { loading: loadingPositions, inRangePositions } = useV3PositionsForPool(account, pool!)
-  const { loading: loadingStakerPositions, inRangePositions: inRangeStakerPositions } = useV3StakerPositionsForPool(staker?.address, pool!, account)
+  const { loading: loadingStakerPositions, inRangePositions: inRangeStakerPositions } = useV3StakerPositionsForPool(
+    staker?.address,
+    pool!,
+    account
+  )
 
   if (!pool || !currency0 || !currency1 || loading || loadingStakerPositions) {
     return (
@@ -99,14 +108,12 @@ export default function Manage() {
             </ButtonGreySmall>
           </RowFixed>
         </RowBetween>
-        {!incentives ? (
+        {!incentives || !incentive ? (
           <ThemedText.DeprecatedBody>No incentives on this pool yet </ThemedText.DeprecatedBody>
         ) : (
-          incentives.slice(0, 1).map((incentive) => (
-            <DarkGrayCard key={incentive.poolAddress} padding="24px">
-              <IncentiveInfoBar incentive={incentive} expanded={true} />
-            </DarkGrayCard>
-          ))
+          <DarkGrayCard key={incentive.poolAddress} padding="24px">
+            <IncentiveInfoBar incentive={incentive} expanded={true} />
+          </DarkGrayCard>
         )}
         <AutoColumn gap="16px">
           <ThemedText.DeprecatedBody fontWeight={600} fontSize="18px">
@@ -117,16 +124,17 @@ export default function Manage() {
           ) : !inRangePositions ? (
             <ThemedText.DeprecatedBody>No positions on this pool</ThemedText.DeprecatedBody>
           ) : (
-            inRangePositions.map((p, i) => <PositionManageCard key={'position-manage-' + i} positionDetails={p} />)
+            inRangePositions.map((p, i) => <PositionManageCard key={'position-manage-' + i} positionDetails={p} incentive={incentive} />)
           )}
           {loadingStakerPositions ? (
             <Loader />
           ) : !inRangeStakerPositions ? (
             <ThemedText.DeprecatedBody>No positions on this pool</ThemedText.DeprecatedBody>
           ) : (
-            inRangeStakerPositions.map((p, i) => <PositionManageCard key={'position-manage-' + i} positionDetails={p} />)
+            inRangeStakerPositions.map((p, i) => (
+              <PositionManageCard key={'position-manage-' + i} positionDetails={p} />
+            ))
           )}
-
         </AutoColumn>
         <DarkGrayCard>
           <RowBetween>

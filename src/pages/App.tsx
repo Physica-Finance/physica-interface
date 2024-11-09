@@ -221,7 +221,7 @@ export default function App() {
                 <Route path="create-proposal" element={<Navigate to="/vote/create-proposal" replace />} />
                 <Route path="/claim" element={<ClaimPopup />} />
                 <Route path="/stake" element={<Stake />} />
-                <Route path="/stake/:poolAddress" element={<Manage />} />
+                <Route path="/stake/:poolAddress/:incentiveId" element={<Manage />} />
 
                 <Route path="program" element={<CreateIncentive />} />
                 <Route path="send" element={<RedirectPathToSwapOnly />} />

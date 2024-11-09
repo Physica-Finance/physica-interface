@@ -17,6 +17,7 @@ export const BIG_INT_ZERO = JSBI.BigInt(0)
 const BIPS_BASE = JSBI.BigInt(10000)
 export const ONE_BIPS = new Percent(JSBI.BigInt(1), BIPS_BASE)
 export const BIG_INT_SECONDS_IN_WEEK = JSBI.BigInt(60 * 60 * 24 * 7)
+export const BIG_INT_SECONDS_IN_DAY = JSBI.BigInt(60 * 60 * 24)
 
 // used for warning states
 export const ALLOWED_PRICE_IMPACT_LOW: Percent = new Percent(JSBI.BigInt(100), BIPS_BASE) // 1%

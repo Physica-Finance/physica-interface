@@ -1,28 +1,23 @@
 import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
-import Badge, { BlueBadge, GreenBadge } from 'components/Badge'
+import Badge from 'components/Badge'
 import { ButtonSmall } from 'components/Button'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import CurrencyLogo from 'components/Logo/CurrencyLogo'
 import { RowFixed } from 'components/Row'
-import { BIG_INT_SECONDS_IN_WEEK } from 'constants/misc'
-import { BigNumber } from 'ethers'
-import { usePoolsByAddresses } from 'hooks/usePools'
+import { BIG_INT_SECONDS_IN_DAY, BIG_INT_SECONDS_IN_WEEK } from 'constants/misc'
 import { useStablecoinValue } from 'hooks/useStablecoinPrice'
-import { useV3PositionsForPool } from 'hooks/useV3Positions'
 import { LoadingRows } from 'pages/Pool/styleds'
-import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components/macro'
 import { ThemedText } from 'theme'
 import { formattedFeeAmount } from 'utils'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
-import { unwrappedToken } from 'utils/unwrappedToken'
 
 import { Incentive } from '../../hooks/incentives/useAllIncentives'
-import { CardNoise, CardWrapper, LightCardWrapper } from './styled'
-import { OverviewGrid } from './styled'
 import { useCurrency } from '../../hooks/Tokens'
+import { CardNoise, LightCardWrapper } from './styled'
+import { OverviewGrid } from './styled'
 
 interface ProgramCardProps {
   poolAddress: string
@@ -37,50 +32,20 @@ const ExtentsText = styled.span`
     display: none;
   `};
 `
-// Overview all all incentive programs for a given pool
-export default function ProgramCard({ poolAddress, incentives }: ProgramCardProps) {
+
+function IncentiveRow(incentive: Incentive, poolAddress: string) {
   const theme = useTheme()
-  const { account } = useWeb3React()
-  const [, pool] = usePoolsByAddresses([poolAddress])[0]
 
-  const currency0 = pool ? useCurrency(pool.token0.address) : undefined
-  const currency1 = pool ? useCurrency(pool.token1.address) : undefined
-
-
-  const { inRangePositions } = useV3PositionsForPool(account, pool!)
-
-  const [amountBoosted, amountAvailable] = useMemo(() => {
-    if (!inRangePositions) {
-      return [0, 0]
-    }
-    // loop through all stakes - count # where liquidity is > 0
-    return inRangePositions.reduce(
-      (accum, position) => {
-        position.stakes.map((stake) => {
-          if (incentives.includes(stake.incentive) && stake.liquidity.gt(BigNumber.from(0))) {
-            accum[0]++
-          } else {
-            accum[1]++
-          }
-        })
-        return accum
-      },
-      [0, 0]
-    )
-  }, [incentives, inRangePositions])
-
-  /**
-   * @todo
-   */
-  const rewardCurrency = incentives[0].initialRewardAmount.currency
-  const activeLiquidity = incentives[0].initialRewardAmount
+  const currency0 = useCurrency(incentive.pool.token0.address)
+  const currency1 = useCurrency(incentive.pool.token1.address)
+  const rewardCurrency = incentive.initialRewardAmount.currency
+  const activeLiquidity = incentive.initialRewardAmount
   const activeLiquidityUSD = useStablecoinValue(activeLiquidity)
-  const rewardPerDay = incentives[0].rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
-
+  const rewardPerDay = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_DAY)
   return (
     <LightCardWrapper>
-    <CardNoise />
-      {!pool || !currency0 || !currency1 ? (
+      <CardNoise />
+      {!currency0 || !currency1 ? (
         <LoadingRows>
           <div />
         </LoadingRows>
@@ -91,23 +56,7 @@ export default function ProgramCard({ poolAddress, incentives }: ProgramCardProp
             <ThemedText.DeprecatedBody fontWeight={600} fontSize="20px" m="0 8px">
               {`${currency0.symbol} / ${currency1.symbol}`}
             </ThemedText.DeprecatedBody>
-            <Badge>{formattedFeeAmount(pool.fee)}%</Badge>
-            <RowFixed>
-              {amountBoosted > 0 ? (
-                <BlueBadge>
-                  <ThemedText.DeprecatedBody fontWeight={700} fontSize="12px" color={theme.deprecated_blue4}>
-                    {amountBoosted} <Trans>Boosted</Trans>
-                  </ThemedText.DeprecatedBody>
-                </BlueBadge>
-              ) : null}
-              {amountAvailable > 0 ? (
-                <GreenBadge style={{ marginLeft: '8px' }}>
-                  <ThemedText.DeprecatedBody fontWeight={700} fontSize="12px" color={theme.deprecated_yellow2}>
-                    {amountAvailable} <Trans>Available</Trans>
-                  </ThemedText.DeprecatedBody>
-                </GreenBadge>
-              ) : null}
-            </RowFixed>
+            <Badge>{formattedFeeAmount(incentive.pool.fee)}%</Badge>
           </RowFixed>
           <ExtentsText>
             {activeLiquidityUSD
@@ -116,15 +65,55 @@ export default function ProgramCard({ poolAddress, incentives }: ProgramCardProp
           </ExtentsText>
           <RowFixed>
             <CurrencyLogo currency={rewardCurrency} size="16px" />
-            <ExtentsText>{`${formatCurrencyAmount(rewardPerDay, 4)} ${
-              rewardCurrency.symbol
-            } / day`}</ExtentsText>
+            <ExtentsText>{`${formatCurrencyAmount(rewardPerDay, 4)} ${rewardCurrency.symbol} / day`}</ExtentsText>
           </RowFixed>
-          <ButtonSmall as={Link} to={'/stake/' + poolAddress}>
+          <ButtonSmall as={Link} to={'/stake/' + incentive.poolAddress + '/' + incentive.id}>
             <Trans>Manage</Trans>
           </ButtonSmall>
         </OverviewGrid>
       )}
     </LightCardWrapper>
+  )
+}
+
+/*
+ <ExtentsText>
+        {activeLiquidityUSD
+          ? `$${formatCurrencyAmount(activeLiquidityUSD, 2)}`
+          : `${formatCurrencyAmount(activeLiquidity, 4)} ${rewardCurrency.symbol}`}
+      </ExtentsText>
+ */
+
+// Overview all all incentive programs for a given pool
+export default function ProgramCard({ poolAddress, incentives }: ProgramCardProps) {
+  const theme = useTheme()
+  const { account } = useWeb3React()
+
+  /**
+   * @todo
+   */
+  const rewardCurrency = incentives[0].initialRewardAmount.currency
+  const activeLiquidity = incentives[0].initialRewardAmount
+  const activeLiquidityUSD = useStablecoinValue(activeLiquidity)
+  const rewardPerDay = incentives[0].rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
+
+  return (
+    <>
+      {incentives.map((incentive: Incentive) => (
+        <IncentiveRow
+          key={incentive.id}
+          incentive={incentive}
+          poolAddress={poolAddress}
+          endTime={incentive.endTime}
+          id={incentive.id}
+          initialRewardAmount={incentive.initialRewardAmount}
+          pool={incentive.pool}
+          refundee={incentive.refundee}
+          rewardAmountRemaining={incentive.rewardAmountRemaining}
+          rewardRatePerSecond={incentive.rewardRatePerSecond}
+          startTime={incentive.startTime}
+        />
+      ))}
+    </>
   )
 }
