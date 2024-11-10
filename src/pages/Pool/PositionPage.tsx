@@ -676,7 +676,7 @@ export function PositionPage() {
                   </ThemedText.DeprecatedBody>
                 </RowFixed>
                 <RowFixed>
-                  <ButtonSmall padding="2px 8px" as={Link} to={'/stake/' + poolAddress} style={{ marginLeft: '12px' }}>
+                  <ButtonSmall padding="2px 8px" as={Link} to={'/stake'} style={{ marginLeft: '12px' }}>
                     <Trans>Stake</Trans>
                   </ButtonSmall>
                 </RowFixed>
