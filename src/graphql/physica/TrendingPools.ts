@@ -7,7 +7,7 @@ import { apolloClient } from '../thegraph/apollo'
 
 export const TRENDING_POOLS_QUERY = gql`
   query TrendingPool2 {
-    pools(first: 100, orderBy: volumeUSD, orderDirection: desc) {
+    pools(first: 100, orderBy: totalValueLockedUSD, orderDirection: desc) {
       liquidity
       token0 {
         decimals
