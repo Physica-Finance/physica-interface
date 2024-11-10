@@ -81,7 +81,7 @@ export default function Stake() {
             </ThemedText.DeprecatedBody>
           </OverviewGrid>
           <ProgramSection>
-            {loading ? (
+            {loading || poolsLoading ? (
               <Loader />
             ) : !incentives ? (
               <ThemedText.DeprecatedBody>
