@@ -163,14 +163,16 @@ export default function StakingModal({ isOpen, onDismiss, incentive, positionDet
           <DarkerGreyCard>
             <AutoColumn gap="md">
               <RowBetween>
-                {!rewardCurrency ? (<Loader />) : (
-                <RowFixed>
-                  <CurrencyLogo currency={rewardCurrency} />
-                  <ThemedText.DeprecatedBody
-                    m="0 12px"
-                    fontSize="16px"
-                  >{`${rewardCurrency.symbol} Boost`}</ThemedText.DeprecatedBody>
-                </RowFixed>
+                {!rewardCurrency ? (
+                  <Loader />
+                ) : (
+                  <RowFixed>
+                    <CurrencyLogo currency={rewardCurrency} />
+                    <ThemedText.DeprecatedBody
+                      m="0 12px"
+                      fontSize="16px"
+                    >{`${rewardCurrency.symbol} Boost`}</ThemedText.DeprecatedBody>
+                  </RowFixed>
                 )}
                 <Countdown exactEnd={endDate} exactStart={startDate} />
               </RowBetween>
@@ -186,12 +188,12 @@ export default function StakingModal({ isOpen, onDismiss, incentive, positionDet
                       4
                     )})`}</ThemedText.DeprecatedBody>
                   </span>
+                ) : !rewardCurrency ? (
+                  <Loader />
                 ) : (
-                  !rewardCurrency ? (<Loader />) : (
                   <ThemedText.DeprecatedBody>{`${formatCurrencyAmount(weeklyRewards, 4)} ${
                     rewardCurrency.symbol
                   } per week`}</ThemedText.DeprecatedBody>
-                  )
                 )}
               </AutoColumn>
             </AutoColumn>
@@ -231,7 +233,6 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
   const weeklyRewards = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
   const weeklyRewardsUSD = useStablecoinValue(weeklyRewards)
   const rewardCurrency = useToken(incentive.initialRewardAmount.currency.address)
-
 
   function wrappedOnDismiss() {
     setHash(undefined)
@@ -418,7 +419,6 @@ export function ClaimModal({ incentive, isOpen, onDismiss, positionDetails }: Cl
       .then((response: [BigNumber, BigNumber]) => {
         setRewards(response[0])
         setRewardsChecked(true)
-
       })
       .catch((error: any) => {
         setRewards(BigNumber.from(0))
@@ -526,32 +526,33 @@ export function ClaimModal({ incentive, isOpen, onDismiss, positionDetails }: Cl
             </ThemedText.DeprecatedBody>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
-          {!rewardCurrency ? (<Loader />) : (<DarkerGreyCard>
-            <AutoColumn gap="md" justify="center">
-              <ThemedText.DeprecatedBody ml="12px" fontSize="11px" fontWeight={400}>
-                {claimConfirmed ? <Trans>CLAIMED REWARDS</Trans> : <Trans>TOTAL UNCLAIMED REWARDS</Trans>}
-              </ThemedText.DeprecatedBody>
-              <AutoRow gap="8px" key="reward-row" width="fit-content">
-                <CurrencyLogo currency={rewardCurrency} size="24px" />
-                <ThemedText.DeprecatedBody fontSize="20px" fontWeight={500}>
-                  {claimPending ? (
-                    <Loader />
-                  ) : (
-                    formatCurrencyAmount(
-                      CurrencyAmount.fromRawAmount(
-                        rewardCurrency,
-                        rewards ? rewards!.toString() : '0'
-                      ),
-                      5
-                    )
-                  )}
+          {!rewardCurrency ? (
+            <Loader />
+          ) : (
+            <DarkerGreyCard>
+              <AutoColumn gap="md" justify="center">
+                <ThemedText.DeprecatedBody ml="12px" fontSize="11px" fontWeight={400}>
+                  {claimConfirmed ? <Trans>CLAIMED REWARDS</Trans> : <Trans>TOTAL UNCLAIMED REWARDS</Trans>}
                 </ThemedText.DeprecatedBody>
-                <ThemedText.DeprecatedBody fontSize="20px" fontWeight={500}>
-                  {rewardCurrency.symbol}
-                </ThemedText.DeprecatedBody>
-              </AutoRow>
-            </AutoColumn>
-          </DarkerGreyCard>)}
+                <AutoRow gap="8px" key="reward-row" width="fit-content">
+                  <CurrencyLogo currency={rewardCurrency} size="24px" />
+                  <ThemedText.DeprecatedBody fontSize="20px" fontWeight={500}>
+                    {claimPending ? (
+                      <Loader />
+                    ) : (
+                      formatCurrencyAmount(
+                        CurrencyAmount.fromRawAmount(rewardCurrency, rewards ? rewards!.toString() : '0'),
+                        5
+                      )
+                    )}
+                  </ThemedText.DeprecatedBody>
+                  <ThemedText.DeprecatedBody fontSize="20px" fontWeight={500}>
+                    {rewardCurrency.symbol}
+                  </ThemedText.DeprecatedBody>
+                </AutoRow>
+              </AutoColumn>
+            </DarkerGreyCard>
+          )}
           <ButtonPrimary disabled={attempting} padding="8px" $borderRadius="12px" onClick={onUnstake}>
             <Trans>Claim</Trans>
           </ButtonPrimary>

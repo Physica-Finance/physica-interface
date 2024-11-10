@@ -212,7 +212,6 @@ export function useV3PositionsForPool(
 ): PositionsForPoolResults {
   const { positions, loading: positionsLoading } = useV3Positions(account)
 
-
   if ((!positions || !pool) && !positionsLoading) {
     return {
       loading: false,
@@ -220,7 +219,7 @@ export function useV3PositionsForPool(
       outOfRangePositions: undefined,
     }
   }
-  if(!positions) {
+  if (!positions) {
     return {
       loading: true,
       inRangePositions: undefined,
@@ -260,10 +259,9 @@ export function useV3PositionsForPool(
 export function useV3StakerPositionsForPool(
   account: string | null | undefined,
   pool: Pool | undefined,
-  owner: string | null | undefined,
+  owner: string | null | undefined
 ): PositionsForPoolResults {
   const { positions, loading: positionsLoading } = useV3Positions(account)
-
 
   if ((!positions || !pool) && !positionsLoading) {
     return {
@@ -272,7 +270,7 @@ export function useV3StakerPositionsForPool(
       outOfRangePositions: undefined,
     }
   }
-  if(!positions) {
+  if (!positions) {
     return {
       loading: true,
       inRangePositions: undefined,
@@ -280,7 +278,9 @@ export function useV3StakerPositionsForPool(
     }
   }
   const relevantPositions = positions!.filter((p) =>
-    Boolean(p.token0 === pool!.token0.address && p.token1 == pool!.token1.address && p.fee === pool!.fee && p.owner == owner)
+    Boolean(
+      p.token0 === pool!.token0.address && p.token1 == pool!.token1.address && p.fee === pool!.fee && p.owner == owner
+    )
   )
   const inRangePositions = relevantPositions.filter((p) => {
     // check if price is within range

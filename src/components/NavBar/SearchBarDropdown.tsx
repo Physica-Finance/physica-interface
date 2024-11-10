@@ -2,20 +2,15 @@ import { Trans } from '@lingui/macro'
 import { useTrace } from '@uniswap/analytics'
 import { InterfaceSectionName, NavBarSearchTypes } from '@uniswap/analytics-events'
 import { useWeb3React } from '@web3-react/core'
-import { SafetyLevel } from 'graphql/data/__generated__/types-and-hooks'
-import useTrendingTokens from 'graphql/data/TrendingTokens'
 import { useIsNftPage } from 'hooks/useIsNftPage'
 import { Box } from 'nft/components/Box'
 import { Column, Row } from 'nft/components/Flex'
 import { subheadSmall } from 'nft/css/common.css'
-import { fetchTrendingCollections } from 'nft/queries'
-import { GenieCollection, TimePeriod, TrendingCollection } from 'nft/types'
-import { formatEthPrice } from 'nft/utils/currency'
+import { GenieCollection, TrendingCollection } from 'nft/types'
 import { ReactNode, useEffect, useMemo, useState } from 'react'
-import { useQuery } from 'react-query'
 import { useLocation } from 'react-router-dom'
 
-import { ClockIcon, TrendingArrow } from '../../nft/components/icons'
+import { TrendingArrow } from '../../nft/components/icons'
 import { useRecentlySearchedAssets } from './RecentlySearchedAssets'
 import * as styles from './SearchBar.css'
 import { SkeletonRow, TokenRow } from './SuggestionRow'
@@ -28,7 +23,7 @@ function isCollection(suggestion: GenieCollection | SearchToken | TrendingCollec
 
 interface SearchBarDropdownSectionProps {
   toggleOpen: () => void
-  suggestions: (SearchToken)[]
+  suggestions: SearchToken[]
   header: JSX.Element
   headerIcon?: JSX.Element
   hoveredIndex: number | undefined
@@ -151,8 +146,7 @@ export const SearchBarDropdown = ({
 
   const totalSuggestions = hasInput
     ? tokens.length + collections.length
-    : Math.min(shortenedHistory.length, 2) +
-      (isTokenPage || !isNFTPage ? trendingTokens?.length ?? 0 : 0)
+    : Math.min(shortenedHistory.length, 2) + (isTokenPage || !isNFTPage ? trendingTokens?.length ?? 0 : 0)
 
   // Navigate search results via arrow keys
   useEffect(() => {
@@ -195,7 +189,6 @@ export const SearchBarDropdown = ({
       ...JSON.parse(trace),
     }
     if (!isLoading) {
-
       const tokenSearchResults =
         tokens.length > 0 ? (
           <SearchBarDropdownSection
@@ -216,22 +209,10 @@ export const SearchBarDropdown = ({
           </Box>
         )
 
-
-
       const currentState = () =>
         hasInput ? (
           // Empty or Up to 8 combined tokens and nfts
-          <Column gap="20">
-            {showCollectionsFirst ? (
-              <>
-                {tokenSearchResults}
-              </>
-            ) : (
-              <>
-                {tokenSearchResults}
-              </>
-            )}
-          </Column>
+          <Column gap="20">{showCollectionsFirst ? <>{tokenSearchResults}</> : <>{tokenSearchResults}</>}</Column>
         ) : (
           // Recent Searches, Trending Tokens, Trending Collections
           <Column gap="20">

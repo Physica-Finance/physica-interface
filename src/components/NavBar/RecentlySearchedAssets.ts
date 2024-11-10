@@ -1,11 +1,8 @@
-import { SupportedChainId } from 'constants/chains'
-import { NATIVE_CHAIN_ID, nativeOnChain } from 'constants/tokens'
-import { Chain, NftCollection, useRecentlySearchedAssetsQuery } from 'graphql/data/__generated__/types-and-hooks'
+import { NATIVE_CHAIN_ID } from 'constants/tokens'
+import { Chain, useRecentlySearchedAssetsQuery } from 'graphql/data/__generated__/types-and-hooks'
 import { SearchToken } from 'graphql/physica/SearchTokens'
-import { CHAIN_NAME_TO_CHAIN_ID } from 'graphql/data/util'
 import { useAtom } from 'jotai'
 import { atomWithStorage, useAtomValue } from 'jotai/utils'
-import { GenieCollection } from 'nft/types'
 import { useCallback, useMemo } from 'react'
 import { getNativeTokenDBAddress } from 'utils/nativeTokens'
 
@@ -65,10 +62,10 @@ export function useRecentlySearchedAssets() {
       resultsMap[token.id ?? `NATIVE-7070`] = token
     })
 
-    const data: (SearchToken)[] = []
+    const data: SearchToken[] = []
     shortenedHistory.forEach((asset) => {
-        const result = resultsMap[asset.address]
-        if (result) data.push(result)
+      const result = resultsMap[asset.address]
+      if (result) data.push(result)
     })
     return data
   }, [queryData, shortenedHistory])

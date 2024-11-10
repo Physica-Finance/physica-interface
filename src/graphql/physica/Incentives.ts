@@ -1,42 +1,40 @@
 import { gql, useQuery } from '@apollo/client'
-import { chainIdToBackendName } from './util'
 import { apolloClient } from './incentivesApollo'
 import { useMemo } from 'react'
-import { TRENDING_POOLS_QUERY } from './TrendingPools'
 
 const ALL_INCENTIVES_QUERY = gql`
   query AllIncentives {
-  incentives {
-    id
-    pool
-    reward
-    rewardToken
-    startTime
-    refundee
-    endTime
-    ended
+    incentives {
+      id
+      pool
+      reward
+      rewardToken
+      startTime
+      refundee
+      endTime
+      ended
+    }
   }
-}
 `
 
 const ALL_INCENTIVES_BY_POOL_QUERY = gql`
-    query AllIncentivesByPool($id: String!) {
-        incentives(where: {pool: $id}) {
-            id
-            pool
-            reward
-            rewardToken
-            startTime
-            refundee
-            endTime
-            ended
-        }
+  query AllIncentivesByPool($id: String!) {
+    incentives(where: { pool: $id }) {
+      id
+      pool
+      reward
+      rewardToken
+      startTime
+      refundee
+      endTime
+      ended
     }
+  }
 `
 
 const STAKED_POSTISIONS_QUERY = gql`
   query StakedPositions($owner: String!) {
-    positions(where: {owner: $owner, and: {staked: true}}) {
+    positions(where: { owner: $owner, and: { staked: true } }) {
       tokenId
       staked
       owner
@@ -46,7 +44,6 @@ const STAKED_POSTISIONS_QUERY = gql`
     }
   }
 `
-
 
 export type AllIncentivesQuery2 = {
   __typename?: 'Query'
@@ -82,25 +79,23 @@ export type StakedPositionsData2 = StakedPositionsQuery2['positions']
 export function useStakedPositionsSubgraph(owner: string) {
   const { data, loading } = useQuery(STAKED_POSTISIONS_QUERY, { client: apolloClient, variables: { owner } })
 
-  return useMemo(
-    () => ({ data: data?.positions, loading }),
-    [data?.positions, loading]
-  )
+  return useMemo(() => ({ data: data?.positions, loading }), [data?.positions, loading])
 }
 
 export default function useAllIncentivesSubgraph(poolId?: string) {
-  if(poolId) {
-    const { data, loading } = useQuery(ALL_INCENTIVES_BY_POOL_QUERY, { client: apolloClient, variables: { id: poolId } })
-    return useMemo(
-      () => ({ data: data?.incentives, loading }),
-      [data?.incentives, loading]
-    )
+  if (poolId) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { data, loading } = useQuery(ALL_INCENTIVES_BY_POOL_QUERY, {
+      client: apolloClient,
+      variables: { id: poolId },
+    })
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useMemo(() => ({ data: data?.incentives, loading }), [data?.incentives, loading])
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data, loading } = useQuery(ALL_INCENTIVES_QUERY, { client: apolloClient })
 
-  return useMemo(
-    () => ({ data: data?.incentives, loading }),
-    [data?.incentives, loading]
-  )
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useMemo(() => ({ data: data?.incentives, loading }), [data?.incentives, loading])
 }

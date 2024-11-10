@@ -38,7 +38,8 @@ async function getMoonpayAvailability(): Promise<boolean> {
   }
   const res = await fetch(`${moonpayApiURI}/v4/ip_address?apiKey=${moonpayPublishableKey}`)
   const data = await (res.json() as Promise<MoonpayIPAddressesResponse>)
-  return data.isBuyAllowed ?? false
+  //return data.isBuyAllowed ?? false
+  return false
 }
 
 export function useFiatOnrampAvailability(shouldCheck: boolean, callback?: () => void) {

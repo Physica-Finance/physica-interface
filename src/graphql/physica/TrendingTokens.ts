@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client'
 import { apolloClient } from '../thegraph/apollo'
 
 export const TRENDING_TOKENS_QUERY = gql`
-query TrendingToken2 {
+  query TrendingToken2 {
     tokens(orderBy: volumeUSD, orderDirection: desc) {
       id
       name

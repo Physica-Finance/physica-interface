@@ -10,7 +10,7 @@ import RangeStatus from 'components/RangeStatus'
 import { AutoRow, RowBetween, RowFixed } from 'components/Row'
 import { BIG_INT_SECONDS_IN_WEEK } from 'constants/misc'
 import { Incentive } from 'hooks/incentives/useAllIncentives'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Zap } from 'react-feather'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components/macro'
@@ -125,12 +125,12 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
           <RowBetween>
             <RangeStatus positionDetails={positionDetails} />
             <ButtonSmall onClick={() => setShowStakingModal(true)}>
-              {!positionDeposited ? (<Trans>Deposit Position</Trans>) : (<Trans>Stake Position</Trans>)}
+              {!positionDeposited ? <Trans>Deposit Position</Trans> : <Trans>Stake Position</Trans>}
             </ButtonSmall>
             {!positionDeposited ? null : (
-            <ButtonSmall onClick={() => setShowWithdrawModal(true)}>
-              <Trans>Withdraw from Staker</Trans>
-            </ButtonSmall>
+              <ButtonSmall onClick={() => setShowWithdrawModal(true)}>
+                <Trans>Withdraw from Staker</Trans>
+              </ButtonSmall>
             )}
           </RowBetween>
         </PositionWrapper>
@@ -162,10 +162,7 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
                       {totalUnclaimedUSD
                         ? '$' + totalUnclaimedUSD
                         : `${formatCurrencyAmount(
-                            CurrencyAmount.fromRawAmount(
-                              rewardCurrency,
-                              (rewards ?? 0).toString()
-                            ),
+                            CurrencyAmount.fromRawAmount(rewardCurrency, (rewards ?? 0).toString()),
                             5
                           )} ${rewardCurrency.symbol}`}
                     </Trans>
@@ -192,7 +189,8 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
           </RowBetween>
         </PositionWrapper>
       )}
-    </>)
+    </>
+  )
 }
 
 interface PositionManageCardProps {
@@ -218,7 +216,6 @@ export default function PositionManageCard({ positionDetails, isPositionPage, in
       setPositionCheck(true)
     })
   }
-
 
   return (
     <Wrapper>

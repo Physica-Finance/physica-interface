@@ -28,6 +28,10 @@ import useParsedQueryString from '../../hooks/useParsedQueryString'
 import { usePools } from '../../hooks/usePools'
 import { TransactionType } from '../../state/transactions/types'
 import { isAddress } from '../../utils'
+import { sendAnalyticsEvent } from '@uniswap/analytics'
+import { NFTEventName } from '@uniswap/analytics-events'
+import { ProfilePageStateType } from '../../nft/types'
+import { useNavigate } from 'react-router-dom'
 
 function dateTimeToUnixSeconds(dateTimeString: string, timezoneOffset: number): number {
   return Math.floor((new Date(dateTimeString).getTime() + timezoneOffset) / 1000)
@@ -90,12 +94,14 @@ export default function CreateIncentive() {
     return queryParametersToPoolState(parsedQs)
   }, [parsedQs])
   const poolId = parsedPoolState.poolId
+  const navigate = useNavigate()
 
   const { account, chainId } = useWeb3React()
 
   const staker = useV3Staker()
   const currencyA = useCurrency(parsedPoolState.token0)
   const currencyB = useCurrency(parsedPoolState.token1)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const [, pool] = usePools([[currencyA!, currencyB!, parseFeeAmount(parsedPoolState.fees)]])[0]
 
   const [refundee, setRefundee] = useState<string | undefined>(account ?? '')
@@ -111,7 +117,7 @@ export default function CreateIncentive() {
   const v3CoreFactoryAddress = chainId && V3_CORE_FACTORY_ADDRESSES[chainId]
 
   const addTransaction = useTransactionAdder()
-
+  const [createSuccess, setCreateSuccess] = useState(false)
   const poolAddress = parsedPoolState.poolId
   const currentDate = new Date(Date.now())
   const timezoneOffset = currentDate.getTimezoneOffset() * -60000
@@ -152,6 +158,7 @@ export default function CreateIncentive() {
             token0Address: currencyA.wrapped.address,
             token1Address: currencyB.wrapped.address,
           })
+          setCreateSuccess(true)
         })
         .catch((error: any) => {
           setAttempting(false)
@@ -160,6 +167,10 @@ export default function CreateIncentive() {
     } else {
       console.log(staker, currencyA, currencyB, rewardAmount, currencyC, startTime, endTime, refundee, poolAddress)
     }
+  }
+
+  const goToFarming = () => {
+    navigate('/stake')
   }
 
   const handleChangeStartTime: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
@@ -234,9 +245,13 @@ export default function CreateIncentive() {
           {approval === ApprovalState.APPROVED ? null : (
             <ButtonPrimary onClick={approveCallback}>Approve</ButtonPrimary>
           )}
-          <ButtonPrimary disabled={approval !== ApprovalState.APPROVED || attempting} onClick={handleCreate}>
-            Create
-          </ButtonPrimary>
+          {createSuccess ? (
+            <ButtonPrimary onClick={goToFarming}>Back to Farming</ButtonPrimary>
+          ) : (
+            <ButtonPrimary disabled={approval !== ApprovalState.APPROVED || attempting} onClick={handleCreate}>
+              Create
+            </ButtonPrimary>
+          )}
         </AutoColumn>
       </StyledPositionCard>
     </AutoColumn>

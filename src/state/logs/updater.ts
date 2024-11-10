@@ -41,8 +41,8 @@ export default function Updater(): null {
       // provide defaults if {from,to}Block are missing
       let fromBlock = filter.fromBlock ?? 0
       let toBlock = filter.toBlock ?? blockNumber
-      if(filter.fromBlock == undefined) fromBlock = blockNumber - 1000
-      if(filter.toBlock == undefined) toBlock = blockNumber
+      if (filter.fromBlock == undefined) fromBlock = blockNumber - 1000
+      if (filter.toBlock == undefined) toBlock = blockNumber
       if (typeof fromBlock === 'string') fromBlock = Number.parseInt(fromBlock)
       if (typeof toBlock === 'string') toBlock = Number.parseInt(toBlock)
       provider

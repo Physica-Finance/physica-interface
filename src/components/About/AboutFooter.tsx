@@ -2,7 +2,7 @@ import { TraceEvent } from '@uniswap/analytics'
 import { BrowserEvent, InterfaceElementName, SharedEventName } from '@uniswap/analytics-events'
 import { useIsDarkMode } from 'state/user/hooks'
 import styled from 'styled-components/macro'
-import { BREAKPOINTS, ExternalLink, } from 'theme'
+import { BREAKPOINTS, ExternalLink } from 'theme'
 import { StyledRouterLink } from 'theme/components/index'
 
 import { DiscordIcon, GithubIcon, TwitterIcon } from './Icons'

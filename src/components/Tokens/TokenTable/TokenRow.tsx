@@ -8,7 +8,7 @@ import QueryTokenLogo from 'components/Logo/QueryTokenLogo'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { SparklineMap } from 'graphql/data/TopTokens'
 import { TopToken } from 'graphql/physica/TopTokens'
-import { CHAIN_NAME_TO_CHAIN_ID, getTokenDetailsURL } from 'graphql/physica/util'
+import { CHAIN_NAME_TO_CHAIN_ID } from 'graphql/physica/util'
 import { useAtomValue } from 'jotai/utils'
 import { CSSProperties, ForwardedRef, forwardRef, ReactNode } from 'react'
 import { ArrowDown, ArrowUp, Info } from 'react-feather'
@@ -438,7 +438,8 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const filterNetwork = lowercaseChainName.toUpperCase()
   const chainId = CHAIN_NAME_TO_CHAIN_ID[filterNetwork]
   const timePeriod = useAtomValue(filterTimeAtom)
-  const delta = (parseFloat(token.tokenDayData![0].open ?? '0') - parseFloat(token.tokenDayData![0].priceUSD ?? '0'))*100
+  const delta =
+    (parseFloat(token.tokenDayData![0].open ?? '0') - parseFloat(token.tokenDayData![0].priceUSD ?? '0')) * 100
   const arrow = getDeltaArrow(delta)
   const smallArrow = getDeltaArrow(delta, 14)
   const formattedDelta = formatDelta(delta)
@@ -458,7 +459,7 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   return (
     <div ref={ref} data-testid={`token-table-row-${token.symbol}`}>
       <StyledLink
-        to={'/swap?inputCurrency=ETH&outputCurrency='+token.id}//getTokenDetailsURL(token)}
+        to={'/swap?inputCurrency=ETH&outputCurrency=' + token.id} //getTokenDetailsURL(token)}
         onClick={() =>
           sendAnalyticsEvent(InterfaceEventName.EXPLORE_TOKEN_ROW_CLICKED, exploreTokenSelectedEventProperties)
         }
@@ -512,7 +513,9 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
                       height={height}
                       tokenData={token}
                       pricePercentChange={
-                        (parseFloat(token.tokenDayData![0].open ?? '0') - parseFloat(token.tokenDayData![0].priceUSD ?? '0'))*100
+                        (parseFloat(token.tokenDayData![0].open ?? '0') -
+                          parseFloat(token.tokenDayData![0].priceUSD ?? '0')) *
+                        100
                       }
                       sparklineMap={props.sparklineMap}
                     />

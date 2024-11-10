@@ -1,9 +1,7 @@
-import { NATIVE_CHAIN_ID, WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
-import { TokenStandard } from 'graphql/data/__generated__/types-and-hooks'
+import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import { SearchToken } from 'graphql/physica/SearchTokens'
 import { TokenQueryData2 } from 'graphql/physica/Token'
 import { TopToken } from 'graphql/physica/TopTokens'
-import { CHAIN_NAME_TO_CHAIN_ID } from 'graphql/data/util'
 
 import AssetLogo, { AssetLogoBaseProps } from './AssetLogo'
 

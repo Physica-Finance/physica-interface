@@ -16,7 +16,6 @@ import { isProductionEnv } from 'utils/env'
 import { getCLS, getFCP, getFID, getLCP, Metric } from 'web-vitals'
 
 import { useAnalyticsReporter } from '../components/analytics'
-import { ClaimModal } from '../components/earn/StakingModal'
 import ErrorBoundary from '../components/ErrorBoundary'
 import { PageTabs } from '../components/NavBar'
 import NavBar from '../components/NavBar'

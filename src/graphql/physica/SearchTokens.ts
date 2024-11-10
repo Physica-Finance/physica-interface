@@ -1,15 +1,15 @@
-import { useLazyQuery, useQuery } from '@apollo/client'
-import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
+import { useQuery } from '@apollo/client'
 import gql from 'graphql-tag'
 import { useMemo } from 'react'
 import { apolloClient } from '../thegraph/apollo'
 
-import { Chain, Currency, SafetyLevel, SearchTokensQuery, TokenStandard } from '../data/__generated__/types-and-hooks'
-import { chainIdToBackendName } from '../data/util'
-
 const SEARCH_TOKEN_QUERY = gql`
   query SearchTokens2($searchQuery: String!) {
-    tokens(where: {or: [{name_contains_nocase: $searchQuery}, {symbol_contains_nocase: $searchQuery}, {id: $searchQuery}]}) {
+    tokens(
+      where: {
+        or: [{ name_contains_nocase: $searchQuery }, { symbol_contains_nocase: $searchQuery }, { id: $searchQuery }]
+      }
+    ) {
       id
       decimals
       name
@@ -26,24 +26,27 @@ const SEARCH_TOKEN_QUERY = gql`
 
 export type SearchToken = NonNullable<NonNullable<SearchTokensQuery2['tokens']>[number]>
 export type SearchTokensQuery2 = {
-  __typename?: 'Query',
-  tokens?: Array<
-    { __typename?: 'Token',
-      id: string,
-      decimals?: number,
-      name?: string,
-      symbol?: string,
-      tokenDayData?: { __typename?: 'TokenMarket', id?: string, priceUSD?: string, volumeUSD?: string, open?: string }, }> };
+  __typename?: 'Query'
+  tokens?: Array<{
+    __typename?: 'Token'
+    id: string
+    decimals?: number
+    name?: string
+    symbol?: string
+    tokenDayData?: { __typename?: 'TokenMarket'; id?: string; priceUSD?: string; volumeUSD?: string; open?: string }
+  }>
+}
 
 export function useSearchTokens(
   searchQuery: string,
   chainId: number
 ): { data: SearchToken[]; loading: boolean; error?: Error } {
-  const { data, loading, error } = useQuery(SEARCH_TOKEN_QUERY, { variables: {
-    searchQuery,
-  },client: apolloClient,})
-
-
+  const { data, loading, error } = useQuery(SEARCH_TOKEN_QUERY, {
+    variables: {
+      searchQuery,
+    },
+    client: apolloClient,
+  })
 
   const sortedTokens = useMemo(() => {
     return data?.tokens

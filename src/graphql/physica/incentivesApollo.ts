@@ -2,8 +2,6 @@ import { ApolloClient, ApolloLink, concat, HttpLink, InMemoryCache } from '@apol
 
 import store, { AppState } from '../../state/index'
 
-
-
 const httpLink = new HttpLink({ uri: 'https://subgraph.planq.finance/subgraphs/name/vbstreetz/witswap-staking' })
 
 // This middleware will allow us to dynamically update the uri for the requests based off chainId
@@ -13,8 +11,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   const chainId = (store.getState() as AppState).application.chainId
 
   operation.setContext(() => ({
-    uri:
-      chainId
+    uri: chainId,
   }))
 
   return forward(operation)

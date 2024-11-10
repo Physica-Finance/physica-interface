@@ -29,7 +29,7 @@ import {
   TICK_LENS_ADDRESSES,
   V2_ROUTER_ADDRESS,
   V3_MIGRATOR_ADDRESSES,
-  V3_STAKER_ADDRESSES
+  V3_STAKER_ADDRESSES,
 } from 'constants/addresses'
 import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import { useMemo } from 'react'
@@ -39,7 +39,7 @@ import {
   QuoterV2,
   TickLens,
   UniswapInterfaceMulticall,
-  UniswapV3Staker
+  UniswapV3Staker,
 } from 'types/v3'
 import { V3Migrator } from 'types/v3/V3Migrator'
 

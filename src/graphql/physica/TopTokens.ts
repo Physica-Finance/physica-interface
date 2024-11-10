@@ -9,10 +9,7 @@ import gql from 'graphql-tag'
 import { useAtomValue } from 'jotai/utils'
 import { useMemo } from 'react'
 
-import {
-  Chain,
-  useTopTokensSparklineQuery,
-} from '../data/__generated__/types-and-hooks'
+import { Chain } from '../data/__generated__/types-and-hooks'
 import {
   CHAIN_NAME_TO_CHAIN_ID,
   isPricePoint,
@@ -22,7 +19,7 @@ import {
   unwrapToken,
   usePollQueryWhileMounted,
 } from './util'
-import { TokenQuery2, TokenQueryData2, TRENDING_TOKENS_QUERY } from './TrendingTokens'
+import { TokenQuery2, TRENDING_TOKENS_QUERY } from './TrendingTokens'
 import { QueryResult, useQuery } from '@apollo/client'
 import { apolloClient } from '../thegraph/apollo'
 
@@ -100,7 +97,7 @@ gql`
 `
 
 export const SPARKLINE_TOKENS_QUERY = gql`
-query SparklineToken2 {
+  query SparklineToken2 {
     tokens(orderBy: volumeUSD) {
       id
       name
@@ -119,7 +116,6 @@ query SparklineToken2 {
   }
 `
 
-
 function useSortedTokens(tokens: TokenQuery2['tokens']) {
   const sortMethod = useAtomValue(sortMethodAtom)
   const sortAscending = useAtomValue(sortAscendingAtom)
@@ -136,8 +132,8 @@ function useSortedTokens(tokens: TokenQuery2['tokens']) {
       case TokenSortMethod.PERCENT_CHANGE:
         tokenArray = tokenArray.sort(
           (a, b) =>
-            (parseFloat(b?.tokenDayData![0].open ?? '0') - parseFloat(b?.tokenDayData![0].priceUSD ?? '0'))
-            -
+            parseFloat(b?.tokenDayData![0].open ?? '0') -
+            parseFloat(b?.tokenDayData![0].priceUSD ?? '0') -
             (parseFloat(a?.tokenDayData![0].open ?? '0') - parseFloat(a?.tokenDayData![0].priceUSD ?? '0'))
         )
         break
@@ -147,7 +143,7 @@ function useSortedTokens(tokens: TokenQuery2['tokens']) {
         )
         break
       case TokenSortMethod.VOLUME:
-        tokenArray = tokenArray.sort((a, b) => (parseFloat(b?.volumeUSD ?? '0')) - (parseFloat(a?.volumeUSD ?? '0')))
+        tokenArray = tokenArray.sort((a, b) => parseFloat(b?.volumeUSD ?? '0') - parseFloat(a?.volumeUSD ?? '0'))
         break
     }
 
@@ -193,8 +189,10 @@ export function useTopTokens2(chain: Chain): UseTopTokensReturnValue {
 
   const { data: sparklineQuery } = usePollQueryWhileMounted(
     useQuery(SPARKLINE_TOKENS_QUERY, {
-      variables: {  }, client: apolloClient,
-    })as QueryResult<TokenQuery2, {}>,
+      variables: {},
+      client: apolloClient,
+      // eslint-disable-next-line @typescript-eslint/ban-types
+    }) as QueryResult<TokenQuery2, {}>,
     PollingInterval.Slow
   )
 
@@ -211,6 +209,7 @@ export function useTopTokens2(chain: Chain): UseTopTokensReturnValue {
     useQuery(TRENDING_TOKENS_QUERY, {
       variables: {},
       client: apolloClient,
+      // eslint-disable-next-line @typescript-eslint/ban-types
     }) as QueryResult<TokenQuery2, {}>,
     PollingInterval.Fast
   )

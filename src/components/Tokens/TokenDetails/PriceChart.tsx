@@ -24,10 +24,10 @@ import {
 } from 'utils/formatChartTimes'
 import { formatDollar } from 'utils/formatNumbers'
 
-const DATA_EMPTY = { priceUSD: "", date: 0 }
+const DATA_EMPTY = { priceUSD: '', date: 0 }
 
 export function getPriceBounds(pricePoints: PricePoint[]): [number, number] {
-  const prices = pricePoints.map((x) => parseFloat(x.priceUSD ?? "0"))
+  const prices = pricePoints.map((x) => parseFloat(x.priceUSD ?? '0'))
   const min = Math.min(...prices)
   const max = Math.max(...prices)
   return [min, max]
@@ -165,7 +165,10 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
   // Defining scales
   // x scale
   const timeScale = useMemo(
-    () => scaleLinear().domain([startingPrice.date ?? 0, endingPrice.date ?? 0]).range([0, width]),
+    () =>
+      scaleLinear()
+        .domain([startingPrice.date ?? 0, endingPrice.date ?? 0])
+        .range([0, width]),
     [startingPrice, endingPrice, width]
   )
   // y scale
@@ -182,8 +185,8 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
     locale: string
   ): [TickFormatter<NumberValue>, (v: number) => string, NumberValue[]] {
     const offsetTime = ((endingPrice.date ?? 0).valueOf() - (startingPrice.date ?? 0).valueOf()) / 24
-    const startDateWithOffset = new Date(((startingPrice.date??0).valueOf() + offsetTime) * 1000)
-    const endDateWithOffset = new Date(((endingPrice.date??0).valueOf() - offsetTime) * 1000)
+    const startDateWithOffset = new Date(((startingPrice.date ?? 0).valueOf() + offsetTime) * 1000)
+    const endDateWithOffset = new Date(((endingPrice.date ?? 0).valueOf() - offsetTime) * 1000)
 
     switch (timePeriod) {
       case TimePeriod.HOUR:
@@ -292,7 +295,11 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
         )}
       </ChartHeader>
       {!chartAvailable ? (
-        <MissingPriceChart width={width} height={graphHeight} message={!!parseFloat(displayPrice.priceUSD ?? '0') && missingPricesMessage} />
+        <MissingPriceChart
+          width={width}
+          height={graphHeight}
+          message={!!parseFloat(displayPrice.priceUSD ?? '0') && missingPricesMessage}
+        />
       ) : (
         <svg data-cy="price-chart" width={width} height={graphHeight} style={{ minWidth: '100%' }}>
           <AnimatedInLineChart

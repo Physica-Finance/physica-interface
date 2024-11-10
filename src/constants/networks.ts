@@ -10,7 +10,6 @@ if (typeof NODIES_KEY === 'undefined') {
   throw new Error(`REACT_APP_NODIES_KEY must be a defined environment variable`)
 }
 
-
 /**
  * Fallback JSON-RPC endpoints.
  * These are used if the integrator does not provide an endpoint, or if the endpoint does not work.

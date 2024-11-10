@@ -47,17 +47,17 @@ export const ExternalMenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id
   //     }
 
   return (
-      <a
-          href={href}
-          target={'_blank'}
-          className={isActive ? styles.activeMenuItem : styles.menuItem}
-          id={id}
-          style={{ textDecoration: 'none' }}
-          data-testid={dataTestId}
-          rel="noreferrer"
-      >
-        {children}
-      </a>
+    <a
+      href={href}
+      target={'_blank'}
+      className={isActive ? styles.activeMenuItem : styles.menuItem}
+      id={id}
+      style={{ textDecoration: 'none' }}
+      data-testid={dataTestId}
+      rel="noreferrer"
+    >
+      {children}
+    </a>
   )
 }
 

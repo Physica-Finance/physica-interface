@@ -1,4 +1,4 @@
-import { BigNumber } from 'ethers'
+import { BigNumber } from '@ethersproject/bignumber'
 import { defaultAbiCoder, keccak256, Result } from 'ethers/lib/utils'
 
 export interface IncentiveKey {

@@ -7,7 +7,6 @@ import { Currency, CurrencyAmount, Percent } from '@uniswap/sdk-core'
 import { FeeAmount, NonfungiblePositionManager } from '@uniswap/v3-sdk'
 import { useWeb3React } from '@web3-react/core'
 import { sendEvent } from 'components/analytics'
-import JSBI from 'jsbi'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import { useCallback, useEffect, useState } from 'react'
@@ -539,29 +538,30 @@ export default function AddLiquidity() {
                   ticksAtLimit={ticksAtLimit}
                 />
               )}
-              bottomContent={() => (
-                (!(hasExistingPosition && tokenId) && noLiquidity) ? (
+              bottomContent={() =>
+                !(hasExistingPosition && tokenId) && noLiquidity ? (
                   <>
                     <YellowCard>
-                    <RowBetween>
-                      <Text fontWeight={500} fontSize={14}>
-                        <Trans>Pool creation costs 1024 PLQ.</Trans>
+                      <RowBetween>
+                        <Text fontWeight={500} fontSize={14}>
+                          <Trans>Pool creation costs 1024 PLQ.</Trans>
+                        </Text>
+                      </RowBetween>
+                    </YellowCard>
+                    <ButtonPrimary style={{ marginTop: '1rem' }} onClick={onAdd}>
+                      <Text fontWeight={500} fontSize={20}>
+                        <Trans>Add</Trans>
                       </Text>
-                    </RowBetween>
-                  </YellowCard>
+                    </ButtonPrimary>
+                  </>
+                ) : (
                   <ButtonPrimary style={{ marginTop: '1rem' }} onClick={onAdd}>
                     <Text fontWeight={500} fontSize={20}>
                       <Trans>Add</Trans>
                     </Text>
-                  </ButtonPrimary></>
-                  ) : (
-                <ButtonPrimary style={{ marginTop: '1rem' }} onClick={onAdd}>
-                  <Text fontWeight={500} fontSize={20}>
-                    <Trans>Add</Trans>
-                  </Text>
-                </ButtonPrimary>
-          )
-              )}
+                  </ButtonPrimary>
+                )
+              }
             />
           )}
           pendingText={pendingText}
