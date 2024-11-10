@@ -28,9 +28,6 @@ import useParsedQueryString from '../../hooks/useParsedQueryString'
 import { usePools } from '../../hooks/usePools'
 import { TransactionType } from '../../state/transactions/types'
 import { isAddress } from '../../utils'
-import { sendAnalyticsEvent } from '@uniswap/analytics'
-import { NFTEventName } from '@uniswap/analytics-events'
-import { ProfilePageStateType } from '../../nft/types'
 import { useNavigate } from 'react-router-dom'
 
 function dateTimeToUnixSeconds(dateTimeString: string, timezoneOffset: number): number {
