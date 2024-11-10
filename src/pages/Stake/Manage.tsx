@@ -79,7 +79,7 @@ export default function Manage() {
   }
 
   const allPositions = mergeIncentive(inRangePositions, inRangeStakerPositions, (a, b) => a.tokenId.eq(b.tokenId))
-  console.log(allPositions)
+
   return (
     <Wrapper>
       <AutoColumn gap="24px">

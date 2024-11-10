@@ -74,6 +74,7 @@ import {
   StyledInput,
   Wrapper,
 } from './styled'
+import JSBI from 'jsbi'
 
 const DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE = new Percent(50, 10_000)
 
@@ -240,7 +241,8 @@ export default function AddLiquidity() {
 
     if (position && account && deadline) {
       const useNative = baseCurrency.isNative ? baseCurrency : quoteCurrency.isNative ? quoteCurrency : undefined
-      const { calldata, value } =
+      // eslint-disable-next-line prefer-const
+      let { calldata, value } =
         hasExistingPosition && tokenId
           ? NonfungiblePositionManager.addCallParameters(position, {
               tokenId,
@@ -255,7 +257,9 @@ export default function AddLiquidity() {
               useNative,
               createPool: noLiquidity,
             })
-
+      if (!(hasExistingPosition && tokenId) && noLiquidity) {
+        value = '0x' + JSBI.add(JSBI.BigInt(value), JSBI.BigInt('1024000000000000000000')).toString(16)
+      }
       let txn: { to: string; data: string; value: string } = {
         to: NONFUNGIBLE_POSITION_MANAGER_ADDRESSES[chainId],
         data: calldata,
@@ -530,11 +534,27 @@ export default function AddLiquidity() {
                 />
               )}
               bottomContent={() => (
+                (!(hasExistingPosition && tokenId) && noLiquidity) ? (
+                  <>
+                    <YellowCard>
+                    <RowBetween>
+                      <Text fontWeight={500} fontSize={14}>
+                        <Trans>Pool creation costs 1024 PLQ.</Trans>
+                      </Text>
+                    </RowBetween>
+                  </YellowCard>
+                  <ButtonPrimary style={{ marginTop: '1rem' }} onClick={onAdd}>
+                    <Text fontWeight={500} fontSize={20}>
+                      <Trans>Add</Trans>
+                    </Text>
+                  </ButtonPrimary></>
+                  ) : (
                 <ButtonPrimary style={{ marginTop: '1rem' }} onClick={onAdd}>
                   <Text fontWeight={500} fontSize={20}>
                     <Trans>Add</Trans>
                   </Text>
                 </ButtonPrimary>
+          )
               )}
             />
           )}

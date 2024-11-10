@@ -64,7 +64,6 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
     stakingContract?.deposits(positionDetails.tokenId).then((response: any) => {
       if (response.owner === account) {
         setPositionDeposited(true)
-        console.log(response)
       }
     })
   }
