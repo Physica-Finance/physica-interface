@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { Chain } from './__generated__/types-and-hooks'
 
 gql`
   query TokenPrice($chain: Chain!, $address: String = null, $duration: HistoryDuration!) {
@@ -21,4 +22,6 @@ gql`
     }
   }
 `
+
+
 export type { TokenPriceQuery } from './__generated__/types-and-hooks'

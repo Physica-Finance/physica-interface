@@ -10,19 +10,21 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useIsDarkMode } from 'state/user/hooks'
 import styled from 'styled-components/macro'
-import { SpinnerSVG } from 'theme/components'
 import { flexRowNoWrap } from 'theme/styles'
 import { Z_INDEX } from 'theme/zIndex'
 import { isProductionEnv } from 'utils/env'
 import { getCLS, getFCP, getFID, getLCP, Metric } from 'web-vitals'
 
 import { useAnalyticsReporter } from '../components/analytics'
+import { ClaimModal } from '../components/earn/StakingModal'
 import ErrorBoundary from '../components/ErrorBoundary'
 import { PageTabs } from '../components/NavBar'
 import NavBar from '../components/NavBar'
 import Polling from '../components/Polling'
 import Popups from '../components/Popups'
+import ClaimPopup from '../components/Popups/ClaimPopup'
 import { useIsExpertMode } from '../state/user/hooks'
+import { CustomLightSpinner } from '../theme'
 import DarkModeQueryParamReader from '../theme/components/DarkModeQueryParamReader'
 import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
@@ -37,6 +39,9 @@ import PoolV2 from './Pool/v2'
 import PoolFinder from './PoolFinder'
 import RemoveLiquidity from './RemoveLiquidity'
 import RemoveLiquidityV3 from './RemoveLiquidity/V3'
+import Stake from './Stake'
+import CreateIncentive from './Stake/CreateIncentive'
+import Manage from './Stake/Manage'
 import Swap from './Swap'
 import { RedirectPathToSwapOnly } from './Swap/redirects'
 import Tokens from './Tokens'
@@ -125,7 +130,7 @@ function getCurrentPageFromLocation(locationPathname: string): InterfacePageName
 // this is the same svg defined in assets/images/blue-loader.svg
 // it is defined here because the remote asset may not have had time to load when this file is executing
 const LazyLoadSpinner = () => (
-  <SpinnerSVG width="94" height="94" viewBox="0 0 94 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <CustomLightSpinner size="94">
     <path
       d="M92 47C92 22.1472 71.8528 2 47 2C22.1472 2 2 22.1472 2 47C2 71.8528 22.1472 92 47 92"
       stroke="#2172E5"
@@ -133,7 +138,7 @@ const LazyLoadSpinner = () => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-  </SpinnerSVG>
+  </CustomLightSpinner>
 )
 
 export default function App() {
@@ -228,7 +233,11 @@ export default function App() {
                   }
                 />
                 <Route path="create-proposal" element={<Navigate to="/vote/create-proposal" replace />} />
+                <Route path="/claim" element={<ClaimPopup />} />
+                <Route path="/stake" element={<Stake />} />
+                <Route path="/stake/:poolAddress/:incentiveId" element={<Manage />} />
 
+                <Route path="program" element={<CreateIncentive />} />
                 <Route path="send" element={<RedirectPathToSwapOnly />} />
                 <Route path="swap" element={<Swap />} />
 

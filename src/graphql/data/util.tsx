@@ -48,7 +48,7 @@ export function toHistoryDuration(timePeriod: TimePeriod): HistoryDuration {
   }
 }
 
-export type PricePoint = { timestamp: number; value: number }
+export type PricePoint = { date?: number; priceUSD?: string; id?: string }
 
 export function isPricePoint(p: PricePoint | null): p is PricePoint {
   return p !== null
@@ -65,12 +65,13 @@ export const CHAIN_ID_TO_BACKEND_NAME: { [key: number]: Chain } = {
   [SupportedChainId.ARBITRUM_RINKEBY]: Chain.Arbitrum,
   [SupportedChainId.OPTIMISM]: Chain.Optimism,
   [SupportedChainId.OPTIMISM_GOERLI]: Chain.Optimism,
+  [SupportedChainId.PLANQ]: Chain.Planq,
 }
 
 export function chainIdToBackendName(chainId: number | undefined) {
   return chainId && CHAIN_ID_TO_BACKEND_NAME[chainId]
     ? CHAIN_ID_TO_BACKEND_NAME[chainId]
-    : CHAIN_ID_TO_BACKEND_NAME[SupportedChainId.MAINNET]
+    : CHAIN_ID_TO_BACKEND_NAME[SupportedChainId.PLANQ]
 }
 
 const URL_CHAIN_PARAM_TO_BACKEND: { [key: string]: Chain } = {
@@ -82,7 +83,7 @@ const URL_CHAIN_PARAM_TO_BACKEND: { [key: string]: Chain } = {
 }
 
 export function validateUrlChainParam(chainName: string | undefined) {
-  return chainName && URL_CHAIN_PARAM_TO_BACKEND[chainName] ? URL_CHAIN_PARAM_TO_BACKEND[chainName] : Chain.Ethereum
+  return chainName && URL_CHAIN_PARAM_TO_BACKEND[chainName] ? URL_CHAIN_PARAM_TO_BACKEND[chainName] : Chain.Planq
 }
 
 export const CHAIN_NAME_TO_CHAIN_ID: { [key: string]: SupportedChainId } = {

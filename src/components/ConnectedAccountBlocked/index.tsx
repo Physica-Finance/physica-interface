@@ -4,7 +4,7 @@ import { BlockedIcon } from 'components/TokenSafety/TokenSafetyIcon'
 import styled, { useTheme } from 'styled-components/macro'
 import { ThemedText } from 'theme'
 
-import { CopyHelper } from '../../theme'
+import { CopyHelper } from 'theme/components/index'
 import Modal from '../Modal'
 
 const ContentWrapper = styled(Column)`

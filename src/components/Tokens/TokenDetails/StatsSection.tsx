@@ -94,13 +94,13 @@ export default function StatsSection(props: StatsSectionProps) {
                   24H volume is the amount of the asset that has been traded on Physica v3 during the past 24 hours.
                 </Trans>
               }
-              title={<Trans>24H volume</Trans>}
+              title={<Trans>Total Volume</Trans>}
             />
           </StatPair>
-          <StatPair>
+          {/*<StatPair>
             <Stat dataCy="52w-low" value={priceLow52W} title={<Trans>52W low</Trans>} />
             <Stat dataCy="52w-high" value={priceHigh52W} title={<Trans>52W high</Trans>} />
-          </StatPair>
+          </StatPair>*/}
         </TokenStatsSection>
       </StatsWrapper>
     )

@@ -30,7 +30,7 @@ export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
 `
 
-const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
+export const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   border: none;
   background: ${({ theme, bgColor }) =>
     `radial-gradient(91.85% 100% at 1.84% 0%, ${transparentize(0.8, bgColor)} 0%, ${theme.deprecated_bg3} 100%) `};

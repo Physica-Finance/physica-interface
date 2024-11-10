@@ -5,24 +5,38 @@ import noise from '../../assets/images/noise.png'
 import xlUnicorn from '../../assets/images/xl_uni.png'
 import { AutoColumn } from '../Column'
 
+export const CardWrapper = styled.div`
+  padding: 16px;
+  background: radial-gradient(76.02% 75.41% at 1.84% 0%, rgba(30, 26, 49, 0.2) 0%, rgba(61, 81, 165, 0.2) 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+`
+
+export const LightCardWrapper = styled.div`
+    padding: 16px;
+    background: radial-gradient(76.02% 75.41% at 1.84% 0%, rgb(226, 207, 207) 0%, rgb(178, 194, 255) 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+`
+
 export const DataCard = styled(AutoColumn)<{ disabled?: boolean }>`
-  background: radial-gradient(76.02% 75.41% at 1.84% 0%, #ff007a 0%, #2172e5 100%);
-  border-radius: 12px;
+  border-radius: 20px;
   width: 100%;
   position: relative;
   overflow: hidden;
+  background-color: ${({ theme }) => theme.deprecated_blue4};
 `
 
 export const CardBGImage = styled.span<{ desaturate?: boolean }>`
   background: url(${uImage});
-  width: 1000px;
-  height: 600px;
+  width: 800px;
+  height: 1200px;
   position: absolute;
   border-radius: 12px;
-  opacity: 0.4;
-  top: -100px;
-  left: -100px;
-  transform: rotate(-15deg);
+  opacity: 0.7;
+  top: -300px;
+  left: 40px;
+  transform: rotate(0deg);
   user-select: none;
   ${({ desaturate }) => desaturate && `filter: saturate(0)`}
 `
@@ -56,13 +70,23 @@ export const CardNoise = styled.span`
 `
 
 export const CardSection = styled(AutoColumn)<{ disabled?: boolean }>`
-  padding: 1rem;
+  padding: 24px 32px;
   z-index: 1;
   opacity: ${({ disabled }) => disabled && '0.4'};
 `
 
 export const Break = styled.div`
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-image: linear-gradient(to left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.24));
   height: 1px;
+  border-radius: 1px;
+`
+
+export const OverviewGrid = styled.div`
+  display: grid;
+  grid-template-columns: auto 160px 180px 80px;
+  grid-column-gap: 16px;
+  align-items: center;
+  justify-items: flex-end;
+  width: 100%;
 `

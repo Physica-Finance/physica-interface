@@ -127,6 +127,10 @@ export const QUOTER_ADDRESSES: AddressMap = {
   [SupportedChainId.PLANQ]: PLANQ_QUOTER_ADDRESSES,
 }
 
+export const V3_STAKER_ADDRESSES: AddressMap = constructSameAddressMap('0x7150Fb99a6247d92977c4c2c601c2599fFF5054a', [
+  SupportedChainId.PLANQ
+])
+
 export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = {
   ...constructSameAddressMap('0xC36442b4a4522E871399CD717aBDD847Ab11FE88', [
     SupportedChainId.OPTIMISM,

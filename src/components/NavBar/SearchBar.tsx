@@ -4,11 +4,10 @@ import { sendAnalyticsEvent, Trace, TraceEvent, useTrace } from '@uniswap/analyt
 import { BrowserEvent, InterfaceElementName, InterfaceEventName, InterfaceSectionName } from '@uniswap/analytics-events'
 import { useWeb3React } from '@web3-react/core'
 import clsx from 'clsx'
-import { useSearchTokens } from 'graphql/data/SearchTokens'
+import { useSearchTokens } from 'graphql/physica/SearchTokens'
 import useDebounce from 'hooks/useDebounce'
 import { useIsNftPage } from 'hooks/useIsNftPage'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
-import { organizeSearchResults } from 'lib/utils/searchBar'
 import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
 import { magicalGradientOnHover } from 'nft/css/common.css'
@@ -54,23 +53,12 @@ export const SearchBar = () => {
     isOpen && toggleOpen()
   })
 
-  const { data: collections, isLoading: collectionsAreLoading } = useQuery(
-    ['searchCollections', debouncedSearchValue],
-    () => fetchSearchCollections(debouncedSearchValue),
-    {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      enabled: !!debouncedSearchValue.length,
-    }
-  )
-
   const { chainId } = useWeb3React()
   const { data: tokens, loading: tokensAreLoading } = useSearchTokens(debouncedSearchValue, chainId ?? 1)
 
   const isNFTPage = useIsNftPage()
 
-  const [reducedTokens, reducedCollections] = organizeSearchResults(isNFTPage, tokens ?? [], collections ?? [])
+  const reducedTokens = tokens ?? []
 
   // close dropdown on escape
   useEffect(() => {
@@ -86,7 +74,7 @@ export const SearchBar = () => {
     return () => {
       document.removeEventListener('keydown', escapeKeyDownHandler)
     }
-  }, [isOpen, toggleOpen, collections])
+  }, [isOpen, toggleOpen])
 
   // clear searchbar when changing pages
   useEffect(() => {
@@ -110,7 +98,7 @@ export const SearchBar = () => {
     ...trace,
   }
   const placeholderText = useMemo(() => {
-    return isMobileOrTablet ? t`Search` : t`Search tokens and NFT collections`
+    return isMobileOrTablet ? t`Search` : t`Search tokens`
   }, [isMobileOrTablet])
 
   const handleKeyPress = useCallback(
@@ -205,10 +193,10 @@ export const SearchBar = () => {
             <SearchBarDropdown
               toggleOpen={toggleOpen}
               tokens={reducedTokens}
-              collections={reducedCollections}
+              collections={[]}
               queryText={debouncedSearchValue}
               hasInput={debouncedSearchValue.length > 0}
-              isLoading={tokensAreLoading || collectionsAreLoading}
+              isLoading={tokensAreLoading}
             />
           )}
         </Box>

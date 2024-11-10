@@ -30,7 +30,7 @@ export default function DoubleCurrencyLogo({
   currency1,
   size = 16,
   margin = false,
-}: DoubleCurrencyLogoProps) {
+}: DoubleCurrencyLogoProps & React.HTMLAttributes<HTMLDivElement>) {
   return (
     <Wrapper sizeraw={size} margin={margin}>
       {currency0 && (

@@ -33,8 +33,7 @@ interface MenuItemProps {
   children: ReactNode
   dataTestId?: string
 }
-
-const ExternalMenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children }) => {
+export const ExternalMenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isActive, children }) => {
   // const isExternalLink = href.startsWith('https') || href.startsWith('//')
 
   // const linkProps = isExternalLink
@@ -48,17 +47,17 @@ const ExternalMenuItem: React.FC<MenuItemProps> = ({ href, dataTestId, id, isAct
   //     }
 
   return (
-    <a
-      href={href}
-      target={'_blank'}
-      className={isActive ? styles.activeMenuItem : styles.menuItem}
-      id={id}
-      style={{ textDecoration: 'none' }}
-      data-testid={dataTestId}
-      rel="noreferrer"
-    >
-      {children}
-    </a>
+      <a
+          href={href}
+          target={'_blank'}
+          className={isActive ? styles.activeMenuItem : styles.menuItem}
+          id={id}
+          style={{ textDecoration: 'none' }}
+          data-testid={dataTestId}
+          rel="noreferrer"
+      >
+        {children}
+      </a>
   )
 }
 
@@ -94,21 +93,21 @@ export const PageTabs = () => {
       <MenuItem href="/swap" isActive={pathname.startsWith('/swap')}>
         <Trans>Swap</Trans>
       </MenuItem>
-      {/*<MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
+      <MenuItem href={`/stake`} isActive={pathname.startsWith('/stake')}>
+        <Trans>Farming</Trans>
+      </MenuItem>
+      <MenuItem href={`/tokens/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/tokens')}>
         <Trans>Tokens</Trans>
       </MenuItem>
-      <MenuItem dataTestId="nft-nav" href="/nfts" isActive={isNftPage}>
+      <MenuItem href="/pool" id="pool-nav-link" isActive={isPoolActive}>
+        <Trans>Positions</Trans>
+      </MenuItem>
+      {/*<MenuItem dataTestId="nft-nav" href="/nfts" isActive={isNftPage}>
         <Trans>NFTs</Trans>
       </MenuItem>*/}
       <ExternalMenuItem href="https://swap.deltaswap.io/#/transfer">
         <Trans>Bridge</Trans>
       </ExternalMenuItem>
-      <ExternalMenuItem href="https://restake.app/">
-        <Trans>Stake</Trans>
-      </ExternalMenuItem>
-      <MenuItem href="/pool" id="pool-nav-link" isActive={isPoolActive}>
-        <Trans>Pool</Trans>
-      </MenuItem>
     </>
   )
 }
@@ -147,7 +146,9 @@ const Navbar = () => {
               <PageTabs />
             </Row>
           </Box>
-          <Box className={styles.searchContainer}>{/*<SearchBar />*/}</Box>
+          <Box className={styles.searchContainer}>
+            <SearchBar />
+          </Box>
           <Box className={styles.rightSideContainer}>
             <Row gap="12">
               <Box position="relative" display={{ sm: 'flex', xl: 'none' }}>

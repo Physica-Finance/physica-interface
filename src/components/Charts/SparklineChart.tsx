@@ -1,6 +1,7 @@
 import { SparkLineLoadingBubble } from 'components/Tokens/TokenTable/TokenRow'
 import { curveCardinal, scaleLinear } from 'd3'
-import { SparklineMap, TopToken } from 'graphql/data/TopTokens'
+import { SparklineMap } from 'graphql/data/TopTokens'
+import { TopToken } from 'graphql/physica/TopTokens'
 import { PricePoint } from 'graphql/data/util'
 import { memo } from 'react'
 import styled, { useTheme } from 'styled-components/macro'
@@ -26,7 +27,7 @@ interface SparklineChartProps {
 function _SparklineChart({ width, height, tokenData, pricePercentChange, sparklineMap }: SparklineChartProps) {
   const theme = useTheme()
   // for sparkline
-  const pricePoints = tokenData?.address ? sparklineMap[tokenData.address] : null
+  const pricePoints = tokenData?.id ? sparklineMap[tokenData.id] : null
 
   // Don't display if there's one or less pricepoints
   if (!pricePoints || pricePoints.length <= 1) {
@@ -42,7 +43,7 @@ function _SparklineChart({ width, height, tokenData, pricePercentChange, sparkli
   const widthScale = scaleLinear()
     .domain(
       // the range of possible input values
-      [startingPrice.timestamp, endingPrice.timestamp]
+      [startingPrice.date!, endingPrice.date!]
     )
     .range(
       // the range of possible output values that the inputs should be transformed to (see https://www.d3indepth.com/scales/ for details)
@@ -54,8 +55,8 @@ function _SparklineChart({ width, height, tokenData, pricePercentChange, sparkli
   return (
     <LineChart
       data={pricePoints}
-      getX={(p: PricePoint) => widthScale(p.timestamp)}
-      getY={(p: PricePoint) => rdScale(p.value)}
+      getX={(p: PricePoint) => widthScale(p.date!)}
+      getY={(p: PricePoint) => rdScale(parseFloat(p.priceUSD!))}
       curve={curveCardinal.tension(curveTension)}
       marginTop={5}
       color={pricePercentChange && pricePercentChange < 0 ? theme.accentFailure : theme.accentSuccess}

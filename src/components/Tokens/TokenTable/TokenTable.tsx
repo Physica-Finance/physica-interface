@@ -8,6 +8,7 @@ import styled from 'styled-components/macro'
 
 import { MAX_WIDTH_MEDIA_BREAKPOINT } from '../constants'
 import { HeaderRow, LoadedRow, LoadingRow } from './TokenRow'
+import { useTopTokens2 } from '../../../graphql/physica/TopTokens'
 
 const GridContainer = styled.div`
   display: flex;
@@ -77,7 +78,7 @@ function LoadingTokenTable({ rowCount = PAGE_SIZE }: { rowCount?: number }) {
 
 export default function TokenTable() {
   const chainName = validateUrlChainParam(useParams<{ chainName?: string }>().chainName)
-  const { tokens, tokenSortRank, loadingTokens, sparklines } = useTopTokens(chainName)
+  const { tokens, tokenSortRank, loadingTokens, sparklines } = useTopTokens2(chainName)
 
   /* loading and error state */
   if (loadingTokens && !tokens) {
@@ -102,14 +103,14 @@ export default function TokenTable() {
         <TokenDataContainer>
           {tokens.map(
             (token, index) =>
-              token?.address && (
+              token?.id && (
                 <LoadedRow
-                  key={token.address}
+                  key={token.id}
                   tokenListIndex={index}
                   tokenListLength={tokens.length}
                   token={token}
                   sparklineMap={sparklines}
-                  sortRank={tokenSortRank[token.address]}
+                  sortRank={tokenSortRank[token.id]}
                 />
               )
           )}

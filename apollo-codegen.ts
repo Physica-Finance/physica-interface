@@ -5,7 +5,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
 // Generates TS objects from the schemas returned by graphql queries
 // To learn more: https://www.apollographql.com/docs/react/development-testing/static-typing/#setting-up-your-project
 const config: CodegenConfig = {
-  overwrite: true,
+  overwrite: false,
   schema: './src/graphql/data/schema.graphql',
   documents: ['./src/graphql/data/**', '!./src/graphql/data/__generated__/**', '!**/thegraph/**'],
   generates: {

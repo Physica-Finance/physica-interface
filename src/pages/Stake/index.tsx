@@ -1,0 +1,126 @@
+import { Trans } from '@lingui/macro'
+import { GenericBadge } from 'components/Badge'
+import Loader from 'components/Loader'
+import React from 'react'
+import { Zap } from 'react-feather'
+import styled, { useTheme } from 'styled-components/macro'
+import { ThemedText } from 'theme'
+
+import { DarkCard } from '../../components/Card'
+import { AutoColumn } from '../../components/Column'
+import ProgramCard from '../../components/earn/ProgramCard'
+import { CardBGImage, CardSection, DataCard, OverviewGrid } from '../../components/earn/styled'
+import PoolListItem from '../../components/PoolListItem'
+import { RowBetween, RowFixed } from '../../components/Row'
+import useTrendingPools2 from '../../graphql/physica/TrendingPools'
+import { useAllIncentivesByPool } from '../../hooks/incentives/useAllIncentives'
+
+const PageWrapper = styled(AutoColumn)`
+  max-width: 840px;
+  width: 100%;
+`
+
+const TopSection = styled(AutoColumn)`
+  width: 100%;
+`
+
+const ProgramSection = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 10px;
+  row-gap: 12px;
+  width: 100%;
+  justify-self: center;
+`
+
+export default function Stake() {
+  const theme = useTheme()
+
+  const { loading, incentives } = useAllIncentivesByPool()
+
+  const { data: allPools, loading: poolsLoading } = useTrendingPools2()
+
+  return (
+    <PageWrapper gap="lg" justify="center">
+      <TopSection gap="md">
+        <RowBetween>
+          <ThemedText.DeprecatedBody style={{ marginTop: '0.5rem' }} fontSize="20px" color={theme.textTertiary}>
+            <Trans>Boosted Pools</Trans>
+          </ThemedText.DeprecatedBody>
+        </RowBetween>
+        <DataCard>
+          <CardSection>
+            <AutoColumn gap="md">
+              <GenericBadge style={{ backgroundColor: theme.deprecated_blue4 }}>
+                <RowFixed>
+                  <Zap stroke={theme.deprecated_blue4} size="16px" strokeWidth="3px" />
+                  <ThemedText.DeprecatedBody fontWeight={700} fontSize="12px" color={theme.deprecated_blue4} ml="4px">
+                    Liquidity Mining
+                  </ThemedText.DeprecatedBody>
+                </RowFixed>
+              </GenericBadge>
+              <ThemedText.DeprecatedBody fontWeight={600} fontSize="24px" color={theme.deprecated_blue4}>
+                <Trans>Earn more with boosts</Trans>
+              </ThemedText.DeprecatedBody>
+            </AutoColumn>
+          </CardSection>
+          <CardBGImage />
+        </DataCard>
+      </TopSection>
+      <DarkCard padding="24px">
+        <AutoColumn gap="16px">
+          <OverviewGrid style={{ padding: '0' }}>
+            <ThemedText.DeprecatedBody justifySelf="flex-start" fontSize="14px">
+              <Trans>Active Programs</Trans>
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontSize="14px" style={{ whiteSpace: 'nowrap' }}>
+              <Trans>Active Reward Amount</Trans>
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontSize="14px">
+              <Trans>Rewards Rate</Trans>
+            </ThemedText.DeprecatedBody>
+          </OverviewGrid>
+          <ProgramSection>
+            {loading ? (
+              <Loader />
+            ) : !incentives ? (
+              <ThemedText.DeprecatedBody>
+                <Trans>Error loading program</Trans>{' '}
+              </ThemedText.DeprecatedBody>
+            ) : (
+              Object.keys(incentives).map((poolAddress) => (
+                <ProgramCard
+                  key={poolAddress + '-program-overview'}
+                  poolAddress={poolAddress}
+                  incentives={incentives[poolAddress]}
+                />
+              ))
+            )}
+          </ProgramSection>
+        </AutoColumn>
+      </DarkCard>
+      <DarkCard padding="24px">
+        <AutoColumn gap="16px">
+          <OverviewGrid style={{ padding: '0' }}>
+            <ThemedText.DeprecatedBody justifySelf="flex-start" fontSize="14px">
+              <Trans>Pools</Trans>
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontSize="14px" style={{ whiteSpace: 'nowrap' }}>
+              <Trans>Total Volume USD</Trans>
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontSize="14px">
+              <Trans>TVL USD</Trans>
+            </ThemedText.DeprecatedBody>
+          </OverviewGrid>
+          <ProgramSection>
+            {poolsLoading || !allPools ? (
+              <Loader />
+            ) : (
+              allPools.map((pool: any) => <PoolListItem key={pool.id.toString()} {...pool} />)
+            )}
+          </ProgramSection>
+        </AutoColumn>
+      </DarkCard>
+    </PageWrapper>
+  )
+}

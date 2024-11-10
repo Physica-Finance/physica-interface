@@ -10,6 +10,7 @@ if (typeof NODIES_KEY === 'undefined') {
   throw new Error(`REACT_APP_NODIES_KEY must be a defined environment variable`)
 }
 
+
 /**
  * Fallback JSON-RPC endpoints.
  * These are used if the integrator does not provide an endpoint, or if the endpoint does not work.
@@ -105,10 +106,7 @@ export const FALLBACK_URLS: { [key in SupportedChainId]: string[] } = {
  * These are the URLs used by the interface when there is not another available source of chain data.
  */
 export const RPC_URLS: { [key in SupportedChainId]: string[] } = {
-  [SupportedChainId.PLANQ]: [
-    `https://lb.nodies.app/v1/d7f35384b3fc49c68edebaf888b8edb0`,
-    ...FALLBACK_URLS[SupportedChainId.PLANQ],
-  ],
+  [SupportedChainId.PLANQ]: [`https://lb.nodies.app/v1/${NODIES_KEY}`, ...FALLBACK_URLS[SupportedChainId.PLANQ]],
   [SupportedChainId.MAINNET]: [
     `https://mainnet.infura.io/v3/${INFURA_KEY}`,
     ...FALLBACK_URLS[SupportedChainId.MAINNET],

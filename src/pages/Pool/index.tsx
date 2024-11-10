@@ -20,8 +20,30 @@ import { HideSmall, ThemedText } from 'theme'
 import { PositionDetails } from 'types/position'
 
 import { V2_FACTORY_ADDRESSES } from '../../constants/addresses'
+import { useAllIncentives } from '../../hooks/incentives/useAllIncentives'
 import CTACards from './CTACards'
 import { LoadingRows } from './styleds'
+
+//  pools(orderBy: liquidity, orderDirection: desc) {
+//     token0 {
+//       decimals
+//       id
+//       name
+//       totalValueLocked
+//       symbol
+//       volumeUSD
+//     }
+//     token1 {
+//       decimals
+//       id
+//       name
+//       symbol
+//       totalValueLocked
+//       volumeUSD
+//     }
+//     liquidity
+//     id
+//   }
 
 const PageWrapper = styled(AutoColumn)`
   padding: 68px 8px 0px;
@@ -202,6 +224,8 @@ export default function Pool() {
   const [userHideClosedPositions, setUserHideClosedPositions] = useUserHideClosedPositions()
 
   const { positions, loading: positionsLoading } = useV3Positions(account)
+
+  const { incentives, loading: incentivesLoading } = useAllIncentives()
 
   const [openPositions, closedPositions] = positions?.reduce<[PositionDetails[], PositionDetails[]]>(
     (acc, p) => {

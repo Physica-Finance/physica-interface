@@ -1,6 +1,6 @@
 import { Plural, Trans } from '@lingui/macro'
 import { TokenStandard } from 'graphql/data/__generated__/types-and-hooks'
-import { SearchToken } from 'graphql/data/SearchTokens'
+import { SearchToken } from 'graphql/physica/SearchTokens'
 
 import { ZERO_ADDRESS } from './misc'
 import { NATIVE_CHAIN_ID } from './tokens'
@@ -99,8 +99,8 @@ export function checkWarning(tokenAddress: string) {
 
 // TODO(cartcrom): Replace all usage of WARNING_LEVEL with SafetyLevel
 export function checkSearchTokenWarning(token: SearchToken) {
-  if (!token.address) {
-    return token.standard === TokenStandard.Native ? null : StrongWarning
+  if (!token.id) {
+    return null
   }
-  return checkWarning(token.address)
+  return checkWarning(token.id)
 }

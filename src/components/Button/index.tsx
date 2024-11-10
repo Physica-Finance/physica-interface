@@ -94,6 +94,13 @@ export const ButtonPrimary = styled(BaseButton)`
   }
 `
 
+export const ButtonSmall = styled(ButtonPrimary)`
+  width: fit-content;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+`
+
 export const SmallButtonPrimary = styled(ButtonPrimary)`
   width: auto;
   font-size: 16px;
@@ -156,6 +163,14 @@ export const ButtonGray = styled(BaseButton)`
   &:active {
     background-color: ${({ theme, disabled }) => !disabled && darken(0.1, theme.backgroundInteractive)};
   }
+`
+export const ButtonGreySmall = styled(ButtonGray)`
+  width: fit-content;
+  background-color: ${({ theme }) => theme.deprecated_bg1};
+  color: ${({ theme }) => theme.textPrimary};
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
 `
 
 export const ButtonSecondary = styled(BaseButton)`
