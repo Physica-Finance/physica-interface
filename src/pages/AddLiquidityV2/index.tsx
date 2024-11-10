@@ -348,7 +348,7 @@ export default function AddLiquidity() {
                   <BlueCard>
                     <AutoColumn gap="10px">
                       <ThemedText.DeprecatedLink fontWeight={600} color="accentAction">
-                        <Trans>You are the first liquidity provider.</Trans>
+                        <Trans>You are the first liquidity provider, creating a pool costs 1024 PLQ.</Trans>
                       </ThemedText.DeprecatedLink>
                       <ThemedText.DeprecatedLink fontWeight={400} color="accentAction">
                         <Trans>The ratio of tokens you add will set the price of this pool.</Trans>

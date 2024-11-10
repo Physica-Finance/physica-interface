@@ -120,9 +120,6 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
                   <Trans>REWARDS REMAINING</Trans>
                 </ThemedText.DeprecatedBody>
                 <ThemedText.DeprecatedBody fontSize="11px" fontWeight={400} color={theme.textTertiary}>
-                  <Trans>TOTAL DEPOSITS</Trans>
-                </ThemedText.DeprecatedBody>
-                <ThemedText.DeprecatedBody fontSize="11px" fontWeight={400} color={theme.textTertiary}>
                   <Trans>REWARDS</Trans>
                 </ThemedText.DeprecatedBody>
               </TitleGrid>
@@ -150,11 +147,7 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
                     </Bar>
                   </BarWrapper>
                 )}
-                <EmptyBadge style={{ borderRadius: '16px' }}>
-                  <BadgeText fontWeight={700} fontSize="14px">
-                    $58,022
-                  </BadgeText>
-                </EmptyBadge>
+
                 <EmptyBadge style={{ borderRadius: '16px' }}>
                   <BadgeText fontWeight={700} fontSize="14px">
                     {usdPerWeek

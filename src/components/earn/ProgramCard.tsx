@@ -15,7 +15,7 @@ import { formattedFeeAmount } from 'utils'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
 
 import { Incentive } from '../../hooks/incentives/useAllIncentives'
-import { useCurrency } from '../../hooks/Tokens'
+import { useCurrency, useToken } from '../../hooks/Tokens'
 import { CardNoise, LightCardWrapper } from './styled'
 import { OverviewGrid } from './styled'
 
@@ -38,14 +38,15 @@ function IncentiveRow(incentive: Incentive, poolAddress: string) {
 
   const currency0 = useCurrency(incentive.pool.token0.address)
   const currency1 = useCurrency(incentive.pool.token1.address)
-  const rewardCurrency = incentive.initialRewardAmount.currency
+  const rewardCurrency = useToken(incentive.initialRewardAmount.currency.address)
   const activeLiquidity = incentive.initialRewardAmount
   const activeLiquidityUSD = useStablecoinValue(activeLiquidity)
   const rewardPerDay = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_DAY)
+
   return (
     <LightCardWrapper>
       <CardNoise />
-      {!currency0 || !currency1 ? (
+      {!currency0 || !currency1 || !rewardCurrency ? (
         <LoadingRows>
           <div />
         </LoadingRows>

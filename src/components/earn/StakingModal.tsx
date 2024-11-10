@@ -19,13 +19,13 @@ import styled, { useTheme } from 'styled-components/macro'
 import { CloseIcon, ThemedText } from 'theme'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
 
+import { useToken } from '../../hooks/Tokens'
 import { useV3NFTPositionManagerContract, useV3Staker } from '../../hooks/useContract'
 import { useIsTransactionPending, useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
 import { PositionDetails } from '../../types/position'
 import Loader from '../Loader'
 import Countdown from './Countdown'
-import { useToken } from '../../hooks/Tokens'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -48,6 +48,8 @@ export default function StakingModal({ isOpen, onDismiss, incentive, positionDet
   const theme = useTheme()
   const startDate = new Date(incentive.startTime * 1000)
   const endDate = new Date(incentive.endTime * 1000)
+  const rewardCurrency = useToken(incentive.initialRewardAmount.currency.address)
+
   // monitor call to help UI loading state
   const addTransaction = useTransactionAdder()
   const [hash, setHash] = useState<string | undefined>()
@@ -56,7 +58,6 @@ export default function StakingModal({ isOpen, onDismiss, incentive, positionDet
   const weeklyRewards = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_WEEK)
   const weeklyRewardsUSD = useStablecoinValue(weeklyRewards)
 
-  console.log(positionDetails)
   function wrappedOnDismiss() {
     setHash(undefined)
     setAttempting(false)
@@ -70,7 +71,6 @@ export default function StakingModal({ isOpen, onDismiss, incentive, positionDet
     staker?.deposits(positionDetails.tokenId).then((response: any) => {
       if (response.owner === account) {
         setPositionDeposited(true)
-        console.log(response)
       }
     })
   }
@@ -163,13 +163,15 @@ export default function StakingModal({ isOpen, onDismiss, incentive, positionDet
           <DarkerGreyCard>
             <AutoColumn gap="md">
               <RowBetween>
+                {!rewardCurrency ? (<Loader />) : (
                 <RowFixed>
-                  <CurrencyLogo currency={incentive.initialRewardAmount.currency} />
+                  <CurrencyLogo currency={rewardCurrency} />
                   <ThemedText.DeprecatedBody
                     m="0 12px"
                     fontSize="16px"
-                  >{`${incentive.initialRewardAmount.currency.symbol} Boost`}</ThemedText.DeprecatedBody>
+                  >{`${rewardCurrency.symbol} Boost`}</ThemedText.DeprecatedBody>
                 </RowFixed>
+                )}
                 <Countdown exactEnd={endDate} exactStart={startDate} />
               </RowBetween>
               <AutoColumn gap="8px">
@@ -185,9 +187,11 @@ export default function StakingModal({ isOpen, onDismiss, incentive, positionDet
                     )})`}</ThemedText.DeprecatedBody>
                   </span>
                 ) : (
+                  !rewardCurrency ? (<Loader />) : (
                   <ThemedText.DeprecatedBody>{`${formatCurrencyAmount(weeklyRewards, 4)} ${
-                    weeklyRewards.currency.symbol
+                    rewardCurrency.symbol
                   } per week`}</ThemedText.DeprecatedBody>
+                  )
                 )}
               </AutoColumn>
             </AutoColumn>
@@ -228,7 +232,7 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
   const weeklyRewardsUSD = useStablecoinValue(weeklyRewards)
   const rewardCurrency = useToken(incentive.initialRewardAmount.currency.address)
 
-  console.log(positionDetails)
+
   function wrappedOnDismiss() {
     setHash(undefined)
     setAttempting(false)
@@ -242,7 +246,6 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
     staker?.deposits(positionDetails.tokenId).then((response: any) => {
       if (response.owner === account) {
         setPositionDeposited(true)
-        console.log(response)
       }
     })
   }
@@ -275,7 +278,7 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
     if (staker && incentive && account) {
       setAttempting(true)
       await staker
-        .withdrawToken(positionDetails.tokenId, account, '0x0', { gasLimit: 350000 })
+        .withdrawToken(positionDetails.tokenId, account, [], { gasLimit: 350000 })
         .then((response: TransactionResponse) => {
           addTransaction(response, {
             type: TransactionType.WITHDRAW_LIQUIDITY_STAKING,
@@ -298,70 +301,76 @@ export function WithdrawModal({ isOpen, onDismiss, incentive, positionDetails }:
 
   return (
     <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss}>
-      {!rewardCurrency ? (<Loader/>) : (
-      <Wrapper>
-        <AutoColumn gap="lg">
-          <RowBetween>
-            <ThemedText.DeprecatedBody fontSize="20px" fontWeight={600}>
-              <Trans>Review Position Staking</Trans>
-            </ThemedText.DeprecatedBody>
-            <CloseIcon onClick={wrappedOnDismiss} />
-          </RowBetween>
-          <DarkerGreyCard>
-            <AutoColumn gap="md">
-              <RowBetween>
-                <RowFixed>
-                  <CurrencyLogo currency={rewardCurrency} />
-                  <ThemedText.DeprecatedBody
-                    m="0 12px"
-                    fontSize="16px"
-                  >{`${rewardCurrency.symbol} Boost`}</ThemedText.DeprecatedBody>
-                </RowFixed>
-                <Countdown exactEnd={endDate} exactStart={startDate} />
-              </RowBetween>
-              <AutoColumn gap="8px">
-                <ThemedText.DeprecatedMain color={theme.textSecondary} fontWeight={400} fontSize="11px">
-                  <Trans>YOUR ESTIMATED REWARDS</Trans>
-                </ThemedText.DeprecatedMain>
-                {weeklyRewardsUSD ? (
-                  <span>
-                    <ThemedText.DeprecatedBody>{`$${weeklyRewardsUSD.toFixed(2)} per week`}</ThemedText.DeprecatedBody>
-                    <ThemedText.DeprecatedBody>{`~(${formatCurrencyAmount(
-                      weeklyRewards,
-                      4
-                    )})`}</ThemedText.DeprecatedBody>
-                  </span>
-                ) : (
-                  <ThemedText.DeprecatedBody>{`${formatCurrencyAmount(weeklyRewards, 4)} ${
-                    rewardCurrency.symbol
-                  } per week`}</ThemedText.DeprecatedBody>
-                )}
-              </AutoColumn>
-            </AutoColumn>
-          </DarkerGreyCard>
-          <GreenBadge style={{ padding: '16px' }}>
-            <AutoColumn gap="sm" justify="center">
-              <AlertCircle size={20} />
-              <ThemedText.DeprecatedBody
-                fontWeight={500}
-                fontSize="14px"
-                style={{ whiteSpace: 'normal' }}
-                textAlign="center"
-              >
-                <Trans>
-                  You are withdrawing your position! You can now withdraw your position and claim regular liquidity provider
-                  fees. Make sure to unstake this position first from all boost programs to withdraw it.
-                </Trans>
+      {!rewardCurrency ? (
+        <Loader />
+      ) : (
+        <Wrapper>
+          <AutoColumn gap="lg">
+            <RowBetween>
+              <ThemedText.DeprecatedBody fontSize="20px" fontWeight={600}>
+                <Trans>Review Position Staking</Trans>
               </ThemedText.DeprecatedBody>
-            </AutoColumn>
-          </GreenBadge>
-          {positionDeposited ? ( // if position is already deposited, show the stake button
-            <ButtonPrimary disabled={attempting} padding="8px" $borderRadius="12px" onClick={onWithdrawPosition}>
-              <Trans>Withdraw Position</Trans>
-            </ButtonPrimary>
-          ) : (<Loader/>)}
-        </AutoColumn>
-      </Wrapper>
+              <CloseIcon onClick={wrappedOnDismiss} />
+            </RowBetween>
+            <DarkerGreyCard>
+              <AutoColumn gap="md">
+                <RowBetween>
+                  <RowFixed>
+                    <CurrencyLogo currency={rewardCurrency} />
+                    <ThemedText.DeprecatedBody
+                      m="0 12px"
+                      fontSize="16px"
+                    >{`${rewardCurrency.symbol} Boost`}</ThemedText.DeprecatedBody>
+                  </RowFixed>
+                  <Countdown exactEnd={endDate} exactStart={startDate} />
+                </RowBetween>
+                <AutoColumn gap="8px">
+                  <ThemedText.DeprecatedMain color={theme.textSecondary} fontWeight={400} fontSize="11px">
+                    <Trans>YOUR ESTIMATED REWARDS</Trans>
+                  </ThemedText.DeprecatedMain>
+                  {weeklyRewardsUSD ? (
+                    <span>
+                      <ThemedText.DeprecatedBody>{`$${weeklyRewardsUSD.toFixed(
+                        2
+                      )} per week`}</ThemedText.DeprecatedBody>
+                      <ThemedText.DeprecatedBody>{`~(${formatCurrencyAmount(
+                        weeklyRewards,
+                        4
+                      )})`}</ThemedText.DeprecatedBody>
+                    </span>
+                  ) : (
+                    <ThemedText.DeprecatedBody>{`${formatCurrencyAmount(weeklyRewards, 4)} ${
+                      rewardCurrency.symbol
+                    } per week`}</ThemedText.DeprecatedBody>
+                  )}
+                </AutoColumn>
+              </AutoColumn>
+            </DarkerGreyCard>
+            <GreenBadge style={{ padding: '16px' }}>
+              <AutoColumn gap="sm" justify="center">
+                <AlertCircle size={20} />
+                <ThemedText.DeprecatedBody
+                  fontWeight={500}
+                  fontSize="14px"
+                  style={{ whiteSpace: 'normal' }}
+                  textAlign="center"
+                >
+                  <Trans>
+                    You are withdrawing your position! You can now withdraw your position and claim regular liquidity
+                    provider fees. Make sure to unstake this position first from all boost programs to withdraw it.
+                  </Trans>
+                </ThemedText.DeprecatedBody>
+              </AutoColumn>
+            </GreenBadge>
+            {positionDeposited ? ( // if position is already deposited, show the stake button
+              <ButtonPrimary disabled={attempting} padding="8px" $borderRadius="12px" onClick={onWithdrawPosition}>
+                <Trans>Withdraw Position</Trans>
+              </ButtonPrimary>
+            ) : (
+              <Loader />
+            )}
+          </AutoColumn>
+        </Wrapper>
       )}
     </Modal>
   )
@@ -380,6 +389,9 @@ export function ClaimModal({ incentive, isOpen, onDismiss, positionDetails }: Cl
   const [hash, setHash] = useState<string | undefined>()
   const [attempting, setAttempting] = useState(false)
   const [rewards, setRewards] = useState<BigNumber | undefined>()
+  const [rewardsChecked, setRewardsChecked] = useState(false)
+  const rewardCurrency = useToken(incentive.initialRewardAmount.currency.address)
+
   const claimPending = useIsTransactionPending(hash ?? '')
   const claimConfirmed = hash && !claimPending
   function wrappedOnDismiss() {
@@ -390,7 +402,7 @@ export function ClaimModal({ incentive, isOpen, onDismiss, positionDetails }: Cl
 
   const stakingContract = useV3Staker()
 
-  if (stakingContract && incentive && account && !rewards) {
+  if (stakingContract && incentive && account && !rewardsChecked) {
     stakingContract
       .getRewardInfo(
         {
@@ -405,9 +417,12 @@ export function ClaimModal({ incentive, isOpen, onDismiss, positionDetails }: Cl
       )
       .then((response: [BigNumber, BigNumber]) => {
         setRewards(response[0])
+        setRewardsChecked(true)
+
       })
       .catch((error: any) => {
         setRewards(BigNumber.from(0))
+        setRewardsChecked(true)
         console.log(error)
       })
   }
@@ -511,20 +526,20 @@ export function ClaimModal({ incentive, isOpen, onDismiss, positionDetails }: Cl
             </ThemedText.DeprecatedBody>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
-          <DarkerGreyCard>
+          {!rewardCurrency ? (<Loader />) : (<DarkerGreyCard>
             <AutoColumn gap="md" justify="center">
               <ThemedText.DeprecatedBody ml="12px" fontSize="11px" fontWeight={400}>
                 {claimConfirmed ? <Trans>CLAIMED REWARDS</Trans> : <Trans>TOTAL UNCLAIMED REWARDS</Trans>}
               </ThemedText.DeprecatedBody>
               <AutoRow gap="8px" key="reward-row" width="fit-content">
-                <CurrencyLogo currency={incentive.initialRewardAmount.currency} size="24px" />
+                <CurrencyLogo currency={rewardCurrency} size="24px" />
                 <ThemedText.DeprecatedBody fontSize="20px" fontWeight={500}>
                   {claimPending ? (
                     <Loader />
                   ) : (
                     formatCurrencyAmount(
                       CurrencyAmount.fromRawAmount(
-                        incentive.initialRewardAmount.currency,
+                        rewardCurrency,
                         rewards ? rewards!.toString() : '0'
                       ),
                       5
@@ -532,11 +547,11 @@ export function ClaimModal({ incentive, isOpen, onDismiss, positionDetails }: Cl
                   )}
                 </ThemedText.DeprecatedBody>
                 <ThemedText.DeprecatedBody fontSize="20px" fontWeight={500}>
-                  {incentive.initialRewardAmount.currency.symbol}
+                  {rewardCurrency.symbol}
                 </ThemedText.DeprecatedBody>
               </AutoRow>
             </AutoColumn>
-          </DarkerGreyCard>
+          </DarkerGreyCard>)}
           <ButtonPrimary disabled={attempting} padding="8px" $borderRadius="12px" onClick={onUnstake}>
             <Trans>Claim</Trans>
           </ButtonPrimary>
@@ -571,6 +586,8 @@ export function UnstakeModal({ incentive, isOpen, onDismiss, positionDetails }: 
   const [hash, setHash] = useState<string | undefined>()
   const [attempting, setAttempting] = useState(false)
   const [rewards, setRewards] = useState<BigNumber | undefined>()
+  const [rewardsChecked, setRewardsChecked] = useState(false)
+
   const claimPending = useIsTransactionPending(hash ?? '')
   const claimConfirmed = hash && !claimPending
   function wrappedOnDismiss() {
@@ -581,7 +598,7 @@ export function UnstakeModal({ incentive, isOpen, onDismiss, positionDetails }: 
 
   const stakingContract = useV3Staker()
 
-  if (stakingContract && incentive && account && !rewards) {
+  if (stakingContract && incentive && account && !rewardsChecked) {
     stakingContract
       .getRewardInfo(
         {
@@ -596,9 +613,11 @@ export function UnstakeModal({ incentive, isOpen, onDismiss, positionDetails }: 
       )
       .then((response: [BigNumber, BigNumber]) => {
         setRewards(response[0])
+        setRewardsChecked(true)
       })
       .catch((error: any) => {
         setRewards(BigNumber.from(0))
+        setRewardsChecked(true)
         console.log(error)
       })
   }

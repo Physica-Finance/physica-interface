@@ -23,6 +23,7 @@ import { currencyId } from 'utils/currencyId'
 
 import { useToken } from '../../hooks/Tokens'
 import { useV3Staker } from '../../hooks/useContract'
+import { PositionDetails } from '../../types/position'
 
 const Wrapper = styled.div`
   max-width: 840px;
@@ -58,7 +59,14 @@ export default function Manage() {
     account
   )
 
-  if (!pool || !currency0 || !currency1 || loading || loadingStakerPositions) {
+  const mergeIncentive = (a: any, b: any, predicate = (a: any, b: any) => a === b) => {
+    const c = [...a] // copy to avoid side effects
+    // add all items from B to copy C if they're not already present
+    b.forEach((bItem: any) => (c.some((cItem) => predicate(bItem, cItem)) ? null : c.push(bItem)))
+    return c
+  }
+
+  if (!pool || !currency0 || !currency1 || loading || loadingStakerPositions || loadingPositions) {
     return (
       <Wrapper>
         <LoadingRows>
@@ -69,7 +77,9 @@ export default function Manage() {
       </Wrapper>
     )
   }
-  console.log(inRangeStakerPositions)
+
+  const allPositions = mergeIncentive(inRangePositions, inRangeStakerPositions, (a, b) => a.tokenId.eq(b.tokenId))
+  console.log(allPositions)
   return (
     <Wrapper>
       <AutoColumn gap="24px">
@@ -119,20 +129,14 @@ export default function Manage() {
           <ThemedText.DeprecatedBody fontWeight={600} fontSize="18px">
             <Trans>Your Positions</Trans>
           </ThemedText.DeprecatedBody>
+
           {loadingPositions ? (
             <Loader />
-          ) : !inRangePositions ? (
+          ) : !allPositions ? (
             <ThemedText.DeprecatedBody>No positions on this pool</ThemedText.DeprecatedBody>
           ) : (
-            inRangePositions.map((p, i) => <PositionManageCard key={'position-manage-' + i} positionDetails={p} incentive={incentive} />)
-          )}
-          {loadingStakerPositions ? (
-            <Loader />
-          ) : !inRangeStakerPositions ? (
-            <ThemedText.DeprecatedBody>No positions on this pool</ThemedText.DeprecatedBody>
-          ) : (
-            inRangeStakerPositions.map((p, i) => (
-              <PositionManageCard key={'position-manage-' + i} positionDetails={p} />
+            (allPositions as PositionDetails[]).map((p, i) => (
+              <PositionManageCard key={'position-manage-' + i} positionDetails={p} incentive={incentive} />
             ))
           )}
         </AutoColumn>
