@@ -21,6 +21,7 @@ import {
   MEDIUM_MEDIA_BREAKPOINT,
   SMALL_MEDIA_BREAKPOINT,
 } from '../Tokens/constants'
+import { FixedHeightRow } from '../PositionCard'
 
 const Cell = styled.div`
   display: flex;
@@ -305,7 +306,7 @@ export default function PoolListItem(poolGraphql: any) {
 
   return (
     <LinkRow to={positionSummaryLink}>
-      <StyledTokenRow>
+      <FixedHeightRow>
         <NameCell data-testid="tvsl-cell">
           <DoubleCurrencyLogo currency0={pool?.token0} currency1={pool?.token1} size={18} />
           <DataText>
@@ -325,7 +326,7 @@ export default function PoolListItem(poolGraphql: any) {
         <TvlCell data-testid="tvl-cell" sortable={false}>
           ${parseFloat(poolGraphql?.totalValueLockedUSD).toFixed(2)}
         </TvlCell>
-      </StyledTokenRow>
+      </FixedHeightRow>
     </LinkRow>
   )
 }

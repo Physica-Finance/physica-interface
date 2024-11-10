@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro'
 import { CurrencyAmount } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import Badge from 'components/Badge'
-import { ButtonSmall } from 'components/Button'
+import { ButtonPrimary, ButtonSmall } from 'components/Button'
 import { AutoColumn } from 'components/Column'
 import CurrencyLogo from 'components/Logo/CurrencyLogo'
 import RangeStatus from 'components/RangeStatus'
@@ -34,6 +34,16 @@ const PositionWrapper = styled.div<{ staked?: boolean }>`
   //border: 1px solid ${({ theme, staked }) => (staked ? theme.deprecated_blue4 : theme.deprecated_bg3)};
   border-radius: 12px;
   padding: 16px;
+`
+const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  border-radius: 12px;
+  font-size: 16px;
+  padding: 6px 8px;
+  width: fit-content;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex: 1 1 auto;
+    width: 100%;
+  `};
 `
 
 interface BoostStatusRowProps {
@@ -123,14 +133,14 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
       {unstaked ? (
         <PositionWrapper>
           <RowBetween>
-            <RangeStatus positionDetails={positionDetails} />
-            <ButtonSmall onClick={() => setShowStakingModal(true)}>
+            <RangeStatus small={true} positionDetails={positionDetails} />
+            <ResponsiveButtonPrimary onClick={() => setShowStakingModal(true)}>
               {!positionDeposited ? <Trans>Deposit Position</Trans> : <Trans>Stake Position</Trans>}
-            </ButtonSmall>
+            </ResponsiveButtonPrimary>
             {!positionDeposited ? null : (
-              <ButtonSmall onClick={() => setShowWithdrawModal(true)}>
+              <ResponsiveButtonPrimary onClick={() => setShowWithdrawModal(true)}>
                 <Trans>Withdraw from Staker</Trans>
-              </ButtonSmall>
+              </ResponsiveButtonPrimary>
             )}
           </RowBetween>
         </PositionWrapper>
@@ -176,13 +186,13 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
                 </RowFixed>
                 <AutoRow gap="8px" width="fit-content">
                   {rewards?.gt(BigNumber.from(0)) ? (
-                    <ButtonSmall onClick={() => setShowClaimModal(true)}>
+                    <ResponsiveButtonPrimary onClick={() => setShowClaimModal(true)}>
                       <Trans>Claim</Trans>
-                    </ButtonSmall>
+                    </ResponsiveButtonPrimary>
                   ) : null}
-                  <ButtonSmall onClick={() => setShowUnstakeModal(true)}>
+                  <ResponsiveButtonPrimary onClick={() => setShowUnstakeModal(true)}>
                     <Trans>Unstake</Trans>
-                  </ButtonSmall>
+                  </ResponsiveButtonPrimary>
                 </AutoRow>
               </RowBetween>
             </AutoColumn>

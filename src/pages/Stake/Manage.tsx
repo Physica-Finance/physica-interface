@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import Badge from 'components/Badge'
-import { ButtonGreySmall } from 'components/Button'
+import { ButtonGreySmall, ButtonPrimary } from 'components/Button'
 import { DarkGrayCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
@@ -28,7 +28,20 @@ import { PositionDetails } from '../../types/position'
 const Wrapper = styled.div`
   max-width: 840px;
   width: 100%;
+    padding: 12px;
 `
+
+const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  border-radius: 12px;
+  font-size: 16px;
+  padding: 6px 8px;
+  width: fit-content;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex: 1 1 auto;
+    width: 100%;
+  `};
+`
+
 export default function Manage() {
   const { poolAddress } = useParams<{ poolAddress?: string }>()
   const { incentiveId } = useParams<{ incentiveId?: string }>()
@@ -109,13 +122,13 @@ export default function Manage() {
                 <Trans>View Analytics ↗</Trans>
               </ButtonGreySmall>
             ) : null}
-            <ButtonGreySmall
+            <ResponsiveButtonPrimary
               style={{ marginLeft: '8px' }}
               as={Link}
               to={`/add/${currencyId(currency0)}/${currencyId(currency1)}/${pool.fee}`}
             >
               <Trans>Add Liquidity</Trans>
-            </ButtonGreySmall>
+            </ResponsiveButtonPrimary>
           </RowFixed>
         </RowBetween>
         {!incentives || !incentive ? (

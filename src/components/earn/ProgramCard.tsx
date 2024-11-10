@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import Badge from 'components/Badge'
-import { ButtonSmall } from 'components/Button'
+import { ButtonPrimary } from 'components/Button'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import CurrencyLogo from 'components/Logo/CurrencyLogo'
 import { RowFixed } from 'components/Row'
@@ -10,7 +10,6 @@ import { useStablecoinValue } from 'hooks/useStablecoinPrice'
 import { LoadingRows } from 'pages/Pool/styleds'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components/macro'
-import { ThemedText } from 'theme'
 import { formattedFeeAmount } from 'utils'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
 
@@ -18,6 +17,34 @@ import { Incentive } from '../../hooks/incentives/useAllIncentives'
 import { useCurrency, useToken } from '../../hooks/Tokens'
 import { CardNoise, LightCardWrapper } from './styled'
 import { OverviewGrid } from './styled'
+
+const Text = styled.p`
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0 0.5rem 0 0.25rem;
+  font-size: 0.7rem;
+  width: fit-content;
+  font-weight: 400;
+`
+const BadgeText = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    font-size: 12px;
+  `};
+`
+const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  border-radius: 12px;
+  font-size: 16px;
+  padding: 6px 8px;
+  width: fit-content;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex: 1 1 auto;
+    width: 100%;
+  `};
+`
 
 interface ProgramCardProps {
   poolAddress: string
@@ -54,23 +81,23 @@ function IncentiveRow(incentive: Incentive, poolAddress: string) {
         <OverviewGrid>
           <RowFixed justifySelf="flex-start">
             <DoubleCurrencyLogo margin={true} currency0={currency0} currency1={currency1} size={20} />
-            <ThemedText.DeprecatedBody fontWeight={600} fontSize="20px" m="0 8px">
-              {`${currency0.symbol} / ${currency1.symbol}`}
-            </ThemedText.DeprecatedBody>
-            <Badge>{formattedFeeAmount(incentive.pool.fee)}%</Badge>
+            <Text>{`${currency0.symbol} / ${currency1.symbol}`}</Text>
+            <Badge>
+              <BadgeText>{formattedFeeAmount(incentive.pool.fee)}%</BadgeText>
+            </Badge>
           </RowFixed>
-          <ExtentsText>
+          <Text>
             {activeLiquidityUSD
               ? `$${formatCurrencyAmount(activeLiquidityUSD, 2)}`
               : `${formatCurrencyAmount(activeLiquidity, 4)} ${rewardCurrency.symbol}`}
-          </ExtentsText>
+          </Text>
           <RowFixed>
             <CurrencyLogo currency={rewardCurrency} size="16px" />
-            <ExtentsText>{`${formatCurrencyAmount(rewardPerDay, 4)} ${rewardCurrency.symbol} / day`}</ExtentsText>
+            <Text>{`${formatCurrencyAmount(rewardPerDay, 4)} ${rewardCurrency.symbol} / day`}</Text>
           </RowFixed>
-          <ButtonSmall as={Link} to={'/stake/' + incentive.poolAddress + '/' + incentive.id}>
+          <ResponsiveButtonPrimary as={Link} to={'/stake/' + incentive.poolAddress + '/' + incentive.id}>
             <Trans>Manage</Trans>
-          </ButtonSmall>
+          </ResponsiveButtonPrimary>
         </OverviewGrid>
       )}
     </LightCardWrapper>

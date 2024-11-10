@@ -14,14 +14,62 @@ import PoolListItem from '../../components/PoolListItem'
 import { RowBetween, RowFixed } from '../../components/Row'
 import useTrendingPools2 from '../../graphql/physica/TrendingPools'
 import { useAllIncentivesByPool } from '../../hooks/incentives/useAllIncentives'
+import { LARGE_MEDIA_BREAKPOINT, MAX_WIDTH_MEDIA_BREAKPOINT } from '../../components/Tokens/constants'
 
 const PageWrapper = styled(AutoColumn)`
-  max-width: 840px;
+  padding: 68px 8px 0px;
+  max-width: 870px;
   width: 100%;
+
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
+    max-width: 800px;
+  `};
+
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    max-width: 500px;
+  `};
+
+  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.md}px`}) {
+    padding-top: 48px;
+  }
+
+  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
+    padding-top: 20px;
+  }
 `
 
 const TopSection = styled(AutoColumn)`
   width: 100%;
+`
+
+const TokenDataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+  width: 100%;
+`
+
+const MobileHeader = styled(ThemedText.HeadlineSmall)`
+  @media only screen and (max-width: ${LARGE_MEDIA_BREAKPOINT}) {
+    display: none;
+  }
+`
+
+const GridContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: ${MAX_WIDTH_MEDIA_BREAKPOINT};
+  background-color: ${({ theme }) => theme.backgroundSurface};
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+    0px 24px 32px rgba(0, 0, 0, 0.01);
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ${({ theme }) => theme.backgroundOutline};
 `
 
 const ProgramSection = styled.div`
@@ -67,18 +115,18 @@ export default function Stake() {
           <CardBGImage />
         </DataCard>
       </TopSection>
-      <DarkCard padding="24px">
-        <AutoColumn gap="16px">
+      <DarkCard padding="12px">
+        <AutoColumn gap="md">
           <OverviewGrid style={{ padding: '0' }}>
-            <ThemedText.DeprecatedBody justifySelf="flex-start" fontSize="14px">
+            <ThemedText.HeadlineSmall justifySelf="flex-start">
               <Trans>Active Programs</Trans>
-            </ThemedText.DeprecatedBody>
-            <ThemedText.DeprecatedBody fontSize="14px" style={{ whiteSpace: 'nowrap' }}>
+            </ThemedText.HeadlineSmall>
+            <MobileHeader style={{ whiteSpace: 'nowrap' }}>
               <Trans>Active Reward Amount</Trans>
-            </ThemedText.DeprecatedBody>
-            <ThemedText.DeprecatedBody fontSize="14px">
+            </MobileHeader>
+            <MobileHeader>
               <Trans>Rewards Rate</Trans>
-            </ThemedText.DeprecatedBody>
+            </MobileHeader>
           </OverviewGrid>
           <ProgramSection>
             {loading || poolsLoading ? (
@@ -99,18 +147,18 @@ export default function Stake() {
           </ProgramSection>
         </AutoColumn>
       </DarkCard>
-      <DarkCard padding="24px">
-        <AutoColumn gap="16px">
+      <DarkCard>
+        <AutoColumn gap="lg">
           <OverviewGrid style={{ padding: '0' }}>
-            <ThemedText.DeprecatedBody justifySelf="flex-start" fontSize="14px">
+            <ThemedText.HeadlineSmall justifySelf="flex-start">
               <Trans>Pools</Trans>
-            </ThemedText.DeprecatedBody>
-            <ThemedText.DeprecatedBody fontSize="14px" style={{ whiteSpace: 'nowrap' }}>
-              <Trans>Total Volume USD</Trans>
-            </ThemedText.DeprecatedBody>
-            <ThemedText.DeprecatedBody fontSize="14px">
+            </ThemedText.HeadlineSmall>
+            <MobileHeader style={{ whiteSpace: 'nowrap' }}>
+              <Trans>Total Volume</Trans>
+            </MobileHeader>
+            <MobileHeader>
               <Trans>TVL USD</Trans>
-            </ThemedText.DeprecatedBody>
+            </MobileHeader>
           </OverviewGrid>
           <ProgramSection>
             {poolsLoading || !allPools ? (
