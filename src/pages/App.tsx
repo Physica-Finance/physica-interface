@@ -86,7 +86,7 @@ const MobileBottomBar = styled.div`
   height: ${({ theme }) => theme.mobileBottomBarHeight}px;
   background: ${({ theme }) => theme.backgroundSurface};
   border-top: 1px solid ${({ theme }) => theme.backgroundOutline};
-
+  overflow-x: scroll;
   @media screen and (min-width: ${({ theme }) => theme.breakpoint.md}px) {
     display: none;
   }
