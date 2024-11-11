@@ -15,6 +15,7 @@ import { RowBetween, RowFixed } from '../../components/Row'
 import useTrendingPools2 from '../../graphql/physica/TrendingPools'
 import { useAllIncentivesByPool } from '../../hooks/incentives/useAllIncentives'
 import { LARGE_MEDIA_BREAKPOINT, MAX_WIDTH_MEDIA_BREAKPOINT } from '../../components/Tokens/constants'
+import { TitleRow } from '../../nft/components/profile/list/shared'
 
 const PageWrapper = styled(AutoColumn)`
   padding: 68px 8px 0px;
@@ -81,6 +82,17 @@ const ProgramSection = styled.div`
   justify-self: center;
 `
 
+const MainContentWrapper = styled.main`
+  background-color: ${({ theme }) => theme.backgroundSurface};
+  border: 1px solid ${({ theme }) => theme.backgroundOutline};
+  padding: 0;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+    0px 24px 32px rgba(0, 0, 0, 0.01);
+`
+
 export default function Stake() {
   const theme = useTheme()
 
@@ -117,17 +129,11 @@ export default function Stake() {
       </TopSection>
       <DarkCard padding="12px">
         <AutoColumn gap="md">
-          <OverviewGrid style={{ padding: '0' }}>
+          <TitleRow style={{ padding: '0' }}>
             <ThemedText.HeadlineSmall justifySelf="flex-start">
               <Trans>Active Programs</Trans>
             </ThemedText.HeadlineSmall>
-            <MobileHeader style={{ whiteSpace: 'nowrap' }}>
-              <Trans>Active Reward Amount</Trans>
-            </MobileHeader>
-            <MobileHeader>
-              <Trans>Rewards Rate</Trans>
-            </MobileHeader>
-          </OverviewGrid>
+          </TitleRow>
           <ProgramSection>
             {loading || poolsLoading ? (
               <Loader />
@@ -149,7 +155,7 @@ export default function Stake() {
       </DarkCard>
       <DarkCard>
         <AutoColumn gap="lg">
-          <OverviewGrid style={{ padding: '0' }}>
+          <TitleRow style={{ padding: '0' }}>
             <ThemedText.HeadlineSmall justifySelf="flex-start">
               <Trans>Pools</Trans>
             </ThemedText.HeadlineSmall>
@@ -159,7 +165,7 @@ export default function Stake() {
             <MobileHeader>
               <Trans>TVL USD</Trans>
             </MobileHeader>
-          </OverviewGrid>
+          </TitleRow>
           <ProgramSection>
             {poolsLoading || !allPools ? (
               <Loader />

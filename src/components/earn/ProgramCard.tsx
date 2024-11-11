@@ -4,7 +4,7 @@ import Badge from 'components/Badge'
 import { ButtonPrimary } from 'components/Button'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import CurrencyLogo from 'components/Logo/CurrencyLogo'
-import { RowFixed } from 'components/Row'
+import { AutoRow, RowBetween } from 'components/Row'
 import { BIG_INT_SECONDS_IN_DAY, BIG_INT_SECONDS_IN_WEEK } from 'constants/misc'
 import { useStablecoinValue } from 'hooks/useStablecoinPrice'
 import { LoadingRows } from 'pages/Pool/styleds'
@@ -12,11 +12,39 @@ import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components/macro'
 import { formattedFeeAmount } from 'utils'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
-
 import { Incentive } from '../../hooks/incentives/useAllIncentives'
 import { useCurrency, useToken } from '../../hooks/Tokens'
-import { CardNoise, LightCardWrapper } from './styled'
-import { OverviewGrid } from './styled'
+import { AutoColumn } from '../Column'
+
+const PageWrapper = styled(AutoColumn)`
+  padding: 68px 8px 0px;
+  max-width: 870px;
+  width: 100%;
+
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
+    max-width: 800px;
+  `};
+
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    max-width: 500px;
+  `};
+
+  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.md}px`}) {
+    padding-top: 48px;
+  }
+
+  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
+    padding-top: 20px;
+  }
+`
+const TitleRow = styled(RowBetween)`
+  color: ${({ theme }) => theme.textSecondary};
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+  `};
+`
 
 const Text = styled.p`
   flex: 1 1 auto;
@@ -24,7 +52,7 @@ const Text = styled.p`
   text-overflow: ellipsis;
   white-space: nowrap;
   margin: 0 0.5rem 0 0.25rem;
-  font-size: 0.7rem;
+  font-size: 1rem;
   width: fit-content;
   font-weight: 400;
 `
@@ -71,36 +99,39 @@ function IncentiveRow(incentive: Incentive, poolAddress: string) {
   const rewardPerDay = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_DAY)
 
   return (
-    <LightCardWrapper>
-      <CardNoise />
+    <AutoColumn>
       {!currency0 || !currency1 || !rewardCurrency ? (
         <LoadingRows>
           <div />
         </LoadingRows>
       ) : (
-        <OverviewGrid>
-          <RowFixed justifySelf="flex-start">
+        <AutoColumn gap="md" justify={'stretch'}>
+          <AutoRow justify={'stretch'} width={'100%'}>
             <DoubleCurrencyLogo margin={true} currency0={currency0} currency1={currency1} size={20} />
-            <Text>{`${currency0.symbol} / ${currency1.symbol}`}</Text>
-            <Badge>
-              <BadgeText>{formattedFeeAmount(incentive.pool.fee)}%</BadgeText>
-            </Badge>
-          </RowFixed>
-          <Text>
-            {activeLiquidityUSD
-              ? `$${formatCurrencyAmount(activeLiquidityUSD, 2)}`
-              : `${formatCurrencyAmount(activeLiquidity, 4)} ${rewardCurrency.symbol}`}
-          </Text>
-          <RowFixed>
+            <Text>
+              {`${currency0.symbol} / ${currency1.symbol}`}{' '}
+              <Badge>
+                <BadgeText>{formattedFeeAmount(incentive.pool.fee)}%</BadgeText>
+              </Badge>
+            </Text>
+            <AutoColumn justify={'end'} >
+            <Text>
+              {activeLiquidityUSD
+                ? `$${formatCurrencyAmount(activeLiquidityUSD, 2)}`
+                : `${formatCurrencyAmount(activeLiquidity, 4)} ${rewardCurrency.symbol}`}
+            </Text>
+            <AutoRow justify={'stretch'} >
             <CurrencyLogo currency={rewardCurrency} size="16px" />
             <Text>{`${formatCurrencyAmount(rewardPerDay, 4)} ${rewardCurrency.symbol} / day`}</Text>
-          </RowFixed>
-          <ResponsiveButtonPrimary as={Link} to={'/stake/' + incentive.poolAddress + '/' + incentive.id}>
-            <Trans>Manage</Trans>
-          </ResponsiveButtonPrimary>
-        </OverviewGrid>
+              </AutoRow>
+            </AutoColumn>
+            <ResponsiveButtonPrimary as={Link} to={'/stake/' + incentive.poolAddress + '/' + incentive.id}>
+              <Trans>Manage</Trans>
+            </ResponsiveButtonPrimary>
+          </AutoRow>
+        </AutoColumn>
       )}
-    </LightCardWrapper>
+    </AutoColumn>
   )
 }
 
