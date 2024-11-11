@@ -131,19 +131,19 @@ function BoostStatusRow({ incentive, positionDetails, unstaked, isPositionPage }
         positionDetails={positionDetails}
       />
       {unstaked ? (
-        <PositionWrapper>
-          <RowBetween>
+        <AutoColumn gap="lg" justify={'stretch'}>
+          <AutoRow gap="5px">
             <RangeStatus small={true} positionDetails={positionDetails} />
             <ResponsiveButtonPrimary onClick={() => setShowStakingModal(true)}>
-              {!positionDeposited ? <Trans>Deposit Position</Trans> : <Trans>Stake Position</Trans>}
+              {!positionDeposited ? <Trans>Deposit</Trans> : <Trans>Stake</Trans>}
             </ResponsiveButtonPrimary>
             {!positionDeposited ? null : (
               <ResponsiveButtonPrimary onClick={() => setShowWithdrawModal(true)}>
-                <Trans>Withdraw from Staker</Trans>
+                <Trans>Withdraw</Trans>
               </ResponsiveButtonPrimary>
             )}
-          </RowBetween>
-        </PositionWrapper>
+          </AutoRow>
+        </AutoColumn>
       ) : (
         <PositionWrapper staked={true}>
           <RowBetween>
@@ -233,7 +233,7 @@ export default function PositionManageCard({ positionDetails, isPositionPage, in
         <Loader />
       ) : (
         <AutoColumn gap="16px">
-          <LightCard padding="0px" border="none">
+          <LightCard padding="10px" border="none">
             <BoostStatusRow
               key={'boost-status' + 0}
               incentive={incentive}

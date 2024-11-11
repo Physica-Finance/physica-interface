@@ -27,7 +27,7 @@ const RangeLineItem = styled(DataLineItem)`
   user-select: none;
 
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
-    background-color: ${({ theme }) => theme.deprecated_bg3};
+    
     border-radius: 12px; 
     padding: 8px 0;
 `};

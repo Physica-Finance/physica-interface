@@ -114,15 +114,15 @@ function IncentiveRow(incentive: Incentive, poolAddress: string) {
                 <BadgeText>{formattedFeeAmount(incentive.pool.fee)}%</BadgeText>
               </Badge>
             </Text>
-            <AutoColumn justify={'end'} >
-            <Text>
-              {activeLiquidityUSD
-                ? `$${formatCurrencyAmount(activeLiquidityUSD, 2)}`
-                : `${formatCurrencyAmount(activeLiquidity, 4)} ${rewardCurrency.symbol}`}
-            </Text>
-            <AutoRow justify={'stretch'} >
-            <CurrencyLogo currency={rewardCurrency} size="16px" />
-            <Text>{`${formatCurrencyAmount(rewardPerDay, 4)} ${rewardCurrency.symbol} / day`}</Text>
+            <AutoColumn justify={'end'}>
+              <Text>
+                {activeLiquidityUSD
+                  ? `$${formatCurrencyAmount(activeLiquidityUSD, 2)}`
+                  : `${formatCurrencyAmount(activeLiquidity, 4)} ${rewardCurrency.symbol}`}
+              </Text>
+              <AutoRow justify={'stretch'}>
+                <CurrencyLogo currency={rewardCurrency} size="16px" />
+                <Text>{`${formatCurrencyAmount(rewardPerDay, 4)} ${rewardCurrency.symbol} / day`}</Text>
               </AutoRow>
             </AutoColumn>
             <ResponsiveButtonPrimary as={Link} to={'/stake/' + incentive.poolAddress + '/' + incentive.id}>
