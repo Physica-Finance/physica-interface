@@ -1,6 +1,5 @@
 import { atom } from 'jotai'
-import { atomWithStorage, useAtomValue, useUpdateAtom } from 'jotai/utils'
-import { useMemo } from 'react'
+import { atomWithStorage, useAtomValue } from 'jotai/utils'
 
 const DARKMODE_MEDIA_QUERY = window.matchMedia('(prefers-color-scheme: dark)')
 

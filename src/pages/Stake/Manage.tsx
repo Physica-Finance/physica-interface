@@ -28,7 +28,7 @@ import { PositionDetails } from '../../types/position'
 const Wrapper = styled.div`
   max-width: 840px;
   width: 100%;
-    padding: 12px;
+  padding: 12px;
 `
 
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
