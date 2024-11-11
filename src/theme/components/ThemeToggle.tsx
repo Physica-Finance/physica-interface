@@ -24,11 +24,11 @@ function useIsDarkMode(): boolean {
   return (mode === ThemeMode.AUTO ? systemTheme : mode) === ThemeMode.DARK
 }
 
-export function useDarkModeManager(): [boolean, (mode: ThemeMode) => void] {
+/*export function useDarkModeManager(): [boolean, (mode: ThemeMode) => void] {
   const isDarkMode = useIsDarkMode()
   const setMode = useUpdateAtom(themeModeAtom)
 
   return useMemo(() => {
     return [isDarkMode, setMode]
   }, [isDarkMode, setMode])
-}
+}*/
