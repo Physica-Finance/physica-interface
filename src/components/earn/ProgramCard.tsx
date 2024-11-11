@@ -106,7 +106,7 @@ function IncentiveRow(incentive: Incentive, poolAddress: string) {
         </LoadingRows>
       ) : (
         <AutoColumn gap="md" justify={'stretch'}>
-          <AutoRow justify={'stretch'} width={'100%'}>
+          <AutoRow padding="5px" gap="5px" justify={'stretch'} width={'100%'}>
             <DoubleCurrencyLogo margin={true} currency0={currency0} currency1={currency1} size={20} />
             <Text>
               {`${currency0.symbol} / ${currency1.symbol}`}{' '}
