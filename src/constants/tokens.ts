@@ -324,6 +324,14 @@ export const USDT_BSC = new Token(
   'USDT',
 )
 
+export const USDC_PLANQ_BSC = new Token(
+  SupportedChainId.PLANQ,
+  '0x75E20C5d4aade76143b8b74d1C5E2865347f9d3B',
+  6,
+  'USDC',
+  'USDC BSC',
+)
+
 export const ETH_BSC = new Token(
   SupportedChainId.BNB,
   '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
@@ -569,6 +577,7 @@ export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in SupportedCha
     [SupportedChainId.OPTIMISM_GOERLI]: USDC_OPTIMISM_GOERLI.address,
     [SupportedChainId.POLYGON]: USDC_POLYGON.address,
     [SupportedChainId.PLANQ]: USDC_PLANQ.address,
+    [SupportedChainId.PLANQ]: USDC_PLANQ_BSC.address,
     [SupportedChainId.POLYGON_MUMBAI]: USDC_POLYGON_MUMBAI.address,
     [SupportedChainId.BNB]: USDC_BSC.address,
     [SupportedChainId.CELO]: PORTAL_USDC_CELO.address,
