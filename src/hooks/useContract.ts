@@ -15,6 +15,7 @@ import EIP_2612 from 'abis/eip_2612.json'
 import ENS_PUBLIC_RESOLVER_ABI from 'abis/ens-public-resolver.json'
 import ENS_ABI from 'abis/ens-registrar.json'
 import ERC20_ABI from 'abis/erc20.json'
+import PHYSICA_TOKEN_FACTORY_ABI from 'abis/physica-token-factory.json'
 import ERC20_BYTES32_ABI from 'abis/erc20_bytes32.json'
 import ERC721_ABI from 'abis/erc721.json'
 import ERC1155_ABI from 'abis/erc1155.json'
@@ -30,6 +31,7 @@ import {
   V2_ROUTER_ADDRESS,
   V3_MIGRATOR_ADDRESSES,
   V3_STAKER_ADDRESSES,
+  PLANQ_PHYSICA_TOKEN_FACTORY_ADDRESS,
 } from 'constants/addresses'
 import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import { useMemo } from 'react'
@@ -44,6 +46,7 @@ import {
 import { V3Migrator } from 'types/v3/V3Migrator'
 
 import { getContract } from '../utils'
+import { PhysicaTokenFactory } from '../types/physica/PhysicaTokenFactory'
 
 const { abi: IUniswapV2PairABI } = IUniswapV2PairJson
 const { abi: IUniswapV2Router02ABI } = IUniswapV2Router02Json
@@ -154,6 +157,10 @@ export function useTickLens(): TickLens | null {
 
 export function useV3Staker() {
   return useContract<UniswapV3Staker>(V3_STAKER_ADDRESSES, V3StakerABI)
+}
+
+export function usePhysicaTokenFactoryContract() {
+  return useContract<PhysicaTokenFactory>(PLANQ_PHYSICA_TOKEN_FACTORY_ADDRESS, PHYSICA_TOKEN_FACTORY_ABI)
 }
 
 export function useStakingContract(stakingAddress?: string, withSignerIfPossible?: boolean) {
