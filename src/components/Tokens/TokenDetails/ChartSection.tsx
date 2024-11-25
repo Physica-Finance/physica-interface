@@ -14,7 +14,7 @@ function usePriceHistory(tokenPriceData: TokenPriceQuery2): PricePoint[] | undef
   return useMemo(() => {
     const market = tokenPriceData.token?.tokenDayData
     const priceHistory = market?.filter(isPricePoint)
-    const currentPrice = priceHistory?.[0]?.priceUSD
+    const currentPrice = priceHistory?.[priceHistory.length -1]?.priceUSD
     if (Array.isArray(priceHistory) && currentPrice !== undefined) {
       const timestamp = Date.now() / 1000
       return [...priceHistory, { date: timestamp, priceUSD: currentPrice }]
@@ -59,12 +59,12 @@ function Chart({
       <ParentSize>
         {({ width }) => <PriceChart prices={prices ?? null} width={width} height={436} timePeriod={timePeriod} />}
       </ParentSize>
-      <TimePeriodSelector
+      {/*<TimePeriodSelector
         currentTimePeriod={timePeriod}
         onTimeChange={(t: TimePeriod) => {
           startTransition(() => onChangeTimePeriod(t))
         }}
-      />
+      />*/}
     </ChartContainer>
   )
 }

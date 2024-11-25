@@ -11,7 +11,7 @@ import { useQuery } from '@apollo/client'
 import { apolloClient } from '../../graphql/thegraph/apollo'
 import { TOKEN_QUERY } from '../../graphql/physica/Token'
 
-export const pageTimePeriodAtom = atomWithStorage<TimePeriod>('tokenDetailsTimePeriod', TimePeriod.DAY)
+export const pageTimePeriodAtom = atomWithStorage<TimePeriod>('tokenDetailsTimePeriod', TimePeriod.MONTH)
 
 export default function TokenDetailsPage() {
   const { tokenAddress, chainName } = useParams<{
@@ -38,6 +38,7 @@ export default function TokenDetailsPage() {
   const { data: tokenPriceQuery } = useQuery(TOKEN_PRICE_QUERY, {
     variables: {
       id: tokenAddress,
+      duration: Math.floor(Date.now() / 1000 - 86400 * 30),
     },
     client: apolloClient,
   })

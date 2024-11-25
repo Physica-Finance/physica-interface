@@ -197,13 +197,13 @@ export default function TokenDetails({
 
         <RightPanel onClick={() => isBlockedToken && setOpenTokenSafetyModal(true)}>
           <div style={{ pointerEvents: isBlockedToken ? 'none' : 'auto' }}>
-            <Widget
+            {/*<Widget
               defaultTokens={{
                 default: token ?? undefined,
               }}
               onDefaultTokenChange={navigateToWidgetSelectedToken}
               onReviewSwapClick={onReviewSwapClick}
-            />
+            />*/}
           </div>
           {tokenWarning && <TokenSafetyMessage tokenAddress={address} warning={tokenWarning} />}
           {token && <BalanceSummary token={token} />}

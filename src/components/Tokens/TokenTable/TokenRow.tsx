@@ -8,7 +8,7 @@ import QueryTokenLogo from 'components/Logo/QueryTokenLogo'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { SparklineMap } from 'graphql/data/TopTokens'
 import { TopToken } from 'graphql/physica/TopTokens'
-import { CHAIN_NAME_TO_CHAIN_ID } from 'graphql/physica/util'
+import { CHAIN_NAME_TO_CHAIN_ID, getTokenDetailsURL } from 'graphql/physica/util'
 import { useAtomValue } from 'jotai/utils'
 import { CSSProperties, ForwardedRef, forwardRef, ReactNode } from 'react'
 import { ArrowDown, ArrowUp, Info } from 'react-feather'
@@ -459,7 +459,7 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   return (
     <div ref={ref} data-testid={`token-table-row-${token.symbol}`}>
       <StyledLink
-        to={'/swap?inputCurrency=ETH&outputCurrency=' + token.id} //getTokenDetailsURL(token)}
+        to={getTokenDetailsURL(token)} // '/swap?inputCurrency=ETH&outputCurrency=' + token.id}}
         onClick={() =>
           sendAnalyticsEvent(InterfaceEventName.EXPLORE_TOKEN_ROW_CLICKED, exploreTokenSelectedEventProperties)
         }
