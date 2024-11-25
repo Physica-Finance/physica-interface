@@ -14,7 +14,7 @@ export const TRENDING_TOKENS_QUERY = gql`
       volumeUSD
       totalValueLockedUSD
       totalSupply
-      tokenDayData(first: 1, orderDirection: desc, orderBy: date) {
+      tokenDayData(first: 2, orderDirection: desc, orderBy: date) {
         priceUSD
         date
         id

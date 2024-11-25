@@ -439,7 +439,7 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const chainId = CHAIN_NAME_TO_CHAIN_ID[filterNetwork]
   const timePeriod = useAtomValue(filterTimeAtom)
   const delta =
-    (parseFloat(token.tokenDayData![0].open ?? '0') - parseFloat(token.tokenDayData![0].priceUSD ?? '0')) * 100
+    (parseFloat(token.tokenDayData![0].open ?? '0') - parseFloat(token.tokenDayData![1]?.open ?? '0')) * 100
   const arrow = getDeltaArrow(delta)
   const smallArrow = getDeltaArrow(delta, 14)
   const formattedDelta = formatDelta(delta)
@@ -514,7 +514,7 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
                       tokenData={token}
                       pricePercentChange={
                         (parseFloat(token.tokenDayData![0].open ?? '0') -
-                          parseFloat(token.tokenDayData![0].priceUSD ?? '0')) *
+                          parseFloat(token.tokenDayData![1]?.open ?? '0')) *
                         100
                       }
                       sparklineMap={props.sparklineMap}

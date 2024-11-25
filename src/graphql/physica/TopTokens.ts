@@ -97,7 +97,7 @@ gql`
 `
 
 export const SPARKLINE_TOKENS_QUERY = gql`
-  query SparklineToken2 {
+  query SparklineToken2($yesterday: Int!) {
     tokens(orderBy: volumeUSD) {
       id
       name
@@ -105,7 +105,7 @@ export const SPARKLINE_TOKENS_QUERY = gql`
       volumeUSD
       totalValueLockedUSD
       totalSupply
-      tokenDayData(first: 100, orderDirection: desc, orderBy: date) {
+      tokenDayData(orderDirection: asc, orderBy: date, where: { date_gt: $yesterday }) {
         priceUSD
         date
         id
@@ -189,10 +189,10 @@ export function useTopTokens2(chain: Chain): UseTopTokensReturnValue {
 
   const { data: sparklineQuery } = usePollQueryWhileMounted(
     useQuery(SPARKLINE_TOKENS_QUERY, {
-      variables: {},
+      variables: { yesterday: Math.floor(Date.now() / 1000 - 86400*30) },
       client: apolloClient,
       // eslint-disable-next-line @typescript-eslint/ban-types
-    }) as QueryResult<TokenQuery2, {}>,
+    }) as QueryResult<TokenQuery2, { yesterday: number }>,
     PollingInterval.Slow
   )
 
