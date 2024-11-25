@@ -64,6 +64,18 @@
         "internalType": "address",
         "name": "tokenAddress",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "migrationCap",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "initialSupply",
+        "type": "uint256"
       }
     ],
     "name": "Launch",
@@ -175,6 +187,16 @@
         "type": "string"
       },
       {
+        "internalType": "uint8",
+        "name": "_migrationCap",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_initialSupply",
+        "type": "uint256"
+      },
+      {
         "internalType": "bytes32",
         "name": "_digest",
         "type": "bytes32"
@@ -259,6 +281,25 @@
         "internalType": "contract IFullMath",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "getCurrentMigrationPercent",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -416,38 +457,12 @@
   },
   {
     "inputs": [],
-    "name": "initialSupply",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "metaManager",
     "outputs": [
       {
         "internalType": "contract MetaManager",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "migrationCap",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -521,19 +536,6 @@
         "internalType": "contract IUniswapV3Factory",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "poolCreationFee",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -620,45 +622,6 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_newInitialSupply",
-        "type": "uint256"
-      }
-    ],
-    "name": "setInitialSupply",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_newMigrationCap",
-        "type": "uint256"
-      }
-    ],
-    "name": "setMigrationCap",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_newPoolCreationFee",
-        "type": "uint256"
-      }
-    ],
-    "name": "setPoolCreationFee",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
         "name": "_newProtocolFee",
         "type": "uint256"
       }
@@ -726,6 +689,21 @@
         "internalType": "uint256",
         "name": "tokenHolding",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "virtualPlqStart",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "initialSupply",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "migrationCap",
+        "type": "uint8"
       },
       {
         "internalType": "bool",
