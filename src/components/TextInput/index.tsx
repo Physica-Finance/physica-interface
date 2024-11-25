@@ -144,3 +144,48 @@ export const ResizingTextArea = memo(
 )
 
 ResizingTextArea.displayName = 'ResizingTextArea'
+
+export const ResizingSmallTextArea = memo(
+  ({
+    className,
+    value,
+    onUserInput,
+    placeholder,
+    fontSize,
+  }: {
+    className?: string
+    value: string
+    onUserInput: (value: string) => void
+    placeholder: string
+    fontSize: string
+  }) => {
+    const inputRef = useRef<HTMLTextAreaElement>(document.createElement('textarea'))
+
+    const handleInput = useCallback(
+      (event: ChangeEvent<HTMLTextAreaElement>) => {
+        inputRef.current.style.height = 'auto'
+        inputRef.current.style.height = inputRef.current.scrollHeight + 'px'
+        onUserInput(event.target.value)
+      },
+      [onUserInput]
+    )
+
+    return (
+      <TextAreaInput
+        style={{ height: 'auto', minHeight: '50px' }}
+        className={className}
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="false"
+        placeholder={placeholder || ''}
+        onChange={handleInput}
+        value={value}
+        fontSize={fontSize}
+        ref={inputRef}
+      />
+    )
+  }
+)
+
+ResizingSmallTextArea.displayName = 'ResizingSmallTextArea'

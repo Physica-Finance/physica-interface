@@ -7,10 +7,12 @@ import SearchBar from 'components/Tokens/TokenTable/SearchBar'
 import TokenTable from 'components/Tokens/TokenTable/TokenTable'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { useResetAtom } from 'jotai/utils'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { ThemedText } from 'theme'
+import { ButtonPrimary } from '../../components/Button'
+import LaunchTokenModal from '../../components/Tokens/LaunchFactory/LaunchTokenModal'
 
 const ExploreContainer = styled.div`
   width: 100%;
@@ -25,12 +27,25 @@ const ExploreContainer = styled.div`
     padding-top: 20px;
   }
 `
+
+const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  border-radius: 12px;
+
+  padding: 6px 8px;
+  width: fit-content;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex: 1 1 auto;
+    width: 100%;
+  `};
+`
+
 const TitleContainer = styled.div`
   margin-bottom: 32px;
   max-width: ${MAX_WIDTH_MEDIA_BREAKPOINT};
   margin-left: auto;
   margin-right: auto;
   display: flex;
+  justify-content: space-between;
 `
 const FiltersContainer = styled.div`
   display: flex;
@@ -67,32 +82,38 @@ const FiltersWrapper = styled.div`
 const Tokens = () => {
   const resetFilterString = useResetAtom(filterStringAtom)
   const location = useLocation()
-
+  const [showLaunchTokenModal, setShowLaunchTokenModal] = useState(false)
   useEffect(() => {
     resetFilterString()
   }, [location, resetFilterString])
 
   return (
-    <Trace page={InterfacePageName.TOKENS_PAGE} shouldLogImpression>
-      <ExploreContainer>
-        <TitleContainer>
-          <MouseoverTooltip
-            text={<Trans>This table contains the top tokens by Physica volume, sorted based on your input.</Trans>}
-            placement="bottom"
-          >
-            <ThemedText.LargeHeader>
-              <Trans>Top tokens on Physica</Trans>
-            </ThemedText.LargeHeader>
-          </MouseoverTooltip>
-        </TitleContainer>
-        <FiltersWrapper>
-          <SearchContainer>
-            <SearchBar />
-          </SearchContainer>
-        </FiltersWrapper>
-        <TokenTable />
-      </ExploreContainer>
-    </Trace>
+    <>
+      <LaunchTokenModal isOpen={showLaunchTokenModal} onDismiss={() => setShowLaunchTokenModal(false)} />
+      <Trace page={InterfacePageName.TOKENS_PAGE} shouldLogImpression>
+        <ExploreContainer>
+          <TitleContainer>
+            <MouseoverTooltip
+              text={<Trans>This table contains the top tokens by Physica volume, sorted based on your input.</Trans>}
+              placement="bottom"
+            >
+              <ThemedText.LargeHeader>
+                <Trans>Top tokens on Physica</Trans>
+              </ThemedText.LargeHeader>
+            </MouseoverTooltip>
+            <ResponsiveButtonPrimary onClick={() => setShowLaunchTokenModal(true)}>
+              {<Trans>Launch Token</Trans>}
+            </ResponsiveButtonPrimary>
+          </TitleContainer>
+          <FiltersWrapper>
+            <SearchContainer>
+              <SearchBar />
+            </SearchContainer>
+          </FiltersWrapper>
+          <TokenTable />
+        </ExploreContainer>
+      </Trace>
+    </>
   )
 }
 
