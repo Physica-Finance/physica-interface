@@ -101,7 +101,7 @@ export const SearchBar = () => {
 
   const handleKeyPress = useCallback(
     (event: any) => {
-      if (event.key === '/') {
+      if (event.key === '/' && !pathname.startsWith('/tokens')) {
         event.preventDefault()
         !isOpen && toggleOpen()
       }

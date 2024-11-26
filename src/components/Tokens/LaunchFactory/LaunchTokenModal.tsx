@@ -20,6 +20,8 @@ import { ChevronDown, ChevronUp } from 'react-feather'
 import { getBytes32FromMultiash } from '../../../utils/multihash'
 import { TransactionType } from '../../../state/transactions/types'
 import { numberToWei } from '../../../nft/utils'
+import { base64 } from 'ethers/lib/utils'
+import Loader from '../../Loader'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -177,15 +179,15 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
     if (!account || !tokenLogo || !physicaTokenFactory) {
       return
     }
-    const formData = new FormData()
-    formData.append('file', tokenLogo)
-    const res = await fetch('https://planq.network/api/ipfs-image', {
+    setAttempting(true)
+    //const res = await fetch('https://planq.network/api/ipfs-image', {
+    const res = await fetch('http://localhost:3001/api/ipfs-image', {
       headers: {
-        Accept: 'multipart/form-data',
-        'Content-Type': 'multipart/form-data',
+        Accept: tokenLogo.type,
+        'Content-Type': tokenLogo.type,
       },
       method: 'POST',
-      body: formData,
+      body: base64.encode(new Uint8Array(await tokenLogo.arrayBuffer())),
     })
     if (!res.ok) {
       setTokenLogoError('Failed to upload logo')
@@ -194,7 +196,8 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
 
     const logoIpfsHash = await res.text()
 
-    const metaRes = await fetch('https://planq.network/api/ipfs-meta', {
+    //const metaRes = await fetch('https://planq.network/api/ipfs-meta', {
+    const metaRes = await fetch('http://localhost:3001/api/ipfs-meta', {
       headers: {
         Accept: 'multipart/form-data',
         'Content-Type': 'multipart/form-data',
@@ -218,7 +221,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
     const metaIpfsHash = await metaRes.text()
     const multihashMetaIpfsHash = getBytes32FromMultiash(metaIpfsHash)
 
-    setAttempting(true)
+
     await physicaTokenFactory
       .createToken(
         tokenName,
@@ -228,7 +231,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
         multihashMetaIpfsHash.digest,
         multihashMetaIpfsHash.hashFunction,
         multihashMetaIpfsHash.size,
-        { gasLimit: 350000, value: numberToWei(parseFloat(initialBuyAmount == '' ? '0' : initialBuyAmount)) }
+        { gasLimit: 3500000, value: numberToWei(parseFloat(initialBuyAmount == '' ? '0' : initialBuyAmount)) }
       )
       .then((response: any) => {
         addTransaction(response, {
@@ -483,7 +486,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
               $borderRadius="12px"
               onClick={onLaunchToken}
             >
-              <Trans>Launch</Trans>
+              {attempting ? <><Trans>Launching</Trans><Loader/></> : (<Trans>Launch</Trans>)}
             </ButtonPrimary>
           }
         </AutoColumn>

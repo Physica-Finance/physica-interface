@@ -8,7 +8,7 @@ import bs58 from 'bs58'
  */
 
 interface Multihash {
-  digest: string
+  digest: Uint8Array
   hashFunction: number
   size: number
 }
@@ -23,7 +23,7 @@ export function getBytes32FromMultiash(multihash: string): Multihash {
   const decoded = bs58.decode(multihash)
 
   return {
-    digest: `0x${decoded.subarray(2).toString('hex')}`,
+    digest: decoded.subarray(2),
     hashFunction: decoded[0],
     size: decoded[1],
   }
@@ -40,7 +40,7 @@ export function getMultihashFromBytes32(multihash: Multihash): string | null {
   if (size === 0) return null
 
   // cut off leading "0x"
-  const hashBytes = Buffer.from(digest.slice(2), 'hex')
+  const hashBytes = digest.slice(2)
 
   // prepend hashFunction and digest size
   const multihashBytes = new Uint8Array(2 + hashBytes.length)
