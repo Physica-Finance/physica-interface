@@ -180,8 +180,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
       return
     }
     setAttempting(true)
-    //const res = await fetch('https://planq.network/api/ipfs-image', {
-    const res = await fetch('http://localhost:3001/api/ipfs-image', {
+    const res = await fetch('https://planq.network/api/ipfs-image', {
       headers: {
         Accept: tokenLogo.type,
         'Content-Type': tokenLogo.type,
@@ -196,8 +195,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
 
     const logoIpfsHash = await res.text()
 
-    //const metaRes = await fetch('https://planq.network/api/ipfs-meta', {
-    const metaRes = await fetch('http://localhost:3001/api/ipfs-meta', {
+    const metaRes = await fetch('https://planq.network/api/ipfs-meta', {
       headers: {
         Accept: 'multipart/form-data',
         'Content-Type': 'multipart/form-data',
