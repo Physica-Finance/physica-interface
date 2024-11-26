@@ -99,7 +99,7 @@ export const StyledInternalLink = styled(Link)`
   }
 `
 
-const StyledLink = styled.a`
+export const StyledLink = styled.a`
   text-decoration: none;
   cursor: pointer;
   color: ${({ theme }) => theme.textPrimary};

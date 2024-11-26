@@ -13,6 +13,8 @@ import styled from 'styled-components/macro'
 import { ThemedText } from 'theme'
 import { ButtonPrimary } from '../../components/Button'
 import LaunchTokenModal from '../../components/Tokens/LaunchFactory/LaunchTokenModal'
+import { TitleRow } from '../Pool'
+
 
 const ExploreContainer = styled.div`
   width: 100%;
@@ -92,19 +94,19 @@ const Tokens = () => {
       <LaunchTokenModal isOpen={showLaunchTokenModal} onDismiss={() => setShowLaunchTokenModal(false)} />
       <Trace page={InterfacePageName.TOKENS_PAGE} shouldLogImpression>
         <ExploreContainer>
-          <TitleContainer>
+          <TitleRow padding="0" marginBottom={1}>
             <MouseoverTooltip
               text={<Trans>This table contains the top tokens by Physica volume, sorted based on your input.</Trans>}
               placement="bottom"
             >
               <ThemedText.LargeHeader>
-                <Trans>Top tokens on Physica</Trans>
+                <Trans>Top tokens</Trans>
               </ThemedText.LargeHeader>
             </MouseoverTooltip>
             <ResponsiveButtonPrimary onClick={() => setShowLaunchTokenModal(true)}>
               {<Trans>Launch Token</Trans>}
             </ResponsiveButtonPrimary>
-          </TitleContainer>
+          </TitleRow>
           <FiltersWrapper>
             <SearchContainer>
               <SearchBar />

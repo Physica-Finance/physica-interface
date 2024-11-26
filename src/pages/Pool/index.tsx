@@ -66,7 +66,7 @@ const PageWrapper = styled(AutoColumn)`
     padding-top: 20px;
   }
 `
-const TitleRow = styled(RowBetween)`
+export const TitleRow = styled(RowBetween)`
   color: ${({ theme }) => theme.textSecondary};
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     flex-wrap: wrap;
