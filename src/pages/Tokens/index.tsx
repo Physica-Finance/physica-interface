@@ -14,7 +14,29 @@ import { ThemedText } from 'theme'
 import { ButtonPrimary } from '../../components/Button'
 import LaunchTokenModal from '../../components/Tokens/LaunchFactory/LaunchTokenModal'
 import { TitleRow } from '../Pool'
+import { AutoColumn } from '../../components/Column'
 
+const PageWrapper = styled(AutoColumn)`
+  padding: 68px 8px 0px;
+  max-width: 870px;
+  width: 100%;
+
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToMedium`
+    max-width: 800px;
+  `};
+
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    max-width: 500px;
+  `};
+
+  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.md}px`}) {
+    padding-top: 48px;
+  }
+
+  @media only screen and (max-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
+    padding-top: 20px;
+  }
+`
 
 const ExploreContainer = styled.div`
   width: 100%;
@@ -70,7 +92,7 @@ const SearchContainer = styled(FiltersContainer)`
 const FiltersWrapper = styled.div`
   display: flex;
   max-width: ${MAX_WIDTH_MEDIA_BREAKPOINT};
-  margin: 0 auto;
+
   margin-bottom: 20px;
   color: ${({ theme }) => theme.textTertiary};
   flex-direction: row;
@@ -93,27 +115,31 @@ const Tokens = () => {
     <>
       <LaunchTokenModal isOpen={showLaunchTokenModal} onDismiss={() => setShowLaunchTokenModal(false)} />
       <Trace page={InterfacePageName.TOKENS_PAGE} shouldLogImpression>
-        <ExploreContainer>
-          <TitleRow padding="0" marginBottom={1}>
-            <MouseoverTooltip
-              text={<Trans>This table contains the top tokens by Physica volume, sorted based on your input.</Trans>}
-              placement="bottom"
-            >
-              <ThemedText.LargeHeader>
-                <Trans>Top tokens</Trans>
-              </ThemedText.LargeHeader>
-            </MouseoverTooltip>
-            <ResponsiveButtonPrimary onClick={() => setShowLaunchTokenModal(true)}>
-              {<Trans>Launch Token</Trans>}
-            </ResponsiveButtonPrimary>
-          </TitleRow>
-          <FiltersWrapper>
-            <SearchContainer>
-              <SearchBar />
-            </SearchContainer>
-          </FiltersWrapper>
-          <TokenTable />
-        </ExploreContainer>
+        <PageWrapper>
+        <AutoColumn gap="lg" justify="center">
+          <AutoColumn gap="lg" style={{ width: '100%' }}>
+            <TitleRow padding="0" marginBottom={1}>
+              <MouseoverTooltip
+                text={<Trans>This table contains the top tokens by Physica volume, sorted based on your input.</Trans>}
+                placement="bottom"
+              >
+                <ThemedText.LargeHeader>
+                  <Trans>Top tokens</Trans>
+                </ThemedText.LargeHeader>
+              </MouseoverTooltip>
+              <ResponsiveButtonPrimary onClick={() => setShowLaunchTokenModal(true)}>
+                {<Trans>Launch Token</Trans>}
+              </ResponsiveButtonPrimary>
+            </TitleRow>
+            <FiltersWrapper>
+              <SearchContainer>
+                <SearchBar />
+              </SearchContainer>
+            </FiltersWrapper>
+            <TokenTable />
+          </AutoColumn>
+        </AutoColumn>
+        </PageWrapper>
       </Trace>
     </>
   )

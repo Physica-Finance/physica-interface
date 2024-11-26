@@ -17,6 +17,9 @@ import { FileUploadInput } from '../../FileUploadInput'
 import { ImageContainer } from '../../../nft/components/collection/Card'
 import { ErrorText } from '../../swap/styleds'
 import { ChevronDown, ChevronUp } from 'react-feather'
+import { getBytes32FromMultiash } from '../../../utils/multihash'
+import { TransactionType } from '../../../state/transactions/types'
+import { numberToWei } from '../../../nft/utils'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -41,7 +44,7 @@ interface LaunchTokenModalProps {
 
 export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModalProps) {
   const { account } = useWeb3React()
-
+  const physicaTokenFactory = usePhysicaTokenFactoryContract()
   const theme = useTheme()
   const startDate = Date.now()
 
@@ -82,7 +85,6 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
 
   function toggleShowAdvanced(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault()
-
     setShowAdvanced(!showAdvanced)
   }
 
@@ -171,10 +173,8 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
     onDismiss()
   }
 
-  const staker = usePhysicaTokenFactoryContract()
-
   async function onLaunchToken() {
-    if (!account || !tokenLogo) {
+    if (!account || !tokenLogo || !physicaTokenFactory) {
       return
     }
     const formData = new FormData()
@@ -216,75 +216,33 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
       return
     }
     const metaIpfsHash = await metaRes.text()
+    const multihashMetaIpfsHash = getBytes32FromMultiash(metaIpfsHash)
 
-    /*if (positionManager && account && staker) {
-      setAttempting(true)
-      await positionManager['safeTransferFrom(address,address,uint256)'](
-        account,
-        staker.address,
-        positionDetails.tokenId,
-        { gasLimit: 350000 }
+    setAttempting(true)
+    await physicaTokenFactory
+      .createToken(
+        tokenName,
+        tokenSymbol,
+        tokenMigrationCap,
+        numberToWei(tokenInitialSupply),
+        multihashMetaIpfsHash.digest,
+        multihashMetaIpfsHash.hashFunction,
+        multihashMetaIpfsHash.size,
+        { gasLimit: 350000, value: numberToWei(parseFloat(initialBuyAmount == '' ? '0' : initialBuyAmount)) }
       )
-        .then((response: TransactionResponse) => {
-          addTransaction(response, {
-            type: TransactionType.DEPOSIT_LIQUIDITY_STAKING,
-            token0Address: positionDetails.token0,
-            token1Address: positionDetails.token1,
-          })
-          setHash(response.hash)
+      .then((response: any) => {
+        addTransaction(response, {
+          type: TransactionType.LAUNCH_TOKEN,
+          tokenName,
+          tokenSymbol,
         })
-        .catch((error: any) => {
-          setAttempting(false)
-          console.log(error)
-        })
-    }*/
+        setHash(response.hash)
+      })
+      .catch((error: any) => {
+        setAttempting(false)
+        console.log(error)
+      })
   }
-
-  async function onStakePosition() {
-    if (staker && account) {
-      setAttempting(true)
-      /*await staker
-        .stakeToken(
-          {
-            rewardToken: incentive.initialRewardAmount.currency.address,
-            pool: incentive.poolAddress,
-            startTime: incentive.startTime,
-            endTime: incentive.endTime,
-            refundee: incentive.refundee,
-          },
-          positionDetails.tokenId,
-          { gasLimit: 350000 }
-        )
-        .then((response: TransactionResponse) => {
-          addTransaction(response, {
-            type: TransactionType.DEPOSIT_LIQUIDITY_STAKING,
-            token0Address: positionDetails.token0,
-            token1Address: positionDetails.token1,
-          })
-          setHash(response.hash)
-        })
-        .catch((error: any) => {
-          setAttempting(false)
-          console.log(error)
-        })*/
-    }
-  }
-
-  /*async function onClaimReward() {
-    if (stakingContract && incentive && account) {
-      setAttempting(true)
-      await stakingContract
-        .stakeToken(incentive.rewardAmountRemaining.currency.address, account!, { gasLimit: 350000 })
-        .then((response: BigNumber) => {
-          addTransaction(response, { type: TransactionType.CLAIM, recipient: account! })
-          setHash(response.hash)
-        })
-        .catch((error: any) => {
-          setAttempting(false)
-          console.log(error)
-        })
-    }
-  }*/
 
   function calculateInitialBuyAmount(initialBuyAmount: string, tokenInitialSupply: number) {
     if (initialBuyAmount == '') {

@@ -35,10 +35,17 @@ export enum TransactionType {
   SUBMIT_PROPOSAL,
   QUEUE,
   EXECUTE,
+  LAUNCH_TOKEN,
 }
 
 interface BaseTransactionInfo {
   type: TransactionType
+}
+
+export interface LaunchTokenTransactionInfo extends BaseTransactionInfo {
+  type: TransactionType.LAUNCH_TOKEN
+  tokenName: string
+  tokenSymbol: string
 }
 
 export interface VoteTransactionInfo extends BaseTransactionInfo {
@@ -187,6 +194,7 @@ export type TransactionInfo =
   | CollectFeesTransactionInfo
   | RemoveLiquidityV3TransactionInfo
   | SubmitProposalTransactionInfo
+  | LaunchTokenTransactionInfo
 
 export interface TransactionDetails {
   hash: string
