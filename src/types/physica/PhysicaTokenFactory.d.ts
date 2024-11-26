@@ -315,27 +315,27 @@ interface PhysicaTokenFactoryInterface extends ethers.utils.Interface {
 
 export type BuyEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
-    token: string;
-    tokenAmount: BigNumber;
-    plqAmount: BigNumber;
-  }
+  token: string;
+  tokenAmount: BigNumber;
+  plqAmount: BigNumber;
+}
 >;
 
 export type LaunchEvent = TypedEvent<
   [string, number, BigNumber] & {
-    tokenAddress: string;
-    migrationCap: number;
-    initialSupply: BigNumber;
-  }
+  tokenAddress: string;
+  migrationCap: number;
+  initialSupply: BigNumber;
+}
 >;
 
 export type MigratedEvent = TypedEvent<
   [string, BigNumber, BigNumber, BigNumber] & {
-    token: string;
-    tokenAmount: BigNumber;
-    plqAmount: BigNumber;
-    liquidity: BigNumber;
-  }
+  token: string;
+  tokenAmount: BigNumber;
+  plqAmount: BigNumber;
+  liquidity: BigNumber;
+}
 >;
 
 export type OwnershipTransferredEvent = TypedEvent<
@@ -344,10 +344,10 @@ export type OwnershipTransferredEvent = TypedEvent<
 
 export type SellEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
-    token: string;
-    tokenAmount: BigNumber;
-    plqAmount: BigNumber;
-  }
+  token: string;
+  tokenAmount: BigNumber;
+  plqAmount: BigNumber;
+}
 >;
 
 export class PhysicaTokenFactory extends BaseContract {
@@ -436,10 +436,10 @@ export class PhysicaTokenFactory extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [string, string, BigNumber] & {
-        token0: string;
-        token1: string;
-        initSQRTPrice: BigNumber;
-      }
+      token0: string;
+      token1: string;
+      initSQRTPrice: BigNumber;
+    }
     >;
 
     getMigrationCap(
@@ -524,13 +524,13 @@ export class PhysicaTokenFactory extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, number, boolean] & {
-        plqHolding: BigNumber;
-        tokenHolding: BigNumber;
-        virtualPlqStart: BigNumber;
-        initialSupply: BigNumber;
-        migrationCap: number;
-        migrated: boolean;
-      }
+      plqHolding: BigNumber;
+      tokenHolding: BigNumber;
+      virtualPlqStart: BigNumber;
+      initialSupply: BigNumber;
+      migrationCap: number;
+      migrated: boolean;
+    }
     >;
 
     totalFees(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -594,10 +594,10 @@ export class PhysicaTokenFactory extends BaseContract {
     overrides?: CallOverrides
   ): Promise<
     [string, string, BigNumber] & {
-      token0: string;
-      token1: string;
-      initSQRTPrice: BigNumber;
-    }
+    token0: string;
+    token1: string;
+    initSQRTPrice: BigNumber;
+  }
   >;
 
   getMigrationCap(token: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -679,13 +679,13 @@ export class PhysicaTokenFactory extends BaseContract {
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, number, boolean] & {
-      plqHolding: BigNumber;
-      tokenHolding: BigNumber;
-      virtualPlqStart: BigNumber;
-      initialSupply: BigNumber;
-      migrationCap: number;
-      migrated: boolean;
-    }
+    plqHolding: BigNumber;
+    tokenHolding: BigNumber;
+    virtualPlqStart: BigNumber;
+    initialSupply: BigNumber;
+    migrationCap: number;
+    migrated: boolean;
+  }
   >;
 
   totalFees(overrides?: CallOverrides): Promise<BigNumber>;
@@ -749,10 +749,10 @@ export class PhysicaTokenFactory extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [string, string, BigNumber] & {
-        token0: string;
-        token1: string;
-        initSQRTPrice: BigNumber;
-      }
+      token0: string;
+      token1: string;
+      initSQRTPrice: BigNumber;
+    }
     >;
 
     getMigrationCap(
@@ -835,13 +835,13 @@ export class PhysicaTokenFactory extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, number, boolean] & {
-        plqHolding: BigNumber;
-        tokenHolding: BigNumber;
-        virtualPlqStart: BigNumber;
-        initialSupply: BigNumber;
-        migrationCap: number;
-        migrated: boolean;
-      }
+      plqHolding: BigNumber;
+      tokenHolding: BigNumber;
+      virtualPlqStart: BigNumber;
+      initialSupply: BigNumber;
+      migrationCap: number;
+      migrated: boolean;
+    }
     >;
 
     totalFees(overrides?: CallOverrides): Promise<BigNumber>;

@@ -116,29 +116,31 @@ const Tokens = () => {
       <LaunchTokenModal isOpen={showLaunchTokenModal} onDismiss={() => setShowLaunchTokenModal(false)} />
       <Trace page={InterfacePageName.TOKENS_PAGE} shouldLogImpression>
         <PageWrapper>
-        <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <TitleRow padding="0" marginBottom={1}>
-              <MouseoverTooltip
-                text={<Trans>This table contains the top tokens by Physica volume, sorted based on your input.</Trans>}
-                placement="bottom"
-              >
-                <ThemedText.LargeHeader>
-                  <Trans>Top tokens</Trans>
-                </ThemedText.LargeHeader>
-              </MouseoverTooltip>
-              <ResponsiveButtonPrimary onClick={() => setShowLaunchTokenModal(true)}>
-                {<Trans>Launch Token</Trans>}
-              </ResponsiveButtonPrimary>
-            </TitleRow>
-            <FiltersWrapper>
-              <SearchContainer>
-                <SearchBar />
-              </SearchContainer>
-            </FiltersWrapper>
-            <TokenTable />
+          <AutoColumn gap="lg" justify="center">
+            <AutoColumn gap="lg" style={{ width: '100%' }}>
+              <TitleRow padding="0" marginBottom={1}>
+                <MouseoverTooltip
+                  text={
+                    <Trans>This table contains the top tokens by Physica volume, sorted based on your input.</Trans>
+                  }
+                  placement="bottom"
+                >
+                  <ThemedText.LargeHeader>
+                    <Trans>Top tokens</Trans>
+                  </ThemedText.LargeHeader>
+                </MouseoverTooltip>
+                <ResponsiveButtonPrimary onClick={() => setShowLaunchTokenModal(true)}>
+                  {<Trans>Launch Token</Trans>}
+                </ResponsiveButtonPrimary>
+              </TitleRow>
+              <FiltersWrapper>
+                <SearchContainer>
+                  <SearchBar />
+                </SearchContainer>
+              </FiltersWrapper>
+              <TokenTable />
+            </AutoColumn>
           </AutoColumn>
-        </AutoColumn>
         </PageWrapper>
       </Trace>
     </>

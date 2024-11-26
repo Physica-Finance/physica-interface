@@ -183,6 +183,10 @@ interface UseTopTokensReturnValue {
   sparklines: SparklineMap
 }
 
+export function useLaunchpadTokens(chain: Chain): UseTopTokensReturnValue {
+
+}
+
 export function useTopTokens2(chain: Chain): UseTopTokensReturnValue {
   const chainId = CHAIN_NAME_TO_CHAIN_ID[chain]
   const duration = toHistoryDuration(useAtomValue(filterTimeAtom))
