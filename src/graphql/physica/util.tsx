@@ -54,6 +54,12 @@ export function isPricePoint(p: PricePoint | null): p is PricePoint {
   return p !== null
 }
 
+export type LaunchFactoryPricePoint = { timestamp?: number; price?: string; id?: string }
+
+export function isLaunchFactoryPricePoint(p: LaunchFactoryPricePoint | null): p is LaunchFactoryPricePoint {
+  return p !== null
+}
+
 export const CHAIN_ID_TO_BACKEND_NAME: { [key: number]: Chain } = {
   [SupportedChainId.MAINNET]: Chain.Ethereum,
   [SupportedChainId.GOERLI]: Chain.EthereumGoerli,
@@ -100,6 +106,10 @@ export const BACKEND_CHAIN_NAMES: Chain[] = []
 
 export function getTokenDetailsURL({ id }: { id?: string | null }) {
   return `/tokens/planq/${id ?? NATIVE_CHAIN_ID}`
+}
+
+export function getLaunchFactoryTokenDetailsURL({ id }: { id?: string | null }) {
+  return `/launchfactory/planq/${id ?? NATIVE_CHAIN_ID}`
 }
 
 export function unwrapToken<

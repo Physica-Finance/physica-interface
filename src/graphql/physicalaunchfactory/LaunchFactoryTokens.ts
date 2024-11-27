@@ -4,24 +4,24 @@ import {
   sortAscendingAtom,
   sortMethodAtom,
   TokenSortMethod,
-} from 'components/Tokens/state'
+} from 'components/LaunchFactory/state'
 import gql from 'graphql-tag'
 import { useAtomValue } from 'jotai/utils'
 import { useMemo } from 'react'
 
 import { Chain } from '../data/__generated__/types-and-hooks'
 import {
-  CHAIN_NAME_TO_CHAIN_ID,
-  isPricePoint,
+  CHAIN_NAME_TO_CHAIN_ID, isLaunchFactoryPricePoint,
+  isPricePoint, LaunchFactoryPricePoint,
   PollingInterval,
   PricePoint,
   toHistoryDuration,
   unwrapToken,
-  usePollQueryWhileMounted,
-} from './util'
-import { TokenQuery2, TRENDING_TOKENS_QUERY } from './TrendingTokens'
+  usePollQueryWhileMounted
+} from '../physica/util'
+import { TokenQuery2, TRENDING_TOKENS_QUERY } from '../physica/TrendingTokens'
 import { QueryResult, useQuery } from '@apollo/client'
-import { apolloClient } from '../thegraph/apollo'
+import { apolloClient } from './apollo'
 
 // tokenDayDatas(orderBy: volumeUSD, orderDirection: desc) {
 //     priceUSD
@@ -96,27 +96,113 @@ gql`
   }
 `
 
-export const SPARKLINE_TOKENS_QUERY = gql`
-  query SparklineToken2($yesterday: Int!) {
-    tokens(orderBy: volumeUSD) {
+export const SPARKLINE_TOKENS_LAUNCHPAD_QUERY = gql`
+  query SparklineTokenLaunchpad($duration: Int!) {
+    tokens(orderBy: startTime, orderDirection: desc) {
       id
       name
       symbol
-      volumeUSD
-      totalValueLockedUSD
-      totalSupply
-      tokenDayData(orderDirection: asc, orderBy: date, where: { date_gt: $yesterday }) {
-        priceUSD
-        date
+      dev
+      ipfsHash
+      initialSupply
+      migrationCap
+      plqAmount
+      startTime
+      tokenAmount
+      migrated
+      txCount
+      buys(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration }) {
         id
-        open
+        plqAmount
+        price
+        tokenAmount
+        timestamp
+        buyer
       }
-      decimals
+      sells(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration }) {
+        id
+        plqAmount
+        price
+        tokenAmount
+        timestamp
+        seller
+      }
     }
   }
 `
 
-function useSortedTokens(tokens: TokenQuery2['tokens']) {
+export const LAUNCHPAD_TOKENS_QUERY = gql`
+    query LaunchpadTokens {
+        tokens(orderBy: startTime, orderDirection: desc) {
+            id
+            name
+            symbol
+            dev
+            ipfsHash
+            initialSupply
+            migrationCap
+            plqAmount
+            startTime
+            tokenAmount
+            migrated
+            txCount
+            buys(orderDirection: asc, orderBy: timestamp) {
+                id
+                plqAmount
+                price
+                tokenAmount
+                timestamp
+                buyer
+            }
+            sells(orderDirection: asc, orderBy: timestamp) {
+                id
+                plqAmount
+                price
+                tokenAmount
+                timestamp
+                seller
+            }
+        }
+    }
+`
+export type LaunchpadTokenQuery = {
+  __typename?: 'Query'
+  tokens?: Array<{
+    __typename?: 'Token'
+    id: string
+    name?: string
+    symbol?: string
+    dev?: string
+    ipfsHash?: string
+    initialSupply?: string
+    migrationCap?: string
+    plqAmount?: string
+    startTime?: string
+    tokenAmount?: string
+    txCount?: string
+    migrated?: boolean
+    buys?: Array<{
+      __typename?: 'TokenMarket'
+      id: string
+      plqAmount?: string
+      price?: string
+      tokenAmount?: string
+      buyer?: string
+      timestamp: number
+    }>
+    sells?: Array<{
+      __typename?: 'TokenMarket'
+      id: string
+      plqAmount?: string
+      price?: string
+      tokenAmount?: string
+      seller?: string
+      timestamp: number
+    }>
+  }>
+}
+
+function useSortedTokens(tokens: LaunchpadTokenQuery['tokens']) {
   const sortMethod = useAtomValue(sortMethodAtom)
   const sortAscending = useAtomValue(sortAscendingAtom)
 
@@ -126,24 +212,19 @@ function useSortedTokens(tokens: TokenQuery2['tokens']) {
     switch (sortMethod) {
       case TokenSortMethod.PRICE:
         tokenArray = tokenArray.sort(
-          (a, b) => parseFloat(b?.tokenDayData![0].priceUSD ?? '0') - parseFloat(a?.tokenDayData![0].priceUSD ?? '0')
+          (a, b) => parseFloat(b?.buys![0].price ?? '0') - parseFloat(a?.buys![0].price ?? '0')
         )
         break
-      case TokenSortMethod.PERCENT_CHANGE:
-        tokenArray = tokenArray.sort(
-          (a, b) =>
-            parseFloat(b?.tokenDayData![0].open ?? '0') -
-            parseFloat(b?.tokenDayData![0].priceUSD ?? '0') -
-            (parseFloat(a?.tokenDayData![0].open ?? '0') - parseFloat(a?.tokenDayData![0].priceUSD ?? '0'))
-        )
+      case TokenSortMethod.CREATOR:
+        tokenArray = tokenArray.sort((a, b) => b?.dev?.localeCompare(a?.dev ?? '') ?? 0)
         break
       case TokenSortMethod.TOTAL_VALUE_LOCKED:
         tokenArray = tokenArray.sort(
-          (a, b) => parseFloat(b?.totalValueLockedUSD ?? '0') - parseFloat(a?.totalValueLockedUSD ?? '0')
+          (a, b) => parseFloat(b?.plqAmount ?? '0') - parseFloat(a?.plqAmount ?? '0')
         )
         break
-      case TokenSortMethod.VOLUME:
-        tokenArray = tokenArray.sort((a, b) => parseFloat(b?.volumeUSD ?? '0') - parseFloat(a?.volumeUSD ?? '0'))
+      case TokenSortMethod.TXS:
+        tokenArray = tokenArray.sort((a, b) => parseFloat(b?.txCount ?? '0') - parseFloat(a?.txCount ?? '0'))
         break
     }
 
@@ -151,7 +232,7 @@ function useSortedTokens(tokens: TokenQuery2['tokens']) {
   }, [tokens, sortMethod, sortAscending])
 }
 
-function useFilteredTokens(tokens: TokenQuery2['tokens']) {
+function useFilteredTokens(tokens: LaunchpadTokenQuery['tokens']) {
   const filterString = useAtomValue(filterStringAtom)
 
   const lowercaseFilterString = useMemo(() => filterString.toLowerCase(), [filterString])
@@ -173,26 +254,26 @@ function useFilteredTokens(tokens: TokenQuery2['tokens']) {
 
 // Number of items to render in each fetch in infinite scroll.
 export const PAGE_SIZE = 20
-export type SparklineMap = { [key: string]: PricePoint[] | undefined }
-export type TopToken = NonNullable<NonNullable<TokenQuery2>['tokens']>[number]
+export type SparklineMap = { [key: string]: LaunchFactoryPricePoint[] | undefined }
+export type LaunchpadToken = NonNullable<NonNullable<LaunchpadTokenQuery>['tokens']>[number]
 
 interface UseTopTokensReturnValue {
-  tokens: TopToken[] | undefined
+  tokens: LaunchpadToken[] | undefined
   tokenSortRank: Record<string, number>
   loadingTokens: boolean
   sparklines: SparklineMap
 }
 
-export function useTopTokens2(chain: Chain): UseTopTokensReturnValue {
+export function useLachfactoryTokens(chain: Chain): UseTopTokensReturnValue {
   const chainId = CHAIN_NAME_TO_CHAIN_ID[chain]
   const duration = toHistoryDuration(useAtomValue(filterTimeAtom))
 
   const { data: sparklineQuery } = usePollQueryWhileMounted(
-    useQuery(SPARKLINE_TOKENS_QUERY, {
-      variables: { yesterday: Math.floor(Date.now() / 1000 - 86400 * 30) },
+    useQuery(SPARKLINE_TOKENS_LAUNCHPAD_QUERY, {
+      variables: { duration: Math.floor(Date.now() / 1000 - 86400 * 30) },
       client: apolloClient,
       // eslint-disable-next-line @typescript-eslint/ban-types
-    }) as QueryResult<TokenQuery2, { yesterday: number }>,
+    }) as QueryResult<LaunchpadTokenQuery, { duration: number }>,
     PollingInterval.Slow
   )
 
@@ -200,17 +281,20 @@ export function useTopTokens2(chain: Chain): UseTopTokensReturnValue {
     const unwrappedTokens = sparklineQuery?.tokens?.map((topToken) => unwrapToken(chainId, topToken))
     const map: SparklineMap = {}
     unwrappedTokens?.forEach(
-      (current) => current?.id && (map[current.id] = current?.tokenDayData?.filter(isPricePoint))
+      (current) =>
+        current?.id &&
+        ((map[current.id] = current?.buys?.filter(isLaunchFactoryPricePoint)) ||
+          (map[current.id] = current?.sells?.filter(isLaunchFactoryPricePoint)))
     )
     return map
   }, [chainId, sparklineQuery?.tokens])
 
   const { data, loading: loadingTokens } = usePollQueryWhileMounted(
-    useQuery(TRENDING_TOKENS_QUERY, {
+    useQuery(LAUNCHPAD_TOKENS_QUERY, {
       variables: {},
       client: apolloClient,
       // eslint-disable-next-line @typescript-eslint/ban-types
-    }) as QueryResult<TokenQuery2, {}>,
+    }) as QueryResult<LaunchpadTokenQuery, {}>,
     PollingInterval.Fast
   )
 

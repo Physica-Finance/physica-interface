@@ -1,4 +1,5 @@
 import bs58 from 'bs58'
+import { hexToUint8Array } from '../lib/utils/contenthashToUri'
 
 /**
  * @typedef {Object} Multihash
@@ -40,7 +41,7 @@ export function getMultihashFromBytes32(multihash: Multihash): string | null {
   if (size === 0) return null
 
   // cut off leading "0x"
-  const hashBytes = digest.slice(2)
+  const hashBytes = digest
 
   // prepend hashFunction and digest size
   const multihashBytes = new Uint8Array(2 + hashBytes.length)
@@ -60,9 +61,9 @@ export function getMultihashFromBytes32(multihash: Multihash): string | null {
 export function parseContractResponse(response: any[]): Multihash {
   const [digest, hashFunction, size, id] = response
   return {
-    digest,
-    hashFunction: hashFunction.toNumber(),
-    size: size.toNumber(),
+    digest: hexToUint8Array(digest),
+    hashFunction: parseInt(hashFunction),
+    size: parseInt(size),
   }
 }
 

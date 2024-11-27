@@ -102,12 +102,9 @@ export const PageTabs = () => {
       <MenuItem href="/pool" id="pool-nav-link" isActive={isPoolActive}>
         <Trans>Positions</Trans>
       </MenuItem>
-      {/*<MenuItem dataTestId="nft-nav" href="/nfts" isActive={isNftPage}>
-        <Trans>NFTs</Trans>
-      </MenuItem>*/}
-      <ExternalMenuItem href="https://swap.deltaswap.io/#/transfer">
-        <Trans>Bridge</Trans>
-      </ExternalMenuItem>
+      <MenuItem href={`/launchfactory/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/launchfactory')}>
+        <Trans>Launchpad</Trans>
+      </MenuItem>
     </>
   )
 }

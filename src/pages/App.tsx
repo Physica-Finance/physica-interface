@@ -44,8 +44,10 @@ import Manage from './Stake/Manage'
 import Swap from './Swap'
 import { RedirectPathToSwapOnly } from './Swap/redirects'
 import Tokens from './Tokens'
+import LaunchFactoryTokens from './LaunchFactory'
 
 const TokenDetails = lazy(() => import('./TokenDetails'))
+const LaunchFactoryTokenDetails = lazy(() => import('./LaunchFactoryTokenDetails'))
 const Vote = lazy(() => import('./Vote'))
 const NftExplore = lazy(() => import('nft/pages/explore'))
 const Collection = lazy(() => import('nft/pages/collection'))
@@ -222,6 +224,11 @@ export default function App() {
                 <Route path="tokens" element={<Tokens />}>
                   <Route path=":chainName" />
                 </Route>
+                <Route path="launchfactory" element={<LaunchFactoryTokens />}>
+                  <Route path=":chainName" />
+                </Route>
+                <Route path="launchfactory/:chainName/:tokenAddress" element={<LaunchFactoryTokenDetails />} />
+                <Route path="launchfactory/:chainName/:tokenAddress/:referral" element={<LaunchFactoryTokenDetails />} />
                 <Route path="tokens/:chainName/:tokenAddress" element={<TokenDetails />} />
                 <Route
                   path="vote/*"

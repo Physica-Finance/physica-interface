@@ -1,10 +1,10 @@
 import { Trans } from '@lingui/macro'
 import { Trace } from '@uniswap/analytics'
 import { InterfacePageName } from '@uniswap/analytics-events'
-import { MAX_WIDTH_MEDIA_BREAKPOINT, MEDIUM_MEDIA_BREAKPOINT } from 'components/Tokens/constants'
-import { filterStringAtom } from 'components/Tokens/state'
-import SearchBar from 'components/Tokens/TokenTable/SearchBar'
-import TokenTable from 'components/Tokens/TokenTable/TokenTable'
+import { MAX_WIDTH_MEDIA_BREAKPOINT, MEDIUM_MEDIA_BREAKPOINT } from 'components/LaunchFactory/constants'
+import { filterStringAtom } from 'components/LaunchFactory/state'
+import SearchBar from 'components/LaunchFactory/TokenTable/SearchBar'
+import TokenTable from 'components/LaunchFactory/TokenTable/TokenTable'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { useResetAtom } from 'jotai/utils'
 import { useEffect, useState } from 'react'
@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { ThemedText } from 'theme'
 import { ButtonPrimary } from '../../components/Button'
+import LaunchTokenModal from '../../components/LaunchFactory/LaunchTokenModal'
 import { TitleRow } from '../Pool'
 import { AutoColumn } from '../../components/Column'
 
@@ -102,7 +103,7 @@ const FiltersWrapper = styled.div`
   }
 `
 
-const Tokens = () => {
+const LaunchFactoryTokens = () => {
   const resetFilterString = useResetAtom(filterStringAtom)
   const location = useLocation()
   const [showLaunchTokenModal, setShowLaunchTokenModal] = useState(false)
@@ -111,31 +112,37 @@ const Tokens = () => {
   }, [location, resetFilterString])
 
   return (
-    <Trace page={InterfacePageName.TOKENS_PAGE} shouldLogImpression>
-      <PageWrapper>
-        <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <TitleRow padding="0" marginBottom={1}>
-              <MouseoverTooltip
-                text={<Trans>This table contains the top tokens by Physica volume, sorted based on your input.</Trans>}
-                placement="bottom"
-              >
-                <ThemedText.LargeHeader>
-                  <Trans>Top tokens</Trans>
-                </ThemedText.LargeHeader>
-              </MouseoverTooltip>
-            </TitleRow>
-            <FiltersWrapper>
-              <SearchContainer>
-                <SearchBar />
-              </SearchContainer>
-            </FiltersWrapper>
-            <TokenTable />
+    <>
+      <LaunchTokenModal isOpen={showLaunchTokenModal} onDismiss={() => setShowLaunchTokenModal(false)} />
+      <Trace page={InterfacePageName.TOKENS_PAGE} shouldLogImpression>
+        <PageWrapper>
+          <AutoColumn gap="lg" justify="center">
+            <AutoColumn gap="lg" style={{ width: '100%' }}>
+              <TitleRow padding="0" marginBottom={1}>
+                <MouseoverTooltip
+                  text={<Trans>This table contains the newly launched tokens by creation date.</Trans>}
+                  placement="bottom"
+                >
+                  <ThemedText.LargeHeader>
+                    <Trans>Token Launchpad</Trans>
+                  </ThemedText.LargeHeader>
+                </MouseoverTooltip>
+                <ResponsiveButtonPrimary onClick={() => setShowLaunchTokenModal(true)}>
+                  {<Trans>Launch Token</Trans>}
+                </ResponsiveButtonPrimary>
+              </TitleRow>
+              <FiltersWrapper>
+                <SearchContainer>
+                  <SearchBar />
+                </SearchContainer>
+              </FiltersWrapper>
+              <TokenTable />
+            </AutoColumn>
           </AutoColumn>
-        </AutoColumn>
-      </PageWrapper>
-    </Trace>
+        </PageWrapper>
+      </Trace>
+    </>
   )
 }
 
-export default Tokens
+export default LaunchFactoryTokens
