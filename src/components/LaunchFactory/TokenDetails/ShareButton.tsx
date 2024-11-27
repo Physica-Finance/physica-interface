@@ -78,11 +78,17 @@ export default function ShareButton({ currency }: { currency: Currency }) {
   const shareTweet = () => {
     toggleShare()
     window.open(
-      `https://twitter.com/intent/tweet?text=Check%20out%20${currency.name}%20(${
-        currency.symbol
-      })%20https://app.physica.finance/%23/tokens/${chainIdToBackendName(
-        currency.chainId
-      ).toLowerCase()}/${address}%20via%20@uniswap`,
+      account
+        ? `https://twitter.com/intent/tweet?text=Check%20out%20${currency.name}%20(${
+            currency.symbol
+          })%20https://app.physica.finance/%23/tokens/${chainIdToBackendName(
+            currency.chainId
+          ).toLowerCase()}/${address}/${account}%20via%20@uniswap`
+        : `https://twitter.com/intent/tweet?text=Check%20out%20${currency.name}%20(${
+            currency.symbol
+          })%20https://app.physica.finance/%23/tokens/${chainIdToBackendName(
+            currency.chainId
+          ).toLowerCase()}/${address}%20via%20@uniswap`,
       'newwindow',
       `left=${positionX}, top=${positionY}, width=${TWITTER_WIDTH}, height=${TWITTER_HEIGHT}`
     )
@@ -100,7 +106,7 @@ export default function ShareButton({ currency }: { currency: Currency }) {
               link
               color={theme.textPrimary}
               iconPosition="left"
-              toCopy={window.location.href}
+              toCopy={account ? window.location.href + `/` + account : window.location.href}
               ref={copyHelperRef}
             >
               <Trans>Copy Link</Trans>
