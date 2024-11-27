@@ -11,7 +11,7 @@ import { useQuery } from '@apollo/client'
 import { apolloClient } from '../../graphql/physicalaunchfactory/apollo'
 import {
   LAUNCHPAD_TOKEN_PRICE_QUERY,
-  LAUNCHPAD_TOKEN_QUERY
+  LAUNCHPAD_TOKEN_QUERY, LaunchpadTokenQuery
 } from '../../graphql/physicalaunchfactory/LaunchFactoryToken'
 import { isAddress } from '../../utils'
 
@@ -53,7 +53,53 @@ export default function LaunchFactoryTokenDetailsPage() {
   // Saves already-loaded chart data into state to display while tokenPriceQuery is undefined timePeriod input changes
   const [currentPriceQuery, setCurrentPriceQuery] = useState(tokenPriceQuery)
   useEffect(() => {
-    if (tokenPriceQuery) setCurrentPriceQuery(tokenPriceQuery)
+    if (tokenPriceQuery) {
+      const newPrice: LaunchpadTokenQuery = {
+        token: {
+          id: tokenPriceQuery.token.id,
+          name: tokenPriceQuery.token.name,
+          symbol: tokenPriceQuery.token.symbol,
+          dev: tokenPriceQuery.token.dev,
+          ipfsHash: tokenPriceQuery.token.ipfsHash,
+          initialSupply: tokenPriceQuery.token.initialSupply,
+          migrationCap: tokenPriceQuery.token.migrationCap,
+          plqAmount: tokenPriceQuery.token.plqAmount,
+          startTime: tokenPriceQuery.token.startTime,
+          tokenAmount: tokenPriceQuery.token.tokenAmount,
+          migrated: tokenPriceQuery.token.migrated,
+          txCount: tokenPriceQuery.token,
+          buys: [],
+          sells: [],
+        },
+      }
+
+      if (tokenPriceQuery.token.buys) {
+
+        for(let i = 0;i < tokenPriceQuery.token.buys.length; i++) {
+          newPrice!.token!.buys![i] = {
+            price: (tokenPriceQuery.token.buys[i].plqAmount / tokenPriceQuery.token.buys[i].tokenAmount).toString(),
+            plqAmount: tokenPriceQuery.token.buys[i].plqAmount,
+            tokenAmount: tokenPriceQuery.token.buys[i].tokenAmount,
+            timestamp: tokenPriceQuery.token.buys[i].timestamp,
+            buyer: tokenPriceQuery.token.buys[i].buyer,
+            id: tokenPriceQuery.token.buys[i].id,
+          }
+        }
+      }
+      if (tokenPriceQuery.token.sells) {
+        for (let i = 0; i < tokenPriceQuery.token.sells.length; i++) {
+          newPrice!.token!.sells![i] = {
+            price: (tokenPriceQuery.token.sells[i].plqAmount / tokenPriceQuery.token.sells[i].tokenAmount).toString(),
+            plqAmount: tokenPriceQuery.token.sells[i].plqAmount,
+            tokenAmount: tokenPriceQuery.token.sells[i].tokenAmount,
+            timestamp: tokenPriceQuery.token.sells[i].timestamp,
+            seller: tokenPriceQuery.token.sells[i].seller,
+            id: tokenPriceQuery.token.sells[i].id,
+          }
+        }
+      }
+      setCurrentPriceQuery(newPrice)
+    }
   }, [setCurrentPriceQuery, tokenPriceQuery])
 
   if (!tokenQuery) return <TokenDetailsPageSkeleton />
