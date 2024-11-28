@@ -51,7 +51,7 @@ export type TokenQueryData2 = TokenQuery2['token']
 export class QueryToken extends WrappedTokenInfo {
   constructor(address: string, data: NonNullable<TokenQueryData2>, logoSrc?: string) {
     super({
-      chainId: CHAIN_NAME_TO_CHAIN_ID[7070],
+      chainId: 7070,
       address,
       decimals: data.decimals ?? DEFAULT_ERC20_DECIMALS,
       symbol: data.symbol ?? '',

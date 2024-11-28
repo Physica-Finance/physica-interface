@@ -197,6 +197,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   const [showBuyModal, setShowBuyModal] = useState(false)
   const [showSellModal, setShowSellModal] = useState(false)
   const [plqAmount, setPlqAmount] = useState<string>('0')
+  const [tokenAmount, setTokenAmount] = useState<string>('0')
 
   // Show token safety modal if Swap-reviewing a warning token, at all times if the current token is blocked
   const shouldShowSpeedbump = !useIsUserAddedTokenOnChain(address, pageChainId) && tokenWarning !== null
@@ -282,19 +283,9 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               onReviewSwapClick={onReviewSwapClick}
             />*/}
           </div>
-          <CurrencyInputPanel value={plqAmount} onUserInput={setPlqAmount} showMaxButton={false} currency={nativeOnChain(7070)} id={'0'} />
-          <AutoRow justify={'space-between'}>
-            <ResponsiveButtonPrimary onClick={() => setShowBuyModal(true)}>
-              {<Trans>Buy</Trans>}
-            </ResponsiveButtonPrimary>
-          </AutoRow>
-          <CurrencyInputPanel value={plqAmount} onUserInput={setPlqAmount} showMaxButton={false} currency={token} id={'0'} />
-          <AutoRow justify={'stretch'}>
-            <ResponsiveButtonPrimary onClick={() => setShowSellModal(true)}>
-              {<Trans>Sell</Trans>}
-            </ResponsiveButtonPrimary>
-          </AutoRow>
-          {tokenWarning && <TokenSafetyMessage tokenAddress={address} warning={tokenWarning} />}
+          <ThemedText.DeprecatedSmall>
+            <Trans>Pool Migration Progress</Trans>
+          </ThemedText.DeprecatedSmall>
           <BarWrapper>
             <Bar percent={percentageRemaining}>
               <RowFixed>
@@ -304,6 +295,19 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               </RowFixed>
             </Bar>
           </BarWrapper>
+          <CurrencyInputPanel value={plqAmount} onUserInput={setPlqAmount} showMaxButton={false} currency={nativeOnChain(7070)} id={'0'} />
+          <AutoRow justify={'space-between'}>
+            <ResponsiveButtonPrimary onClick={() => setShowBuyModal(true)}>
+              {<Trans>Buy</Trans>}
+            </ResponsiveButtonPrimary>
+          </AutoRow>
+          <CurrencyInputPanel value={tokenAmount} onUserInput={setTokenAmount} showMaxButton={false} currency={token} id={'1'} />
+          <AutoRow justify={'stretch'}>
+            <ResponsiveButtonPrimary onClick={() => setShowSellModal(true)}>
+              {<Trans>Sell</Trans>}
+            </ResponsiveButtonPrimary>
+          </AutoRow>
+
           {token && <BalanceSummary token={token} />}
         </RightPanel>
         {token && <MobileBalanceSummaryFooter token={token} />}
