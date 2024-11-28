@@ -36,6 +36,8 @@ export enum TransactionType {
   QUEUE,
   EXECUTE,
   LAUNCH_TOKEN,
+  BUY_TOKEN,
+  SELL_TOKEN
 }
 
 interface BaseTransactionInfo {
@@ -46,6 +48,18 @@ export interface LaunchTokenTransactionInfo extends BaseTransactionInfo {
   type: TransactionType.LAUNCH_TOKEN
   tokenName: string
   tokenSymbol: string
+}
+
+export interface BuyTokenTransactionInfo extends BaseTransactionInfo {
+  type: TransactionType.BUY_TOKEN
+  tokenAddress: string
+  currencyAmountRaw: string
+}
+
+export interface SellTokenTransactionInfo extends BaseTransactionInfo {
+  type: TransactionType.SELL_TOKEN
+  tokenAddress: string
+  currencyAmountRaw: string
 }
 
 export interface VoteTransactionInfo extends BaseTransactionInfo {
@@ -195,6 +209,8 @@ export type TransactionInfo =
   | RemoveLiquidityV3TransactionInfo
   | SubmitProposalTransactionInfo
   | LaunchTokenTransactionInfo
+  | BuyTokenTransactionInfo
+  | SellTokenTransactionInfo
 
 export interface TransactionDetails {
   hash: string

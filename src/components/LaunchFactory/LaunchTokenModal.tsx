@@ -19,9 +19,14 @@ import { ErrorText } from '../swap/styleds'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { getBytes32FromMultiash } from '../../utils/multihash'
 import { TransactionType } from '../../state/transactions/types'
-import { numberToWei } from '../../nft/utils'
+import { formatWeiToDecimal, numberToWei } from '../../nft/utils'
 import { base64 } from 'ethers/lib/utils'
 import Loader from '../Loader'
+import { QueryToken } from '../../graphql/physica/Token'
+import { NativeCurrency, Token } from '@uniswap/sdk-core'
+import { ADDRESS_ZERO } from '@uniswap/v3-sdk'
+import CurrencyInputPanel from '../CurrencyInputPanel'
+import { nativeOnChain } from '../../constants/tokens'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -42,6 +47,226 @@ const TokenLogoCircular = styled.img`
 interface LaunchTokenModalProps {
   isOpen: boolean
   onDismiss: () => void
+}
+
+interface BuyTokenModalProps {
+  isOpen: boolean
+  onDismiss: () => void
+  token: Token | NativeCurrency | QueryToken | null
+  referralAddress: string | undefined
+  plqAmount: string | undefined
+  price: string
+}
+
+interface SellTokenModalProps {
+  isOpen: boolean
+  onDismiss: () => void
+  token: Token | NativeCurrency | QueryToken | null
+  tokenAmount: string | undefined
+  price: string
+
+}
+
+export function BuyTokenModal({ isOpen, onDismiss, token, referralAddress, plqAmount, price }: BuyTokenModalProps) {
+  const { account } = useWeb3React()
+  const physicaTokenFactory = usePhysicaTokenFactoryContract()
+  const theme = useTheme()
+
+  const addTransaction = useTransactionAdder()
+  const [hash, setHash] = useState<string | undefined>()
+  const [attempting, setAttempting] = useState(false)
+  const [buyAmount, setBuyAmount] = useState(plqAmount ?? '')
+
+  useEffect(() => {
+    setBuyAmount(plqAmount ?? '')
+  }, [plqAmount])
+
+  function wrappedOnDismiss() {
+    setHash(undefined)
+    setAttempting(false)
+    onDismiss()
+  }
+
+  async function onBuyToken() {
+    if (!account || !token || !physicaTokenFactory) {
+      return
+    }
+    setAttempting(true)
+    console.log(buyAmount)
+    console.log(parseFloat(buyAmount))
+    await physicaTokenFactory
+      .buy(token.wrapped.address, referralAddress ?? ADDRESS_ZERO, {
+        gasLimit: 3500000,
+        value: numberToWei(parseFloat(buyAmount)),
+      })
+      .then((response: any) => {
+        addTransaction(response, {
+          type: TransactionType.BUY_TOKEN,
+          tokenAddress: token.wrapped.address,
+          currencyAmountRaw: buyAmount,
+        })
+        setHash(response.hash)
+        setAttempting(false)
+      })
+      .catch((error: any) => {
+        setAttempting(false)
+        console.log(error)
+      })
+  }
+
+  return (
+    <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss}>
+      <Wrapper>
+        <AutoColumn gap="lg">
+          <RowBetween>
+            <ThemedText.DeprecatedBody fontSize="20px" fontWeight={600}>
+              <Trans>
+                Buy {token?.name} ({token?.symbol})
+              </Trans>
+            </ThemedText.DeprecatedBody>
+            <CloseIcon onClick={wrappedOnDismiss} />
+          </RowBetween>
+          <AutoRow gap="md">
+            <ThemedText.DeprecatedSmall paddingLeft={'5px'} paddingBottom={'5px'} fontSize="14px" fontWeight={600}>
+              <Trans>Choose how many {token?.name} you want to buy</Trans>
+            </ThemedText.DeprecatedSmall>
+            <DarkerGreyCard>
+              <CurrencyInputPanel
+                value={buyAmount}
+                onUserInput={setBuyAmount}
+                showMaxButton={false}
+                currency={nativeOnChain(7070)}
+                id={'0'}
+              />
+              <ThemedText.DeprecatedSmall paddingTop={'5px'} fontSize="11px" fontWeight={600}>
+                You will receive ~{ parseFloat(buyAmount) / parseFloat(price) * 1e18} {token?.symbol}.
+              </ThemedText.DeprecatedSmall>
+            </DarkerGreyCard>
+          </AutoRow>
+          {
+            <ButtonPrimary
+              disabled={
+                attempting ||
+                !account
+              }
+              padding="8px"
+              $borderRadius="12px"
+              onClick={onBuyToken}
+            >
+              {attempting ? (
+                <>
+                  <Trans>Buying</Trans>
+                  <Loader />
+                </>
+              ) : (
+                <Trans>Buy</Trans>
+              )}
+            </ButtonPrimary>
+          }
+        </AutoColumn>
+      </Wrapper>
+    </Modal>
+  )
+
+}
+
+export function SellTokenModal({ isOpen, onDismiss, token, tokenAmount, price }: SellTokenModalProps) {
+  const { account } = useWeb3React()
+  const physicaTokenFactory = usePhysicaTokenFactoryContract()
+  const theme = useTheme()
+
+  const addTransaction = useTransactionAdder()
+  const [hash, setHash] = useState<string | undefined>()
+  const [attempting, setAttempting] = useState(false)
+  const [tokenSellAmount, setTokenSellAmount] = useState(tokenAmount ?? '')
+
+  function wrappedOnDismiss() {
+    setHash(undefined)
+    setAttempting(false)
+    onDismiss()
+  }
+
+  useEffect(() => {
+    setTokenSellAmount(tokenAmount ?? '')
+  }, [tokenAmount])
+
+  async function onSellToken() {
+    if (!account || !token || !physicaTokenFactory) {
+      return
+    }
+    setAttempting(true)
+
+    await physicaTokenFactory
+      .sell(token.wrapped.address, numberToWei(parseFloat(tokenSellAmount)), {
+        gasLimit: 3500000,
+      })
+      .then((response: any) => {
+        addTransaction(response, {
+          type: TransactionType.SELL_TOKEN,
+          tokenAddress: token.wrapped.address,
+          currencyAmountRaw: tokenSellAmount,
+        })
+        setHash(response.hash)
+        setAttempting(false)
+      })
+      .catch((error: any) => {
+        setAttempting(false)
+        console.log(error)
+      })
+  }
+
+  return (
+    <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss}>
+      <Wrapper>
+        <AutoColumn gap="lg">
+          <RowBetween>
+            <ThemedText.DeprecatedBody fontSize="20px" fontWeight={600}>
+              <Trans>Sell {token?.name} ({token?.symbol})</Trans>
+            </ThemedText.DeprecatedBody>
+            <CloseIcon onClick={wrappedOnDismiss} />
+          </RowBetween>
+          <AutoRow gap="md">
+            <ThemedText.DeprecatedSmall paddingLeft={'5px'} paddingBottom={'5px'} fontSize="14px" fontWeight={600}>
+              <Trans>Choose how many {token?.name} you want to buy</Trans>
+            </ThemedText.DeprecatedSmall>
+            <DarkerGreyCard>
+              <CurrencyInputPanel
+                value={tokenSellAmount}
+                onUserInput={setTokenSellAmount}
+                showMaxButton={false}
+                currency={token}
+                id={'1'}
+              />
+              <ThemedText.DeprecatedSmall paddingTop={'5px'} fontSize="11px" fontWeight={600}>
+                You will receive ~{parseFloat(price) * parseFloat(tokenSellAmount) / 1e18} PLQ.
+              </ThemedText.DeprecatedSmall>
+            </DarkerGreyCard>
+          </AutoRow>
+          {
+            <ButtonPrimary
+              disabled={
+                attempting ||
+                !account
+              }
+              padding="8px"
+              $borderRadius="12px"
+              onClick={onSellToken}
+            >
+              {attempting ? (
+                <>
+                  <Trans>Selling</Trans>
+                  <Loader />
+                </>
+              ) : (
+                <Trans>Sell</Trans>
+              )}
+            </ButtonPrimary>
+          }
+        </AutoColumn>
+      </Wrapper>
+    </Modal>
+  )
+
 }
 
 export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModalProps) {
@@ -175,6 +400,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
     onDismiss()
   }
 
+
   async function onLaunchToken() {
     if (!account || !tokenLogo || !physicaTokenFactory) {
       return
@@ -218,7 +444,6 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
     }
     const metaIpfsHash = await metaRes.text()
     const multihashMetaIpfsHash = getBytes32FromMultiash(metaIpfsHash)
-
 
     await physicaTokenFactory
       .createToken(
@@ -484,7 +709,14 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
               $borderRadius="12px"
               onClick={onLaunchToken}
             >
-              {attempting ? <><Trans>Launching</Trans><Loader/></> : (<Trans>Launch</Trans>)}
+              {attempting ? (
+                <>
+                  <Trans>Launching</Trans>
+                  <Loader />
+                </>
+              ) : (
+                <Trans>Launch</Trans>
+              )}
             </ButtonPrimary>
           }
         </AutoColumn>

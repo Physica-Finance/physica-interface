@@ -3,7 +3,6 @@ import { Trace } from '@uniswap/analytics'
 import { InterfacePageName } from '@uniswap/analytics-events'
 import { Currency } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
-import CurrencyLogo from 'components/Logo/CurrencyLogo'
 import AddressSection from 'components/LaunchFactory/TokenDetails/AddressSection'
 import BalanceSummary from 'components/LaunchFactory/TokenDetails/BalanceSummary'
 import { BreadcrumbNavLink } from 'components/LaunchFactory/TokenDetails/BreadcrumbNavLink'
@@ -16,24 +15,21 @@ import TokenDetailsSkeleton, {
   RightPanel,
   TokenDetailsLayout,
   TokenInfoContainer,
-  TokenNameCell
+  TokenNameCell,
 } from 'components/LaunchFactory/TokenDetails/Skeleton'
 import StatsSection from 'components/LaunchFactory/TokenDetails/StatsSection'
-import TokenSafetyMessage from 'components/TokenSafety/TokenSafetyMessage'
 import TokenSafetyModal from 'components/TokenSafety/TokenSafetyModal'
-import Widget from 'components/Widget'
 import { getChainInfo } from 'constants/chainInfo'
 import { NATIVE_CHAIN_ID, nativeOnChain } from 'constants/tokens'
 import { checkWarning } from 'constants/tokenSafety'
-import { TokenPriceQuery2 } from 'graphql/physica/TokenPrice'
-import { TokenQuery2, TokenQueryData2 } from 'graphql/physica/Token'
+import { TokenQueryData2 } from 'graphql/physica/Token'
 import { Chain } from 'graphql/data/Token'
 import { QueryToken } from 'graphql/physica/Token'
 import { CHAIN_NAME_TO_CHAIN_ID, getLaunchFactoryTokenDetailsURL } from 'graphql/physica/util'
 import { useIsUserAddedTokenOnChain } from 'hooks/Tokens'
 import { useOnGlobalChainSwitch } from 'hooks/useGlobalChainSwitch'
 import { UNKNOWN_TOKEN_SYMBOL, useTokenFromActiveNetwork } from 'lib/hooks/useCurrency'
-import React, { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
+import React, { useCallback, useMemo, useState, useTransition } from 'react'
 import { ArrowLeft } from 'react-feather'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -41,8 +37,7 @@ import { isAddress } from 'utils'
 
 import { OnChangeTimePeriod } from './ChartSection'
 import InvalidTokenDetails from './InvalidTokenDetails'
-import { useMetaManagerContract } from '../../../hooks/useContract'
-import { getMultihashFromContractResponse } from '../../../utils/multihash'
+import { useMetaManagerContract, usePhysicaTokenFactoryContract } from '../../../hooks/useContract'
 import { fetchMetaFromPinataIPFS } from '../utils'
 import { AboutSection } from './About'
 import { LaunchpadTokenQuery } from '../../../graphql/physicalaunchfactory/LaunchFactoryToken'
@@ -51,9 +46,9 @@ import { AutoRow, RowFixed } from '../../Row'
 import { ThemedText } from '../../../theme'
 import { darken, transparentize } from 'polished'
 import CurrencyInputPanel from '../../CurrencyInputPanel'
-import { NATIVE_CURRENCY } from '@uniswap/smart-order-router'
-import { AutoColumn } from '../../Column'
 import { ButtonPrimary } from '../../Button'
+import { SellTokenModal, BuyTokenModal } from '../LaunchTokenModal'
+
 const TokenLogoCircular = styled.img`
   width: 32px;
   height: 32px;
@@ -95,8 +90,8 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   border-radius: 12px;
 
   padding: 6px 8px;
-    flex: 1 1 auto;
-    width: 100%;
+  flex: 1 1 auto;
+  width: 100%;
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     flex: 1 1 auto;
     width: 100%;
@@ -218,111 +213,158 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
   const metaManager = useMetaManagerContract()
 
-  if(!metaJson) {
+  if (!metaJson) {
     fetchMetaFromPinataIPFS(tokenQueryData?.ipfsHash ?? '').then((meta) => setMetaJson(meta))
   }
+  const physicaTokenFactory = usePhysicaTokenFactoryContract()
 
-  const percentageRemaining = tokenQueryData ?
-    parseFloat(tokenQueryData.migrationCap ?? '0') /
-    (parseFloat('100') - parseFloat((BigInt(tokenQueryData.tokenAmount ?? '0') * BigInt(100) / BigInt(tokenQueryData.initialSupply ?? '0')).toString())) : 100
+  const [price, setPrice] = useState('')
+  if (token?.wrapped.address) {
+    physicaTokenFactory?.getPrice(token?.wrapped.address).then((response: any) => {
+      setPrice(response)
+    })
+  }
+
+  const percentageRemaining = tokenQueryData
+    ? parseFloat(tokenQueryData.migrationCap ?? '0') /
+      (parseFloat('100') -
+        parseFloat(
+          (
+            (BigInt(tokenQueryData.tokenAmount ?? '0') * BigInt(100)) /
+            BigInt(tokenQueryData.initialSupply ?? '0')
+          ).toString()
+        ))
+    : 100
   // address will never be undefined if token is defined; address is checked here to appease typechecker
   if (token === undefined || !address) {
     return <InvalidTokenDetails chainName={address && getChainInfo(pageChainId)?.label} />
   }
   return (
-    <Trace
-      page={InterfacePageName.TOKEN_DETAILS_PAGE}
-      properties={{ tokenAddress: address, tokenName: token?.name }}
-      shouldLogImpression
-    >
-      <TokenDetailsLayout>
-        {token && !isPending ? (
-          <LeftPanel>
-            <BreadcrumbNavLink to={`/launchpad/${chain.toLowerCase()}`}>
-              <ArrowLeft data-testid="token-details-return-button" size={14} /> Tokens
-            </BreadcrumbNavLink>
-            <TokenInfoContainer data-testid="token-info-container">
-              <TokenNameCell>
-                <TokenLogoCircular src={'https://gateway.pinata.cloud/ipfs/' + metaJson?.image} />
-                {token.name ?? <Trans>Name not found</Trans>}
-                <TokenSymbol>{token.symbol ?? <Trans>Symbol not found</Trans>}</TokenSymbol>
-              </TokenNameCell>
-              <TokenActions>
-                <ShareButton currency={token} />
-              </TokenActions>
-            </TokenInfoContainer>
-            <ChartSection tokenPriceQuery={tokenPriceQuery} onChangeTimePeriod={onChangeTimePeriod} />
-            <StatsSection
-              TVL={formatWeiToDecimal(tokenQueryData?.plqAmount ?? '0')}
-              volume24H={tokenQueryData?.txCount ?? '0'}
-              priceHigh52W={parseFloat('0')}
-              priceLow52W={parseFloat('0')}
-            />
-            {!token.isNative && <AddressSection address={address} />}
-            <Hr />
-            <AboutSection
-              address={address}
-              chainId={pageChainId}
-              description={metaJson?.description}
-              homepageUrl={metaJson?.website}
-              twitterName={metaJson?.twitter}
-              telegramName={metaJson?.telegram}
-            />
-          </LeftPanel>
-        ) : (
-          <TokenDetailsSkeleton />
-        )}
+    <>
+      <BuyTokenModal
+        isOpen={showBuyModal}
+        onDismiss={() => setShowBuyModal(false)}
+        token={token}
+        referralAddress={referralAddress}
+        plqAmount={plqAmount}
+        price={price}
+      />
+      <SellTokenModal
+        isOpen={showSellModal}
+        onDismiss={() => setShowSellModal(false)}
+        token={token}
+        tokenAmount={tokenAmount}
+        price={price}
+      />
+      <Trace
+        page={InterfacePageName.TOKEN_DETAILS_PAGE}
+        properties={{ tokenAddress: address, tokenName: token?.name }}
+        shouldLogImpression
+      >
+        <TokenDetailsLayout>
+          {token && !isPending ? (
+            <LeftPanel>
+              <BreadcrumbNavLink to={`/launchpad/${chain.toLowerCase()}`}>
+                <ArrowLeft data-testid="token-details-return-button" size={14} /> Tokens
+              </BreadcrumbNavLink>
+              <TokenInfoContainer data-testid="token-info-container">
+                <TokenNameCell>
+                  <TokenLogoCircular src={'https://gateway.pinata.cloud/ipfs/' + metaJson?.image} />
+                  {token.name ?? <Trans>Name not found</Trans>}
+                  <TokenSymbol>{token.symbol ?? <Trans>Symbol not found</Trans>}</TokenSymbol>
+                </TokenNameCell>
+                <TokenActions>
+                  <ShareButton currency={token} />
+                </TokenActions>
+              </TokenInfoContainer>
+              <ChartSection tokenPriceQuery={tokenPriceQuery} onChangeTimePeriod={onChangeTimePeriod} />
+              <StatsSection
+                TVL={formatWeiToDecimal(tokenQueryData?.plqAmount ?? '0')}
+                volume24H={tokenQueryData?.txCount ?? '0'}
+                priceHigh52W={parseFloat('0')}
+                priceLow52W={parseFloat('0')}
+              />
+              {!token.isNative && <AddressSection address={address} />}
+              <Hr />
+              <AboutSection
+                address={address}
+                chainId={pageChainId}
+                description={metaJson?.description}
+                homepageUrl={metaJson?.website}
+                twitterName={metaJson?.twitter}
+                telegramName={metaJson?.telegram}
+              />
+            </LeftPanel>
+          ) : (
+            <TokenDetailsSkeleton />
+          )}
 
-        <RightPanel onClick={() => isBlockedToken && setOpenTokenSafetyModal(true)}>
-          <div style={{ pointerEvents: isBlockedToken ? 'none' : 'auto' }}>
-            {/*<Widget
+          <RightPanel onClick={() => isBlockedToken && setOpenTokenSafetyModal(true)}>
+            <div style={{ pointerEvents: isBlockedToken ? 'none' : 'auto' }}>
+              {/*<Widget
               defaultTokens={{
                 default: token ?? undefined,
               }}
               onDefaultTokenChange={navigateToWidgetSelectedToken}
               onReviewSwapClick={onReviewSwapClick}
             />*/}
-          </div>
-          <ThemedText.DeprecatedSmall>
-            <Trans>Pool Migration Progress</Trans>
-          </ThemedText.DeprecatedSmall>
-          <BarWrapper>
-            <Bar percent={percentageRemaining}>
-              <RowFixed>
-                <ThemedText.DeprecatedBody fontSize="12px" fontWeight={600} ml="8px" mt="-2px">
-                  {percentageRemaining.toFixed(2)}%
-                </ThemedText.DeprecatedBody>
-              </RowFixed>
-            </Bar>
-          </BarWrapper>
-          <CurrencyInputPanel value={plqAmount} onUserInput={setPlqAmount} showMaxButton={false} currency={nativeOnChain(7070)} id={'0'} />
-          <AutoRow justify={'space-between'}>
-            <ResponsiveButtonPrimary onClick={() => setShowBuyModal(true)}>
-              {<Trans>Buy</Trans>}
-            </ResponsiveButtonPrimary>
-          </AutoRow>
-          <CurrencyInputPanel value={tokenAmount} onUserInput={setTokenAmount} showMaxButton={false} currency={token} id={'1'} />
-          <AutoRow justify={'stretch'}>
-            <ResponsiveButtonPrimary onClick={() => setShowSellModal(true)}>
-              {<Trans>Sell</Trans>}
-            </ResponsiveButtonPrimary>
-          </AutoRow>
+            </div>
+            <ThemedText.DeprecatedSmall>
+              <Trans>Pool Migration Progress</Trans>
+            </ThemedText.DeprecatedSmall>
+            <BarWrapper>
+              <Bar percent={percentageRemaining}>
+                <RowFixed>
+                  <ThemedText.DeprecatedBody fontSize="12px" fontWeight={600} ml="8px" mt="-2px">
+                    {percentageRemaining.toFixed(2)}%
+                  </ThemedText.DeprecatedBody>
+                </RowFixed>
+              </Bar>
+            </BarWrapper>
+            <CurrencyInputPanel
+              value={plqAmount}
+              onUserInput={setPlqAmount}
+              showMaxButton={false}
+              currency={nativeOnChain(7070)}
+              id={'0'}
+            />
+            <ThemedText.DeprecatedSmall>
+              You will receive {parseFloat(plqAmount) / parseFloat(price) * 1e18} {token?.symbol} for {plqAmount} PLQ
+            </ThemedText.DeprecatedSmall>
+            <AutoRow justify={'space-between'}>
+              <ResponsiveButtonPrimary onClick={() => setShowBuyModal(true)}>
+                <Trans>Buy</Trans>
+              </ResponsiveButtonPrimary>
+            </AutoRow>
+            <CurrencyInputPanel
+              value={tokenAmount}
+              onUserInput={setTokenAmount}
+              showMaxButton={false}
+              currency={token}
+              id={'1'}
+            />
+            <AutoRow justify={'stretch'}>
+              <ResponsiveButtonPrimary onClick={() => setShowSellModal(true)}>
+                <Trans>Sell</Trans>
+              </ResponsiveButtonPrimary>
+            </AutoRow>
 
-          {token && <BalanceSummary token={token} />}
-        </RightPanel>
-        {token && <MobileBalanceSummaryFooter token={token} />}
+            {token && <BalanceSummary token={token} />}
+          </RightPanel>
+          {token && <MobileBalanceSummaryFooter token={token} />}
 
-        <TokenSafetyModal
-          isOpen={openTokenSafetyModal || !!continueSwap}
-          tokenAddress={address}
-          onContinue={() => onResolveSwap(true)}
-          onBlocked={() => {
-            setOpenTokenSafetyModal(false)
-          }}
-          onCancel={() => onResolveSwap(false)}
-          showCancel={true}
-        />
-      </TokenDetailsLayout>
-    </Trace>
+          <TokenSafetyModal
+            isOpen={openTokenSafetyModal || !!continueSwap}
+            tokenAddress={address}
+            onContinue={() => onResolveSwap(true)}
+            onBlocked={() => {
+              setOpenTokenSafetyModal(false)
+            }}
+            onCancel={() => onResolveSwap(false)}
+            showCancel={true}
+          />
+        </TokenDetailsLayout>
+      </Trace>
+    </>
   )
 }
