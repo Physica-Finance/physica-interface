@@ -33,7 +33,7 @@ import { CHAIN_NAME_TO_CHAIN_ID, getLaunchFactoryTokenDetailsURL } from 'graphql
 import { useIsUserAddedTokenOnChain } from 'hooks/Tokens'
 import { useOnGlobalChainSwitch } from 'hooks/useGlobalChainSwitch'
 import { UNKNOWN_TOKEN_SYMBOL, useTokenFromActiveNetwork } from 'lib/hooks/useCurrency'
-import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
+import React, { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
 import { ArrowLeft } from 'react-feather'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -47,6 +47,13 @@ import { fetchMetaFromPinataIPFS } from '../utils'
 import { AboutSection } from './About'
 import { LaunchpadTokenQuery } from '../../../graphql/physicalaunchfactory/LaunchFactoryToken'
 import { formatWeiToDecimal } from '../../../nft/utils'
+import { AutoRow, RowFixed } from '../../Row'
+import { ThemedText } from '../../../theme'
+import { darken, transparentize } from 'polished'
+import CurrencyInputPanel from '../../CurrencyInputPanel'
+import { NATIVE_CURRENCY } from '@uniswap/smart-order-router'
+import { AutoColumn } from '../../Column'
+import { ButtonPrimary } from '../../Button'
 const TokenLogoCircular = styled.img`
   width: 32px;
   height: 32px;
@@ -65,6 +72,35 @@ const TokenActions = styled.div`
   display: flex;
   gap: 16px;
   color: ${({ theme }) => theme.textSecondary};
+`
+const BarWrapper = styled.div`
+  width: 100%;
+  height: calc(5% - 8px);
+  border-radius: 20px;
+  background-color: ${({ theme }) => transparentize(0.7, theme.deprecated_bg3)};
+`
+
+const Bar = styled.div<{ percent: number; color?: string }>`
+  width: ${({ percent }) => `${percent}%`};
+  height: 100%;
+  border-radius: inherit;
+  background: ${({ color, theme }) =>
+    color ? `linear-gradient(to left, ${darken(0.18, color)}, ${darken(0.01, color)});` : theme.deprecated_blue4};
+  display: flex;
+  align-items: center;
+  padding: 4px;
+`
+
+const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  border-radius: 12px;
+
+  padding: 6px 8px;
+    flex: 1 1 auto;
+    width: 100%;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex: 1 1 auto;
+    width: 100%;
+  `};
 `
 
 function useOnChainToken(address: string | undefined, skip: boolean) {
@@ -158,6 +194,10 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
 
   const [openTokenSafetyModal, setOpenTokenSafetyModal] = useState(false)
 
+  const [showBuyModal, setShowBuyModal] = useState(false)
+  const [showSellModal, setShowSellModal] = useState(false)
+  const [plqAmount, setPlqAmount] = useState<string>('0')
+
   // Show token safety modal if Swap-reviewing a warning token, at all times if the current token is blocked
   const shouldShowSpeedbump = !useIsUserAddedTokenOnChain(address, pageChainId) && tokenWarning !== null
   const onReviewSwapClick = useCallback(
@@ -177,14 +217,13 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
   const metaManager = useMetaManagerContract()
 
-  metaManager?.getEntry(address!).then((entry) => {
-    setMetaEntry(getMultihashFromContractResponse(entry) ?? undefined)
-  })
+  if(!metaJson) {
+    fetchMetaFromPinataIPFS(tokenQueryData?.ipfsHash ?? '').then((meta) => setMetaJson(meta))
+  }
 
-  useEffect(() => {
-    fetchMetaFromPinataIPFS(metaEntry ?? '').then((meta) => setMetaJson(meta))
-  }, [metaEntry])
-
+  const percentageRemaining = tokenQueryData ?
+    parseFloat(tokenQueryData.migrationCap ?? '0') /
+    (parseFloat('100') - parseFloat((BigInt(tokenQueryData.tokenAmount ?? '0') * BigInt(100) / BigInt(tokenQueryData.initialSupply ?? '0')).toString())) : 100
   // address will never be undefined if token is defined; address is checked here to appease typechecker
   if (token === undefined || !address) {
     return <InvalidTokenDetails chainName={address && getChainInfo(pageChainId)?.label} />
@@ -198,7 +237,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
       <TokenDetailsLayout>
         {token && !isPending ? (
           <LeftPanel>
-            <BreadcrumbNavLink to={`/tokens/${chain.toLowerCase()}`}>
+            <BreadcrumbNavLink to={`/launchpad/${chain.toLowerCase()}`}>
               <ArrowLeft data-testid="token-details-return-button" size={14} /> Tokens
             </BreadcrumbNavLink>
             <TokenInfoContainer data-testid="token-info-container">
@@ -243,8 +282,28 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               onReviewSwapClick={onReviewSwapClick}
             />*/}
           </div>
+          <CurrencyInputPanel value={plqAmount} onUserInput={setPlqAmount} showMaxButton={false} currency={nativeOnChain(7070)} id={'0'} />
+          <AutoRow justify={'space-between'}>
+            <ResponsiveButtonPrimary onClick={() => setShowBuyModal(true)}>
+              {<Trans>Buy</Trans>}
+            </ResponsiveButtonPrimary>
+          </AutoRow>
+          <CurrencyInputPanel value={plqAmount} onUserInput={setPlqAmount} showMaxButton={false} currency={token} id={'0'} />
+          <AutoRow justify={'stretch'}>
+            <ResponsiveButtonPrimary onClick={() => setShowSellModal(true)}>
+              {<Trans>Sell</Trans>}
+            </ResponsiveButtonPrimary>
+          </AutoRow>
           {tokenWarning && <TokenSafetyMessage tokenAddress={address} warning={tokenWarning} />}
-
+          <BarWrapper>
+            <Bar percent={percentageRemaining}>
+              <RowFixed>
+                <ThemedText.DeprecatedBody fontSize="12px" fontWeight={600} ml="8px" mt="-2px">
+                  {percentageRemaining.toFixed(2)}%
+                </ThemedText.DeprecatedBody>
+              </RowFixed>
+            </Bar>
+          </BarWrapper>
           {token && <BalanceSummary token={token} />}
         </RightPanel>
         {token && <MobileBalanceSummaryFooter token={token} />}

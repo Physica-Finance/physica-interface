@@ -1,8 +1,11 @@
 import { getChainInfo } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import useTokenLogoSource from 'hooks/useAssetLogoSource'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
+import { useMetaManagerContract } from '../../hooks/useContract'
+import { getMultihashFromContractResponse } from '../../utils/multihash'
+import { fetchMetaFromPinataIPFS } from '../LaunchFactory/utils'
 
 const MissingImageLogo = styled.div<{ size?: string }>`
   --size: ${({ size }) => size};
@@ -87,6 +90,7 @@ export default function AssetLogo({
     alt: `${symbol ?? 'token'} logo`,
     size,
   }
+
 
   const [src, nextSrc] = useTokenLogoSource(address, chainId, isNative, backupImg)
   const L2Icon = getChainInfo(chainId)?.circleLogoUrl

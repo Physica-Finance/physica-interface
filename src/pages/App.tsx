@@ -224,11 +224,11 @@ export default function App() {
                 <Route path="tokens" element={<Tokens />}>
                   <Route path=":chainName" />
                 </Route>
-                <Route path="launchfactory" element={<LaunchFactoryTokens />}>
+                <Route path="launchpad" element={<LaunchFactoryTokens />}>
                   <Route path=":chainName" />
                 </Route>
-                <Route path="launchfactory/:chainName/:tokenAddress" element={<LaunchFactoryTokenDetails />} />
-                <Route path="launchfactory/:chainName/:tokenAddress/:referral" element={<LaunchFactoryTokenDetails />} />
+                <Route path="launchpad/:chainName/:tokenAddress" element={<LaunchFactoryTokenDetails />} />
+                <Route path="launchpad/:chainName/:tokenAddress/:referral" element={<LaunchFactoryTokenDetails />} />
                 <Route path="tokens/:chainName/:tokenAddress" element={<TokenDetails />} />
                 <Route
                   path="vote/*"

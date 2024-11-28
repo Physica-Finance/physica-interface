@@ -109,7 +109,7 @@ export function getTokenDetailsURL({ id }: { id?: string | null }) {
 }
 
 export function getLaunchFactoryTokenDetailsURL({ id }: { id?: string | null }) {
-  return `/launchfactory/planq/${id ?? NATIVE_CHAIN_ID}`
+  return `/launchpad/planq/${id ?? NATIVE_CHAIN_ID}`
 }
 
 export function unwrapToken<

@@ -81,12 +81,12 @@ export default function ShareButton({ currency }: { currency: Currency }) {
       account
         ? `https://twitter.com/intent/tweet?text=Check%20out%20${currency.name}%20(${
             currency.symbol
-          })%20https://app.physica.finance/%23/tokens/${chainIdToBackendName(
+          })%20https://app.physica.finance/%23/launchpad/${chainIdToBackendName(
             currency.chainId
           ).toLowerCase()}/${address}/${account}%20via%20@uniswap`
         : `https://twitter.com/intent/tweet?text=Check%20out%20${currency.name}%20(${
             currency.symbol
-          })%20https://app.physica.finance/%23/tokens/${chainIdToBackendName(
+          })%20https://app.physica.finance/%23/launchpad/${chainIdToBackendName(
             currency.chainId
           ).toLowerCase()}/${address}%20via%20@uniswap`,
       'newwindow',

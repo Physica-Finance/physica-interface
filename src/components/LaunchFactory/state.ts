@@ -6,7 +6,7 @@ import { useCallback } from 'react'
 export enum TokenSortMethod {
   PRICE = 'Created',
   CREATOR = 'Creator',
-  TOTAL_VALUE_LOCKED = 'TVL',
+  TOTAL_VALUE_LOCKED = 'Migration',
   TXS = 'TXs',
 }
 

@@ -3,6 +3,9 @@ import { chainIdToNetworkName, getNativeLogoURI } from 'lib/hooks/useCurrencyLog
 import uriToHttp from 'lib/utils/uriToHttp'
 import { useCallback, useEffect, useState } from 'react'
 import { isAddress } from 'utils'
+import { useMetaManagerContract } from './useContract'
+import { getMultihashFromContractResponse } from '../utils/multihash'
+import { fetchMetaFromPinataIPFS } from '../components/LaunchFactory/utils'
 
 const BAD_SRCS: { [tokenAddress: string]: true } = {}
 
@@ -54,6 +57,23 @@ export default function useAssetLogoSource(
 ): [string | undefined, () => void] {
   const [current, setCurrent] = useState<string | undefined>(getInitialUrl(address, chainId, isNative))
   const [fallbackSrcs, setFallbackSrcs] = useState<string[] | undefined>(undefined)
+  const [metaEntry, setMetaEntry] = useState<string | undefined>(undefined)
+  const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
+  const metaManager = useMetaManagerContract()
+
+  useEffect(() => {
+    if (!metaJson) {
+      if(metaEntry !== undefined)
+      fetchMetaFromPinataIPFS(metaEntry ?? '').then((meta) => setMetaJson(meta))
+    }
+  }, [metaEntry])
+
+  useEffect(() => {
+    if (metaJson) {
+      if(metaJson?.image !== undefined || metaJson?.image !== '')
+      setCurrent('https://gateway.pinata.cloud/ipfs/' + metaJson?.image)
+    }
+  }, [metaJson])
 
   useEffect(() => {
     setCurrent(getInitialUrl(address, chainId, isNative))
@@ -69,6 +89,17 @@ export default function useAssetLogoSource(
       const uris = TokenLogoLookupTable.getIcons(address, chainId) ?? []
       if (backupImg) uris.push(backupImg)
       const tokenListIcons = prioritizeLogoSources(parseLogoSources(uris))
+
+      if (
+        tokenListIcons.find((src) => !BAD_SRCS[src]) === undefined &&
+        address !== undefined &&
+        metaEntry === undefined &&
+        metaManager !== undefined
+      ) {
+        metaManager?.getEntry(address ?? '0').then((entry) => {
+          setMetaEntry(getMultihashFromContractResponse(entry) ?? '')
+        })
+      }
 
       setCurrent(tokenListIcons.find((src) => !BAD_SRCS[src]))
       setFallbackSrcs(tokenListIcons)

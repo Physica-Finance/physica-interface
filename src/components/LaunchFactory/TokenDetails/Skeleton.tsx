@@ -220,7 +220,7 @@ export default function TokenDetailsSkeleton() {
   const { chainName } = useParams<{ chainName?: string }>()
   return (
     <LeftPanel>
-      <BreadcrumbNavLink to={chainName ? `/tokens/${chainName}` : `/explore`}>
+      <BreadcrumbNavLink to={chainName ? `/launchpad/${chainName}` : `/explore`}>
         <ArrowLeft size={14} /> Tokens
       </BreadcrumbNavLink>
       <TokenInfoContainer>

@@ -1,12 +1,11 @@
 import { Trans } from '@lingui/macro'
 import { sendAnalyticsEvent } from '@uniswap/analytics'
 import { InterfaceEventName } from '@uniswap/analytics-events'
-import QueryTokenLogo from 'components/Logo/QueryTokenLogo'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { SparklineMap } from 'graphql/physicalaunchfactory/LaunchFactoryTokens'
 import { CHAIN_NAME_TO_CHAIN_ID, getLaunchFactoryTokenDetailsURL } from 'graphql/physica/util'
 import { useAtomValue } from 'jotai/utils'
-import React, { CSSProperties, ForwardedRef, forwardRef, ReactNode, useEffect, useState } from 'react'
+import React, { CSSProperties, ForwardedRef, forwardRef, ReactNode, useState } from 'react'
 import { ArrowDown, ArrowUp, Info } from 'react-feather'
 import { Link, useParams } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components/macro'
@@ -29,17 +28,39 @@ import {
 } from '../state'
 import { formatDelta, getDeltaArrow } from '../TokenDetails/PriceChart'
 import { LaunchpadToken } from '../../../graphql/physicalaunchfactory/LaunchFactoryTokens'
-import { formatWeiToDecimal } from '../../../nft/utils'
 import { useMetaManagerContract } from '../../../hooks/useContract'
-import { getMultihashFromContractResponse } from '../../../utils/multihash'
-import { fetchImageFromPinataIPFS, fetchMetaFromPinataIPFS } from '../utils'
-import AssetLogo from '../../Logo/AssetLogo'
+import { fetchMetaFromPinataIPFS } from '../utils'
 import { ImageContainer } from '../../../nft/components/collection/Card'
+import { RowFixed } from '../../Row'
+import theme, { ThemedText } from '../../../theme'
+import { darken, transparentize } from 'polished'
+import CurrencyLogo from '../../Logo/CurrencyLogo'
 
 const Cell = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+const BarWrapper = styled.div`
+  width: 100%;
+  height: calc(100% - 8px);
+  border-radius: 20px;
+  background-color: ${({ theme }) => transparentize(0.7, theme.deprecated_bg3)};
+`
+
+const Bar = styled.div<{ percent: number; color?: string }>`
+  width: ${({ percent }) => `${percent}%`};
+  height: 100%;
+  border-radius: inherit;
+  background: ${({ color, theme }) =>
+    color ? `linear-gradient(to left, ${darken(0.18, color)}, ${darken(0.01, color)});` : theme.deprecated_blue4};
+  display: flex;
+  align-items: center;
+  padding: 4px;
+`
+
+const WrappedLogo = styled(CurrencyLogo)`
+  border: 1px solid black;
 `
 const StyledTokenRow = styled.div<{
   first?: boolean
@@ -304,11 +325,11 @@ export const HEADER_DESCRIPTIONS: Record<TokenSortMethod, ReactNode | undefined>
   [TokenSortMethod.CREATOR]: undefined,
   [TokenSortMethod.TOTAL_VALUE_LOCKED]: (
     <Trans>
-      Total value locked (TVL) is the aggregate amount of the asset available across all Physica v3 liquidity pools.
+      The migration % is the percentage needed for this token to migrate to a Physica pool.
     </Trans>
   ),
   [TokenSortMethod.TXS]: (
-    <Trans>Volume is the amount of the asset that has been traded on Physica v3 during the selected time frame.</Trans>
+    <Trans>Volume is the amount of the asset that has been traded on Physica during the selected time frame.</Trans>
   ),
 }
 
@@ -483,15 +504,13 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const [metaEntry, setMetaEntry] = useState<string | undefined>(undefined)
   const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
   const metaManager = useMetaManagerContract()
+  const percentageRemaining =
+    parseFloat(token.migrationCap ?? '0') /
+    (parseFloat('100') - parseFloat((BigInt(token.tokenAmount ?? '0') * BigInt(100) / BigInt(token.initialSupply ?? '0')).toString()))
 
-  metaManager?.getEntry(token.id).then((entry) => {
-    setMetaEntry(getMultihashFromContractResponse(entry) ?? undefined)
-  })
-
-  useEffect(() => {
-    fetchMetaFromPinataIPFS(metaEntry ?? '').then((meta) => setMetaJson(meta))
-  }, [metaEntry])
-
+  if(!metaJson) {
+    fetchMetaFromPinataIPFS(token.ipfsHash ?? '').then((meta) => setMetaJson(meta))
+  }
 
   const exploreTokenSelectedEventProperties = {
     chain_id: chainId,
@@ -532,7 +551,19 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
           percentChange={
             <ClickableContent>{token.dev?.slice(token.dev?.length - 6, token.dev?.length)}</ClickableContent>
           }
-          tvl={<ClickableContent>{formatWeiToDecimal(token.plqAmount ?? '0')} PLQ</ClickableContent>}
+          tvl={
+            <ClickableContent>
+              <BarWrapper>
+                <Bar percent={percentageRemaining}>
+                  <RowFixed>
+                    <ThemedText.DeprecatedBody fontSize="12px" fontWeight={600} ml="8px" mt="-2px">
+                      {percentageRemaining.toFixed(2)}%
+                    </ThemedText.DeprecatedBody>
+                  </RowFixed>
+                </Bar>
+              </BarWrapper>
+            </ClickableContent>
+          }
           volume={<ClickableContent>{token.txCount ?? '0'}</ClickableContent>}
           first={tokenListIndex === 0}
           last={tokenListIndex === tokenListLength - 1}
