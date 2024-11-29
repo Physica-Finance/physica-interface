@@ -111,21 +111,13 @@ export const SPARKLINE_TOKENS_LAUNCHPAD_QUERY = gql`
       tokenAmount
       migrated
       txCount
-      buys(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration }) {
+      txs(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration }) {
         id
         plqAmount
         price
         tokenAmount
         timestamp
-        buyer
-      }
-      sells(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration }) {
-        id
-        plqAmount
-        price
-        tokenAmount
-        timestamp
-        seller
+        from
       }
     }
   }
@@ -146,21 +138,14 @@ export const LAUNCHPAD_TOKENS_QUERY = gql`
             tokenAmount
             migrated
             txCount
-            buys(orderDirection: asc, orderBy: timestamp) {
+            txs(orderDirection: asc, orderBy: timestamp) {
                 id
                 plqAmount
                 price
                 tokenAmount
                 timestamp
-                buyer
-            }
-            sells(orderDirection: asc, orderBy: timestamp) {
-                id
-                plqAmount
-                price
-                tokenAmount
-                timestamp
-                seller
+                buy
+                from
             }
         }
     }
@@ -181,22 +166,14 @@ export type LaunchpadTokenQuery = {
     tokenAmount?: string
     txCount?: string
     migrated?: boolean
-    buys?: Array<{
+    txs?: Array<{
       __typename?: 'TokenMarket'
       id: string
       plqAmount?: string
       price?: string
       tokenAmount?: string
-      buyer?: string
-      timestamp: number
-    }>
-    sells?: Array<{
-      __typename?: 'TokenMarket'
-      id: string
-      plqAmount?: string
-      price?: string
-      tokenAmount?: string
-      seller?: string
+      from?: string
+      buy?: boolean
       timestamp: number
     }>
   }>
@@ -212,7 +189,7 @@ function useSortedTokens(tokens: LaunchpadTokenQuery['tokens']) {
     switch (sortMethod) {
       case TokenSortMethod.PRICE:
         tokenArray = tokenArray.sort(
-          (a, b) => parseFloat(b?.buys![0].price ?? '0') - parseFloat(a?.buys![0].price ?? '0')
+          (a, b) => parseFloat(b?.txs![0].price ?? '0') - parseFloat(a?.txs![0].price ?? '0')
         )
         break
       case TokenSortMethod.CREATOR:
@@ -283,8 +260,7 @@ export function useLachfactoryTokens(chain: Chain): UseTopTokensReturnValue {
     unwrappedTokens?.forEach(
       (current) =>
         current?.id &&
-        ((map[current.id] = current?.buys?.filter(isLaunchFactoryPricePoint)) ||
-          (map[current.id] = current?.sells?.filter(isLaunchFactoryPricePoint)))
+        ((map[current.id] = current?.txs?.filter(isLaunchFactoryPricePoint)))
     )
     return map
   }, [chainId, sparklineQuery?.tokens])

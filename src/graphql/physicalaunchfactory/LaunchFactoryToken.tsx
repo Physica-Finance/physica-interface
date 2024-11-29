@@ -15,21 +15,13 @@ export const LAUNCHPAD_TOKEN_QUERY = gql`
             tokenAmount
             migrated
             txCount
-            buys(orderDirection: asc, orderBy: timestamp) {
+            txs(orderDirection: asc, orderBy: timestamp) {
                 id
                 plqAmount
                 price
                 tokenAmount
                 timestamp
-                buyer
-            }
-            sells(orderDirection: asc, orderBy: timestamp) {
-                id
-                plqAmount
-                price
-                tokenAmount
-                timestamp
-                seller
+                from
             }
         }
     }
@@ -50,21 +42,13 @@ export const LAUNCHPAD_TOKEN_PRICE_QUERY = gql`
             tokenAmount
             migrated
             txCount
-            buys(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration }) {
+            txs(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration, price_gt: 0 }) {
                 id
                 plqAmount
                 price
                 tokenAmount
                 timestamp
-                buyer
-            }
-            sells(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration }) {
-                id
-                plqAmount
-                price
-                tokenAmount
-                timestamp
-                seller
+                from
             }
         }
     }
@@ -86,22 +70,14 @@ export type LaunchpadTokenQuery = {
     tokenAmount?: string
     txCount?: string
     migrated?: boolean
-    buys?: Array<{
+    txs?: Array<{
       __typename?: 'TokenMarket'
       id: string
       plqAmount?: string
       price?: string
       tokenAmount?: string
-      buyer?: string
-      timestamp: number
-    }>
-    sells?: Array<{
-      __typename?: 'TokenMarket'
-      id: string
-      plqAmount?: string
-      price?: string
-      tokenAmount?: string
-      seller?: string
+      from?: string
+      buy?: boolean
       timestamp: number
     }>
   }

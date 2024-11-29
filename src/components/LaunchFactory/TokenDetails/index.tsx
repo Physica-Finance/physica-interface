@@ -29,7 +29,7 @@ import { CHAIN_NAME_TO_CHAIN_ID, getLaunchFactoryTokenDetailsURL } from 'graphql
 import { useIsUserAddedTokenOnChain } from 'hooks/Tokens'
 import { useOnGlobalChainSwitch } from 'hooks/useGlobalChainSwitch'
 import { UNKNOWN_TOKEN_SYMBOL, useTokenFromActiveNetwork } from 'lib/hooks/useCurrency'
-import React, { useCallback, useMemo, useState, useTransition } from 'react'
+import React, { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
 import { ArrowLeft } from 'react-feather'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -48,6 +48,7 @@ import { darken, transparentize } from 'polished'
 import CurrencyInputPanel from '../../CurrencyInputPanel'
 import { ButtonPrimary } from '../../Button'
 import { SellTokenModal, BuyTokenModal } from '../LaunchTokenModal'
+import useCurrencyBalance from '../../../lib/hooks/useCurrencyBalance'
 
 const TokenLogoCircular = styled.img`
   width: 32px;
@@ -155,7 +156,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
     () => (urlAddress === NATIVE_CHAIN_ID ? urlAddress : isAddress(urlAddress) || undefined),
     [urlAddress]
   )
-
+  const { account } = useWeb3React()
   const pageChainId = CHAIN_NAME_TO_CHAIN_ID[chain]
 
   const tokenQueryData = tokenQuery.token
@@ -193,6 +194,14 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   const [showSellModal, setShowSellModal] = useState(false)
   const [plqAmount, setPlqAmount] = useState<string>('0')
   const [tokenAmount, setTokenAmount] = useState<string>('0')
+  const [metaEntry, setMetaEntry] = useState<string | undefined>(undefined)
+  const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
+  const [percentageRemaining, setPercentageRemaining] = useState(0)
+  const [tokenState, setTokenState] = useState<any | undefined>(undefined)
+  const [tokenVirtualPlqStart, setTokenVirtualPlqStart] = useState<string | undefined>(undefined)
+  const metaManager = useMetaManagerContract()
+  const physicaTokenFactory = usePhysicaTokenFactoryContract()
+  const balance = useCurrencyBalance(account, token ?? undefined)
 
   // Show token safety modal if Swap-reviewing a warning token, at all times if the current token is blocked
   const shouldShowSpeedbump = !useIsUserAddedTokenOnChain(address, pageChainId) && tokenWarning !== null
@@ -209,14 +218,24 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
     [continueSwap, setContinueSwap]
   )
 
-  const [metaEntry, setMetaEntry] = useState<string | undefined>(undefined)
-  const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
-  const metaManager = useMetaManagerContract()
-
   if (!metaJson) {
     fetchMetaFromPinataIPFS(tokenQueryData?.ipfsHash ?? '').then((meta) => setMetaJson(meta))
   }
-  const physicaTokenFactory = usePhysicaTokenFactoryContract()
+
+  physicaTokenFactory?.tokenStates(token?.wrapped.address ?? '0x0').then((tokenState) => setTokenState(tokenState))
+
+  useEffect(() => {
+    if (tokenState) {
+      const tokenHolding = parseFloat(BigInt(tokenState.tokenHolding).toString())
+      const initialSupply = parseFloat(BigInt(tokenState.initialSupply).toString())
+      const migrationCap = parseFloat(BigInt(tokenState.migrationCap).toString())
+      setTokenVirtualPlqStart(tokenState.virtualPlqStart.toString())
+      console.log('tokenHolding', tokenHolding)
+      console.log('initialSupply', initialSupply)
+      console.log('migrationCap', migrationCap)
+      setPercentageRemaining(migrationCap/100 / (tokenHolding / initialSupply))
+    }
+  }, [tokenState])
 
   const [price, setPrice] = useState('')
   if (token?.wrapped.address) {
@@ -225,16 +244,6 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
     })
   }
 
-  const percentageRemaining = tokenQueryData
-    ? parseFloat(tokenQueryData.migrationCap ?? '0') /
-      (parseFloat('100') -
-        parseFloat(
-          (
-            (BigInt(tokenQueryData.tokenAmount ?? '0') * BigInt(100)) /
-            BigInt(tokenQueryData.initialSupply ?? '0')
-          ).toString()
-        ))
-    : 100
   // address will never be undefined if token is defined; address is checked here to appease typechecker
   if (token === undefined || !address) {
     return <InvalidTokenDetails chainName={address && getChainInfo(pageChainId)?.label} />
@@ -279,7 +288,10 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               </TokenInfoContainer>
               <ChartSection tokenPriceQuery={tokenPriceQuery} onChangeTimePeriod={onChangeTimePeriod} />
               <StatsSection
-                TVL={formatWeiToDecimal(tokenQueryData?.plqAmount ?? '0')}
+                TVL={formatWeiToDecimal(
+                  (BigInt(tokenQueryData?.plqAmount ?? 0) - BigInt(tokenVirtualPlqStart ?? 0)).toString()
+
+                )}
                 volume24H={tokenQueryData?.txCount ?? '0'}
                 priceHigh52W={parseFloat('0')}
                 priceLow52W={parseFloat('0')}
@@ -329,7 +341,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               id={'0'}
             />
             <ThemedText.DeprecatedSmall>
-              You will receive {parseFloat(plqAmount) / parseFloat(price) * 1e18} {token?.symbol} for {plqAmount} PLQ
+              You will receive {(parseFloat(plqAmount) / parseFloat(price)) * 1e18} {token?.symbol} for {plqAmount} PLQ
             </ThemedText.DeprecatedSmall>
             <AutoRow justify={'space-between'}>
               <ResponsiveButtonPrimary onClick={() => setShowBuyModal(true)}>
@@ -339,9 +351,11 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
             <CurrencyInputPanel
               value={tokenAmount}
               onUserInput={setTokenAmount}
-              showMaxButton={false}
+              showMaxButton={true}
+              onMax={() => setTokenAmount(balance?.toExact() ?? '0')}
               currency={token}
               id={'1'}
+
             />
             <AutoRow justify={'stretch'}>
               <ResponsiveButtonPrimary onClick={() => setShowSellModal(true)}>
@@ -351,7 +365,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
 
             {token && <BalanceSummary token={token} />}
           </RightPanel>
-          {token && <MobileBalanceSummaryFooter token={token} />}
+          {token && <MobileBalanceSummaryFooter token={token} buyModal={setShowBuyModal} sellModal={setShowSellModal} />}
 
           <TokenSafetyModal
             isOpen={openTokenSafetyModal || !!continueSwap}

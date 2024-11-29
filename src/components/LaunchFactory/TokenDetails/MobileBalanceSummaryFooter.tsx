@@ -2,12 +2,15 @@ import { Trans } from '@lingui/macro'
 import { formatCurrencyAmount, NumberType } from '@uniswap/conedison/format'
 import { Currency } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
-import { NATIVE_CHAIN_ID } from 'constants/tokens'
 import { CHAIN_ID_TO_BACKEND_NAME } from 'graphql/data/util'
 import { useStablecoinValue } from 'hooks/useStablecoinPrice'
 import useCurrencyBalance from 'lib/hooks/useCurrencyBalance'
 import styled from 'styled-components/macro'
 import { StyledInternalLink } from 'theme'
+import { AutoRow } from '../../Row'
+import React, { Dispatch, SetStateAction } from 'react'
+import { ButtonPrimary } from '../../Button'
+import { AutoColumn } from '../../Column'
 
 const Wrapper = styled.div`
   align-content: center;
@@ -18,7 +21,7 @@ const Wrapper = styled.div`
   bottom: 56px;
   color: ${({ theme }) => theme.textSecondary};
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   font-weight: 500;
   font-size: 14px;
   height: fit-content;
@@ -54,7 +57,8 @@ const BalanceInfo = styled.div`
   display: flex;
   flex: 10 1 auto;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: stretch;
+  padding: 12px 0px;
 `
 const FiatValue = styled.span`
   font-size: 12px;
@@ -79,8 +83,27 @@ const SwapButton = styled(StyledInternalLink)`
   margin: auto;
   max-width: 100vw;
 `
+const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  border-radius: 12px;
 
-export default function MobileBalanceSummaryFooter({ token }: { token: Currency }) {
+    padding: 12px 16px;
+  margin: 8px 0px;
+  flex: 1 1 auto;
+  width: 100%;
+  ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
+    flex: 1 1 auto;
+    width: 100%;
+  `};
+`
+export default function MobileBalanceSummaryFooter({
+  token,
+  buyModal,
+  sellModal,
+}: {
+  token: Currency
+  buyModal: Dispatch<SetStateAction<boolean>>
+  sellModal: Dispatch<SetStateAction<boolean>>
+}) {
   const { account } = useWeb3React()
   const balance = useCurrencyBalance(account, token)
   const formattedBalance = formatCurrencyAmount(balance, NumberType.TokenNonTx)
@@ -100,9 +123,17 @@ export default function MobileBalanceSummaryFooter({ token }: { token: Currency 
           </Balance>
         </BalanceInfo>
       )}
-      <SwapButton to={`/swap?chainName=${chain}&outputCurrency=${token.isNative ? NATIVE_CHAIN_ID : token.address}`}>
-        <Trans>Swap</Trans>
-      </SwapButton>
+      <AutoRow justify={'space-between'}>
+        <ResponsiveButtonPrimary onClick={() => buyModal(true)}>
+          <Trans>Buy</Trans>
+        </ResponsiveButtonPrimary>
+      </AutoRow>
+      <AutoRow justify={'stretch'}>
+        <ResponsiveButtonPrimary onClick={() => sellModal(true)}>
+          <Trans>Sell</Trans>
+        </ResponsiveButtonPrimary>
+      </AutoRow>
+
     </Wrapper>
   )
 }

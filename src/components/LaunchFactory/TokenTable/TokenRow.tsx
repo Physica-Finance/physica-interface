@@ -5,7 +5,7 @@ import { MouseoverTooltip } from 'components/Tooltip'
 import { SparklineMap } from 'graphql/physicalaunchfactory/LaunchFactoryTokens'
 import { CHAIN_NAME_TO_CHAIN_ID, getLaunchFactoryTokenDetailsURL } from 'graphql/physica/util'
 import { useAtomValue } from 'jotai/utils'
-import React, { CSSProperties, ForwardedRef, forwardRef, ReactNode, useState } from 'react'
+import React, { CSSProperties, ForwardedRef, forwardRef, ReactNode, useEffect, useState } from 'react'
 import { ArrowDown, ArrowUp, Info } from 'react-feather'
 import { Link, useParams } from 'react-router-dom'
 import styled, { css, useTheme } from 'styled-components/macro'
@@ -28,7 +28,7 @@ import {
 } from '../state'
 import { formatDelta, getDeltaArrow } from '../TokenDetails/PriceChart'
 import { LaunchpadToken } from '../../../graphql/physicalaunchfactory/LaunchFactoryTokens'
-import { useMetaManagerContract } from '../../../hooks/useContract'
+import { useMetaManagerContract, usePhysicaTokenFactoryContract } from '../../../hooks/useContract'
 import { fetchMetaFromPinataIPFS } from '../utils'
 import { ImageContainer } from '../../../nft/components/collection/Card'
 import { RowFixed } from '../../Row'
@@ -497,16 +497,31 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const filterNetwork = lowercaseChainName.toUpperCase()
   const chainId = CHAIN_NAME_TO_CHAIN_ID[filterNetwork]
   const timePeriod = useAtomValue(filterTimeAtom)
-  const delta = (parseFloat(token.buys![0].price ?? '0') - parseFloat(token.buys![1]?.price ?? '0')) * 100
+  const delta = (parseFloat(token.txs![0].price ?? '0') - parseFloat(token.txs![1]?.price ?? '0')) * 100
   const arrow = getDeltaArrow(delta)
   const smallArrow = getDeltaArrow(delta, 14)
   const formattedDelta = formatDelta(delta)
   const [metaEntry, setMetaEntry] = useState<string | undefined>(undefined)
   const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
+  const [tokenState, setTokenState] = useState<any | undefined>(undefined)
   const metaManager = useMetaManagerContract()
-  const percentageRemaining =
-    parseFloat(token.migrationCap ?? '0') /
-    (parseFloat('100') - parseFloat((BigInt(token.tokenAmount ?? '0') * BigInt(100) / BigInt(token.initialSupply ?? '0')).toString()))
+  const [percentageRemaining, setPercentageRemaining] = useState(0)
+  const physicaTokenFactory = usePhysicaTokenFactoryContract()
+
+  physicaTokenFactory?.tokenStates(token.id).then((tokenState) => setTokenState(tokenState))
+
+  useEffect(() => {
+    if(tokenState) {
+      const tokenHolding = parseFloat(BigInt(tokenState.tokenHolding).toString())
+      const initialSupply = parseFloat(BigInt(tokenState.initialSupply).toString())
+      const migrationCap = parseFloat(tokenState.migrationCap)
+      setPercentageRemaining(migrationCap /
+        (parseFloat('100') - (tokenHolding / initialSupply)))
+    }
+
+  }, [tokenState])
+
+
 
   if(!metaJson) {
     fetchMetaFromPinataIPFS(token.ipfsHash ?? '').then((meta) => setMetaJson(meta))

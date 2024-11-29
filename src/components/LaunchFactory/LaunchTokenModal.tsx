@@ -19,7 +19,7 @@ import { ErrorText } from '../swap/styleds'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { getBytes32FromMultiash } from '../../utils/multihash'
 import { TransactionType } from '../../state/transactions/types'
-import { formatWeiToDecimal, numberToWei } from '../../nft/utils'
+import { numberToWei } from '../../nft/utils'
 import { base64 } from 'ethers/lib/utils'
 import Loader from '../Loader'
 import { QueryToken } from '../../graphql/physica/Token'
@@ -27,6 +27,7 @@ import { NativeCurrency, Token } from '@uniswap/sdk-core'
 import { ADDRESS_ZERO } from '@uniswap/v3-sdk'
 import CurrencyInputPanel from '../CurrencyInputPanel'
 import { nativeOnChain } from '../../constants/tokens'
+import useCurrencyBalance from '../../lib/hooks/useCurrencyBalance'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -64,7 +65,6 @@ interface SellTokenModalProps {
   token: Token | NativeCurrency | QueryToken | null
   tokenAmount: string | undefined
   price: string
-
 }
 
 export function BuyTokenModal({ isOpen, onDismiss, token, referralAddress, plqAmount, price }: BuyTokenModalProps) {
@@ -106,7 +106,7 @@ export function BuyTokenModal({ isOpen, onDismiss, token, referralAddress, plqAm
           currencyAmountRaw: buyAmount,
         })
         setHash(response.hash)
-        setAttempting(false)
+        wrappedOnDismiss()
       })
       .catch((error: any) => {
         setAttempting(false)
@@ -139,20 +139,12 @@ export function BuyTokenModal({ isOpen, onDismiss, token, referralAddress, plqAm
                 id={'0'}
               />
               <ThemedText.DeprecatedSmall paddingTop={'5px'} fontSize="11px" fontWeight={600}>
-                You will receive ~{ parseFloat(buyAmount) / parseFloat(price) * 1e18} {token?.symbol}.
+                You will receive ~{(parseFloat(buyAmount) / parseFloat(price)) * 1e18} {token?.symbol}.
               </ThemedText.DeprecatedSmall>
             </DarkerGreyCard>
           </AutoRow>
           {
-            <ButtonPrimary
-              disabled={
-                attempting ||
-                !account
-              }
-              padding="8px"
-              $borderRadius="12px"
-              onClick={onBuyToken}
-            >
+            <ButtonPrimary disabled={attempting || !account} padding="8px" $borderRadius="12px" onClick={onBuyToken}>
               {attempting ? (
                 <>
                   <Trans>Buying</Trans>
@@ -167,7 +159,6 @@ export function BuyTokenModal({ isOpen, onDismiss, token, referralAddress, plqAm
       </Wrapper>
     </Modal>
   )
-
 }
 
 export function SellTokenModal({ isOpen, onDismiss, token, tokenAmount, price }: SellTokenModalProps) {
@@ -179,6 +170,7 @@ export function SellTokenModal({ isOpen, onDismiss, token, tokenAmount, price }:
   const [hash, setHash] = useState<string | undefined>()
   const [attempting, setAttempting] = useState(false)
   const [tokenSellAmount, setTokenSellAmount] = useState(tokenAmount ?? '')
+  const balance = useCurrencyBalance(account, token ?? undefined)
 
   function wrappedOnDismiss() {
     setHash(undefined)
@@ -207,7 +199,7 @@ export function SellTokenModal({ isOpen, onDismiss, token, tokenAmount, price }:
           currencyAmountRaw: tokenSellAmount,
         })
         setHash(response.hash)
-        setAttempting(false)
+        wrappedOnDismiss()
       })
       .catch((error: any) => {
         setAttempting(false)
@@ -221,7 +213,9 @@ export function SellTokenModal({ isOpen, onDismiss, token, tokenAmount, price }:
         <AutoColumn gap="lg">
           <RowBetween>
             <ThemedText.DeprecatedBody fontSize="20px" fontWeight={600}>
-              <Trans>Sell {token?.name} ({token?.symbol})</Trans>
+              <Trans>
+                Sell {token?.name} ({token?.symbol})
+              </Trans>
             </ThemedText.DeprecatedBody>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
@@ -233,25 +227,18 @@ export function SellTokenModal({ isOpen, onDismiss, token, tokenAmount, price }:
               <CurrencyInputPanel
                 value={tokenSellAmount}
                 onUserInput={setTokenSellAmount}
-                showMaxButton={false}
+                showMaxButton={true}
+                onMax={() => setTokenSellAmount(balance?.toExact() ?? '0')}
                 currency={token}
                 id={'1'}
               />
               <ThemedText.DeprecatedSmall paddingTop={'5px'} fontSize="11px" fontWeight={600}>
-                You will receive ~{parseFloat(price) * parseFloat(tokenSellAmount) / 1e18} PLQ.
+                You will receive ~{(parseFloat(price) * parseFloat(tokenSellAmount)) / 1e18} PLQ.
               </ThemedText.DeprecatedSmall>
             </DarkerGreyCard>
           </AutoRow>
           {
-            <ButtonPrimary
-              disabled={
-                attempting ||
-                !account
-              }
-              padding="8px"
-              $borderRadius="12px"
-              onClick={onSellToken}
-            >
+            <ButtonPrimary disabled={attempting || !account} padding="8px" $borderRadius="12px" onClick={onSellToken}>
               {attempting ? (
                 <>
                   <Trans>Selling</Trans>
@@ -266,7 +253,6 @@ export function SellTokenModal({ isOpen, onDismiss, token, tokenAmount, price }:
       </Wrapper>
     </Modal>
   )
-
 }
 
 export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModalProps) {
@@ -399,7 +385,6 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
     setAttempting(false)
     onDismiss()
   }
-
 
   async function onLaunchToken() {
     if (!account || !tokenLogo || !physicaTokenFactory) {

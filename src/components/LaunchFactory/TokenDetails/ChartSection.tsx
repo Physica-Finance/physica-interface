@@ -14,7 +14,7 @@ import { LaunchFactoryPricePoint } from '../../../graphql/physica/util'
 function usePriceHistory(tokenPriceData: LaunchpadTokenQuery): LaunchFactoryPricePoint[] | undefined {
   // Appends the current price to the end of the priceHistory array
   return useMemo(() => {
-    const market = (tokenPriceData.token?.sells ?? []).concat(tokenPriceData.token?.buys ?? [])
+    const market = (tokenPriceData.token?.txs ?? [])
     const priceHistory = market?.filter(isLaunchFactoryPricePoint)
     const currentPrice = priceHistory?.[priceHistory.length - 1]?.price
     if (Array.isArray(priceHistory) && currentPrice !== undefined) {

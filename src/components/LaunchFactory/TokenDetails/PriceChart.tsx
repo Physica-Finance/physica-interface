@@ -31,6 +31,7 @@ export function getPriceBounds(pricePoints: LaunchFactoryPricePoint[]): [number,
   const prices = pricePoints.map((x) => parseFloat(x.price ?? '0'))
   const min = Math.min(...prices)
   const max = Math.max(...prices)
+
   return [min, max]
 }
 
