@@ -400,7 +400,8 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
       body: base64.encode(new Uint8Array(await tokenLogo.arrayBuffer())),
     })
     if (!res.ok) {
-      setTokenLogoError('Failed to upload logo' + await res.text())
+      setTokenLogoError('Failed to upload logo')
+      setAttempting(false)
       return
     }
 
@@ -425,6 +426,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
     })
     if (!metaRes.ok) {
       setTokenLogoError('Failed to upload metadata')
+      setAttempting(false)
       return
     }
     const metaIpfsHash = await metaRes.text()
