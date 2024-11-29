@@ -400,7 +400,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
       body: base64.encode(new Uint8Array(await tokenLogo.arrayBuffer())),
     })
     if (!res.ok) {
-      setTokenLogoError('Failed to upload logo')
+      setTokenLogoError('Failed to upload logo' + await res.text())
       return
     }
 
@@ -448,6 +448,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
           tokenSymbol,
         })
         setHash(response.hash)
+        wrappedOnDismiss()
       })
       .catch((error: any) => {
         setAttempting(false)
