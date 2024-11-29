@@ -98,7 +98,7 @@ gql`
 
 export const SPARKLINE_TOKENS_LAUNCHPAD_QUERY = gql`
   query SparklineTokenLaunchpad($duration: Int!) {
-    tokens(orderBy: startTime, orderDirection: desc) {
+    tokens(orderBy: startTime, orderDirection: desc, where: { migrated: false }) {
       id
       name
       symbol
@@ -117,6 +117,7 @@ export const SPARKLINE_TOKENS_LAUNCHPAD_QUERY = gql`
         price
         tokenAmount
         timestamp
+        buy
         from
       }
     }
@@ -125,7 +126,7 @@ export const SPARKLINE_TOKENS_LAUNCHPAD_QUERY = gql`
 
 export const LAUNCHPAD_TOKENS_QUERY = gql`
     query LaunchpadTokens {
-        tokens(orderBy: startTime, orderDirection: desc) {
+        tokens(orderBy: startTime, orderDirection: desc, where: { migrated: false }) {
             id
             name
             symbol

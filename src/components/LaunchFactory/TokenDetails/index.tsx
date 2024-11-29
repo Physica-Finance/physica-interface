@@ -201,6 +201,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   const [metaEntry, setMetaEntry] = useState<string | undefined>(undefined)
   const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
   const [percentageRemaining, setPercentageRemaining] = useState(0)
+  const [tokenMigrated, setTokenMigrated] = useState<boolean>(false)
   const [tokenState, setTokenState] = useState<any | undefined>(undefined)
   const [migrationPercent, setMigrationPercent] = useState<any | undefined>(undefined)
   const [tokenVirtualPlqStart, setTokenVirtualPlqStart] = useState<string | undefined>(undefined)
@@ -238,10 +239,16 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
 
       setTokenVirtualPlqStart(tokenState.virtualPlqStart.toString())
       setTokenHolding(tokenState.tokenHolding)
-
+      setTokenMigrated(tokenState.migrated)
       setPercentageRemaining(migrationPercent / migrationCap * 100)
     }
   }, [tokenState])
+
+  useEffect(() => {
+    if (tokenMigrated) {
+      navigate('/swap?inputCurrency=ETH&outputCurrency=' + token?.wrapped.address)
+    }
+  }, [tokenMigrated])
 
   const [price, setPrice] = useState('')
   if (token?.wrapped.address) {
