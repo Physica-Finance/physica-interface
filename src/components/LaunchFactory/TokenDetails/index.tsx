@@ -72,6 +72,8 @@ const TokenActions = styled.div`
 const BarWrapper = styled.div`
   width: 100%;
   height: calc(5% - 8px);
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 20px;
   background-color: ${({ theme }) => transparentize(0.7, theme.deprecated_bg3)};
 `
@@ -86,7 +88,9 @@ const Bar = styled.div<{ percent: number; color?: string }>`
   align-items: center;
   padding: 4px;
 `
-
+const Header = styled(ThemedText.MediumHeader)`
+  font-size: 28px !important;
+`
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   border-radius: 12px;
 
@@ -203,7 +207,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   const metaManager = useMetaManagerContract()
   const physicaTokenFactory = usePhysicaTokenFactoryContract()
   const balance = useCurrencyBalance(account, token ?? undefined)
-
+  const [tokenHolding, setTokenHolding] = useState<string>('0')
   // Show token safety modal if Swap-reviewing a warning token, at all times if the current token is blocked
   const shouldShowSpeedbump = !useIsUserAddedTokenOnChain(address, pageChainId) && tokenWarning !== null
   const onReviewSwapClick = useCallback(
@@ -231,7 +235,9 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
       const tokenHolding = parseFloat(BigInt(tokenState.tokenHolding).toString())
       const initialSupply = parseFloat(BigInt(tokenState.initialSupply).toString())
       const migrationCap = parseFloat(BigInt(tokenState.migrationCap).toString())
+
       setTokenVirtualPlqStart(tokenState.virtualPlqStart.toString())
+      setTokenHolding(tokenState.tokenHolding)
 
       setPercentageRemaining(migrationPercent / migrationCap * 100)
     }
@@ -287,6 +293,24 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
                 </TokenActions>
               </TokenInfoContainer>
               <ChartSection tokenPriceQuery={tokenPriceQuery} onChangeTimePeriod={onChangeTimePeriod} />
+              <Header>
+                <Trans>Pool Migration Progress</Trans>
+              </Header>
+              <BarWrapper>
+                <Bar percent={percentageRemaining}>
+                  <RowFixed>
+                    <ThemedText.DeprecatedBody fontSize="12px" fontWeight={600} ml="8px" mt="-2px">
+                      {percentageRemaining.toFixed(2)}%
+                    </ThemedText.DeprecatedBody>
+                  </RowFixed>
+                </Bar>
+              </BarWrapper>
+              <AutoRow justify={'flex-end'}>
+                <ThemedText.DeprecatedSmall>
+                  {formatWeiToDecimal((BigInt(tokenQueryData?.initialSupply ?? '0') - BigInt(tokenHolding)).toString())}/{formatWeiToDecimal(((BigInt(tokenQueryData?.initialSupply ?? '0')*(BigInt(tokenQueryData?.migrationCap ?? '0')) / BigInt(100))).toString())} {tokenQueryData?.symbol}
+                </ThemedText.DeprecatedSmall>
+              </AutoRow>
+              <Hr />
               <StatsSection
                 TVL={formatWeiToDecimal(
                   (BigInt(tokenQueryData?.plqAmount ?? 0) - BigInt(tokenVirtualPlqStart ?? 0)).toString()
@@ -321,18 +345,6 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               onReviewSwapClick={onReviewSwapClick}
             />*/}
             </div>
-            <ThemedText.DeprecatedSmall>
-              <Trans>Pool Migration Progress</Trans>
-            </ThemedText.DeprecatedSmall>
-            <BarWrapper>
-              <Bar percent={percentageRemaining}>
-                <RowFixed>
-                  <ThemedText.DeprecatedBody fontSize="12px" fontWeight={600} ml="8px" mt="-2px">
-                    {percentageRemaining.toFixed(2)}%
-                  </ThemedText.DeprecatedBody>
-                </RowFixed>
-              </Bar>
-            </BarWrapper>
             <CurrencyInputPanel
               value={plqAmount}
               onUserInput={setPlqAmount}
@@ -340,9 +352,11 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               currency={nativeOnChain(7070)}
               id={'0'}
             />
+            <AutoRow justify={'flex-end'}>
             <ThemedText.DeprecatedSmall>
               You will receive {(parseFloat(plqAmount) / parseFloat(price)) * 1e18} {token?.symbol} for {plqAmount} PLQ
             </ThemedText.DeprecatedSmall>
+            </AutoRow>
             <AutoRow justify={'space-between'}>
               <ResponsiveButtonPrimary onClick={() => setShowBuyModal(true)}>
                 <Trans>Buy</Trans>

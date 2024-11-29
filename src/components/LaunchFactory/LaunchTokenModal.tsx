@@ -28,6 +28,7 @@ import { ADDRESS_ZERO } from '@uniswap/v3-sdk'
 import CurrencyInputPanel from '../CurrencyInputPanel'
 import { nativeOnChain } from '../../constants/tokens'
 import useCurrencyBalance from '../../lib/hooks/useCurrencyBalance'
+import { parseEther } from '@ethersproject/units'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -189,7 +190,7 @@ export function SellTokenModal({ isOpen, onDismiss, token, tokenAmount, price }:
     setAttempting(true)
 
     await physicaTokenFactory
-      .sell(token.wrapped.address, numberToWei(parseFloat(tokenSellAmount)), {
+      .sell(token.wrapped.address, parseEther(tokenSellAmount), {
         gasLimit: 3500000,
       })
       .then((response: any) => {
@@ -612,6 +613,11 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
                 value={tokenTelegram}
               ></TextInput>
             </DarkerGreyCard>
+          </AutoRow>
+          <AutoRow>
+            <ThemedText.DeprecatedSmall>
+              The social information can not be changed after the token is launched, so if you want to create a Twitter, Telegram or Website do so first.
+            </ThemedText.DeprecatedSmall>
           </AutoRow>
           <AutoRow>
             <ThemedText.DeprecatedSmall paddingLeft={'5px'} paddingBottom={'5px'} fontSize="14px" fontWeight={600}>
