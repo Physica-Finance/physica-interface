@@ -97,7 +97,7 @@ export function BuyTokenModal({ isOpen, onDismiss, token, referralAddress, plqAm
     console.log(parseFloat(buyAmount))
     await physicaTokenFactory
       .buy(token.wrapped.address, referralAddress ?? ADDRESS_ZERO, {
-        gasLimit: 3500000,
+        gasLimit: 7000000,
         value: numberToWei(parseFloat(buyAmount)),
       })
       .then((response: any) => {
