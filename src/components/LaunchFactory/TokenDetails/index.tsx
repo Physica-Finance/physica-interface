@@ -198,6 +198,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
   const [percentageRemaining, setPercentageRemaining] = useState(0)
   const [tokenState, setTokenState] = useState<any | undefined>(undefined)
+  const [migrationPercent, setMigrationPercent] = useState<any | undefined>(undefined)
   const [tokenVirtualPlqStart, setTokenVirtualPlqStart] = useState<string | undefined>(undefined)
   const metaManager = useMetaManagerContract()
   const physicaTokenFactory = usePhysicaTokenFactoryContract()
@@ -223,6 +224,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   }
 
   physicaTokenFactory?.tokenStates(token?.wrapped.address ?? '0x0').then((tokenState) => setTokenState(tokenState))
+  physicaTokenFactory?.getCurrentMigrationPercent(token?.wrapped.address ?? '0x0').then((migrationPercent) => setMigrationPercent(migrationPercent))
 
   useEffect(() => {
     if (tokenState) {
@@ -230,10 +232,8 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
       const initialSupply = parseFloat(BigInt(tokenState.initialSupply).toString())
       const migrationCap = parseFloat(BigInt(tokenState.migrationCap).toString())
       setTokenVirtualPlqStart(tokenState.virtualPlqStart.toString())
-      console.log('tokenHolding', tokenHolding)
-      console.log('initialSupply', initialSupply)
-      console.log('migrationCap', migrationCap)
-      setPercentageRemaining(migrationCap/100 / (tokenHolding / initialSupply))
+
+      setPercentageRemaining(migrationPercent / migrationCap * 100)
     }
   }, [tokenState])
 

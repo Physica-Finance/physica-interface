@@ -505,18 +505,19 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const [metaJson, setMetaJson] = useState<any | undefined>(undefined)
   const [tokenState, setTokenState] = useState<any | undefined>(undefined)
   const metaManager = useMetaManagerContract()
+  const [migrationPercent, setMigrationPercent] = useState<any | undefined>(undefined)
   const [percentageRemaining, setPercentageRemaining] = useState(0)
   const physicaTokenFactory = usePhysicaTokenFactoryContract()
 
   physicaTokenFactory?.tokenStates(token.id).then((tokenState) => setTokenState(tokenState))
+  physicaTokenFactory?.getCurrentMigrationPercent(token?.id ?? '0x0').then((migrationPercent) => setMigrationPercent(migrationPercent))
 
   useEffect(() => {
     if(tokenState) {
       const tokenHolding = parseFloat(BigInt(tokenState.tokenHolding).toString())
       const initialSupply = parseFloat(BigInt(tokenState.initialSupply).toString())
       const migrationCap = parseFloat(tokenState.migrationCap)
-      setPercentageRemaining(migrationCap /
-        (parseFloat('100') - (tokenHolding / initialSupply)))
+      setPercentageRemaining(migrationPercent / migrationCap * 100)
     }
 
   }, [tokenState])
