@@ -284,7 +284,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               </BreadcrumbNavLink>
               <TokenInfoContainer data-testid="token-info-container">
                 <TokenNameCell>
-                  <TokenLogoCircular src={'https://gateway.pinata.cloud/ipfs/' + metaJson?.image} />
+                  <TokenLogoCircular src={'https://red-diverse-turkey-545.mypinata.cloud/ipfs/' + metaJson?.image} />
                   {token.name ?? <Trans>Name not found</Trans>}
                   <TokenSymbol>{token.symbol ?? <Trans>Symbol not found</Trans>}</TokenSymbol>
                 </TokenNameCell>

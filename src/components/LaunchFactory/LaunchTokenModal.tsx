@@ -431,6 +431,7 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
       return
     }
     const metaIpfsHash = await metaRes.text()
+
     const multihashMetaIpfsHash = getBytes32FromMultiash(metaIpfsHash)
 
     await physicaTokenFactory

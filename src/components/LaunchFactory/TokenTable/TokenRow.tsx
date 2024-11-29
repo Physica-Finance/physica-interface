@@ -555,7 +555,7 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
           tokenInfo={
             <ClickableName>
               <ImageContainer>
-                <TokenLogoCircular src={'https://gateway.pinata.cloud/ipfs/' + metaJson?.image}></TokenLogoCircular>
+                <TokenLogoCircular src={'https://red-diverse-turkey-545.mypinata.cloud/ipfs/' + metaJson?.image}></TokenLogoCircular>
               </ImageContainer>
               <TokenInfoCell>
                 <TokenName data-cy="token-name">{token.name}</TokenName>
