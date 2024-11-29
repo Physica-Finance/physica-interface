@@ -10,7 +10,6 @@ import { StyledInternalLink } from 'theme'
 import { AutoRow } from '../../Row'
 import React, { Dispatch, SetStateAction } from 'react'
 import { ButtonPrimary } from '../../Button'
-import { AutoColumn } from '../../Column'
 
 const Wrapper = styled.div`
   align-content: center;
@@ -86,7 +85,7 @@ const SwapButton = styled(StyledInternalLink)`
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   border-radius: 12px;
 
-    padding: 12px 16px;
+  padding: 12px 16px;
   margin: 8px 0px;
   flex: 1 1 auto;
   width: 100%;
@@ -133,7 +132,6 @@ export default function MobileBalanceSummaryFooter({
           <Trans>Sell</Trans>
         </ResponsiveButtonPrimary>
       </AutoRow>
-
     </Wrapper>
   )
 }

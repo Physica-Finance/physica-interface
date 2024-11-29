@@ -102,9 +102,11 @@ export const PageTabs = () => {
       <MenuItem href="/pool" id="pool-nav-link" isActive={isPoolActive}>
         <Trans>Positions</Trans>
       </MenuItem>
-      {<MenuItem href={`/launchpad/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/launchfactory')}>
-        <Trans>Launchpad</Trans>
-      </MenuItem>}
+      {
+        <MenuItem href={`/launchpad/${chainName.toLowerCase()}`} isActive={pathname.startsWith('/launchfactory')}>
+          <Trans>Launchpad</Trans>
+        </MenuItem>
+      }
     </>
   )
 }

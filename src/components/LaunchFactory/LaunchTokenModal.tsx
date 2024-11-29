@@ -617,7 +617,8 @@ export default function LaunchTokenModal({ isOpen, onDismiss }: LaunchTokenModal
           </AutoRow>
           <AutoRow>
             <ThemedText.DeprecatedSmall>
-              The social information can not be changed after the token is launched, so if you want to create a Twitter, Telegram or Website do so first.
+              The social information can not be changed after the token is launched, so if you want to create a Twitter,
+              Telegram or Website do so first.
             </ThemedText.DeprecatedSmall>
           </AutoRow>
           <AutoRow>

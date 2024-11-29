@@ -11,15 +11,14 @@ import { useMemo } from 'react'
 
 import { Chain } from '../data/__generated__/types-and-hooks'
 import {
-  CHAIN_NAME_TO_CHAIN_ID, isLaunchFactoryPricePoint,
-  isPricePoint, LaunchFactoryPricePoint,
+  CHAIN_NAME_TO_CHAIN_ID,
+  isLaunchFactoryPricePoint,
+  LaunchFactoryPricePoint,
   PollingInterval,
-  PricePoint,
   toHistoryDuration,
   unwrapToken,
-  usePollQueryWhileMounted
+  usePollQueryWhileMounted,
 } from '../physica/util'
-import { TokenQuery2, TRENDING_TOKENS_QUERY } from '../physica/TrendingTokens'
 import { QueryResult, useQuery } from '@apollo/client'
 import { apolloClient } from './apollo'
 
@@ -125,31 +124,31 @@ export const SPARKLINE_TOKENS_LAUNCHPAD_QUERY = gql`
 `
 
 export const LAUNCHPAD_TOKENS_QUERY = gql`
-    query LaunchpadTokens {
-        tokens(orderBy: startTime, orderDirection: desc, where: { migrated: false }) {
-            id
-            name
-            symbol
-            dev
-            ipfsHash
-            initialSupply
-            migrationCap
-            plqAmount
-            startTime
-            tokenAmount
-            migrated
-            txCount
-            txs(orderDirection: asc, orderBy: timestamp) {
-                id
-                plqAmount
-                price
-                tokenAmount
-                timestamp
-                buy
-                from
-            }
-        }
+  query LaunchpadTokens {
+    tokens(orderBy: startTime, orderDirection: desc, where: { migrated: false }) {
+      id
+      name
+      symbol
+      dev
+      ipfsHash
+      initialSupply
+      migrationCap
+      plqAmount
+      startTime
+      tokenAmount
+      migrated
+      txCount
+      txs(orderDirection: asc, orderBy: timestamp) {
+        id
+        plqAmount
+        price
+        tokenAmount
+        timestamp
+        buy
+        from
+      }
     }
+  }
 `
 export type LaunchpadTokenQuery = {
   __typename?: 'Query'
@@ -197,9 +196,7 @@ function useSortedTokens(tokens: LaunchpadTokenQuery['tokens']) {
         tokenArray = tokenArray.sort((a, b) => b?.dev?.localeCompare(a?.dev ?? '') ?? 0)
         break
       case TokenSortMethod.TOTAL_VALUE_LOCKED:
-        tokenArray = tokenArray.sort(
-          (a, b) => parseFloat(b?.plqAmount ?? '0') - parseFloat(a?.plqAmount ?? '0')
-        )
+        tokenArray = tokenArray.sort((a, b) => parseFloat(b?.plqAmount ?? '0') - parseFloat(a?.plqAmount ?? '0'))
         break
       case TokenSortMethod.TXS:
         tokenArray = tokenArray.sort((a, b) => parseFloat(b?.txCount ?? '0') - parseFloat(a?.txCount ?? '0'))
@@ -259,9 +256,7 @@ export function useLachfactoryTokens(chain: Chain): UseTopTokensReturnValue {
     const unwrappedTokens = sparklineQuery?.tokens?.map((topToken) => unwrapToken(chainId, topToken))
     const map: SparklineMap = {}
     unwrappedTokens?.forEach(
-      (current) =>
-        current?.id &&
-        ((map[current.id] = current?.txs?.filter(isLaunchFactoryPricePoint)))
+      (current) => current?.id && (map[current.id] = current?.txs?.filter(isLaunchFactoryPricePoint))
     )
     return map
   }, [chainId, sparklineQuery?.tokens])

@@ -22,7 +22,7 @@ import {
   monthYearDayFormatter,
   weekFormatter,
 } from 'utils/formatChartTimes'
-import { formatDollar, formatTransactionAmount, formatTransactionAmountPrecise } from 'utils/formatNumbers'
+import { formatTransactionAmountPrecise } from 'utils/formatNumbers'
 import { LaunchFactoryPricePoint } from '../../../graphql/physica/util'
 
 const DATA_EMPTY = { price: '', timestamp: 0 }

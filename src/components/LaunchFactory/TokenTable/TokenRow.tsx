@@ -32,7 +32,7 @@ import { useMetaManagerContract, usePhysicaTokenFactoryContract } from '../../..
 import { fetchMetaFromPinataIPFS } from '../utils'
 import { ImageContainer } from '../../../nft/components/collection/Card'
 import { RowFixed } from '../../Row'
-import theme, { ThemedText } from '../../../theme'
+import { ThemedText } from '../../../theme'
 import { darken, transparentize } from 'polished'
 import CurrencyLogo from '../../Logo/CurrencyLogo'
 
@@ -324,9 +324,7 @@ export const HEADER_DESCRIPTIONS: Record<TokenSortMethod, ReactNode | undefined>
   [TokenSortMethod.PRICE]: undefined,
   [TokenSortMethod.CREATOR]: undefined,
   [TokenSortMethod.TOTAL_VALUE_LOCKED]: (
-    <Trans>
-      The migration % is the percentage needed for this token to migrate to a Physica pool.
-    </Trans>
+    <Trans>The migration % is the percentage needed for this token to migrate to a Physica pool.</Trans>
   ),
   [TokenSortMethod.TXS]: (
     <Trans>Volume is the amount of the asset that has been traded on Physica during the selected time frame.</Trans>
@@ -510,21 +508,20 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const physicaTokenFactory = usePhysicaTokenFactoryContract()
 
   physicaTokenFactory?.tokenStates(token.id).then((tokenState) => setTokenState(tokenState))
-  physicaTokenFactory?.getCurrentMigrationPercent(token?.id ?? '0x0').then((migrationPercent) => setMigrationPercent(migrationPercent))
+  physicaTokenFactory
+    ?.getCurrentMigrationPercent(token?.id ?? '0x0')
+    .then((migrationPercent) => setMigrationPercent(migrationPercent))
 
   useEffect(() => {
-    if(tokenState) {
+    if (tokenState) {
       const tokenHolding = parseFloat(BigInt(tokenState.tokenHolding).toString())
       const initialSupply = parseFloat(BigInt(tokenState.initialSupply).toString())
       const migrationCap = parseFloat(tokenState.migrationCap)
-      setPercentageRemaining(migrationPercent / migrationCap * 100)
+      setPercentageRemaining((migrationPercent / migrationCap) * 100)
     }
-
   }, [tokenState])
 
-
-
-  if(!metaJson) {
+  if (!metaJson) {
     fetchMetaFromPinataIPFS(token.ipfsHash ?? '').then((meta) => setMetaJson(meta))
   }
 
@@ -555,7 +552,9 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
           tokenInfo={
             <ClickableName>
               <ImageContainer>
-                <TokenLogoCircular src={'https://red-diverse-turkey-545.mypinata.cloud/ipfs/' + metaJson?.image}></TokenLogoCircular>
+                <TokenLogoCircular
+                  src={'https://red-diverse-turkey-545.mypinata.cloud/ipfs/' + metaJson?.image}
+                ></TokenLogoCircular>
               </ImageContainer>
               <TokenInfoCell>
                 <TokenName data-cy="token-name">{token.name}</TokenName>

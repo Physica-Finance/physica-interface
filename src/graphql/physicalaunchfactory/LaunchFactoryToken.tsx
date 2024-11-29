@@ -1,57 +1,57 @@
 import { gql } from '@apollo/client'
 
 export const LAUNCHPAD_TOKEN_QUERY = gql`
-    query LaunchpadToken($id: String!) {
-        token(id: $id) {
-            id
-            name
-            symbol
-            dev
-            ipfsHash
-            initialSupply
-            migrationCap
-            plqAmount
-            startTime
-            tokenAmount
-            migrated
-            txCount
-            txs(orderDirection: asc, orderBy: timestamp) {
-                id
-                plqAmount
-                price
-                tokenAmount
-                timestamp
-                from
-            }
-        }
+  query LaunchpadToken($id: String!) {
+    token(id: $id) {
+      id
+      name
+      symbol
+      dev
+      ipfsHash
+      initialSupply
+      migrationCap
+      plqAmount
+      startTime
+      tokenAmount
+      migrated
+      txCount
+      txs(orderDirection: asc, orderBy: timestamp) {
+        id
+        plqAmount
+        price
+        tokenAmount
+        timestamp
+        from
+      }
     }
+  }
 `
 
 export const LAUNCHPAD_TOKEN_PRICE_QUERY = gql`
-    query LaunchpadToken($id: String!, $duration: Int!) {
-        token(id: $id) {
-            id
-            name
-            symbol
-            dev
-            ipfsHash
-            initialSupply
-            migrationCap
-            plqAmount
-            startTime
-            tokenAmount
-            migrated
-            txCount
-            txs(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration, price_gt: 0 }) {
-                id
-                plqAmount
-                price
-                tokenAmount
-                timestamp
-                from
-            }
-        }
+  query LaunchpadToken($id: String!, $duration: Int!) {
+    token(id: $id) {
+      id
+      name
+      symbol
+      dev
+      ipfsHash
+      initialSupply
+      migrationCap
+      plqAmount
+      startTime
+      tokenAmount
+      migrated
+      txCount
+      txs(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration, price_gt: 0 }) {
+        id
+        plqAmount
+        price
+        tokenAmount
+        timestamp
+        from
+      }
     }
+  }
 `
 
 export type LaunchpadTokenQuery = {

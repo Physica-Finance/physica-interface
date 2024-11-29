@@ -33,7 +33,7 @@ import {
   V3_MIGRATOR_ADDRESSES,
   V3_STAKER_ADDRESSES,
   PLANQ_PHYSICA_TOKEN_FACTORY_ADDRESS,
-  PLANQ_META_MANAGER_ADDRESS
+  PLANQ_META_MANAGER_ADDRESS,
 } from 'constants/addresses'
 import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import { useMemo } from 'react'

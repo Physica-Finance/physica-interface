@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro'
-import { formatNumber, NumberType } from '@uniswap/conedison/format'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { ReactNode } from 'react'
 import styled from 'styled-components/macro'

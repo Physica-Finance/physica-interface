@@ -2,7 +2,6 @@ import { DEFAULT_ERC20_DECIMALS } from 'constants/tokens'
 import gql from 'graphql-tag'
 import { WrappedTokenInfo } from 'state/lists/wrappedTokenInfo'
 
-import { CHAIN_NAME_TO_CHAIN_ID } from '../data/util'
 /*
 The difference between Token and TokenProject:
   Token: an on-chain entity referring to a contract (e.g. uni token on ethereum 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984)

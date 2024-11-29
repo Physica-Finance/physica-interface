@@ -37,7 +37,7 @@ export enum TransactionType {
   EXECUTE,
   LAUNCH_TOKEN,
   BUY_TOKEN,
-  SELL_TOKEN
+  SELL_TOKEN,
 }
 
 interface BaseTransactionInfo {

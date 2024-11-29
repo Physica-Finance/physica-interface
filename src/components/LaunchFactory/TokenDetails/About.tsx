@@ -74,7 +74,14 @@ type AboutSectionProps = {
   telegramName?: string | null | undefined
 }
 
-export function AboutSection({ address, chainId, description, homepageUrl, twitterName, telegramName }: AboutSectionProps) {
+export function AboutSection({
+  address,
+  chainId,
+  description,
+  homepageUrl,
+  twitterName,
+  telegramName,
+}: AboutSectionProps) {
   const [isDescriptionTruncated, setIsDescriptionTruncated] = useState(true)
   const shouldTruncate = !!description && description.length > TRUNCATE_CHARACTER_COUNT
 

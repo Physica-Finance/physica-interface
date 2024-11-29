@@ -6,12 +6,11 @@ import { atomWithStorage } from 'jotai/utils'
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getNativeTokenDBAddress } from 'utils/nativeTokens'
-import { TOKEN_PRICE_QUERY } from '../../graphql/physica/TokenPrice'
 import { useQuery } from '@apollo/client'
 import { apolloClient } from '../../graphql/physicalaunchfactory/apollo'
 import {
   LAUNCHPAD_TOKEN_PRICE_QUERY,
-  LAUNCHPAD_TOKEN_QUERY, LaunchpadTokenQuery
+  LAUNCHPAD_TOKEN_QUERY,
 } from '../../graphql/physicalaunchfactory/LaunchFactoryToken'
 import { isAddress } from '../../utils'
 

@@ -63,15 +63,14 @@ export default function useAssetLogoSource(
 
   useEffect(() => {
     if (!metaJson) {
-      if(metaEntry !== undefined)
-      fetchMetaFromPinataIPFS(metaEntry ?? '').then((meta) => setMetaJson(meta))
+      if (metaEntry !== undefined) fetchMetaFromPinataIPFS(metaEntry ?? '').then((meta) => setMetaJson(meta))
     }
   }, [metaEntry])
 
   useEffect(() => {
     if (metaJson) {
-      if(metaJson?.image !== undefined || metaJson?.image !== '')
-      setCurrent('https://red-diverse-turkey-545.mypinata.cloud/ipfs/' + metaJson?.image)
+      if (metaJson?.image !== undefined || metaJson?.image !== '')
+        setCurrent('https://red-diverse-turkey-545.mypinata.cloud/ipfs/' + metaJson?.image)
     }
   }, [metaJson])
 

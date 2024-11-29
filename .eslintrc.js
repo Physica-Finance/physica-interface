@@ -14,8 +14,6 @@ module.exports = {
         'react/prop-types': 'off',
         'react/jsx-curly-brace-presence': 'off',
         'simple-import-sort/imports': 'off',
-        'unused-imports/no-unused-imports': 'off',
-        'prettier/prettier': 'off' 
       },
     },
   ],

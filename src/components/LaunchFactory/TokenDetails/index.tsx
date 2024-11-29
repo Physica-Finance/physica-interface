@@ -229,7 +229,9 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   }
 
   physicaTokenFactory?.tokenStates(token?.wrapped.address ?? '0x0').then((tokenState) => setTokenState(tokenState))
-  physicaTokenFactory?.getCurrentMigrationPercent(token?.wrapped.address ?? '0x0').then((migrationPercent) => setMigrationPercent(migrationPercent))
+  physicaTokenFactory
+    ?.getCurrentMigrationPercent(token?.wrapped.address ?? '0x0')
+    .then((migrationPercent) => setMigrationPercent(migrationPercent))
 
   useEffect(() => {
     if (tokenState) {
@@ -240,7 +242,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
       setTokenVirtualPlqStart(tokenState.virtualPlqStart.toString())
       setTokenHolding(tokenState.tokenHolding)
       setTokenMigrated(tokenState.migrated)
-      setPercentageRemaining(migrationPercent / migrationCap * 100)
+      setPercentageRemaining((migrationPercent / migrationCap) * 100)
     }
   }, [tokenState])
 
@@ -314,14 +316,21 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               </BarWrapper>
               <AutoRow justify={'flex-end'}>
                 <ThemedText.DeprecatedSmall>
-                  {formatWeiToDecimal((BigInt(tokenQueryData?.initialSupply ?? '0') - BigInt(tokenHolding)).toString())}/{formatWeiToDecimal(((BigInt(tokenQueryData?.initialSupply ?? '0')*(BigInt(tokenQueryData?.migrationCap ?? '0')) / BigInt(100))).toString())} {tokenQueryData?.symbol}
+                  {formatWeiToDecimal((BigInt(tokenQueryData?.initialSupply ?? '0') - BigInt(tokenHolding)).toString())}
+                  /
+                  {formatWeiToDecimal(
+                    (
+                      (BigInt(tokenQueryData?.initialSupply ?? '0') * BigInt(tokenQueryData?.migrationCap ?? '0')) /
+                      BigInt(100)
+                    ).toString()
+                  )}{' '}
+                  {tokenQueryData?.symbol}
                 </ThemedText.DeprecatedSmall>
               </AutoRow>
               <Hr />
               <StatsSection
                 TVL={formatWeiToDecimal(
                   (BigInt(tokenQueryData?.plqAmount ?? 0) - BigInt(tokenVirtualPlqStart ?? 0)).toString()
-
                 )}
                 volume24H={tokenQueryData?.txCount ?? '0'}
                 priceHigh52W={parseFloat('0')}
@@ -360,9 +369,10 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               id={'0'}
             />
             <AutoRow justify={'flex-end'}>
-            <ThemedText.DeprecatedSmall>
-              You will receive {(parseFloat(plqAmount) / parseFloat(price)) * 1e18} {token?.symbol} for {plqAmount} PLQ
-            </ThemedText.DeprecatedSmall>
+              <ThemedText.DeprecatedSmall>
+                You will receive {(parseFloat(plqAmount) / parseFloat(price)) * 1e18} {token?.symbol} for {plqAmount}{' '}
+                PLQ
+              </ThemedText.DeprecatedSmall>
             </AutoRow>
             <AutoRow justify={'space-between'}>
               <ResponsiveButtonPrimary onClick={() => setShowBuyModal(true)}>
@@ -376,7 +386,6 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               onMax={() => setTokenAmount(balance?.toExact() ?? '0')}
               currency={token}
               id={'1'}
-
             />
             <AutoRow justify={'stretch'}>
               <ResponsiveButtonPrimary onClick={() => setShowSellModal(true)}>
@@ -386,7 +395,9 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
 
             {token && <BalanceSummary token={token} />}
           </RightPanel>
-          {token && <MobileBalanceSummaryFooter token={token} buyModal={setShowBuyModal} sellModal={setShowSellModal} />}
+          {token && (
+            <MobileBalanceSummaryFooter token={token} buyModal={setShowBuyModal} sellModal={setShowSellModal} />
+          )}
 
           <TokenSafetyModal
             isOpen={openTokenSafetyModal || !!continueSwap}
