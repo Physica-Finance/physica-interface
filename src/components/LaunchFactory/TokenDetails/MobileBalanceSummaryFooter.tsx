@@ -123,12 +123,12 @@ export default function MobileBalanceSummaryFooter({
         </BalanceInfo>
       )}
       <AutoRow justify={'space-between'}>
-        <ResponsiveButtonPrimary onClick={() => buyModal(true)}>
+        <ResponsiveButtonPrimary disabled={!account} onClick={() => buyModal(true)}>
           <Trans>Buy</Trans>
         </ResponsiveButtonPrimary>
       </AutoRow>
       <AutoRow justify={'stretch'}>
-        <ResponsiveButtonPrimary onClick={() => sellModal(true)}>
+        <ResponsiveButtonPrimary disabled={!account} onClick={() => sellModal(true)}>
           <Trans>Sell</Trans>
         </ResponsiveButtonPrimary>
       </AutoRow>

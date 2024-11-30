@@ -14,391 +14,222 @@ import {
   Overrides,
   PayableOverrides,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import type { TypedEventFilter, TypedEvent, TypedListener } from './common'
 
 interface PhysicaTokenFactoryInterface extends ethers.utils.Interface {
   functions: {
-    "buy(address,address)": FunctionFragment;
-    "createToken(string,string,uint8,uint256,bytes32,uint8,uint8)": FunctionFragment;
-    "createdTokenAmount()": FunctionFragment;
-    "creatorBuyAmount()": FunctionFragment;
-    "encodePriceSqrt(uint256,uint256)": FunctionFragment;
-    "fullMath()": FunctionFragment;
-    "getCurrentMigrationPercent(address)": FunctionFragment;
-    "getInitPrice(address,address,uint256,uint256)": FunctionFragment;
-    "getMigrationCap(address)": FunctionFragment;
-    "getPrice(address)": FunctionFragment;
-    "getQuoteSingle(address,address,uint24,uint256)": FunctionFragment;
-    "idToTokenAddress(uint256)": FunctionFragment;
-    "metaManager()": FunctionFragment;
-    "nonfungiblePositionManager()": FunctionFragment;
-    "onERC721Received(address,address,uint256,bytes)": FunctionFragment;
-    "owner()": FunctionFragment;
-    "physicaFactory()": FunctionFragment;
-    "protocolFee()": FunctionFragment;
-    "quotePLQPrice()": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
-    "sell(address,uint256)": FunctionFragment;
-    "setCreatorBuyAmount(uint256)": FunctionFragment;
-    "setFeeReceiverAddress(address)": FunctionFragment;
-    "setProtocolFee(uint256)": FunctionFragment;
-    "setUSDCAddress(address)": FunctionFragment;
-    "setVirtualPlqStart(uint256)": FunctionFragment;
-    "swapRouter()": FunctionFragment;
-    "tokenStates(address)": FunctionFragment;
-    "totalFees()": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
-    "usdcAddress()": FunctionFragment;
-    "viewQuoter()": FunctionFragment;
-    "virtualPlqStart()": FunctionFragment;
-    "withdrawProtocolFees(uint256)": FunctionFragment;
-  };
+    'buy(address,address)': FunctionFragment
+    'createToken(string,string,uint8,uint256,bytes32,uint8,uint8)': FunctionFragment
+    'createdTokenAmount()': FunctionFragment
+    'creatorBuyAmount()': FunctionFragment
+    'encodePriceSqrt(uint256,uint256)': FunctionFragment
+    'fullMath()': FunctionFragment
+    'getCurrentMigrationPercent(address)': FunctionFragment
+    'getInitPrice(address,address,uint256,uint256)': FunctionFragment
+    'getMigrationCap(address)': FunctionFragment
+    'getPrice(address)': FunctionFragment
+    'getQuoteSingle(address,address,uint24,uint256)': FunctionFragment
+    'idToTokenAddress(uint256)': FunctionFragment
+    'metaManager()': FunctionFragment
+    'nonfungiblePositionManager()': FunctionFragment
+    'onERC721Received(address,address,uint256,bytes)': FunctionFragment
+    'owner()': FunctionFragment
+    'physicaFactory()': FunctionFragment
+    'protocolFee()': FunctionFragment
+    'quotePLQPrice()': FunctionFragment
+    'renounceOwnership()': FunctionFragment
+    'sell(address,uint256)': FunctionFragment
+    'setCreatorBuyAmount(uint256)': FunctionFragment
+    'setFeeReceiverAddress(address)': FunctionFragment
+    'setProtocolFee(uint256)': FunctionFragment
+    'setUSDCAddress(address)': FunctionFragment
+    'setVirtualPlqStart(uint256)': FunctionFragment
+    'swapRouter()': FunctionFragment
+    'tokenStates(address)': FunctionFragment
+    'totalFees()': FunctionFragment
+    'transferOwnership(address)': FunctionFragment
+    'usdcAddress()': FunctionFragment
+    'viewQuoter()': FunctionFragment
+    'virtualPlqStart()': FunctionFragment
+    'withdrawProtocolFees(uint256)': FunctionFragment
+  }
 
-  encodeFunctionData(functionFragment: "buy", values: [string, string]): string;
+  encodeFunctionData(functionFragment: 'buy', values: [string, string]): string
   encodeFunctionData(
-    functionFragment: "createToken",
-    values: [
-      string,
-      string,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BigNumberish,
-      BigNumberish
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "createdTokenAmount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "creatorBuyAmount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "encodePriceSqrt",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "fullMath", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "getCurrentMigrationPercent",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getInitPrice",
-    values: [string, string, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getMigrationCap",
-    values: [string]
-  ): string;
-  encodeFunctionData(functionFragment: "getPrice", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "getQuoteSingle",
-    values: [string, string, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "idToTokenAddress",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "metaManager",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "nonfungiblePositionManager",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "onERC721Received",
-    values: [string, string, BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "physicaFactory",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "protocolFee",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "quotePLQPrice",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "sell",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setCreatorBuyAmount",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setFeeReceiverAddress",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setProtocolFee",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setUSDCAddress",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setVirtualPlqStart",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "swapRouter",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "tokenStates", values: [string]): string;
-  encodeFunctionData(functionFragment: "totalFees", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "usdcAddress",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "viewQuoter",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "virtualPlqStart",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "withdrawProtocolFees",
-    values: [BigNumberish]
-  ): string;
+    functionFragment: 'createToken',
+    values: [string, string, BigNumberish, BigNumberish, BytesLike, BigNumberish, BigNumberish]
+  ): string
+  encodeFunctionData(functionFragment: 'createdTokenAmount', values?: undefined): string
+  encodeFunctionData(functionFragment: 'creatorBuyAmount', values?: undefined): string
+  encodeFunctionData(functionFragment: 'encodePriceSqrt', values: [BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'fullMath', values?: undefined): string
+  encodeFunctionData(functionFragment: 'getCurrentMigrationPercent', values: [string]): string
+  encodeFunctionData(functionFragment: 'getInitPrice', values: [string, string, BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'getMigrationCap', values: [string]): string
+  encodeFunctionData(functionFragment: 'getPrice', values: [string]): string
+  encodeFunctionData(functionFragment: 'getQuoteSingle', values: [string, string, BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'idToTokenAddress', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'metaManager', values?: undefined): string
+  encodeFunctionData(functionFragment: 'nonfungiblePositionManager', values?: undefined): string
+  encodeFunctionData(functionFragment: 'onERC721Received', values: [string, string, BigNumberish, BytesLike]): string
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
+  encodeFunctionData(functionFragment: 'physicaFactory', values?: undefined): string
+  encodeFunctionData(functionFragment: 'protocolFee', values?: undefined): string
+  encodeFunctionData(functionFragment: 'quotePLQPrice', values?: undefined): string
+  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string
+  encodeFunctionData(functionFragment: 'sell', values: [string, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'setCreatorBuyAmount', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'setFeeReceiverAddress', values: [string]): string
+  encodeFunctionData(functionFragment: 'setProtocolFee', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'setUSDCAddress', values: [string]): string
+  encodeFunctionData(functionFragment: 'setVirtualPlqStart', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'swapRouter', values?: undefined): string
+  encodeFunctionData(functionFragment: 'tokenStates', values: [string]): string
+  encodeFunctionData(functionFragment: 'totalFees', values?: undefined): string
+  encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string
+  encodeFunctionData(functionFragment: 'usdcAddress', values?: undefined): string
+  encodeFunctionData(functionFragment: 'viewQuoter', values?: undefined): string
+  encodeFunctionData(functionFragment: 'virtualPlqStart', values?: undefined): string
+  encodeFunctionData(functionFragment: 'withdrawProtocolFees', values: [BigNumberish]): string
 
-  decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "createToken",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "createdTokenAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "creatorBuyAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "encodePriceSqrt",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "fullMath", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getCurrentMigrationPercent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getInitPrice",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMigrationCap",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "getPrice", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getQuoteSingle",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "idToTokenAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "metaManager",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "nonfungiblePositionManager",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "onERC721Received",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "physicaFactory",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "protocolFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "quotePLQPrice",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "sell", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setCreatorBuyAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setFeeReceiverAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setProtocolFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setUSDCAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setVirtualPlqStart",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "swapRouter", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "tokenStates",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "totalFees", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "usdcAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "viewQuoter", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "virtualPlqStart",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawProtocolFees",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'buy', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'createToken', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'createdTokenAmount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'creatorBuyAmount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'encodePriceSqrt', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'fullMath', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getCurrentMigrationPercent', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getInitPrice', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getMigrationCap', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getPrice', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getQuoteSingle', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'idToTokenAddress', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'metaManager', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nonfungiblePositionManager', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'onERC721Received', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'physicaFactory', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'protocolFee', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'quotePLQPrice', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'sell', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setCreatorBuyAmount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setFeeReceiverAddress', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setProtocolFee', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setUSDCAddress', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setVirtualPlqStart', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'swapRouter', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'tokenStates', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalFees', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'usdcAddress', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'viewQuoter', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'virtualPlqStart', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'withdrawProtocolFees', data: BytesLike): Result
 
   events: {
-    "Buy(address,uint256,uint256)": EventFragment;
-    "Launch(address,uint8,uint256)": EventFragment;
-    "Migrated(address,uint256,uint256,uint128)": EventFragment;
-    "OwnershipTransferred(address,address)": EventFragment;
-    "Sell(address,uint256,uint256)": EventFragment;
-  };
+    'Buy(address,uint256,uint256)': EventFragment
+    'Launch(address,uint8,uint256)': EventFragment
+    'Migrated(address,uint256,uint256,uint128)': EventFragment
+    'OwnershipTransferred(address,address)': EventFragment
+    'Sell(address,uint256,uint256)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "Buy"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Launch"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Migrated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Sell"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'Buy'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Launch'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Migrated'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Sell'): EventFragment
 }
 
 export type BuyEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
-  token: string;
-  tokenAmount: BigNumber;
-  plqAmount: BigNumber;
-}
->;
+    token: string
+    tokenAmount: BigNumber
+    plqAmount: BigNumber
+  }
+>
 
 export type LaunchEvent = TypedEvent<
   [string, number, BigNumber] & {
-  tokenAddress: string;
-  migrationCap: number;
-  initialSupply: BigNumber;
-}
->;
+    tokenAddress: string
+    migrationCap: number
+    initialSupply: BigNumber
+  }
+>
 
 export type MigratedEvent = TypedEvent<
   [string, BigNumber, BigNumber, BigNumber] & {
-  token: string;
-  tokenAmount: BigNumber;
-  plqAmount: BigNumber;
-  liquidity: BigNumber;
-}
->;
+    token: string
+    tokenAmount: BigNumber
+    plqAmount: BigNumber
+    liquidity: BigNumber
+  }
+>
 
-export type OwnershipTransferredEvent = TypedEvent<
-  [string, string] & { previousOwner: string; newOwner: string }
->;
+export type OwnershipTransferredEvent = TypedEvent<[string, string] & { previousOwner: string; newOwner: string }>
 
 export type SellEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
-  token: string;
-  tokenAmount: BigNumber;
-  plqAmount: BigNumber;
-}
->;
+    token: string
+    tokenAmount: BigNumber
+    plqAmount: BigNumber
+  }
+>
 
 export class PhysicaTokenFactory extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: PhysicaTokenFactoryInterface;
+  interface: PhysicaTokenFactoryInterface
 
   functions: {
     buy(
       token: string,
       referral: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     createToken(
       name: string,
@@ -409,24 +240,21 @@ export class PhysicaTokenFactory extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    createdTokenAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
+    createdTokenAmount(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    creatorBuyAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
+    creatorBuyAmount(overrides?: CallOverrides): Promise<[BigNumber]>
 
     encodePriceSqrt(
       reserve0: BigNumberish,
       reserve1: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { sqrtPriceX96: BigNumber }>;
+    ): Promise<[BigNumber] & { sqrtPriceX96: BigNumber }>
 
-    fullMath(overrides?: CallOverrides): Promise<[string]>;
+    fullMath(overrides?: CallOverrides): Promise<[string]>
 
-    getCurrentMigrationPercent(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    getCurrentMigrationPercent(token: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     getInitPrice(
       _tokenBase: string,
@@ -436,18 +264,15 @@ export class PhysicaTokenFactory extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [string, string, BigNumber] & {
-      token0: string;
-      token1: string;
-      initSQRTPrice: BigNumber;
-    }
-    >;
+        token0: string
+        token1: string
+        initSQRTPrice: BigNumber
+      }
+    >
 
-    getMigrationCap(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    getMigrationCap(token: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
-    getPrice(token: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    getPrice(token: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     getQuoteSingle(
       tokenIn: string,
@@ -455,16 +280,13 @@ export class PhysicaTokenFactory extends BaseContract {
       fee: BigNumberish,
       amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, number, BigNumber]>;
+    ): Promise<[BigNumber, BigNumber, number, BigNumber]>
 
-    idToTokenAddress(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    idToTokenAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>
 
-    metaManager(overrides?: CallOverrides): Promise<[string]>;
+    metaManager(overrides?: CallOverrides): Promise<[string]>
 
-    nonfungiblePositionManager(overrides?: CallOverrides): Promise<[string]>;
+    nonfungiblePositionManager(overrides?: CallOverrides): Promise<[string]>
 
     onERC721Received(
       operator: string,
@@ -472,91 +294,89 @@ export class PhysicaTokenFactory extends BaseContract {
       tokenId: BigNumberish,
       arg3: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    owner(overrides?: CallOverrides): Promise<[string]>;
+    owner(overrides?: CallOverrides): Promise<[string]>
 
-    physicaFactory(overrides?: CallOverrides): Promise<[string]>;
+    physicaFactory(overrides?: CallOverrides): Promise<[string]>
 
-    protocolFee(overrides?: CallOverrides): Promise<[BigNumber]>;
+    protocolFee(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    quotePLQPrice(overrides?: CallOverrides): Promise<[BigNumber]>;
+    quotePLQPrice(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
     sell(
       token: string,
       tokenAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setCreatorBuyAmount(
       _newCreatorBuyAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setFeeReceiverAddress(
       _newFeeReceiverAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setProtocolFee(
       _newProtocolFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setUSDCAddress(
       _usdcAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setVirtualPlqStart(
       _newVirtualPlqStart: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    swapRouter(overrides?: CallOverrides): Promise<[string]>;
+    swapRouter(overrides?: CallOverrides): Promise<[string]>
 
     tokenStates(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, number, boolean] & {
-      plqHolding: BigNumber;
-      tokenHolding: BigNumber;
-      virtualPlqStart: BigNumber;
-      initialSupply: BigNumber;
-      migrationCap: number;
-      migrated: boolean;
-    }
-    >;
+        plqHolding: BigNumber
+        tokenHolding: BigNumber
+        virtualPlqStart: BigNumber
+        initialSupply: BigNumber
+        migrationCap: number
+        migrated: boolean
+      }
+    >
 
-    totalFees(overrides?: CallOverrides): Promise<[BigNumber]>;
+    totalFees(overrides?: CallOverrides): Promise<[BigNumber]>
 
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    usdcAddress(overrides?: CallOverrides): Promise<[string]>;
+    usdcAddress(overrides?: CallOverrides): Promise<[string]>
 
-    viewQuoter(overrides?: CallOverrides): Promise<[string]>;
+    viewQuoter(overrides?: CallOverrides): Promise<[string]>
 
-    virtualPlqStart(overrides?: CallOverrides): Promise<[BigNumber]>;
+    virtualPlqStart(overrides?: CallOverrides): Promise<[BigNumber]>
 
     withdrawProtocolFees(
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-  };
+    ): Promise<ContractTransaction>
+  }
 
   buy(
     token: string,
     referral: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   createToken(
     name: string,
@@ -567,24 +387,17 @@ export class PhysicaTokenFactory extends BaseContract {
     _hashFunction: BigNumberish,
     _size: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  createdTokenAmount(overrides?: CallOverrides): Promise<BigNumber>;
+  createdTokenAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-  creatorBuyAmount(overrides?: CallOverrides): Promise<BigNumber>;
+  creatorBuyAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-  encodePriceSqrt(
-    reserve0: BigNumberish,
-    reserve1: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  encodePriceSqrt(reserve0: BigNumberish, reserve1: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-  fullMath(overrides?: CallOverrides): Promise<string>;
+  fullMath(overrides?: CallOverrides): Promise<string>
 
-  getCurrentMigrationPercent(
-    token: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  getCurrentMigrationPercent(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
   getInitPrice(
     _tokenBase: string,
@@ -594,15 +407,15 @@ export class PhysicaTokenFactory extends BaseContract {
     overrides?: CallOverrides
   ): Promise<
     [string, string, BigNumber] & {
-    token0: string;
-    token1: string;
-    initSQRTPrice: BigNumber;
-  }
-  >;
+      token0: string
+      token1: string
+      initSQRTPrice: BigNumber
+    }
+  >
 
-  getMigrationCap(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+  getMigrationCap(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
-  getPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+  getPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
   getQuoteSingle(
     tokenIn: string,
@@ -610,16 +423,13 @@ export class PhysicaTokenFactory extends BaseContract {
     fee: BigNumberish,
     amount: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber, number, BigNumber]>;
+  ): Promise<[BigNumber, BigNumber, number, BigNumber]>
 
-  idToTokenAddress(
-    arg0: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  idToTokenAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
-  metaManager(overrides?: CallOverrides): Promise<string>;
+  metaManager(overrides?: CallOverrides): Promise<string>
 
-  nonfungiblePositionManager(overrides?: CallOverrides): Promise<string>;
+  nonfungiblePositionManager(overrides?: CallOverrides): Promise<string>
 
   onERC721Received(
     operator: string,
@@ -627,91 +437,85 @@ export class PhysicaTokenFactory extends BaseContract {
     tokenId: BigNumberish,
     arg3: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  owner(overrides?: CallOverrides): Promise<string>;
+  owner(overrides?: CallOverrides): Promise<string>
 
-  physicaFactory(overrides?: CallOverrides): Promise<string>;
+  physicaFactory(overrides?: CallOverrides): Promise<string>
 
-  protocolFee(overrides?: CallOverrides): Promise<BigNumber>;
+  protocolFee(overrides?: CallOverrides): Promise<BigNumber>
 
-  quotePLQPrice(overrides?: CallOverrides): Promise<BigNumber>;
+  quotePLQPrice(overrides?: CallOverrides): Promise<BigNumber>
 
-  renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
   sell(
     token: string,
     tokenAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setCreatorBuyAmount(
     _newCreatorBuyAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setFeeReceiverAddress(
     _newFeeReceiverAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setProtocolFee(
     _newProtocolFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setUSDCAddress(
     _usdcAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setVirtualPlqStart(
     _newVirtualPlqStart: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  swapRouter(overrides?: CallOverrides): Promise<string>;
+  swapRouter(overrides?: CallOverrides): Promise<string>
 
   tokenStates(
     arg0: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, number, boolean] & {
-    plqHolding: BigNumber;
-    tokenHolding: BigNumber;
-    virtualPlqStart: BigNumber;
-    initialSupply: BigNumber;
-    migrationCap: number;
-    migrated: boolean;
-  }
-  >;
+      plqHolding: BigNumber
+      tokenHolding: BigNumber
+      virtualPlqStart: BigNumber
+      initialSupply: BigNumber
+      migrationCap: number
+      migrated: boolean
+    }
+  >
 
-  totalFees(overrides?: CallOverrides): Promise<BigNumber>;
+  totalFees(overrides?: CallOverrides): Promise<BigNumber>
 
   transferOwnership(
     newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  usdcAddress(overrides?: CallOverrides): Promise<string>;
+  usdcAddress(overrides?: CallOverrides): Promise<string>
 
-  viewQuoter(overrides?: CallOverrides): Promise<string>;
+  viewQuoter(overrides?: CallOverrides): Promise<string>
 
-  virtualPlqStart(overrides?: CallOverrides): Promise<BigNumber>;
+  virtualPlqStart(overrides?: CallOverrides): Promise<BigNumber>
 
   withdrawProtocolFees(
     _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   callStatic: {
-    buy(
-      token: string,
-      referral: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    buy(token: string, referral: string, overrides?: CallOverrides): Promise<void>
 
     createToken(
       name: string,
@@ -722,24 +526,17 @@ export class PhysicaTokenFactory extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<string>;
+    ): Promise<string>
 
-    createdTokenAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    createdTokenAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-    creatorBuyAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    creatorBuyAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-    encodePriceSqrt(
-      reserve0: BigNumberish,
-      reserve1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    encodePriceSqrt(reserve0: BigNumberish, reserve1: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    fullMath(overrides?: CallOverrides): Promise<string>;
+    fullMath(overrides?: CallOverrides): Promise<string>
 
-    getCurrentMigrationPercent(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getCurrentMigrationPercent(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
     getInitPrice(
       _tokenBase: string,
@@ -749,18 +546,15 @@ export class PhysicaTokenFactory extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [string, string, BigNumber] & {
-      token0: string;
-      token1: string;
-      initSQRTPrice: BigNumber;
-    }
-    >;
+        token0: string
+        token1: string
+        initSQRTPrice: BigNumber
+      }
+    >
 
-    getMigrationCap(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getMigrationCap(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    getPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
     getQuoteSingle(
       tokenIn: string,
@@ -768,16 +562,13 @@ export class PhysicaTokenFactory extends BaseContract {
       fee: BigNumberish,
       amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, number, BigNumber]>;
+    ): Promise<[BigNumber, BigNumber, number, BigNumber]>
 
-    idToTokenAddress(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    idToTokenAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
-    metaManager(overrides?: CallOverrides): Promise<string>;
+    metaManager(overrides?: CallOverrides): Promise<string>
 
-    nonfungiblePositionManager(overrides?: CallOverrides): Promise<string>;
+    nonfungiblePositionManager(overrides?: CallOverrides): Promise<string>
 
     onERC721Received(
       operator: string,
@@ -785,111 +576,80 @@ export class PhysicaTokenFactory extends BaseContract {
       tokenId: BigNumberish,
       arg3: BytesLike,
       overrides?: CallOverrides
-    ): Promise<string>;
+    ): Promise<string>
 
-    owner(overrides?: CallOverrides): Promise<string>;
+    owner(overrides?: CallOverrides): Promise<string>
 
-    physicaFactory(overrides?: CallOverrides): Promise<string>;
+    physicaFactory(overrides?: CallOverrides): Promise<string>
 
-    protocolFee(overrides?: CallOverrides): Promise<BigNumber>;
+    protocolFee(overrides?: CallOverrides): Promise<BigNumber>
 
-    quotePLQPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    quotePLQPrice(overrides?: CallOverrides): Promise<BigNumber>
 
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+    renounceOwnership(overrides?: CallOverrides): Promise<void>
 
-    sell(
-      token: string,
-      tokenAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    sell(token: string, tokenAmount: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    setCreatorBuyAmount(
-      _newCreatorBuyAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setCreatorBuyAmount(_newCreatorBuyAmount: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    setFeeReceiverAddress(
-      _newFeeReceiverAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setFeeReceiverAddress(_newFeeReceiverAddress: string, overrides?: CallOverrides): Promise<void>
 
-    setProtocolFee(
-      _newProtocolFee: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setProtocolFee(_newProtocolFee: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    setUSDCAddress(
-      _usdcAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setUSDCAddress(_usdcAddress: string, overrides?: CallOverrides): Promise<void>
 
-    setVirtualPlqStart(
-      _newVirtualPlqStart: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setVirtualPlqStart(_newVirtualPlqStart: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    swapRouter(overrides?: CallOverrides): Promise<string>;
+    swapRouter(overrides?: CallOverrides): Promise<string>
 
     tokenStates(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, number, boolean] & {
-      plqHolding: BigNumber;
-      tokenHolding: BigNumber;
-      virtualPlqStart: BigNumber;
-      initialSupply: BigNumber;
-      migrationCap: number;
-      migrated: boolean;
-    }
-    >;
+        plqHolding: BigNumber
+        tokenHolding: BigNumber
+        virtualPlqStart: BigNumber
+        initialSupply: BigNumber
+        migrationCap: number
+        migrated: boolean
+      }
+    >
 
-    totalFees(overrides?: CallOverrides): Promise<BigNumber>;
+    totalFees(overrides?: CallOverrides): Promise<BigNumber>
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    transferOwnership(newOwner: string, overrides?: CallOverrides): Promise<void>
 
-    usdcAddress(overrides?: CallOverrides): Promise<string>;
+    usdcAddress(overrides?: CallOverrides): Promise<string>
 
-    viewQuoter(overrides?: CallOverrides): Promise<string>;
+    viewQuoter(overrides?: CallOverrides): Promise<string>
 
-    virtualPlqStart(overrides?: CallOverrides): Promise<BigNumber>;
+    virtualPlqStart(overrides?: CallOverrides): Promise<BigNumber>
 
-    withdrawProtocolFees(
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-  };
+    withdrawProtocolFees(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>
+  }
 
   filters: {
-    "Buy(address,uint256,uint256)"(
+    'Buy(address,uint256,uint256)'(
       token?: null,
       tokenAmount?: null,
       plqAmount?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { token: string; tokenAmount: BigNumber; plqAmount: BigNumber }
-    >;
+    ): TypedEventFilter<[string, BigNumber, BigNumber], { token: string; tokenAmount: BigNumber; plqAmount: BigNumber }>
 
     Buy(
       token?: null,
       tokenAmount?: null,
       plqAmount?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { token: string; tokenAmount: BigNumber; plqAmount: BigNumber }
-    >;
+    ): TypedEventFilter<[string, BigNumber, BigNumber], { token: string; tokenAmount: BigNumber; plqAmount: BigNumber }>
 
-    "Launch(address,uint8,uint256)"(
+    'Launch(address,uint8,uint256)'(
       tokenAddress?: null,
       migrationCap?: null,
       initialSupply?: null
     ): TypedEventFilter<
       [string, number, BigNumber],
       { tokenAddress: string; migrationCap: number; initialSupply: BigNumber }
-    >;
+    >
 
     Launch(
       tokenAddress?: null,
@@ -898,9 +658,9 @@ export class PhysicaTokenFactory extends BaseContract {
     ): TypedEventFilter<
       [string, number, BigNumber],
       { tokenAddress: string; migrationCap: number; initialSupply: BigNumber }
-    >;
+    >
 
-    "Migrated(address,uint256,uint256,uint128)"(
+    'Migrated(address,uint256,uint256,uint128)'(
       token?: null,
       tokenAmount?: null,
       plqAmount?: null,
@@ -908,12 +668,12 @@ export class PhysicaTokenFactory extends BaseContract {
     ): TypedEventFilter<
       [string, BigNumber, BigNumber, BigNumber],
       {
-        token: string;
-        tokenAmount: BigNumber;
-        plqAmount: BigNumber;
-        liquidity: BigNumber;
+        token: string
+        tokenAmount: BigNumber
+        plqAmount: BigNumber
+        liquidity: BigNumber
       }
-    >;
+    >
 
     Migrated(
       token?: null,
@@ -923,54 +683,42 @@ export class PhysicaTokenFactory extends BaseContract {
     ): TypedEventFilter<
       [string, BigNumber, BigNumber, BigNumber],
       {
-        token: string;
-        tokenAmount: BigNumber;
-        plqAmount: BigNumber;
-        liquidity: BigNumber;
+        token: string
+        tokenAmount: BigNumber
+        plqAmount: BigNumber
+        liquidity: BigNumber
       }
-    >;
+    >
 
-    "OwnershipTransferred(address,address)"(
+    'OwnershipTransferred(address,address)'(
       previousOwner?: string | null,
       newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
+    ): TypedEventFilter<[string, string], { previousOwner: string; newOwner: string }>
 
     OwnershipTransferred(
       previousOwner?: string | null,
       newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
+    ): TypedEventFilter<[string, string], { previousOwner: string; newOwner: string }>
 
-    "Sell(address,uint256,uint256)"(
+    'Sell(address,uint256,uint256)'(
       token?: null,
       tokenAmount?: null,
       plqAmount?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { token: string; tokenAmount: BigNumber; plqAmount: BigNumber }
-    >;
+    ): TypedEventFilter<[string, BigNumber, BigNumber], { token: string; tokenAmount: BigNumber; plqAmount: BigNumber }>
 
     Sell(
       token?: null,
       tokenAmount?: null,
       plqAmount?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { token: string; tokenAmount: BigNumber; plqAmount: BigNumber }
-    >;
-  };
+    ): TypedEventFilter<[string, BigNumber, BigNumber], { token: string; tokenAmount: BigNumber; plqAmount: BigNumber }>
+  }
 
   estimateGas: {
     buy(
       token: string,
       referral: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     createToken(
       name: string,
@@ -981,24 +729,17 @@ export class PhysicaTokenFactory extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    createdTokenAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    createdTokenAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-    creatorBuyAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    creatorBuyAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-    encodePriceSqrt(
-      reserve0: BigNumberish,
-      reserve1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    encodePriceSqrt(reserve0: BigNumberish, reserve1: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    fullMath(overrides?: CallOverrides): Promise<BigNumber>;
+    fullMath(overrides?: CallOverrides): Promise<BigNumber>
 
-    getCurrentMigrationPercent(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getCurrentMigrationPercent(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
     getInitPrice(
       _tokenBase: string,
@@ -1006,14 +747,11 @@ export class PhysicaTokenFactory extends BaseContract {
       tokenBaseAmt: BigNumberish,
       tokenSwapAmt: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    getMigrationCap(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getMigrationCap(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    getPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
     getQuoteSingle(
       tokenIn: string,
@@ -1021,16 +759,13 @@ export class PhysicaTokenFactory extends BaseContract {
       fee: BigNumberish,
       amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    idToTokenAddress(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    idToTokenAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    metaManager(overrides?: CallOverrides): Promise<BigNumber>;
+    metaManager(overrides?: CallOverrides): Promise<BigNumber>
 
-    nonfungiblePositionManager(overrides?: CallOverrides): Promise<BigNumber>;
+    nonfungiblePositionManager(overrides?: CallOverrides): Promise<BigNumber>
 
     onERC721Received(
       operator: string,
@@ -1038,80 +773,75 @@ export class PhysicaTokenFactory extends BaseContract {
       tokenId: BigNumberish,
       arg3: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
+    owner(overrides?: CallOverrides): Promise<BigNumber>
 
-    physicaFactory(overrides?: CallOverrides): Promise<BigNumber>;
+    physicaFactory(overrides?: CallOverrides): Promise<BigNumber>
 
-    protocolFee(overrides?: CallOverrides): Promise<BigNumber>;
+    protocolFee(overrides?: CallOverrides): Promise<BigNumber>
 
-    quotePLQPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    quotePLQPrice(overrides?: CallOverrides): Promise<BigNumber>
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
     sell(
       token: string,
       tokenAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setCreatorBuyAmount(
       _newCreatorBuyAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setFeeReceiverAddress(
       _newFeeReceiverAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setProtocolFee(
       _newProtocolFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setUSDCAddress(
       _usdcAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setVirtualPlqStart(
       _newVirtualPlqStart: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    swapRouter(overrides?: CallOverrides): Promise<BigNumber>;
+    swapRouter(overrides?: CallOverrides): Promise<BigNumber>
 
-    tokenStates(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    tokenStates(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    totalFees(overrides?: CallOverrides): Promise<BigNumber>;
+    totalFees(overrides?: CallOverrides): Promise<BigNumber>
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    transferOwnership(newOwner: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    usdcAddress(overrides?: CallOverrides): Promise<BigNumber>;
+    usdcAddress(overrides?: CallOverrides): Promise<BigNumber>
 
-    viewQuoter(overrides?: CallOverrides): Promise<BigNumber>;
+    viewQuoter(overrides?: CallOverrides): Promise<BigNumber>
 
-    virtualPlqStart(overrides?: CallOverrides): Promise<BigNumber>;
+    virtualPlqStart(overrides?: CallOverrides): Promise<BigNumber>
 
     withdrawProtocolFees(
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-  };
+    ): Promise<BigNumber>
+  }
 
   populateTransaction: {
     buy(
       token: string,
       referral: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     createToken(
       name: string,
@@ -1122,26 +852,21 @@ export class PhysicaTokenFactory extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    createdTokenAmount(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    createdTokenAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    creatorBuyAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    creatorBuyAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     encodePriceSqrt(
       reserve0: BigNumberish,
       reserve1: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    fullMath(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    fullMath(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getCurrentMigrationPercent(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getCurrentMigrationPercent(token: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     getInitPrice(
       _tokenBase: string,
@@ -1149,17 +874,11 @@ export class PhysicaTokenFactory extends BaseContract {
       tokenBaseAmt: BigNumberish,
       tokenSwapAmt: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    getMigrationCap(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getMigrationCap(token: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getPrice(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getPrice(token: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     getQuoteSingle(
       tokenIn: string,
@@ -1167,18 +886,13 @@ export class PhysicaTokenFactory extends BaseContract {
       fee: BigNumberish,
       amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    idToTokenAddress(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    idToTokenAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    metaManager(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    metaManager(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    nonfungiblePositionManager(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    nonfungiblePositionManager(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     onERC721Received(
       operator: string,
@@ -1186,74 +900,69 @@ export class PhysicaTokenFactory extends BaseContract {
       tokenId: BigNumberish,
       arg3: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    physicaFactory(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    physicaFactory(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    protocolFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    protocolFee(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    quotePLQPrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    quotePLQPrice(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
 
     sell(
       token: string,
       tokenAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setCreatorBuyAmount(
       _newCreatorBuyAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setFeeReceiverAddress(
       _newFeeReceiverAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setProtocolFee(
       _newProtocolFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setUSDCAddress(
       _usdcAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setVirtualPlqStart(
       _newVirtualPlqStart: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    swapRouter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    swapRouter(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    tokenStates(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    tokenStates(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    totalFees(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    totalFees(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    usdcAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    usdcAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    viewQuoter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    viewQuoter(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    virtualPlqStart(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    virtualPlqStart(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     withdrawProtocolFees(
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-  };
+    ): Promise<PopulatedTransaction>
+  }
 }
