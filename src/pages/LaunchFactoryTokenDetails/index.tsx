@@ -36,14 +36,14 @@ export default function LaunchFactoryTokenDetailsPage() {
 
   const { data: tokenQuery } = useQuery(LAUNCHPAD_TOKEN_QUERY, {
     variables: {
-      id: tokenAddress,
+      id: tokenAddress?.toLowerCase(),
     },
     client: apolloClient,
   })
 
   const { data: tokenPriceQuery } = useQuery(LAUNCHPAD_TOKEN_PRICE_QUERY, {
     variables: {
-      id: tokenAddress,
+      id: tokenAddress?.toLowerCase(),
       duration: Math.floor(Date.now() / 1000 - 86400 * 30),
     },
     client: apolloClient,
