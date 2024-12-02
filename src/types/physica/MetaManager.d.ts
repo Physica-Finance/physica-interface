@@ -13,174 +13,140 @@ import {
   ContractTransaction,
   Overrides,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import type { TypedEventFilter, TypedEvent, TypedListener } from './common'
 
 interface MetaManagerInterface extends ethers.utils.Interface {
   functions: {
-    "clearEntry(address)": FunctionFragment;
-    "getEntry(address)": FunctionFragment;
-    "idToAddress(uint256)": FunctionFragment;
-    "nextID()": FunctionFragment;
-    "owner()": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
-    "setAccountMeta(address,bytes32,uint8,uint8)": FunctionFragment;
-    "setTokenMeta(address,bytes32,uint8,uint8)": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
-  };
+    'clearEntry(address)': FunctionFragment
+    'getEntry(address)': FunctionFragment
+    'idToAddress(uint256)': FunctionFragment
+    'nextID()': FunctionFragment
+    'owner()': FunctionFragment
+    'renounceOwnership()': FunctionFragment
+    'setAccountMeta(address,bytes32,uint8,uint8)': FunctionFragment
+    'setTokenMeta(address,bytes32,uint8,uint8)': FunctionFragment
+    'transferOwnership(address)': FunctionFragment
+  }
 
-  encodeFunctionData(functionFragment: "clearEntry", values: [string]): string;
-  encodeFunctionData(functionFragment: "getEntry", values: [string]): string;
+  encodeFunctionData(functionFragment: 'clearEntry', values: [string]): string
+  encodeFunctionData(functionFragment: 'getEntry', values: [string]): string
+  encodeFunctionData(functionFragment: 'idToAddress', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'nextID', values?: undefined): string
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
+  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string
   encodeFunctionData(
-    functionFragment: "idToAddress",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "nextID", values?: undefined): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setAccountMeta",
+    functionFragment: 'setAccountMeta',
     values: [string, BytesLike, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setTokenMeta",
-    values: [string, BytesLike, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [string]
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: 'setTokenMeta', values: [string, BytesLike, BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string
 
-  decodeFunctionResult(functionFragment: "clearEntry", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "getEntry", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "idToAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "nextID", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setAccountMeta",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setTokenMeta",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'clearEntry', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getEntry', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'idToAddress', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nextID', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setAccountMeta', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setTokenMeta', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result
 
   events: {
-    "EntryDeleted(address)": EventFragment;
-    "EntrySet(address,bytes32,uint8,uint8)": EventFragment;
-    "OwnershipTransferred(address,address)": EventFragment;
-  };
+    'EntryDeleted(address)': EventFragment
+    'EntrySet(address,bytes32,uint8,uint8)': EventFragment
+    'OwnershipTransferred(address,address)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "EntryDeleted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "EntrySet"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'EntryDeleted'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'EntrySet'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
 }
 
-export type EntryDeletedEvent = TypedEvent<[string] & { key: string }>;
+export type EntryDeletedEvent = TypedEvent<[string] & { key: string }>
 
 export type EntrySetEvent = TypedEvent<
   [string, string, number, number] & {
-  key: string;
-  digest: string;
-  hashFunction: number;
-  size: number;
-}
->;
+    key: string
+    digest: string
+    hashFunction: number
+    size: number
+  }
+>
 
-export type OwnershipTransferredEvent = TypedEvent<
-  [string, string] & { previousOwner: string; newOwner: string }
->;
+export type OwnershipTransferredEvent = TypedEvent<[string, string] & { previousOwner: string; newOwner: string }>
 
 export class MetaManager extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: MetaManagerInterface;
+  interface: MetaManagerInterface
 
   functions: {
     clearEntry(
       entryAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     getEntry(
       _address: string,
       overrides?: CallOverrides
     ): Promise<
       [string, number, number, BigNumber] & {
-      digest: string;
-      hashfunction: number;
-      size: number;
-      id: BigNumber;
-    }
-    >;
+        digest: string
+        hashfunction: number
+        size: number
+        id: BigNumber
+      }
+    >
 
-    idToAddress(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    idToAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>
 
-    nextID(overrides?: CallOverrides): Promise<[BigNumber]>;
+    nextID(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    owner(overrides?: CallOverrides): Promise<[string]>;
+    owner(overrides?: CallOverrides): Promise<[string]>
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
     setAccountMeta(
       account: string,
@@ -188,7 +154,7 @@ export class MetaManager extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setTokenMeta(
       token: string,
@@ -196,40 +162,38 @@ export class MetaManager extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-  };
+    ): Promise<ContractTransaction>
+  }
 
   clearEntry(
     entryAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   getEntry(
     _address: string,
     overrides?: CallOverrides
   ): Promise<
     [string, number, number, BigNumber] & {
-    digest: string;
-    hashfunction: number;
-    size: number;
-    id: BigNumber;
-  }
-  >;
+      digest: string
+      hashfunction: number
+      size: number
+      id: BigNumber
+    }
+  >
 
-  idToAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+  idToAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
-  nextID(overrides?: CallOverrides): Promise<BigNumber>;
+  nextID(overrides?: CallOverrides): Promise<BigNumber>
 
-  owner(overrides?: CallOverrides): Promise<string>;
+  owner(overrides?: CallOverrides): Promise<string>
 
-  renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
   setAccountMeta(
     account: string,
@@ -237,7 +201,7 @@ export class MetaManager extends BaseContract {
     _hashFunction: BigNumberish,
     _size: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setTokenMeta(
     token: string,
@@ -245,35 +209,35 @@ export class MetaManager extends BaseContract {
     _hashFunction: BigNumberish,
     _size: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   transferOwnership(
     newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   callStatic: {
-    clearEntry(entryAddress: string, overrides?: CallOverrides): Promise<void>;
+    clearEntry(entryAddress: string, overrides?: CallOverrides): Promise<void>
 
     getEntry(
       _address: string,
       overrides?: CallOverrides
     ): Promise<
       [string, number, number, BigNumber] & {
-      digest: string;
-      hashfunction: number;
-      size: number;
-      id: BigNumber;
-    }
-    >;
+        digest: string
+        hashfunction: number
+        size: number
+        id: BigNumber
+      }
+    >
 
-    idToAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+    idToAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
-    nextID(overrides?: CallOverrides): Promise<BigNumber>;
+    nextID(overrides?: CallOverrides): Promise<BigNumber>
 
-    owner(overrides?: CallOverrides): Promise<string>;
+    owner(overrides?: CallOverrides): Promise<string>
 
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+    renounceOwnership(overrides?: CallOverrides): Promise<void>
 
     setAccountMeta(
       account: string,
@@ -281,7 +245,7 @@ export class MetaManager extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
     setTokenMeta(
       token: string,
@@ -289,24 +253,17 @@ export class MetaManager extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-  };
+    transferOwnership(newOwner: string, overrides?: CallOverrides): Promise<void>
+  }
 
   filters: {
-    "EntryDeleted(address)"(
-      key?: string | null
-    ): TypedEventFilter<[string], { key: string }>;
+    'EntryDeleted(address)'(key?: string | null): TypedEventFilter<[string], { key: string }>
 
-    EntryDeleted(
-      key?: string | null
-    ): TypedEventFilter<[string], { key: string }>;
+    EntryDeleted(key?: string | null): TypedEventFilter<[string], { key: string }>
 
-    "EntrySet(address,bytes32,uint8,uint8)"(
+    'EntrySet(address,bytes32,uint8,uint8)'(
       key?: string | null,
       digest?: null,
       hashFunction?: null,
@@ -314,7 +271,7 @@ export class MetaManager extends BaseContract {
     ): TypedEventFilter<
       [string, string, number, number],
       { key: string; digest: string; hashFunction: number; size: number }
-    >;
+    >
 
     EntrySet(
       key?: string | null,
@@ -324,45 +281,31 @@ export class MetaManager extends BaseContract {
     ): TypedEventFilter<
       [string, string, number, number],
       { key: string; digest: string; hashFunction: number; size: number }
-    >;
+    >
 
-    "OwnershipTransferred(address,address)"(
+    'OwnershipTransferred(address,address)'(
       previousOwner?: string | null,
       newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
+    ): TypedEventFilter<[string, string], { previousOwner: string; newOwner: string }>
 
     OwnershipTransferred(
       previousOwner?: string | null,
       newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
-  };
+    ): TypedEventFilter<[string, string], { previousOwner: string; newOwner: string }>
+  }
 
   estimateGas: {
-    clearEntry(
-      entryAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    clearEntry(entryAddress: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    getEntry(_address: string, overrides?: CallOverrides): Promise<BigNumber>;
+    getEntry(_address: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    idToAddress(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    idToAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    nextID(overrides?: CallOverrides): Promise<BigNumber>;
+    nextID(overrides?: CallOverrides): Promise<BigNumber>
 
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
+    owner(overrides?: CallOverrides): Promise<BigNumber>
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
     setAccountMeta(
       account: string,
@@ -370,7 +313,7 @@ export class MetaManager extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setTokenMeta(
       token: string,
@@ -378,37 +321,26 @@ export class MetaManager extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-  };
+    transferOwnership(newOwner: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
+  }
 
   populateTransaction: {
     clearEntry(
       entryAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    getEntry(
-      _address: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getEntry(_address: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    idToAddress(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    idToAddress(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    nextID(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    nextID(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
 
     setAccountMeta(
       account: string,
@@ -416,7 +348,7 @@ export class MetaManager extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setTokenMeta(
       token: string,
@@ -424,11 +356,11 @@ export class MetaManager extends BaseContract {
       _hashFunction: BigNumberish,
       _size: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-  };
+    ): Promise<PopulatedTransaction>
+  }
 }

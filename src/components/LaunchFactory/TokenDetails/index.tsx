@@ -228,10 +228,15 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
     fetchMetaFromPinataIPFS(tokenQueryData?.ipfsHash ?? '').then((meta) => setMetaJson(meta))
   }
 
-  physicaTokenFactory?.tokenStates(token?.wrapped.address ?? '0x0').then((tokenState) => setTokenState(tokenState))
-  physicaTokenFactory
-    ?.getCurrentMigrationPercent(token?.wrapped.address ?? '0x0')
-    .then((migrationPercent) => setMigrationPercent(migrationPercent))
+  if (!tokenState) {
+    physicaTokenFactory?.tokenStates(token?.wrapped.address ?? '0x0').then((tokenState) => setTokenState(tokenState))
+  }
+
+  if (!migrationPercent) {
+    physicaTokenFactory
+      ?.getCurrentMigrationPercent(token?.wrapped.address ?? '0x0')
+      .then((migrationPercent) => setMigrationPercent(migrationPercent))
+  }
 
   useEffect(() => {
     if (tokenState) {
@@ -248,13 +253,13 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
 
   useEffect(() => {
     if (tokenMigrated) {
-      navigate('/swap?inputCurrency=ETH&outputCurrency=' + token?.wrapped.address)
+      navigate('/swap?inputCurrency=ETH&outputCurrency=' + address)
     }
   }, [tokenMigrated])
 
   const [price, setPrice] = useState('')
-  if (token?.wrapped.address) {
-    physicaTokenFactory?.getPrice(token?.wrapped.address).then((response: any) => {
+  if (address && !price) {
+    physicaTokenFactory?.getPrice(address).then((response: any) => {
       setPrice(response)
     })
   }
@@ -375,7 +380,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               </ThemedText.DeprecatedSmall>
             </AutoRow>
             <AutoRow justify={'space-between'}>
-              <ResponsiveButtonPrimary onClick={() => setShowBuyModal(true)}>
+              <ResponsiveButtonPrimary disabled={!account} onClick={() => setShowBuyModal(true)}>
                 <Trans>Buy</Trans>
               </ResponsiveButtonPrimary>
             </AutoRow>
@@ -388,7 +393,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
               id={'1'}
             />
             <AutoRow justify={'stretch'}>
-              <ResponsiveButtonPrimary onClick={() => setShowSellModal(true)}>
+              <ResponsiveButtonPrimary disabled={!account} onClick={() => setShowSellModal(true)}>
                 <Trans>Sell</Trans>
               </ResponsiveButtonPrimary>
             </AutoRow>

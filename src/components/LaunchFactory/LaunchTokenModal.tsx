@@ -121,15 +121,13 @@ export function BuyTokenModal({ isOpen, onDismiss, token, referralAddress, plqAm
         <AutoColumn gap="lg">
           <RowBetween>
             <ThemedText.DeprecatedBody fontSize="20px" fontWeight={600}>
-              <Trans>
-                Buy {token?.name} ({token?.symbol})
-              </Trans>
+              Buy {token?.name} ({token?.symbol})
             </ThemedText.DeprecatedBody>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           <AutoRow gap="md">
             <ThemedText.DeprecatedSmall paddingLeft={'5px'} paddingBottom={'5px'} fontSize="14px" fontWeight={600}>
-              <Trans>Choose how many {token?.name} you want to buy</Trans>
+              Choose how many {token?.name} you want to buy
             </ThemedText.DeprecatedSmall>
             <DarkerGreyCard>
               <CurrencyInputPanel
@@ -214,15 +212,13 @@ export function SellTokenModal({ isOpen, onDismiss, token, tokenAmount, price }:
         <AutoColumn gap="lg">
           <RowBetween>
             <ThemedText.DeprecatedBody fontSize="20px" fontWeight={600}>
-              <Trans>
-                Sell {token?.name} ({token?.symbol})
-              </Trans>
+              Sell {token?.name} ({token?.symbol})
             </ThemedText.DeprecatedBody>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           <AutoRow gap="md">
             <ThemedText.DeprecatedSmall paddingLeft={'5px'} paddingBottom={'5px'} fontSize="14px" fontWeight={600}>
-              <Trans>Choose how many {token?.name} you want to buy</Trans>
+              Choose how many {token?.name} you want to buy
             </ThemedText.DeprecatedSmall>
             <DarkerGreyCard>
               <CurrencyInputPanel
