@@ -495,7 +495,11 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const filterNetwork = lowercaseChainName.toUpperCase()
   const chainId = CHAIN_NAME_TO_CHAIN_ID[filterNetwork]
   const timePeriod = useAtomValue(filterTimeAtom)
-  const delta = (parseFloat(token.txs![0].price ?? '0') - parseFloat(token.txs![1]?.price ?? '0')) * 100
+  let delta = 0
+  if (token.txs && token.txs.length > 0) {
+    delta = (parseFloat(token.txs![0].price ?? '0') - parseFloat(token.txs![1]?.price ?? '0')) * 100
+  }
+
   const arrow = getDeltaArrow(delta)
   const smallArrow = getDeltaArrow(delta, 14)
   const formattedDelta = formatDelta(delta)
