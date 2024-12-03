@@ -242,7 +242,9 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
     if (tokenQueryData) {
       const migrationCap = parseFloat(tokenQueryData.migrationCap ?? '0')
       const hundert = parseFloat('100')
-      const migrationPercent = hundert - (parseFloat(tokenQueryData.tokenAmount ?? '0') * hundert) / parseFloat(tokenQueryData.initialSupply ?? '0')
+      const migrationPercent =
+        hundert -
+        (parseFloat(tokenQueryData.tokenAmount ?? '0') * hundert) / parseFloat(tokenQueryData.initialSupply ?? '0')
 
       setPercentageRemaining((migrationPercent / migrationCap) * 100)
       setTokenHolding(tokenQueryData.tokenAmount ?? '0')

@@ -130,9 +130,10 @@ const LaunchFactoryTokens = () => {
                   </ThemedText.LargeHeader>
                   <ThemedText.SubHeaderSmall>
                     For real time updates join the{' '}
-                    <a href={'https://t.me/physica_launchpad'} target={'_blank'}>
+                    <a href={'https://t.me/physica_launchpad'} rel={'noreferrer'} target={'_blank'}>
                       launchpad telegram channel.
-                    </a>
+                    </a>{' '}
+                    <br /> Connect your account to get started.
                   </ThemedText.SubHeaderSmall>
                 </MouseoverTooltip>
                 <ResponsiveButtonPrimary disabled={!account} onClick={() => setShowLaunchTokenModal(true)}>

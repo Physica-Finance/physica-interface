@@ -515,7 +515,8 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
     if (token) {
       const migrationCap = parseFloat(token.migrationCap ?? '0')
       const hundert = parseFloat('100')
-      const migrationPercent = hundert - (parseFloat(token.tokenAmount ?? '0') * hundert) / parseFloat(token.initialSupply ?? '0')
+      const migrationPercent =
+        hundert - (parseFloat(token.tokenAmount ?? '0') * hundert) / parseFloat(token.initialSupply ?? '0')
       setPercentageRemaining((migrationPercent / migrationCap) * 100)
     }
   }, [token])
