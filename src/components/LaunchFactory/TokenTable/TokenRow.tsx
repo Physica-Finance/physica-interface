@@ -511,22 +511,14 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const [percentageRemaining, setPercentageRemaining] = useState(0)
   const physicaTokenFactory = usePhysicaTokenFactoryContract()
 
-  if (!tokenState) {
-    physicaTokenFactory?.tokenStates(token.id).then((tokenState) => setTokenState(tokenState))
-  }
-  if (!migrationPercent) {
-    physicaTokenFactory
-      ?.getCurrentMigrationPercent(token?.id ?? '0x0')
-      .then((migrationPercent) => setMigrationPercent(migrationPercent))
-  }
   useEffect(() => {
-    if (tokenState) {
-      const tokenHolding = parseFloat(BigInt(tokenState.tokenHolding).toString())
-      const initialSupply = parseFloat(BigInt(tokenState.initialSupply).toString())
-      const migrationCap = parseFloat(tokenState.migrationCap)
+    if (token) {
+      const migrationCap = parseFloat(token.migrationCap ?? '0')
+      const hundert = parseFloat('100')
+      const migrationPercent = hundert - (parseFloat(token.tokenAmount ?? '0') * hundert) / parseFloat(token.initialSupply ?? '0')
       setPercentageRemaining((migrationPercent / migrationCap) * 100)
     }
-  }, [tokenState])
+  }, [token])
 
   if (!metaJson) {
     fetchMetaFromPinataIPFS(token.ipfsHash ?? '').then((meta) => setMetaJson(meta))

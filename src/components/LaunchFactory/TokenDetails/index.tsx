@@ -232,24 +232,23 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
     physicaTokenFactory?.tokenStates(token?.wrapped.address ?? '0x0').then((tokenState) => setTokenState(tokenState))
   }
 
-  if (!migrationPercent) {
-    physicaTokenFactory
-      ?.getCurrentMigrationPercent(token?.wrapped.address ?? '0x0')
-      .then((migrationPercent) => setMigrationPercent(migrationPercent))
-  }
-
   useEffect(() => {
     if (tokenState) {
-      const tokenHolding = parseFloat(BigInt(tokenState.tokenHolding).toString())
-      const initialSupply = parseFloat(BigInt(tokenState.initialSupply).toString())
-      const migrationCap = parseFloat(BigInt(tokenState.migrationCap).toString())
-
       setTokenVirtualPlqStart(tokenState.virtualPlqStart.toString())
-      setTokenHolding(tokenState.tokenHolding)
-      setTokenMigrated(tokenState.migrated)
-      setPercentageRemaining((migrationPercent / migrationCap) * 100)
     }
   }, [tokenState])
+
+  useEffect(() => {
+    if (tokenQueryData) {
+      const migrationCap = parseFloat(tokenQueryData.migrationCap ?? '0')
+      const hundert = parseFloat('100')
+      const migrationPercent = hundert - (parseFloat(tokenQueryData.tokenAmount ?? '0') * hundert) / parseFloat(tokenQueryData.initialSupply ?? '0')
+
+      setPercentageRemaining((migrationPercent / migrationCap) * 100)
+      setTokenHolding(tokenQueryData.tokenAmount ?? '0')
+      setTokenMigrated(tokenQueryData.migrated ?? false)
+    }
+  }, [tokenQueryData])
 
   useEffect(() => {
     if (tokenMigrated) {
