@@ -15,6 +15,7 @@ import { ButtonPrimary } from '../../components/Button'
 import LaunchTokenModal from '../../components/LaunchFactory/LaunchTokenModal'
 import { TitleRow } from '../Pool'
 import { AutoColumn } from '../../components/Column'
+import { useWeb3React } from '@web3-react/core'
 
 const PageWrapper = styled(AutoColumn)`
   padding: 68px 8px 0px;
@@ -106,6 +107,7 @@ const FiltersWrapper = styled.div`
 const LaunchFactoryTokens = () => {
   const resetFilterString = useResetAtom(filterStringAtom)
   const location = useLocation()
+  const { account } = useWeb3React()
   const [showLaunchTokenModal, setShowLaunchTokenModal] = useState(false)
   useEffect(() => {
     resetFilterString()
@@ -126,8 +128,14 @@ const LaunchFactoryTokens = () => {
                   <ThemedText.LargeHeader>
                     <Trans>Token Launchpad</Trans>
                   </ThemedText.LargeHeader>
+                  <ThemedText.SubHeaderSmall>
+                    For real time updates join the{' '}
+                    <a href={'https://t.me/physica_launchpad'} target={'_blank'}>
+                      launchpad telegram channel.
+                    </a>
+                  </ThemedText.SubHeaderSmall>
                 </MouseoverTooltip>
-                <ResponsiveButtonPrimary onClick={() => setShowLaunchTokenModal(true)}>
+                <ResponsiveButtonPrimary disabled={!account} onClick={() => setShowLaunchTokenModal(true)}>
                   {<Trans>Launch Token</Trans>}
                 </ResponsiveButtonPrimary>
               </TitleRow>
