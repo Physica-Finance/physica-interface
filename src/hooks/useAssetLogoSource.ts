@@ -70,7 +70,7 @@ export default function useAssetLogoSource(
   useEffect(() => {
     if (metaJson) {
       if (metaJson?.image !== undefined || metaJson?.image !== '')
-        setCurrent('https://red-diverse-turkey-545.mypinata.cloud/ipfs/' + metaJson?.image)
+        setCurrent('https://ipfs.io/ipfs/' + metaJson?.image)
     }
   }, [metaJson])
 
