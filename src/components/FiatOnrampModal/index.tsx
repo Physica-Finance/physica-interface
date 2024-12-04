@@ -82,30 +82,10 @@ export default function FiatOnrampModal() {
     setLoading(true)
     setError(null)
     try {
-      const signedIframeUrlFetchEndpoint = process.env.REACT_APP_MOONPAY_LINK as string
-      const res = await fetch(signedIframeUrlFetchEndpoint, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          colorCode: theme.accentAction,
-          defaultCurrencyCode: 'eth',
-          redirectUrl: 'https://app.physica.finance/#/swap',
-          walletAddresses: JSON.stringify(
-            MOONPAY_SUPPORTED_CURRENCY_CODES.reduce(
-              (acc, currencyCode) => ({
-                ...acc,
-                [currencyCode]: account,
-              }),
-              {}
-            )
-          ),
-        }),
-      })
-      const { url } = await res.json()
-      setSignedIframeUrl(url)
+      const signedIframeUrlFetchEndpoint =
+        'https://pay.c14.money?clientId=ea12db86-dec6-451b-b16c-f6f6c23ac742?sourceCurrencyCode=EUR&targetAssetId=&targetAssetIdLock=true&targetAddress=' +
+        account
+      setSignedIframeUrl(signedIframeUrlFetchEndpoint)
     } catch (e) {
       console.log('there was an error fetching the link', e)
       setError(e.toString())
@@ -124,7 +104,7 @@ export default function FiatOnrampModal() {
         {error ? (
           <>
             <ThemedText.MediumHeader>
-              <Trans>Moonpay Fiat On-ramp iframe</Trans>
+              <Trans>C14 Fiat On-ramp iframe</Trans>
             </ThemedText.MediumHeader>
             <ErrorText>
               <Trans>something went wrong!</Trans>

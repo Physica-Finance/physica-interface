@@ -55,9 +55,9 @@ const CloseIcon = styled(X)`
   z-index: 1;
 `
 const Wrapper = styled.button`
-  background: radial-gradient(105% 250% at 100% 5%, hsla(318, 95%, 85%) 1%, hsla(331, 80%, 75%, 0.1) 84%),
-    linear-gradient(180deg, hsla(296, 92%, 67%, 0.5) 0%, hsla(313, 96%, 60%, 0.5) 130%);
-  background-color: hsla(297, 93%, 68%, 1);
+  background: radial-gradient(105% 250% at 100% 5%, hsl(22, 100%, 86%) 1%, hsla(331, 80%, 75%, 0.1) 84%),
+    linear-gradient(180deg, hsl(21, 100%, 69%) 0%, hsla(313, 96%, 60%, 0.5) 130%);
+  background-color: hsla(21, 98%, 61%, 0.23);
   border-radius: 12px;
   border: none;
   cursor: pointer;
@@ -131,8 +131,8 @@ export function FiatOnrampAnnouncement() {
     localStorage.getItem(ANNOUNCEMENT_DISMISSED) ||
     acks?.renderCount >= MAX_RENDER_COUNT ||
     isMobile ||
-    true ||
     openModal !== null ||
+    true ||
     localClose
   ) {
     return null
@@ -146,7 +146,7 @@ export function FiatOnrampAnnouncement() {
           <Trans>Buy crypto</Trans>
         </Header>
         <Body>
-          <Trans>Get tokens at the best prices in web3 on Uniswap, powered by Moonpay.</Trans>
+          <Trans>Get tokens at the best prices in web3 on Physica, powered by C14.</Trans>
         </Body>
       </Wrapper>
     </ArrowWrapper>

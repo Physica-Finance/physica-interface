@@ -53,7 +53,7 @@ export function useFiatOnrampAvailability(shouldCheck: boolean, callback?: () =>
       setError(null)
       setLoading(true)
       try {
-        const result = await getMoonpayAvailability()
+        const result = true //await getMoonpayAvailability()
         sendAnalyticsEvent(MoonpayEventName.MOONPAY_GEOCHECK_COMPLETED, {
           success: result,
         })
@@ -71,12 +71,11 @@ export function useFiatOnrampAvailability(shouldCheck: boolean, callback?: () =>
         if (!stale) setLoading(false)
       }
     }
-
+    let stale = false
     if (!availabilityChecked && shouldCheck) {
       checkAvailability()
     }
 
-    let stale = false
     return () => {
       stale = true
     }
