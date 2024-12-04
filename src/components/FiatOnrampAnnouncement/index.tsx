@@ -124,12 +124,14 @@ export function FiatOnrampAnnouncement() {
   const openModal = useAppSelector((state) => state.application.openModal)
 
   if (
+    // eslint-disable-next-line no-constant-condition
     !account ||
     acks?.user ||
     fiatOnrampFlag === BaseVariant.Control ||
     localStorage.getItem(ANNOUNCEMENT_DISMISSED) ||
     acks?.renderCount >= MAX_RENDER_COUNT ||
     isMobile ||
+    true ||
     openModal !== null ||
     localClose
   ) {
