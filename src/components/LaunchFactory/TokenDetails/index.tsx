@@ -77,6 +77,14 @@ const BarWrapper = styled.div`
   border-radius: 20px;
   background-color: ${({ theme }) => transparentize(0.7, theme.deprecated_bg3)};
 `
+const ReferralHint = styled(ThemedText.SubHeaderSmall)`
+  font-size: 14px !important;
+  line-height: 20px !important;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  margin-bottom: 16px !important;
+`
 
 const Bar = styled.div<{ percent: number; color?: string }>`
   width: ${({ percent }) => `${percent}%`};
@@ -294,9 +302,20 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
         <TokenDetailsLayout>
           {token && !isPending ? (
             <LeftPanel>
-              <BreadcrumbNavLink to={`/launchpad/${chain.toLowerCase()}`}>
-                <ArrowLeft data-testid="token-details-return-button" size={14} /> Tokens
-              </BreadcrumbNavLink>
+              <AutoRow justify={'space-between'}>
+                <BreadcrumbNavLink to={`/launchpad/${chain.toLowerCase()}`}>
+                  <ArrowLeft data-testid="token-details-return-button" size={14} /> Tokens
+                </BreadcrumbNavLink>
+                <ReferralHint>
+                  {!account ? (
+                    <Trans>Login to retrieve your referral link</Trans>
+                  ) : (
+                    <Trans>
+                      Your referral link is here <b>&#x2193;</b>
+                    </Trans>
+                  )}
+                </ReferralHint>
+              </AutoRow>
               <TokenInfoContainer data-testid="token-info-container">
                 <TokenNameCell>
                   <TokenLogoCircular src={'https://red-diverse-turkey-545.mypinata.cloud/ipfs/' + metaJson?.image} />

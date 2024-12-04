@@ -109,7 +109,7 @@ export default function ShareButton({ currency }: { currency: Currency }) {
               toCopy={account ? window.location.href + `/` + account : window.location.href}
               ref={copyHelperRef}
             >
-              <Trans>Copy Link</Trans>
+              {!account ? <Trans>Copy Link</Trans> : <Trans>Copy Referral Link</Trans>}
             </CopyHelper>
           </ShareAction>
 
