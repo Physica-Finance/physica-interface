@@ -69,8 +69,7 @@ export default function useAssetLogoSource(
 
   useEffect(() => {
     if (metaJson) {
-      if (metaJson?.image !== undefined || metaJson?.image !== '')
-        setCurrent('https://ipfs.io/ipfs/' + metaJson?.image)
+      if (metaJson?.image !== undefined || metaJson?.image !== '') setCurrent('https://ipfs.io/ipfs/' + metaJson?.image)
     }
   }, [metaJson])
 
