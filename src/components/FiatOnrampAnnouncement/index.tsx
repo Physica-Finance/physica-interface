@@ -132,7 +132,6 @@ export function FiatOnrampAnnouncement() {
     acks?.renderCount >= MAX_RENDER_COUNT ||
     isMobile ||
     openModal !== null ||
-    true ||
     localClose
   ) {
     return null

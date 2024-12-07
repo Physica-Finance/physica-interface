@@ -315,7 +315,7 @@ const AuthenticatedHeader = () => {
         >
           <Trans>View and sell NFTs</Trans>
         </ProfileButton>*/}
-        {fiatOnrampFlag === BaseVariant.Enabled && false && (
+        {fiatOnrampFlag === BaseVariant.Enabled && (
           <>
             <BuyCryptoButton
               $animateBorder={animateBuyCryptoButtonBorder}
