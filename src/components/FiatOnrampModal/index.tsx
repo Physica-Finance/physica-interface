@@ -83,7 +83,7 @@ export default function FiatOnrampModal() {
     setError(null)
     try {
       const signedIframeUrlFetchEndpoint =
-        'https://pay.c14.money?clientId=ea12db86-dec6-451b-b16c-f6f6c23ac742?sourceCurrencyCode=EUR&targetAssetId=ed0e0316-3646-486a-ab4a-3d0f31cd82fb&targetAssetIdLock=true&targetAddress=' +
+        'https://pay.c14.money?clientId=ea12db86-dec6-451b-b16c-f6f6c23ac742&sourceCurrencyCode=EUR&targetAssetId=ed0e0316-3646-486a-ab4a-3d0f31cd82fb&targetAssetIdLock=true&targetAddress=' +
         account
       setSignedIframeUrl(signedIframeUrlFetchEndpoint)
     } catch (e) {
