@@ -243,10 +243,18 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
   useEffect(() => {
     if (tokenState) {
       setTokenVirtualPlqStart(tokenState.virtualPlqStart.toString())
+      const migrationCap = parseFloat(tokenState.migrationCap ?? '0')
+      const hundert = parseFloat('100')
+      const migrationPercent =
+        hundert - (parseFloat(tokenState.tokenHolding ?? '0') * hundert) / parseFloat(tokenState.initialSupply ?? '0')
+
+      setPercentageRemaining((migrationPercent / migrationCap) * 100)
+      setTokenHolding(tokenState.tokenHolding ?? '0')
+      setTokenMigrated(tokenState.migrated ?? false)
     }
   }, [tokenState])
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (tokenQueryData) {
       const migrationCap = parseFloat(tokenQueryData.migrationCap ?? '0')
       const hundert = parseFloat('100')
@@ -258,7 +266,7 @@ export default function LaunchFactoryTokenDetailsTokenDetails({
       setTokenHolding(tokenQueryData.tokenAmount ?? '0')
       setTokenMigrated(tokenQueryData.migrated ?? false)
     }
-  }, [tokenQueryData])
+  }, [tokenQueryData])*/
 
   useEffect(() => {
     if (tokenMigrated) {

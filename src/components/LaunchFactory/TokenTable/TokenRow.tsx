@@ -511,7 +511,11 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   const [percentageRemaining, setPercentageRemaining] = useState(0)
   const physicaTokenFactory = usePhysicaTokenFactoryContract()
 
-  useEffect(() => {
+  if (!tokenState) {
+    physicaTokenFactory?.tokenStates(token?.id ?? '0x0').then((tokenState) => setTokenState(tokenState))
+  }
+
+  /*useEffect(() => {
     if (token) {
       const migrationCap = parseFloat(token.migrationCap ?? '0')
       const hundert = parseFloat('100')
@@ -519,7 +523,21 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
         hundert - (parseFloat(token.tokenAmount ?? '0') * hundert) / parseFloat(token.initialSupply ?? '0')
       setPercentageRemaining((migrationPercent / migrationCap) * 100)
     }
-  }, [token])
+  }, [token])*/
+
+  useEffect(() => {
+    if (tokenState) {
+      //setTokenVirtualPlqStart(tokenState.virtualPlqStart.toString())
+      const migrationCap = parseFloat(tokenState.migrationCap ?? '0')
+      const hundert = parseFloat('100')
+      const migrationPercent =
+        hundert - (parseFloat(tokenState.tokenHolding ?? '0') * hundert) / parseFloat(tokenState.initialSupply ?? '0')
+
+      setPercentageRemaining((migrationPercent / migrationCap) * 100)
+      //setTokenHolding(tokenState.tokenHolding ?? '0')
+      //setTokenMigrated(tokenState.migrated ?? false)
+    }
+  }, [tokenState])
 
   if (!metaJson) {
     fetchMetaFromPinataIPFS(token.ipfsHash ?? '').then((meta) => setMetaJson(meta))
