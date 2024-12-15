@@ -116,6 +116,9 @@ function fixChart(prices: LaunchFactoryPricePoint[] | undefined | null) {
     blanks.push([lastValue, { ...prices[prices.length - 1], price: lastValue.price }])
   }
 
+  fixedChart.reverse()
+  blanks.reverse()
+
   return { prices: fixedChart, blanks }
 }
 
@@ -150,11 +153,11 @@ export function PriceChart({ width, height, prices: originalPrices, timePeriod }
   ) : null
 
   // first price point on the x-axis of the current time period's chart
-  //const startingPrice = originalPrices?.[originalPrices.length - 1] ?? DATA_EMPTY
-  const endingPrice = originalPrices?.[originalPrices.length - 1] ?? DATA_EMPTY
+  const startingPrice = originalPrices?.[originalPrices.length - 1] ?? DATA_EMPTY
+  //const endingPrice = originalPrices?.[originalPrices.length - 1] ?? DATA_EMPTY
   // last price point on the x-axis of the current time period's chart
-  //const endingPrice = originalPrices?.[0] ?? DATA_EMPTY
-  const startingPrice = originalPrices?.[0] ?? DATA_EMPTY
+  const endingPrice = originalPrices?.[0] ?? DATA_EMPTY
+  //const startingPrice = originalPrices?.[0] ?? DATA_EMPTY
   const [displayPrice, setDisplayPrice] = useState(startingPrice)
 
   // set display price to ending price when prices have changed.
