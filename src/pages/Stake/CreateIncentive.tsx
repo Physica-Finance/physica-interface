@@ -13,7 +13,7 @@ import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 import { useV3Staker } from 'hooks/useContract'
 import tryParseCurrencyAmount from 'lib/utils/tryParseCurrencyAmount'
 import { ParsedQs } from 'qs'
-import { ChangeEventHandler, useCallback, useMemo, useState } from 'react'
+import { ChangeEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTransactionAdder } from 'state/transactions/hooks'
 import styled from 'styled-components/macro'
 
@@ -124,6 +124,10 @@ export default function CreateIncentive() {
   const endDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 + 1000 * 60 * 10 + timezoneOffset)
   const [attempting, setAttempting] = useState(false)
   const [endTime, setEndTime] = useState<string>(endDate.toISOString().slice(0, -8))
+
+  useEffect(() => {
+    setRefundee(account ?? '')
+  }, [account])
 
   const handleCreate = async () => {
     if (
