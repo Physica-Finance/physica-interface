@@ -15,7 +15,7 @@ export const LAUNCHPAD_TOKEN_QUERY = gql`
       tokenAmount
       migrated
       txCount
-      txs(orderDirection: asc, orderBy: timestamp) {
+      txs(last: 100, orderDirection: asc, orderBy: timestamp) {
         id
         plqAmount
         price
@@ -42,7 +42,7 @@ export const LAUNCHPAD_TOKEN_PRICE_QUERY = gql`
       tokenAmount
       migrated
       txCount
-      txs(orderDirection: asc, orderBy: timestamp, where: { timestamp_gt: $duration, price_gt: 0 }) {
+      txs(orderDirection: desc, orderBy: timestamp, where: { timestamp_gt: $duration, price_gt: 0 }) {
         id
         plqAmount
         price

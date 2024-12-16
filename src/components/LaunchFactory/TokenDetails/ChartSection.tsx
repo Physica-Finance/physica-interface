@@ -14,10 +14,10 @@ function usePriceHistory(tokenPriceData: LaunchpadTokenQuery): LaunchFactoryPric
   return useMemo(() => {
     const market = tokenPriceData.token?.txs ?? []
     const priceHistory = market?.filter(isLaunchFactoryPricePoint)
-    const currentPrice = priceHistory?.[priceHistory.length - 1]?.price
+    const currentPrice = priceHistory?.[0]?.price
     if (Array.isArray(priceHistory) && currentPrice !== undefined) {
       const timestamp = Date.now() / 1000
-      return [...priceHistory, { timestamp, price: currentPrice }]
+      return [{ timestamp, price: currentPrice }, ...priceHistory]
     }
     return priceHistory
   }, [tokenPriceData])
