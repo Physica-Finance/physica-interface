@@ -66,11 +66,11 @@ export default function Manage() {
 
   // all users positions for this pool
   const { loading: loadingPositions, inRangePositions } = useV3PositionsForPool(account, pool!)
-  const { loading: loadingStakerPositions, inRangePositions: inRangeStakerPositions } = useV3StakerPositionsForPool(
-    staker?.address,
-    pool!,
-    account
-  )
+  const {
+    loading: loadingStakerPositions,
+    inRangePositions: inRangeStakerPositions,
+    outOfRangePositions: outofRangeStakerPositions,
+  } = useV3StakerPositionsForPool(staker?.address, pool!, account)
 
   const mergeIncentive = (a: any, b: any, predicate = (a: any, b: any) => a === b) => {
     const c = [...a] // copy to avoid side effects
@@ -91,7 +91,10 @@ export default function Manage() {
     )
   }
 
-  const allPositions = mergeIncentive(inRangePositions, inRangeStakerPositions, (a, b) => a.tokenId.eq(b.tokenId))
+  const allInRangePositions = mergeIncentive(inRangePositions, inRangeStakerPositions, (a, b) =>
+    a.tokenId.eq(b.tokenId)
+  )
+  const allPositions = mergeIncentive(allInRangePositions, outofRangeStakerPositions, (a, b) => a.tokenId.eq(b.tokenId))
 
   return (
     <Wrapper>
