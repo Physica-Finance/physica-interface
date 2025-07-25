@@ -61,24 +61,24 @@ function ExpiredIncentiveRow({ incentive }: { incentive: Incentive }) {
   const theme = useTheme()
   const { account } = useWeb3React()
   const staker = useV3Staker()
-  
+
   const currency0 = useCurrency(incentive.pool.token0.address)
   const currency1 = useCurrency(incentive.pool.token1.address)
   const rewardCurrency = useCurrency(incentive.initialRewardAmount.currency.address)
-  
+
   const remainingRewards = incentive.rewardAmountRemaining
   const remainingRewardsUSD = useStablecoinValue(remainingRewards)
-  
+
   // Get staked positions for this pool
-  const { inRangePositions, outOfRangePositions, loading: loadingPositions } = useV3StakerPositionsForPool(
-    staker?.address,
-    incentive.pool,
-    account
-  )
-  
+  const {
+    inRangePositions,
+    outOfRangePositions,
+    loading: loadingPositions,
+  } = useV3StakerPositionsForPool(staker?.address, incentive.pool, account)
+
   const stakedPositionsCount = (inRangePositions?.length || 0) + (outOfRangePositions?.length || 0)
   const isRefundee = account && account.toLowerCase() === incentive.refundee.toLowerCase()
-  
+
   return (
     <AutoColumn>
       {!currency0 || !currency1 || !rewardCurrency ? (
@@ -95,7 +95,7 @@ function ExpiredIncentiveRow({ incentive }: { incentive: Incentive }) {
                 <BadgeText>{formattedFeeAmount(incentive.pool.fee)}%</BadgeText>
               </Badge>
             </Text>
-            
+
             <StatsColumn align="end">
               {isRefundee && (
                 <ThemedText.DeprecatedBody fontSize="12px" color={theme.deprecated_yellow2}>
@@ -119,7 +119,7 @@ function ExpiredIncentiveRow({ incentive }: { incentive: Incentive }) {
                 </Text>
               </AutoRow>
             </StatsColumn>
-            
+
             <ResponsiveButtonPrimary as={Link} to={'/stake/' + incentive.poolAddress + '/' + incentive.id}>
               <Trans>Manage</Trans>
             </ResponsiveButtonPrimary>

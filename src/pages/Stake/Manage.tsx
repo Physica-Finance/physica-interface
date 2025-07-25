@@ -141,7 +141,9 @@ export default function Manage() {
             <IncentiveInfoBar incentive={incentive} expanded={true} />
             {incentive.endTime < Date.now() / 1000 && allPositions.length > 0 && (
               <ThemedText.DeprecatedBody fontSize="14px" color={theme.deprecated_yellow2} marginTop="16px">
-                <Trans>Note: This incentive has expired. All positions must be unstaked before rewards can be withdrawn.</Trans>
+                <Trans>
+                  Note: This incentive has expired. All positions must be unstaked before rewards can be withdrawn.
+                </Trans>
               </ThemedText.DeprecatedBody>
             )}
           </DarkGrayCard>

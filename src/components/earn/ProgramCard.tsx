@@ -97,7 +97,7 @@ function IncentiveRow(incentive: Incentive, poolAddress: string) {
   const activeLiquidity = incentive.initialRewardAmount
   const activeLiquidityUSD = useStablecoinValue(activeLiquidity)
   const rewardPerDay = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_DAY)
-  
+
   const isExpired = incentive.endTime < Date.now() / 1000
 
   return (

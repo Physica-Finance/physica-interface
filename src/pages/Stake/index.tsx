@@ -102,7 +102,7 @@ const TabContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.backgroundOutline};
   padding: 0 24px;
   overflow-x: auto;
-  
+
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     gap: 16px;
     padding: 0 16px;
@@ -120,11 +120,11 @@ const Tab = styled.button<{ active: boolean }>`
   cursor: pointer;
   transition: color 0.2s;
   white-space: nowrap;
-  
+
   &:hover {
     color: ${({ theme }) => theme.textPrimary};
   }
-  
+
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     font-size: 14px;
     padding: 12px 0;
@@ -133,7 +133,7 @@ const Tab = styled.button<{ active: boolean }>`
 
 const TabContent = styled.div`
   padding: 24px;
-  
+
   ${({ theme }) => theme.deprecated_mediaWidth.deprecated_upToSmall`
     padding: 16px;
   `};
@@ -157,11 +157,11 @@ const PaginationButton = styled.button<{ active?: boolean }>`
   font-size: 14px;
   font-weight: 500;
   transition: all 0.2s;
-  
+
   &:hover:not(:disabled) {
     background: ${({ active, theme }) => (active ? theme.accentAction : theme.backgroundModule)};
   }
-  
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
@@ -178,7 +178,7 @@ enum StakeTab {
   ACTIVE = 'active',
   MY_EXPIRED = 'my_expired',
   EXPIRED = 'expired',
-  POOLS = 'pools'
+  POOLS = 'pools',
 }
 
 const ITEMS_PER_PAGE = 10
@@ -192,74 +192,73 @@ export default function Stake() {
 
   const { loading, incentives } = useAllIncentivesByPool()
   const { data: allPools, loading: poolsLoading } = useTrendingPools2()
-  
+
   // Filter out expired incentives - only compute for active tab
   const activeIncentives = React.useMemo(() => {
     if (!incentives || activeTab !== StakeTab.ACTIVE) return undefined
-    
+
     const currentTime = Date.now() / 1000
     const filtered: { [poolAddress: string]: Incentive[] } = {}
-    
+
     Object.entries(incentives).forEach(([poolAddress, poolIncentives]) => {
-      const activePoolIncentives = poolIncentives.filter(incentive => incentive.endTime > currentTime)
+      const activePoolIncentives = poolIncentives.filter((incentive) => incentive.endTime > currentTime)
       if (activePoolIncentives.length > 0) {
         filtered[poolAddress] = activePoolIncentives
       }
     })
-    
+
     return filtered
   }, [incentives, activeTab])
-  
+
   // Get all incentives where user is the refundee - only compute when needed
   const userCreatedIncentives = React.useMemo(() => {
-    if (!incentives || !account || (activeTab !== StakeTab.MY_EXPIRED && activeTab !== StakeTab.ACTIVE)) return undefined
-    
+    if (!incentives || !account || (activeTab !== StakeTab.MY_EXPIRED && activeTab !== StakeTab.ACTIVE))
+      return undefined
+
     const filtered: { [poolAddress: string]: Incentive[] } = {}
-    
+
     Object.entries(incentives).forEach(([poolAddress, poolIncentives]) => {
       const userPoolIncentives = poolIncentives.filter(
-        incentive => incentive.refundee.toLowerCase() === account.toLowerCase()
+        (incentive) => incentive.refundee.toLowerCase() === account.toLowerCase()
       )
       if (userPoolIncentives.length > 0) {
         filtered[poolAddress] = userPoolIncentives
       }
     })
-    
+
     return filtered
   }, [incentives, account, activeTab])
-  
+
   // Get all expired incentives - only compute when on expired tab
   const allExpiredIncentives = React.useMemo(() => {
     if (!incentives || activeTab !== StakeTab.EXPIRED) return undefined
-    
+
     const currentTime = Date.now() / 1000
     const filtered: { [poolAddress: string]: Incentive[] } = {}
-    
+
     Object.entries(incentives).forEach(([poolAddress, poolIncentives]) => {
-      const expiredPoolIncentives = poolIncentives.filter(
-        incentive => incentive.endTime < currentTime
-      )
+      const expiredPoolIncentives = poolIncentives.filter((incentive) => incentive.endTime < currentTime)
       if (expiredPoolIncentives.length > 0) {
         filtered[poolAddress] = expiredPoolIncentives
       }
     })
-    
+
     return filtered
   }, [incentives, activeTab])
-  
+
   // Count tabs for badges - compute once for all tabs
   const [counts, setCounts] = React.useState({ active: 0, myCreated: 0, expired: 0, pools: 0 })
-  
+
   React.useEffect(() => {
     if (!incentives) return
-    
+
     const currentTime = Date.now() / 1000
     let activeCount = 0
-    let myCreatedCount = 0  
+    let myCreatedCount = 0
     let expiredCount = 0
-    
+
     Object.entries(incentives).forEach(([, poolIncentives]) => {
-      poolIncentives.forEach(incentive => {
+      poolIncentives.forEach((incentive) => {
         if (incentive.endTime > currentTime) {
           activeCount++
         } else {
@@ -270,57 +269,57 @@ export default function Stake() {
         }
       })
     })
-    
+
     setCounts({
       active: activeCount,
       myCreated: myCreatedCount,
       expired: expiredCount,
-      pools: allPools?.length || 0
+      pools: allPools?.length || 0,
     })
   }, [incentives, account, allPools])
-  
+
   // Paginate expired incentives
   const paginatedExpiredIncentives = React.useMemo(() => {
     if (!allExpiredIncentives) return { data: {}, totalPages: 0, totalItems: 0 }
-    
+
     const allItems: { poolAddress: string; incentive: Incentive }[] = []
     Object.entries(allExpiredIncentives).forEach(([poolAddress, incentives]) => {
-      incentives.forEach(incentive => {
+      incentives.forEach((incentive) => {
         allItems.push({ poolAddress, incentive })
       })
     })
-    
+
     const startIndex = (expiredPage - 1) * ITEMS_PER_PAGE
     const endIndex = startIndex + ITEMS_PER_PAGE
     const paginatedItems = allItems.slice(startIndex, endIndex)
-    
+
     // Group back by pool address
     const grouped: { [poolAddress: string]: Incentive[] } = {}
     paginatedItems.forEach(({ poolAddress, incentive }) => {
       if (!grouped[poolAddress]) grouped[poolAddress] = []
       grouped[poolAddress].push(incentive)
     })
-    
+
     return {
       data: grouped,
       totalPages: Math.ceil(allItems.length / ITEMS_PER_PAGE),
-      totalItems: allItems.length
+      totalItems: allItems.length,
     }
   }, [allExpiredIncentives, expiredPage])
-  
+
   // Paginate pools
   const paginatedPools = React.useMemo(() => {
     if (!allPools) return { data: [], totalPages: 0 }
-    
+
     const startIndex = (poolsPage - 1) * ITEMS_PER_PAGE
     const endIndex = startIndex + ITEMS_PER_PAGE
-    
+
     return {
       data: allPools.slice(startIndex, endIndex),
-      totalPages: Math.ceil(allPools.length / ITEMS_PER_PAGE)
+      totalPages: Math.ceil(allPools.length / ITEMS_PER_PAGE),
     }
   }, [allPools, poolsPage])
-  
+
   // Reset page when changing tabs
   React.useEffect(() => {
     setExpiredPage(1)
@@ -354,7 +353,7 @@ export default function Stake() {
           <CardBGImage />
         </DataCard>
       </TopSection>
-      
+
       <MainContentWrapper>
         <TabContainer>
           <Tab active={activeTab === StakeTab.ACTIVE} onClick={() => setActiveTab(StakeTab.ACTIVE)}>
@@ -374,7 +373,7 @@ export default function Stake() {
             Pools {counts.pools > 0 && `(${counts.pools})`}
           </Tab>
         </TabContainer>
-        
+
         <TabContent>
           {activeTab === StakeTab.ACTIVE && (
             <AutoColumn gap="md">
@@ -401,7 +400,7 @@ export default function Stake() {
               )}
             </AutoColumn>
           )}
-          
+
           {activeTab === StakeTab.MY_EXPIRED && userCreatedIncentives && (
             <AutoColumn gap="md">
               <ThemedText.DeprecatedBody fontSize="14px" color={theme.textSecondary} marginBottom="16px">
@@ -418,7 +417,7 @@ export default function Stake() {
               </ProgramSection>
             </AutoColumn>
           )}
-          
+
           {activeTab === StakeTab.EXPIRED && (
             <AutoColumn gap="md">
               {!account ? (
@@ -447,14 +446,13 @@ export default function Stake() {
                   </ProgramSection>
                   {paginatedExpiredIncentives.totalPages > 1 && (
                     <PaginationContainer>
-                      <PaginationButton
-                        disabled={expiredPage === 1}
-                        onClick={() => setExpiredPage(expiredPage - 1)}
-                      >
+                      <PaginationButton disabled={expiredPage === 1} onClick={() => setExpiredPage(expiredPage - 1)}>
                         <Trans>Previous</Trans>
                       </PaginationButton>
                       <PageInfo>
-                        <Trans>Page {expiredPage} of {paginatedExpiredIncentives.totalPages}</Trans>
+                        <Trans>
+                          Page {expiredPage} of {paginatedExpiredIncentives.totalPages}
+                        </Trans>
                       </PageInfo>
                       <PaginationButton
                         disabled={expiredPage === paginatedExpiredIncentives.totalPages}
@@ -468,7 +466,7 @@ export default function Stake() {
               )}
             </AutoColumn>
           )}
-          
+
           {activeTab === StakeTab.POOLS && (
             <AutoColumn gap="lg">
               <TitleRow style={{ padding: '0' }}>
@@ -491,18 +489,19 @@ export default function Stake() {
               ) : (
                 <>
                   <ProgramSection>
-                    {paginatedPools.data.map((pool: any) => <PoolListItem key={pool.id.toString()} {...pool} />)}
+                    {paginatedPools.data.map((pool: any) => (
+                      <PoolListItem key={pool.id.toString()} {...pool} />
+                    ))}
                   </ProgramSection>
                   {paginatedPools.totalPages > 1 && (
                     <PaginationContainer>
-                      <PaginationButton
-                        disabled={poolsPage === 1}
-                        onClick={() => setPoolsPage(poolsPage - 1)}
-                      >
+                      <PaginationButton disabled={poolsPage === 1} onClick={() => setPoolsPage(poolsPage - 1)}>
                         <Trans>Previous</Trans>
                       </PaginationButton>
                       <PageInfo>
-                        <Trans>Page {poolsPage} of {paginatedPools.totalPages}</Trans>
+                        <Trans>
+                          Page {poolsPage} of {paginatedPools.totalPages}
+                        </Trans>
                       </PageInfo>
                       <PaginationButton
                         disabled={poolsPage === paginatedPools.totalPages}

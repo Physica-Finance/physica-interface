@@ -96,18 +96,18 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
   const endDate = new Date(incentive.endTime * 1000)
   const beginsInFuture = incentive.startTime > Date.now() / 1000
   const countdownTimeText = useCountdownTime(startDate, endDate)
-  
+
   // Check if incentive is expired and user is the refundee
   const isExpired = incentive.endTime < Date.now() / 1000
   const isRefundee = account && account.toLowerCase() === incentive.refundee.toLowerCase()
   const canWithdraw = isExpired && isRefundee && incentive.rewardAmountRemaining.greaterThan(0)
-  
+
   const handleWithdraw = useCallback(async () => {
     if (!staker || !rewardCurrency) return
-    
+
     setWithdrawing(true)
     setWithdrawError(null)
-    
+
     try {
       const incentiveKey = {
         rewardToken: rewardCurrency.address,
@@ -116,19 +116,19 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
         endTime: incentive.endTime,
         refundee: incentive.refundee,
       }
-      
+
       // The endIncentive function withdraws remaining rewards to the refundee
       const tx = await staker.endIncentive(incentiveKey)
-      
+
       await tx.wait()
       // Optionally refresh the page or update state
       window.location.reload()
     } catch (error: any) {
       console.error('Error withdrawing tokens:', error)
-      
+
       // Parse the error message for user-friendly display
       let errorMessage = 'Failed to withdraw tokens'
-      
+
       if (error?.reason?.includes('cannot end incentive while deposits are staked')) {
         errorMessage = 'Cannot end incentive while positions are still staked. All positions must be unstaked first.'
       } else if (error?.reason) {
@@ -136,7 +136,7 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
       } else if (error?.message) {
         errorMessage = error.message
       }
-      
+
       setWithdrawError(errorMessage)
     } finally {
       setWithdrawing(false)
@@ -229,16 +229,8 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
               <ThemedText.DeprecatedBody fontSize="12px" color={theme.textSecondary}>
                 <Trans>All positions must be unstaked before ending the incentive program.</Trans>
               </ThemedText.DeprecatedBody>
-              <ButtonError
-                disabled={withdrawing}
-                onClick={handleWithdraw}
-                style={{ marginTop: '8px' }}
-              >
-                {withdrawing ? (
-                  <Trans>Ending Incentive...</Trans>
-                ) : (
-                  <Trans>End Incentive & Withdraw</Trans>
-                )}
+              <ButtonError disabled={withdrawing} onClick={handleWithdraw} style={{ marginTop: '8px' }}>
+                {withdrawing ? <Trans>Ending Incentive...</Trans> : <Trans>End Incentive & Withdraw</Trans>}
               </ButtonError>
               {withdrawError && (
                 <ThemedText.DeprecatedError fontSize="12px" style={{ marginTop: '4px' }}>

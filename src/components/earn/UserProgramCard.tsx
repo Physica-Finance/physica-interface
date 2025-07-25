@@ -62,7 +62,7 @@ function IncentiveRow({ incentive }: { incentive: Incentive }) {
   const activeLiquidity = incentive.initialRewardAmount
   const activeLiquidityUSD = useStablecoinValue(activeLiquidity)
   const rewardPerDay = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_DAY)
-  
+
   const isExpired = incentive.endTime < Date.now() / 1000
   const isActive = !isExpired && incentive.startTime <= Date.now() / 1000
   const isUpcoming = incentive.startTime > Date.now() / 1000
