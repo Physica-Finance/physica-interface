@@ -1,5 +1,7 @@
 import { Trans } from '@lingui/macro'
-import { EmptyBadge, GreenBadge } from 'components/Badge'
+import { useWeb3React } from '@web3-react/core'
+import Badge, { EmptyBadge, GreenBadge } from 'components/Badge'
+import { ButtonError } from 'components/Button'
 import { AutoColumn } from 'components/Column'
 import CurrencyLogo from 'components/Logo/CurrencyLogo'
 import Row, { RowBetween, RowFixed } from 'components/Row'
@@ -8,10 +10,12 @@ import { Incentive } from 'hooks/incentives/useAllIncentives'
 import useCountdownTime from 'hooks/useCountdownTime'
 import { useStablecoinValue } from 'hooks/useStablecoinPrice'
 import { darken, transparentize } from 'polished'
+import { useCallback, useState } from 'react'
 import styled, { useTheme } from 'styled-components/macro'
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
 
 import { useToken } from '../../hooks/Tokens'
+import { useV3Staker } from '../../hooks/useContract'
 import { LoadingRows } from '../../pages/Pool/styleds'
 import { ThemedText } from '../../theme'
 import Countdown from './Countdown'
@@ -72,6 +76,10 @@ interface IncentiveInfoBarProps {
 
 export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoBarProps) {
   const theme = useTheme()
+  const { account } = useWeb3React()
+  const staker = useV3Staker()
+  const [withdrawing, setWithdrawing] = useState(false)
+  const [withdrawError, setWithdrawError] = useState<string | null>(null)
 
   const rewardCurrency = useToken(incentive.initialRewardAmount.currency.address)
 
@@ -88,6 +96,52 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
   const endDate = new Date(incentive.endTime * 1000)
   const beginsInFuture = incentive.startTime > Date.now() / 1000
   const countdownTimeText = useCountdownTime(startDate, endDate)
+  
+  // Check if incentive is expired and user is the refundee
+  const isExpired = incentive.endTime < Date.now() / 1000
+  const isRefundee = account && account.toLowerCase() === incentive.refundee.toLowerCase()
+  const canWithdraw = isExpired && isRefundee && incentive.rewardAmountRemaining.greaterThan(0)
+  
+  const handleWithdraw = useCallback(async () => {
+    if (!staker || !rewardCurrency) return
+    
+    setWithdrawing(true)
+    setWithdrawError(null)
+    
+    try {
+      const incentiveKey = {
+        rewardToken: rewardCurrency.address,
+        pool: incentive.poolAddress,
+        startTime: incentive.startTime,
+        endTime: incentive.endTime,
+        refundee: incentive.refundee,
+      }
+      
+      // The endIncentive function withdraws remaining rewards to the refundee
+      const tx = await staker.endIncentive(incentiveKey)
+      
+      await tx.wait()
+      // Optionally refresh the page or update state
+      window.location.reload()
+    } catch (error: any) {
+      console.error('Error withdrawing tokens:', error)
+      
+      // Parse the error message for user-friendly display
+      let errorMessage = 'Failed to withdraw tokens'
+      
+      if (error?.reason?.includes('cannot end incentive while deposits are staked')) {
+        errorMessage = 'Cannot end incentive while positions are still staked. All positions must be unstaked first.'
+      } else if (error?.reason) {
+        errorMessage = error.reason
+      } else if (error?.message) {
+        errorMessage = error.message
+      }
+      
+      setWithdrawError(errorMessage)
+    } finally {
+      setWithdrawing(false)
+    }
+  }, [staker, rewardCurrency, incentive, account])
 
   return (
     <Wrapper>
@@ -104,8 +158,19 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
                 <ThemedText.DeprecatedBody fontWeight={500} fontSize="20px" m="0 8px">
                   {`${rewardCurrency.symbol} Boost`}
                 </ThemedText.DeprecatedBody>
+                {isExpired && (
+                  <Badge style={{ marginLeft: '8px', backgroundColor: theme.deprecated_error }}>
+                    <BadgeText>Expired</BadgeText>
+                  </Badge>
+                )}
               </RowFixed>
-              <Countdown exactEnd={endDate} exactStart={startDate} />
+              {isExpired ? (
+                <ThemedText.DeprecatedBody fontSize="14px" color={theme.textSecondary}>
+                  <Trans>Ended {new Date(endDate).toLocaleDateString()}</Trans>
+                </ThemedText.DeprecatedBody>
+              ) : (
+                <Countdown exactEnd={endDate} exactStart={startDate} />
+              )}
             </RowBetween>
           )}
           <Row width="100%">
@@ -159,6 +224,29 @@ export default function IncentiveInfoBar({ incentive, expanded }: IncentiveInfoB
               </TitleGrid>
             </AutoColumn>
           </Row>
+          {canWithdraw && expanded && (
+            <AutoColumn gap="8px">
+              <ThemedText.DeprecatedBody fontSize="12px" color={theme.textSecondary}>
+                <Trans>All positions must be unstaked before ending the incentive program.</Trans>
+              </ThemedText.DeprecatedBody>
+              <ButtonError
+                disabled={withdrawing}
+                onClick={handleWithdraw}
+                style={{ marginTop: '8px' }}
+              >
+                {withdrawing ? (
+                  <Trans>Ending Incentive...</Trans>
+                ) : (
+                  <Trans>End Incentive & Withdraw</Trans>
+                )}
+              </ButtonError>
+              {withdrawError && (
+                <ThemedText.DeprecatedError fontSize="12px" style={{ marginTop: '4px' }}>
+                  {withdrawError}
+                </ThemedText.DeprecatedError>
+              )}
+            </AutoColumn>
+          )}
         </AutoColumn>
       )}
     </Wrapper>

@@ -97,6 +97,8 @@ function IncentiveRow(incentive: Incentive, poolAddress: string) {
   const activeLiquidity = incentive.initialRewardAmount
   const activeLiquidityUSD = useStablecoinValue(activeLiquidity)
   const rewardPerDay = incentive.rewardRatePerSecond.multiply(BIG_INT_SECONDS_IN_DAY)
+  
+  const isExpired = incentive.endTime < Date.now() / 1000
 
   return (
     <AutoColumn>
@@ -113,6 +115,11 @@ function IncentiveRow(incentive: Incentive, poolAddress: string) {
               <Badge>
                 <BadgeText>{formattedFeeAmount(incentive.pool.fee)}%</BadgeText>
               </Badge>
+              {isExpired && (
+                <Badge style={{ marginLeft: '4px', backgroundColor: theme.deprecated_error }}>
+                  <BadgeText>Expired</BadgeText>
+                </Badge>
+              )}
             </Text>
             <AutoColumn justify={'end'}>
               <Text>
