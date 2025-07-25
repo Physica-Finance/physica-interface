@@ -4,7 +4,7 @@ import Badge from 'components/Badge'
 import { ButtonPrimary } from 'components/Button'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import CurrencyLogo from 'components/Logo/CurrencyLogo'
-import { AutoRow, RowBetween } from 'components/Row'
+import { AutoRow } from 'components/Row'
 import { useStablecoinValue } from 'hooks/useStablecoinPrice'
 import { useV3StakerPositionsForPool } from 'hooks/useV3Positions'
 import { LoadingRows } from 'pages/Pool/styleds'
@@ -103,7 +103,7 @@ function ExpiredIncentiveRow({ incentive }: { incentive: Incentive }) {
                 </ThemedText.DeprecatedBody>
               )}
               {!loadingPositions && stakedPositionsCount > 0 && (
-                <Badge style={{ backgroundColor: theme.deprecated_warning }}>
+                <Badge style={{ backgroundColor: theme.deprecated_yellow1 }}>
                   <BadgeText>
                     {stakedPositionsCount} staked position{stakedPositionsCount > 1 ? 's' : ''}
                   </BadgeText>

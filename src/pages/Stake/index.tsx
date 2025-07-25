@@ -6,8 +6,6 @@ import React, { useState } from 'react'
 import { Zap } from 'react-feather'
 import styled, { useTheme } from 'styled-components/macro'
 import { ThemedText } from 'theme'
-
-import { DarkCard } from '../../components/Card'
 import { AutoColumn } from '../../components/Column'
 import ProgramCard from '../../components/earn/ProgramCard'
 import ExpiredProgramCard from '../../components/earn/ExpiredProgramCard'

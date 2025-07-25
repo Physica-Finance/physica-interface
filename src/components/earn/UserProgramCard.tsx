@@ -4,7 +4,7 @@ import Badge from 'components/Badge'
 import { ButtonPrimary } from 'components/Button'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import CurrencyLogo from 'components/Logo/CurrencyLogo'
-import { AutoRow, RowBetween } from 'components/Row'
+import { AutoRow } from 'components/Row'
 import { BIG_INT_SECONDS_IN_DAY } from 'constants/misc'
 import { useStablecoinValue } from 'hooks/useStablecoinPrice'
 import { LoadingRows } from 'pages/Pool/styleds'
@@ -15,7 +15,6 @@ import { formatCurrencyAmount } from 'utils/formatCurrencyAmount'
 import { Incentive } from '../../hooks/incentives/useAllIncentives'
 import { useCurrency, useToken } from '../../hooks/Tokens'
 import { AutoColumn } from '../Column'
-import { ThemedText } from '../../theme'
 
 const Text = styled.p`
   flex: 1 1 auto;
@@ -83,12 +82,12 @@ function IncentiveRow({ incentive }: { incentive: Incentive }) {
                 <BadgeText>{formattedFeeAmount(incentive.pool.fee)}%</BadgeText>
               </Badge>
               {isActive && (
-                <Badge style={{ marginLeft: '4px', backgroundColor: theme.deprecated_green1 }}>
+                <Badge style={{ marginLeft: '4px', backgroundColor: theme.deprecated_primary2 }}>
                   <BadgeText>Active</BadgeText>
                 </Badge>
               )}
               {isExpired && (
-                <Badge style={{ marginLeft: '4px', backgroundColor: theme.deprecated_error }}>
+                <Badge style={{ marginLeft: '4px', backgroundColor: theme.deprecated_primary5 }}>
                   <BadgeText>Expired</BadgeText>
                 </Badge>
               )}
