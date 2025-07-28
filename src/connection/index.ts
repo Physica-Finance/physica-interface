@@ -10,6 +10,7 @@ import { SupportedChainId } from 'constants/chains'
 import UNISWAP_LOGO_URL from '../assets/svg/logo.svg'
 import { RPC_URLS } from '../constants/networks'
 import { RPC_PROVIDERS } from '../constants/providers'
+import { keplrConnector, keplrHooks } from './keplr'
 
 export enum ConnectionType {
   INJECTED = 'INJECTED',
@@ -17,6 +18,7 @@ export enum ConnectionType {
   WALLET_CONNECT = 'WALLET_CONNECT',
   NETWORK = 'NETWORK',
   GNOSIS_SAFE = 'GNOSIS_SAFE',
+  KEPLR = 'KEPLR',
 }
 
 export interface Connection {
@@ -94,4 +96,10 @@ export const coinbaseWalletConnection: Connection = {
   connector: web3CoinbaseWallet,
   hooks: web3CoinbaseWalletHooks,
   type: ConnectionType.COINBASE_WALLET,
+}
+
+export const keplrConnection: Connection = {
+  connector: keplrConnector,
+  hooks: keplrHooks,
+  type: ConnectionType.KEPLR,
 }

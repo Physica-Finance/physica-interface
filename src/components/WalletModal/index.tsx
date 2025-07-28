@@ -34,6 +34,7 @@ import AccountDetails from '../AccountDetails'
 import Modal from '../Modal'
 import { CoinbaseWalletOption, OpenCoinbaseWalletOption } from './CoinbaseWalletOption'
 import { InjectedOption, InstallMetaMaskOption, MetaMaskOption } from './InjectedOption'
+import { KeplrOption } from './KeplrOption'
 import PendingView from './PendingView'
 import { WalletConnectOption } from './WalletConnectOption'
 
@@ -285,12 +286,14 @@ export default function WalletModal({
 
     const walletConnectionOption =
       (!isInjectedMobileBrowser && <WalletConnectOption tryActivation={tryActivation} />) ?? null
+    const keplrOption = <KeplrOption tryActivation={tryActivation} />
 
     return (
       <>
         {injectedOption}
         {coinbaseWalletOption}
         {walletConnectionOption}
+        {keplrOption}
       </>
     )
   }

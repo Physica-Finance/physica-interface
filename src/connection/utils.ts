@@ -4,6 +4,7 @@ import {
   ConnectionType,
   gnosisSafeConnection,
   injectedConnection,
+  keplrConnection,
   networkConnection,
   walletConnectConnection,
 } from 'connection'
@@ -27,11 +28,16 @@ export function getIsCoinbaseWallet(): boolean {
   return window.ethereum?.isCoinbaseWallet ?? false
 }
 
+export function getIsKeplrWallet(): boolean {
+  return Boolean(window.keplr ?? false)
+}
+
 const CONNECTIONS = [
   gnosisSafeConnection,
   injectedConnection,
   coinbaseWalletConnection,
   walletConnectConnection,
+  keplrConnection,
   networkConnection,
 ]
 export function getConnection(c: Connector | ConnectionType) {
@@ -53,6 +59,8 @@ export function getConnection(c: Connector | ConnectionType) {
         return networkConnection
       case ConnectionType.GNOSIS_SAFE:
         return gnosisSafeConnection
+      case ConnectionType.KEPLR:
+        return keplrConnection
     }
   }
 }
@@ -72,5 +80,7 @@ export function getConnectionName(
       return 'Network'
     case ConnectionType.GNOSIS_SAFE:
       return 'Gnosis Safe'
+    case ConnectionType.KEPLR:
+      return 'Keplr'
   }
 }
