@@ -1,6 +1,6 @@
 import { Connector } from '@web3-react/types'
 import { keplrConnection } from 'connection'
-import { getConnectionName, getIsKeplrWallet } from 'connection/utils'
+import { getConnectionName } from 'connection/utils'
 import KEPLR_ICON_URL from 'assets/images/keplr.png'
 import Option from './Option'
 
